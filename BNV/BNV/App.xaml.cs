@@ -23,13 +23,18 @@ namespace BNV
         {
             InitializeComponent();
 
-            await NavigationService.NavigateAsync("NavigationPage/MainPage");
+            await NavigationService.NavigateAsync("NavigationPage/LoginPage");
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<MainPage, MainPageViewModel>();
+            containerRegistry.RegisterForNavigation<LoginPage, LoginViewModel>();
+            containerRegistry.RegisterForNavigation<RegisterPage, RegisterViewModel>();
+            containerRegistry.RegisterForNavigation<RegisterResultPage, RegisterResultViewModel>();
+            containerRegistry.RegisterForNavigation<PasswordRecoveryPage, PasswordRecoveryViewModel>();
+            containerRegistry.RegisterForNavigation<PasswordRecoveryResultPage, PasswordRecoveryResultViewModel>();
         }
     }
 }

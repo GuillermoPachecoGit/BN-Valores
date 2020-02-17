@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="BNV.Views.RegisterResultPage"
+    BackgroundColor="Black">
+    <ContentPage.Content>
+                    <StackLayout>
+            <Image
+                Margin="0,10,0,0"
+                Source="bn_logo"
+                HeightRequest="120"
+                WidthRequest="250"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"/>
+            <Label
+                Text="Registro de usuario"
+                TextColor="White"
+                FontSize="20"
+                Margin="0,16,0,0"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"/>
+
+             <Image
+                Margin="0,40,0,0"
+                Source="tick"
+                HeightRequest="120"
+                WidthRequest="250"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"/>
+
+            <Label
+                Text="Usuario y Contraseña enviada a su correo"
+                TextColor="White"
+                FontSize="20"
+                WidthRequest="250"
+                Margin="0,16,0,30"
+                HorizontalTextAlignment="Center"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"/>
+            
+
+           <Button
+                Text="Volver a inicio"
+                TextColor="White"
+                BackgroundColor="#AFBC24"
+                HeightRequest="56"
+                WidthRequest="250"
+                Command="{Binding ReturnInitCommand}"
+                VerticalOptions="Center"
+                HorizontalOptions="Center"/>
+            <Button
+                Text="Solicitar contraseña nuevamente"
+                TextColor="White"
+                BorderColor="White"
+                BackgroundColor="Black"
+                BorderWidth="1"
+                CornerRadius="2"
+                FontSize="12"
+                Margin="0,10,0,0"
+                HeightRequest="56"
+                Command="{Binding RequestPasswordAgainCommand}"
+                WidthRequest="250"
+                VerticalOptions="Center"
+                HorizontalOptions="Center"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
