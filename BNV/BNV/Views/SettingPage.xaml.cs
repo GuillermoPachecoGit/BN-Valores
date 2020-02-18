@@ -5,17 +5,19 @@ using Xamarin.Forms;
 
 namespace BNV.Views
 {
-    public partial class LoginPage : ContentPage
+    public partial class SettingPage : ContentPage
     {
-        public LoginPage()
+        public SettingPage()
         {
             InitializeComponent();
+            ((NavigationPage)Application.Current.MainPage).BarTextColor = Color.White;
+            Title = "Configuración";
         }
 
         protected override void OnAppearing()
         {
+            
             base.OnAppearing();
-            ((NavigationPage)Application.Current.MainPage).BarBackgroundColor = Color.Black;
         }
     }
 }

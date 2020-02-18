@@ -182,6 +182,12 @@
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
     <BundleResource Include="Resources\bn_logo.png" />
     <BundleResource Include="Resources\tick.png" />
+    <BundleResource Include="Resources\contrasena.png" />
+    <BundleResource Include="Resources\usuario.png" />
+    <BundleResource Include="Resources\cedula.png" />
+    <BundleResource Include="Resources\correo.png" />
+    <BundleResource Include="Resources\config.png" />
+    <BundleResource Include="Resources\estadistica.png" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

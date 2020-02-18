@@ -30,7 +30,7 @@ namespace BNV.ViewModels
 
         private async Task SignInActionExecute()
         {
-            
+            await NavigationService.NavigateAsync("HomePage", null, false, false);
         }
 
         public ICommand SignUpCommand { get; set; }

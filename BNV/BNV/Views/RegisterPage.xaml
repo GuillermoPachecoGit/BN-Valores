@@ -20,6 +20,7 @@
                 Margin="0,16,0,0"
                 HorizontalOptions="Center"
                 VerticalOptions="Center"/>
+
             <StackLayout
                 Margin="0,35,0,0"
                 Orientation="Horizontal"
@@ -30,18 +31,20 @@
                     HeightRequest="28"
                     WidthRequest="28"
                     Margin="0,0,4,0"
+                    Source="usuario"
                     HorizontalOptions="Start"
-                    VerticalOptions="Start"
-                    BackgroundColor="AliceBlue"/>
+                    VerticalOptions="Start"/>
                <Entry
                     VerticalOptions="Start"
                     HorizontalOptions="Start"
                     FontSize="20"
+                    WidthRequest="250"
                     Text="{Binding Username}"
                     TextColor="White"
                     PlaceholderColor="White"
                     Placeholder="Nombre"/>
             </StackLayout>
+
             <StackLayout
                 Orientation="Horizontal"
                 WidthRequest="280"
@@ -52,9 +55,9 @@
                     HeightRequest="28"
                     WidthRequest="28"
                     Margin="0,0,4,0"
+                    Source="cedula"
                     HorizontalOptions="Start"
-                    VerticalOptions="Start"
-                    BackgroundColor="AliceBlue"/>
+                    VerticalOptions="Start" />
                <Entry
                     VerticalOptions="Start"
                     HorizontalOptions="Start"
@@ -62,8 +65,9 @@
                     IsPassword="True"
                     Text="{Binding Password}"
                     TextColor="White"
+                    WidthRequest="250"
                     PlaceholderColor="White"
-                    Placeholder="Cédula"/>
+                    Placeholder="Cédula" />
             </StackLayout>
             <StackLayout
                 Margin="0,5,0,0"
@@ -75,13 +79,14 @@
                     HeightRequest="28"
                     WidthRequest="28"
                     Margin="0,0,4,0"
+                    Source="correo"
                     HorizontalOptions="Start"
-                    VerticalOptions="Start"
-                    BackgroundColor="AliceBlue"/>
+                    VerticalOptions="Start" />
                <Entry
                     VerticalOptions="Start"
                     HorizontalOptions="Start"
                     FontSize="20"
+                    WidthRequest="250"
                     Text="{Binding Username}"
                     TextColor="White"
                     PlaceholderColor="White"
@@ -97,14 +102,15 @@
                     HeightRequest="28"
                     WidthRequest="28"
                     Margin="0,0,4,0"
+                    Source="contrasena"
                     HorizontalOptions="Start"
-                    VerticalOptions="Start"
-                    BackgroundColor="AliceBlue"/>
+                    VerticalOptions="Start" />
                <Entry
                     VerticalOptions="Start"
                     HorizontalOptions="Start"
                     FontSize="20"
                     IsPassword="True"
+                    WidthRequest="250"
                     Text="{Binding Password}"
                     TextColor="White"
                     PlaceholderColor="White"
@@ -116,6 +122,8 @@
                 BackgroundColor="#AFBC24"
                 HeightRequest="56"
                 WidthRequest="200"
+                FontSize="16"
+                Margin="0,14,0,0"
                 Command="{Binding AcceptCommand}"
                 VerticalOptions="Center"
                 HorizontalOptions="Center"/>
