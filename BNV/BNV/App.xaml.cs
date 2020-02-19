@@ -38,6 +38,10 @@ namespace BNV
             containerRegistry.RegisterForNavigation<HomePage, HomeViewModel>();
             containerRegistry.RegisterForNavigation<SettingPage, SettingViewModel>();
             containerRegistry.RegisterForNavigation<StatisticPage, StatisticViewModel>();
+            containerRegistry.RegisterForNavigation<ReportPage, ReportViewModel>();
+            containerRegistry.RegisterForNavigation<SharesOfStockPage, SharesOfStockViewModel>();
+            containerRegistry.RegisterForNavigation<ChangeTypePage, ChangeTypeViewModel>();
+            containerRegistry.RegisterForNavigation<BonoPage, BonoViewModel>();
         }
     }
    

@@ -188,6 +188,11 @@
     <BundleResource Include="Resources\correo.png" />
     <BundleResource Include="Resources\config.png" />
     <BundleResource Include="Resources\estadistica.png" />
+    <BundleResource Include="Resources\triangle_down.png" />
+    <BundleResource Include="Resources\triangle_up.png" />
+    <BundleResource Include="Resources\blue_arrow.png" />
+    <BundleResource Include="Resources\green_arrow.png" />
+    <BundleResource Include="Resources\red_arrow.png" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

@@ -6,6 +6,8 @@
     BarBackgroundColor="#00579F"
     Icon="estadistica"
     Title="Estadisticas"
+    xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+    prism:ViewModelLocator.AutowireViewModel="True"
     x:Class="BNV.Views.StatisticPage">
     <!--Pages can be added as references or inline-->
     <views:ReportPage/>
