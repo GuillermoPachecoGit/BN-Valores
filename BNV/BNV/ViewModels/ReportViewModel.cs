@@ -28,7 +28,6 @@ namespace BNV.ViewModels
             get { return _reports; }
             set { SetProperty( ref _reports, value); }
         }
-        
     }
 }
 

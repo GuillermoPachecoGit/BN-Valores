@@ -31,7 +31,7 @@
                                         Source="red_arrow"
                                         HeightRequest="21"
                                         WidthRequest="15" />
-                                    <Label
+                                     <Label
                                         Margin="15,0,0,0"
                                         Text="Pub C 8-15d"
                                         TextColor="White"
@@ -46,7 +46,7 @@
                                         TextColor="White"
                                         HorizontalOptions="FillAndExpand"
                                         VerticalOptions="Center" />
-                                    <Frame
+                                      <Frame
                                         Margin="11"
                                         Padding="5"
                                         BackgroundColor="Red" 
@@ -97,6 +97,7 @@
                                             VerticalOptions="Center" />
                                     </Grid>
                                     </Frame>
+
 
                                 </StackLayout>
                             </ViewCell>
