@@ -18,10 +18,16 @@ namespace BNV.Views
             ((NavigationPage)Application.Current.MainPage).BarBackgroundColor = Color.FromHex("#AFBC24");
             ((NavigationPage)Application.Current.MainPage).BarTextColor = Color.White;
             Title = "Estadisticas";
+            NavigationPage.SetHasBackButton(this, false);
             this.CurrentPageChanged += CurrentPageHasChanged;
         }
 
-        
+        protected override bool OnBackButtonPressed()
+        {
+            ((NavigationPage)Application.Current.MainPage).BarBackgroundColor = Color.Black;
+            return base.OnBackButtonPressed();
+        }
+
 
         protected void CurrentPageHasChanged(object sender, EventArgs e) { this.Title = this.CurrentPage.Title; }
     }

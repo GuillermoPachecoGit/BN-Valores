@@ -3,9 +3,23 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="BNV.Views.RegisterPage"
+    xmlns:converters="clr-namespace:BNV.Converters"
     BackgroundColor="Black">
+     <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:InvertBooleanConverter x:Key="invertBooleanConverter" />
+            <Style TargetType="Label" x:Key="errorDescriptionStyle">
+                <Setter Property="TextColor" Value="Red" />
+                <Setter Property="FontSize" Value="Small" />
+                <Setter Property="HorizontalTextAlignment" Value="Center" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.Content>
-         <StackLayout>
+          <FlexLayout
+            Direction="Column"
+            AlignItems="Center"
+            JustifyContent="SpaceEvenly">
             <Image
                 Margin="0,10,0,0"
                 Source="bn_logo"
@@ -27,22 +41,22 @@
                 WidthRequest="280"
                 HorizontalOptions="Center"
                 VerticalOptions="Center">
-                <Image
-                    HeightRequest="28"
-                    WidthRequest="28"
-                    Margin="0,0,4,0"
-                    Source="usuario"
-                    HorizontalOptions="Start"
-                    VerticalOptions="Start"/>
-               <Entry
-                    VerticalOptions="Start"
-                    HorizontalOptions="Start"
-                    FontSize="20"
-                    WidthRequest="250"
-                    Text="{Binding Username}"
-                    TextColor="White"
-                    PlaceholderColor="White"
-                    Placeholder="Nombre"/>
+                 <Image
+                        HeightRequest="28"
+                        WidthRequest="28"
+                        Margin="0,0,4,0"
+                        Source="usuario"
+                        HorizontalOptions="Start"
+                        VerticalOptions="Start"/>
+                   <Entry
+                        VerticalOptions="Start"
+                        HorizontalOptions="Start"
+                        FontSize="20"
+                        WidthRequest="250"
+                        Text="{Binding Name}"
+                        TextColor="White"
+                        PlaceholderColor="White"
+                        Placeholder="Nombre"/>
             </StackLayout>
 
             <StackLayout
@@ -62,15 +76,22 @@
                     VerticalOptions="Start"
                     HorizontalOptions="Start"
                     FontSize="20"
-                    IsPassword="True"
-                    Text="{Binding Password}"
+                    Keyboard="Numeric"
+                    Text="{Binding Cedula}"
                     TextColor="White"
                     WidthRequest="250"
                     PlaceholderColor="White"
                     Placeholder="Cédula" />
             </StackLayout>
-            <StackLayout
+
+           <Label
                 Margin="0,5,0,0"
+                    Style="{StaticResource errorDescriptionStyle}"
+                    Text="{Binding Email.ValidationDescriptions}"
+                    IsVisible="{Binding Email.IsValid, Converter={StaticResource invertBooleanConverter}}" />
+
+            <StackLayout
+                Margin="0,0,0,0"
                 Orientation="Horizontal"
                 WidthRequest="280"
                 HorizontalOptions="Center"
@@ -87,10 +108,20 @@
                     HorizontalOptions="Start"
                     FontSize="20"
                     WidthRequest="250"
-                    Text="{Binding Username}"
+                    Text="{Binding Email.Value}"
                     TextColor="White"
+                    Keyboard="Email"
                     PlaceholderColor="White"
-                    Placeholder="Correo electrónico"/>
+                    Placeholder="Correo electrónico">
+                     <Entry.Triggers>
+                        <DataTrigger 
+                            TargetType="Entry"
+                            Binding="{Binding Email.IsValid}"
+                            Value="False">
+                            <Setter Property="TextColor" Value="Red" />
+                        </DataTrigger>
+                    </Entry.Triggers>
+                   </Entry>
             </StackLayout>
             <StackLayout
                 Orientation="Horizontal"
@@ -109,9 +140,9 @@
                     VerticalOptions="Start"
                     HorizontalOptions="Start"
                     FontSize="20"
-                    IsPassword="True"
                     WidthRequest="250"
-                    Text="{Binding Password}"
+                    Keyboard="Telephone"
+                    Text="{Binding PhoneNumber}"
                     TextColor="White"
                     PlaceholderColor="White"
                     Placeholder="Teléfono"/>
@@ -127,6 +158,6 @@
                 Command="{Binding AcceptCommand}"
                 VerticalOptions="Center"
                 HorizontalOptions="Center"/>
-        </StackLayout>
+        </FlexLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Acr.UserDialogs;
+using BNV.Validator;
 using Prism.Navigation;
 using Xamarin.Forms;
 
@@ -14,8 +16,13 @@ namespace BNV.ViewModels
             Title = "Register Page";
             ReturnInitCommand = new Command(async () => await ReturnActionExecute());
             SendPasswordCommand = new Command(async () => await ActionExecute());
+
+            Email = new ValidatableObject<string>
+            (propChangedCallBack, new EmailValidator());
+            Email.Value = string.Empty;
         }
 
+        Action propChangedCallBack => (ReturnInitCommand as Command).ChangeCanExecute;
 
         private async Task ReturnActionExecute()
         {
@@ -27,8 +34,19 @@ namespace BNV.ViewModels
         private async Task ActionExecute()
         {
             //Send the email again
-            await NavigationService.NavigateAsync("/PasswordRecoveryResultPage");
+
+            if (string.IsNullOrEmpty(Email.Value) && Email.IsValid || string.IsNullOrEmpty(Cedula))
+            {
+                UserDialogs.Instance.Toast("Debe completar todos los campos", TimeSpan.FromSeconds(4));
+                return;
+            }
+
+            await NavigationService.NavigateAsync("PasswordRecoveryResultPage");
         }
+
+        public ValidatableObject<string> Email { get; }
+
+        public string Cedula { get; set; }
 
         public ICommand SendPasswordCommand { get; set; }
     }

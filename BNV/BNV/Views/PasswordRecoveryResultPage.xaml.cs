@@ -10,6 +10,7 @@ namespace BNV.Views
         public PasswordRecoveryResultPage()
         {
             InitializeComponent();
+            NavigationPage.SetHasBackButton(this, false);
         }
     }
 }

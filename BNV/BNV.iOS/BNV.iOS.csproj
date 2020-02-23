@@ -203,6 +203,9 @@
   <ItemGroup>
     <PackageReference Include="Xamarin.Forms" Version="3.6.0.344457" />
     <PackageReference Include="Prism.Unity.Forms" Version="7.2.0.1367" />
+    <PackageReference Include="Acr.UserDialogs">
+      <Version>7.0.35</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BNV\BNV.csproj">

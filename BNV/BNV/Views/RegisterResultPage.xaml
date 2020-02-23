@@ -3,9 +3,23 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="BNV.Views.RegisterResultPage"
+    xmlns:converters="clr-namespace:BNV.Converters"
     BackgroundColor="Black">
+      <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:InvertBooleanConverter x:Key="invertBooleanConverter" />
+            <Style TargetType="Label" x:Key="errorDescriptionStyle">
+                <Setter Property="TextColor" Value="Red" />
+                <Setter Property="FontSize" Value="Small" />
+                <Setter Property="HorizontalTextAlignment" Value="Center" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.Content>
-                    <StackLayout>
+           <FlexLayout
+                Direction="Column"
+                AlignItems="Center"
+                JustifyContent="SpaceEvenly">
             <Image
                 Margin="0,10,0,0"
                 Source="bn_logo"
@@ -63,6 +77,6 @@
                 WidthRequest="250"
                 VerticalOptions="Center"
                 HorizontalOptions="Center"/>
-        </StackLayout>
+        </FlexLayout>
     </ContentPage.Content>
 </ContentPage>

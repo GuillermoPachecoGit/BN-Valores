@@ -21,11 +21,11 @@
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
-                                <StackLayout
+                                <FlexLayout
                                     Margin="0,5,0,0"
-                                    Orientation="Horizontal"
-                                    HorizontalOptions="FillAndExpand"
-                                    VerticalOptions="Center">
+                                    Direction="Row"
+                                    AlignItems="Center"
+                                    JustifyContent="SpaceEvenly">
                                     <Image
                                         Margin="30,5,0,0"
                                         Source="red_arrow"
@@ -99,7 +99,7 @@
                                     </Frame>
 
 
-                                </StackLayout>
+                                </FlexLayout>
                             </ViewCell>
                         </DataTemplate>
                     </ListView.ItemTemplate>

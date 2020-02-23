@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Acr.UserDialogs;
+using BNV.Validator;
 using Prism.Navigation;
 using Xamarin.Forms;
 
@@ -13,10 +15,20 @@ namespace BNV.ViewModels
         {
             Title = "Login";
 
-            SignInCommand = new Command(async () => await SignInActionExecute());
+            SignInCommand = new Command(async () => await SignInActionExecute()  );
             SignUpCommand = new Command(async () => await SignUpActionExecute());
             RecoveryCommand = new Command(async () => await RecoveryActionExecute());
+
+            Email = new ValidatableObject<string>
+            (propChangedCallBack, new EmailValidator());
+            Email.Value = string.Empty;
+
+            Password = new ValidatableObject<string>
+            (propChangedCallBack, new PasswordValidator());
+            Password.Value = string.Empty;
         }
+
+        Action propChangedCallBack => (SignInCommand as Command).ChangeCanExecute;
 
         private async Task RecoveryActionExecute()
         {
@@ -30,6 +42,11 @@ namespace BNV.ViewModels
 
         private async Task SignInActionExecute()
         {
+            if (string.IsNullOrEmpty(Email.Value) && Email.IsValid || string.IsNullOrEmpty(Password.Value) && Password.IsValid)
+            {
+                UserDialogs.Instance.Toast("Debe completar todos los campos", TimeSpan.FromSeconds(4));
+                return;
+            }
             await NavigationService.NavigateAsync("HomePage", null, false, false);
         }
 
@@ -44,13 +61,11 @@ namespace BNV.ViewModels
         {
             get { return _userName; }
             set { _userName = value; RaisePropertyChanged(); }
+
         }
 
-        private string _password;
-        public string Password
-        {
-            get { return _password; }
-            set { _password = value; RaisePropertyChanged(); }
-        }
+        public ValidatableObject<string> Email { get; }
+
+        public ValidatableObject<string> Password { get; }
     }
 }

@@ -10,6 +10,7 @@ namespace BNV.Views
         public RegisterResultPage()
         {
             InitializeComponent();
+            NavigationPage.SetHasBackButton(this, false);
         }
     }
 }

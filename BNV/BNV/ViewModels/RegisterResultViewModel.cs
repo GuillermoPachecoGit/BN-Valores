@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using BNV.Validator;
 using Prism.Navigation;
 using Xamarin.Forms;
 
@@ -11,15 +12,13 @@ namespace BNV.ViewModels
         public RegisterResultViewModel(INavigationService navigationService)
             : base(navigationService)
         {
-            Title = "Result Page";
-
             ReturnInitCommand = new Command(async () => await ReturnActionExecute());
             RequestPasswordAgainCommand = new Command(async () => await RequestPasswordAgainActionExecute());
         }
 
         private async Task ReturnActionExecute()
         {
-            await NavigationService.NavigateAsync("NavigationPage/LoginPage");
+            await NavigationService.GoBackToRootAsync();
         }
 
         public ICommand ReturnInitCommand { get; set; }

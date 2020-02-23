@@ -18,7 +18,7 @@ namespace BNV.ViewModels
 
         private async Task ReturnActionExecute()
         {
-            await NavigationService.NavigateAsync("NavigationPage/LoginPage");
+            await NavigationService.GoBackToRootAsync();
         }
 
         public ICommand ReturnInitCommand { get; set; }

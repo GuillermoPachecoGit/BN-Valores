@@ -8,7 +8,7 @@ namespace BNV.ViewModels
         public HomeViewModel(INavigationService navigationService)
             : base(navigationService)
         {
-            Title = "Login";
+            Title = "Estadisticas";
         }
     }
 }
