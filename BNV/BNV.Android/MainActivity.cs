@@ -4,6 +4,7 @@ using Android.Content.PM;
 using Android.OS;
 using Prism;
 using Prism.Ioc;
+using Xamarin.Forms;
 
 namespace BNV.Droid
 {
@@ -14,10 +15,11 @@ namespace BNV.Droid
         {
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
-
+            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("@31372e342e30Q8P22CzKWAnZgQLTongsjhinlzd3TMpQjzSa83dxaSI=");
             base.OnCreate(bundle);
 
             UserDialogs.Init(this);
+            Forms.SetFlags("CollectionView_Experimental");
             global::Xamarin.Forms.Forms.Init(this, bundle);
             LoadApplication(new App(new AndroidInitializer()));
         }

@@ -1,8 +1,9 @@
 ﻿using Foundation;
 using Prism;
 using Prism.Ioc;
+using Syncfusion.SfRangeSlider.XForms.iOS;
 using UIKit;
-
+using Xamarin.Forms;
 
 namespace BNV.iOS
 {
@@ -21,6 +22,9 @@ namespace BNV.iOS
         //
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
+            _ = new Syncfusion.XForms.iOS.ComboBox.SfComboBoxRenderer();
+            _ = new SfRangeSliderRenderer();
+            Forms.SetFlags("CollectionView_Experimental");
             global::Xamarin.Forms.Forms.Init();
             LoadApplication(new App(new iOSInitializer()));
 

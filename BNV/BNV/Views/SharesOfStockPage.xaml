@@ -3,7 +3,105 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="BNV.Views.SharesOfStockPage"
+    xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+    prism:ViewModelLocator.AutowireViewModel="True"
     Title="Acciones">
     <ContentPage.Content>
+             <CollectionView
+               ItemsSource="{Binding Shares}">
+                
+                <CollectionView.ItemsLayout>
+                   <GridItemsLayout
+                        Orientation="Vertical"
+                        Span="3"/>
+                </CollectionView.ItemsLayout>
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                     <Frame
+                        Padding="5"
+                        BackgroundColor="Black"
+                        CornerRadius="5">
+                         <Frame
+                        Padding="1"
+                        BackgroundColor="#81B71A"
+                        CornerRadius="5">
+                            <Grid
+                                Margin="5"
+                                BackgroundColor="#81B71A"
+                                VerticalOptions="Center"
+                                HorizontalOptions="Center"
+                                > 
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                    <Label
+                                        Grid.Row="0"
+                                        Text="FIFCO acom-010100"
+                                        Grid.ColumnSpan="2"
+                                        TextColor="White"
+                                        FontSize="9"
+                                        HorizontalOptions="StartAndExpand"
+                                        VerticalOptions="Center"
+                                        FontAttributes="Bold" />
+
+                                    <Label Text="98.86"
+                                           Grid.Row="1"
+                                           TextColor="White"
+                                           Grid.Column="0"
+                                           FontSize="16"
+                                           HorizontalOptions="Start"
+                                           VerticalOptions="Center"
+                                           FontAttributes="Bold" />
+                                    <Label Text="-0.92%"
+                                           Grid.Row="1"
+                                           Grid.Column="1"
+                                           TextColor="White"
+                                           FontSize="14"
+                                           VerticalOptions="Center"
+                                           HorizontalOptions="End"
+                                           FontAttributes="Bold" />
+
+                                    <Label Text="-0.92%"
+                                           Grid.Row="2"
+                                           Grid.Column="1"
+                                           VerticalOptions="Center"
+                                           TextColor="White"
+                                           FontSize="14"
+                                           HorizontalOptions="End"
+                                           FontAttributes="Bold" />
+
+                                    <StackLayout
+                                        Grid.Row="2"
+                                        Grid.Column="0"
+                                        Orientation="Horizontal">
+                                           <Label
+                                               Text="-0.92%"
+                                               TextColor="White"
+                                               FontSize="12"
+                                               VerticalOptions="Center"
+                                               HorizontalOptions="Start"
+                                               FontAttributes="Bold" />
+                                
+                                         <Image
+                                             Margin="0,0,0,0"
+                                             Source="triangle_up"
+                                             HorizontalOptions="Start"
+                                             VerticalOptions="Center"/>
+                                    </StackLayout>
+
+                            </Grid>
+                         </Frame>
+                         </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
     </ContentPage.Content>
 </ContentPage>

@@ -4,7 +4,136 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="BNV.Views.SettingPage"
     Icon="config"
+    xmlns:range="clr-namespace:Syncfusion.SfRangeSlider.XForms;assembly=Syncfusion.SfRangeSlider.XForms"
+    xmlns:ListCollection="clr-namespace:System.Collections.Generic;assembly=netstandard"
+    xmlns:combobox="clr-namespace:Syncfusion.XForms.ComboBox;assembly=Syncfusion.SfComboBox.XForms"
+    BackgroundColor="Black"
 	Title="Configuración" >
     <ContentPage.Content>
+        <FlexLayout
+            Direction="Column"
+            AlignItems="Center"
+            JustifyContent="SpaceEvenly">
+
+                        <Label
+                           Text="Notificaciones"
+                           FontAttributes="Bold"
+                           FontSize="20"
+                           TextColor="White"
+                           HorizontalOptions="Start"
+                           VerticalOptions="Start"/>
+
+            <Slider
+                Minimum="-30"
+                Maximum="30"
+                Scale="5"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                WidthRequest="130"
+                Margin="5"
+                HeightRequest="5"
+                MaximumTrackColor="#4BA0D9"
+                MinimumTrackColor="#4BA0D9"
+                ThumbColor="#4BA0D9" />
+                
+
+                        <Label
+                           Text="Filtros de información"
+                           FontAttributes="Bold"
+                           FontSize="20"
+                           TextColor="White"
+                           HorizontalOptions="Start"
+                           VerticalOptions="Start"/>
+
+                       <combobox:SfComboBox
+                           HeightRequest="40"
+                           Text="Moneda"
+                           WidthRequest="180"
+                           TextColor="White"
+                           BorderColor="White"
+                           ShowBorder="True"
+                           DropDownBorderColor="white"
+                           >
+
+                           <combobox:SfComboBox.ComboBoxSource>
+                                    <ListCollection:List x:TypeArguments="x:String">
+                	                <x:String> 1920 x 1080 </x:String>
+                	                <x:String> 1680 x 1050 </x:String>
+            	                </ListCollection:List>
+                            </combobox:SfComboBox.ComboBoxSource>
+                       </combobox:SfComboBox>
+
+                        <combobox:SfComboBox
+                           HeightRequest="40"
+                           Text="Sector"
+                           WidthRequest="180"
+                           TextColor="White"
+                           BorderColor="White"
+                           ShowBorder="True"
+                           >
+
+                           <combobox:SfComboBox.ComboBoxSource>
+                                    <ListCollection:List x:TypeArguments="x:String">
+                	                <x:String> 1920 x 1080 </x:String>
+                	                <x:String> 1680 x 1050 </x:String>
+            	                </ListCollection:List>
+                            </combobox:SfComboBox.ComboBoxSource>
+                        </combobox:SfComboBox>
+
+                        <Label
+                           Text="Pantalla principal"
+                           FontAttributes="Bold"
+                           FontSize="20"
+                           TextColor="White"
+                           HorizontalOptions="Start"
+                           VerticalOptions="Start"/>
+
+                        <combobox:SfComboBox
+                           HeightRequest="40"
+                           Text="Reportes"
+                           WidthRequest="180"
+                           TextColor="White"
+                           BorderColor="White"
+                           ShowBorder="True"
+                           >
+
+                           <combobox:SfComboBox.ComboBoxSource>
+                                    <ListCollection:List x:TypeArguments="x:String">
+                	                <x:String> 1920 x 1080 </x:String>
+                	                <x:String> 1680 x 1050 </x:String>
+            	                </ListCollection:List>
+                            </combobox:SfComboBox.ComboBoxSource>
+                       </combobox:SfComboBox>
+            
+
+            <Button
+                Text="Cambiar contraseña"
+                TextColor="White"
+                BorderColor="White"
+                BackgroundColor="Black"
+                BorderWidth="1"
+                FontSize="16"
+                CornerRadius="2"
+                Margin="0,0,0,0"
+                HeightRequest="56"
+                Command="{Binding SignUpCommand}"
+                WidthRequest="200"
+                VerticalOptions="Center"
+                HorizontalOptions="Center"/>
+
+            <Button
+                Text="Cerrar sesión"
+                TextColor="White"
+                BackgroundColor="#AFBC24"
+                HeightRequest="56"
+                WidthRequest="250"
+                FontSize="18"
+                Command="{Binding SignInCommand}"
+                VerticalOptions="Center"
+                HorizontalOptions="Center"/>
+
+            
+        </FlexLayout>
+
     </ContentPage.Content>
 </ContentPage>

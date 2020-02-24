@@ -21,8 +21,8 @@ namespace BNV
 
         protected override async void OnInitialized()
         {
+            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("@31372e342e30Q8P22CzKWAnZgQLTongsjhinlzd3TMpQjzSa83dxaSI=");
             InitializeComponent();
-
             await NavigationService.NavigateAsync("NavigationPage/LoginPage");
         }
 

@@ -13,12 +13,12 @@ namespace BNV.ViewModels
         public ChangeTypeViewModel(INavigationService navigationService)
             : base(navigationService)
         {
-            var reports = new List<ChangeType>();
+            var types = new List<ChangeType>();
             for (int i = 0; i < 15; i++)
             {
-                reports.Add(new ChangeType());
+                types.Add(new ChangeType());
             }
-            Types = new ObservableCollection<ChangeType>(reports);
+            Types = new ObservableCollection<ChangeType>(types);
         }
 
         public ObservableCollection<ChangeType> Types
