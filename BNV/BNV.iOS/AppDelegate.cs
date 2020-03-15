@@ -22,6 +22,7 @@ namespace BNV.iOS
         //
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
+            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MjE1NTIwQDMxMzcyZTM0MmUzMGdHam4wVGZ5bDRUTnNwQmJRdGhsUFluMFpjeDFtcnI0UGtVRjBsZXArYWc9");
             _ = new Syncfusion.XForms.iOS.ComboBox.SfComboBoxRenderer();
             _ = new SfRangeSliderRenderer();
             Forms.SetFlags("CollectionView_Experimental");

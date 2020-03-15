@@ -21,7 +21,7 @@ namespace BNV
 
         protected override async void OnInitialized()
         {
-            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("@31372e342e30Q8P22CzKWAnZgQLTongsjhinlzd3TMpQjzSa83dxaSI=");
+            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MjE1NTIwQDMxMzcyZTM0MmUzMGdHam4wVGZ5bDRUTnNwQmJRdGhsUFluMFpjeDFtcnI0UGtVRjBsZXArYWc9");
             InitializeComponent();
             await NavigationService.NavigateAsync("NavigationPage/LoginPage");
         }
@@ -42,6 +42,7 @@ namespace BNV
             containerRegistry.RegisterForNavigation<SharesOfStockPage, SharesOfStockViewModel>();
             containerRegistry.RegisterForNavigation<ChangeTypePage, ChangeTypeViewModel>();
             containerRegistry.RegisterForNavigation<BonoPage, BonoViewModel>();
+            containerRegistry.RegisterForNavigation<ChangePasswordPage, ChangePasswordViewModel>();
         }
     }
    

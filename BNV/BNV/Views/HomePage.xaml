@@ -15,6 +15,11 @@
     x:Class="BNV.Views.HomePage"
     BackgroundImage="White"
     BarTextColor="White">
+    <NavigationPage.TitleView>
+        <StackLayout>
+            <Label Text="{Binding Title}" TextColor="White" HorizontalTextAlignment="Center" FontSize="20"/>
+        </StackLayout>
+    </NavigationPage.TitleView>
     <!--Pages can be added as references or inline-->
     <views:StatisticPage />
     <views:SettingPage />

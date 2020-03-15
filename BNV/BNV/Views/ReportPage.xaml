@@ -5,7 +5,7 @@
     x:Class="BNV.Views.ReportPage"
     xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
     prism:ViewModelLocator.AutowireViewModel="True"
-    Title="Reportes"
+    Title="Reportos"
     BackgroundColor="Black">
     <ContentPage.Content>
         <StackLayout

@@ -15,7 +15,7 @@ namespace BNV.Droid
         {
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
-            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("@31372e342e30Q8P22CzKWAnZgQLTongsjhinlzd3TMpQjzSa83dxaSI=");
+            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MjE1NTIwQDMxMzcyZTM0MmUzMGdHam4wVGZ5bDRUTnNwQmJRdGhsUFluMFpjeDFtcnI0UGtVRjBsZXArYWc9");
             base.OnCreate(bundle);
 
             UserDialogs.Init(this);

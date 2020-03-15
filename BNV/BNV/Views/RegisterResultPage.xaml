@@ -44,7 +44,7 @@
                 VerticalOptions="Center"/>
 
             <Label
-                Text="Usuario y Contraseña enviada a su correo"
+                Text="El usuario y la contraseña han sido enviados a su correo"
                 TextColor="White"
                 FontSize="20"
                 WidthRequest="250"
