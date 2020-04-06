@@ -12,6 +12,7 @@
     <PackageReference Include="Syncfusion.Xamarin.SfComboBox" Version="17.4.0.50" />
     <PackageReference Include="Syncfusion.Licensing" Version="17.4.0.50" />
     <PackageReference Include="Syncfusion.Xamarin.SfRangeSlider" Version="17.4.0.50" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.5.2" />
   </ItemGroup>
 
   <ItemGroup>
@@ -19,5 +20,7 @@
     <Folder Include="Interfaces\" />
     <Folder Include="Validator\" />
     <Folder Include="Converters\" />
+    <Folder Include="Settings\" />
+    <Folder Include="Events\" />
   </ItemGroup>
 </Project>

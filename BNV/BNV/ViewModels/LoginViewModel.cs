@@ -2,8 +2,10 @@
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Acr.UserDialogs;
+using BNV.Settings;
 using BNV.Validator;
 using Prism.Navigation;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace BNV.ViewModels
@@ -47,7 +49,8 @@ namespace BNV.ViewModels
                 UserDialogs.Instance.Toast("Debe completar todos los campos", TimeSpan.FromSeconds(4));
                 return;
             }
-            await NavigationService.NavigateAsync("HomePage", null, false, false);
+
+                await NavigationService.NavigateAsync("HomePage", null, false, false);
         }
 
         public ICommand SignUpCommand { get; set; }

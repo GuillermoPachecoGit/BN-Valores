@@ -8,7 +8,7 @@
     prism:ViewModelLocator.AutowireViewModel="True"
     android:TabbedPage.ToolbarPlacement="Bottom"
     android:TabbedPage.BarItemColor="White"
-    android:TabbedPage.BarSelectedItemColor="White"
+    android:TabbedPage.BarSelectedItemColor="#00579F"
     Title="{Binding Title}"
     BackgroundColor="Black"
     BarBackgroundColor="#4BA0D9"

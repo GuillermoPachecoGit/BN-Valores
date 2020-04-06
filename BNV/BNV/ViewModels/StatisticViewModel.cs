@@ -1,6 +1,9 @@
 ﻿using System;
+using BNV.Settings;
+using Prism.AppModel;
 using Prism.Navigation;
 using Prism.Navigation.TabbedPages;
+using Xamarin.Essentials;
 
 namespace BNV.ViewModels
 {
@@ -10,12 +13,7 @@ namespace BNV.ViewModels
           : base(navigationService)
         {
             Title = "Register Page";
-            Init();
-        }
-
-        private async void Init()
-        {
-            await NavigationService.SelectTabAsync("ReportPage");
+           
         }
     }
 }

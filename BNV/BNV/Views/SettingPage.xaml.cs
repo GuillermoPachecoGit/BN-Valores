@@ -48,5 +48,9 @@ namespace BNV.Views
             else
                 vm.Bonos = $"{slider.Value} colones";
         }
+
+        void SfComboBox_SelectionChanged(System.Object sender, Syncfusion.XForms.ComboBox.SelectionChangedEventArgs e)
+        {
+        }
     }
 }

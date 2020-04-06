@@ -1,4 +1,7 @@
-﻿using Xamarin.Forms;
+﻿using System.Threading.Tasks;
+using BNV.Settings;
+using Xamarin.Essentials;
+using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace BNV.Views
@@ -9,6 +12,31 @@ namespace BNV.Views
         public StatisticPage()
         {
            InitializeComponent();
+        }
+        protected async override void OnAppearing()
+        {
+            base.OnAppearing();
+            var value = await SecureStorage.GetAsync(Config.MainPage);
+
+            if (value != null && value == Config.MainPageTypes.Bonos)
+            {
+                CurrentPage = Children[1];
+            }
+            else if (value != null && value == Config.MainPageTypes.Reportos)
+            {
+                CurrentPage = Children[0];
+            }
+            else if (value != null && value == Config.MainPageTypes.TipoCambio)
+            {
+                CurrentPage = Children[3];
+            }
+            else if (value != null && value == Config.MainPageTypes.Acciones)
+            {
+                CurrentPage = Children[2];
+            }
+            else
+                CurrentPage = Children[0];
+
         }
     }
 }

@@ -12,5 +12,11 @@ namespace BNV.Views
             InitializeComponent();
             NavigationPage.SetHasBackButton(this, false);
         }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            ((NavigationPage)Application.Current.MainPage).BarBackgroundColor = Color.Black;
+        }
     }
 }
