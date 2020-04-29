@@ -67,13 +67,19 @@
       <Version>7.0.35</Version>
     </PackageReference>
     <PackageReference Include="Syncfusion.Xamarin.SfComboBox">
-      <Version>17.4.0.50</Version>
+      <Version>18.1.0.45</Version>
     </PackageReference>
     <PackageReference Include="Syncfusion.Licensing">
-      <Version>17.4.0.50</Version>
+      <Version>18.1.0.45</Version>
     </PackageReference>
     <PackageReference Include="Syncfusion.Xamarin.SfRangeSlider">
-      <Version>17.4.0.50</Version>
+      <Version>18.1.0.45</Version>
+    </PackageReference>
+    <PackageReference Include="Syncfusion.Xamarin.SfChart">
+      <Version>18.1.0.45</Version>
+    </PackageReference>
+    <PackageReference Include="Syncfusion.Xamarin.Buttons">
+      <Version>18.1.0.45</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
@@ -144,6 +150,14 @@
       <Generator></Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\Drawable\phone.png">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\Drawable\ic_info.png">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\Drawable\ic_graph.png">
       <SubType></SubType>
       <Generator></Generator>
     </AndroidResource>

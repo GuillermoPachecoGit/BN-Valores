@@ -1,7 +1,7 @@
 ﻿using System;
 namespace BNV.Models
 {
-    public class ShareOfStock
+    public class ShareOfStock : ItemBase
     {
         public ShareOfStock()
         {

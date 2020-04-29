@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using BNV.Events;
 using BNV.Models;
 using BNV.Settings;
 using Prism.Events;
 using Prism.Navigation;
 using Xamarin.Essentials;
+using Xamarin.Forms;
 
 namespace BNV.ViewModels
 {
@@ -20,8 +22,10 @@ namespace BNV.ViewModels
         {
             SetupCoin();
             SetupSector();
+            NavigateToDetailsCommand = new Command<ItemBase>(NavigateToDetailsAction);
             ea.GetEvent<FilterCoinEvent>().Subscribe(FilterCoin);
             ea.GetEvent<FilterSectorEvent>().Subscribe(FilterSector);
+
         }
 
         private void FilterSector(string obj)
@@ -44,21 +48,21 @@ namespace BNV.ViewModels
             {
                 for (int i = 0; i < 4; i++)
                 {
-                    bonos.Add(new Bono());
+                    bonos.Add(new Bono() { ColorStatus = "#FF0000"});
                 }
             }
             else if (value != null && value == Config.CoinTypes.CoinDolar)
             {
                 for (int i = 0; i < 11; i++)
                 {
-                    bonos.Add(new Bono());
+                    bonos.Add(new Bono() { ColorStatus = "#FF0000" });
                 }
             }
             else
             {
                 for (int i = 0; i < 15; i++)
                 {
-                    bonos.Add(new Bono());
+                    bonos.Add(new Bono() { ColorStatus = "#FF0000" });
                 }
             }
 
@@ -74,38 +78,60 @@ namespace BNV.ViewModels
             {
                 for (int i = 0; i < 8; i++)
                 {
-                    bonos.Add(new Bono());
+                    bonos.Add(new Bono() { ColorStatus = "#FF0000" });
                 }
             }
             else if (value != null && value == Config.SectorTypes.Privado)
             {
                 for (int i = 0; i < 3; i++)
                 {
-                    bonos.Add(new Bono());
+                    bonos.Add(new Bono() { ColorStatus = "#FF0000" });
                 }
             }
             else if (value != null && value == Config.SectorTypes.Mixto)
             {
                 for (int i = 0; i < 4; i++)
                 {
-                    bonos.Add(new Bono());
+                    bonos.Add(new Bono() { ColorStatus = "#FF0000" });
                 }
             }
             else
             {
                 for (int i = 0; i < 15; i++)
                 {
-                    bonos.Add(new Bono());
+                    bonos.Add(new Bono() { ColorStatus = "#FF0000" });
                 }
             }
 
             Bonos = new ObservableCollection<Bono>(bonos);
         }
 
+        public Command<ItemBase> SelectionCommand { get; set; }
+
+        
+
         public ObservableCollection<Bono> Bonos
         {
             get { return _bonos; }
             set { SetProperty(ref _bonos, value); }
+        }
+
+        private Command<ItemBase> NavigateToDetailsCommand { get; set; }
+
+        ItemBase _selectedItem;
+        public ItemBase SelectedItem
+        {
+            get { return _selectedItem; }
+            set
+            {
+               _selectedItem = value;
+               NavigateToDetailsCommand.Execute(_selectedItem);
+            }
+        }
+
+        private async void NavigateToDetailsAction(ItemBase obj)
+        {
+             await NavigationService.NavigateAsync("HomeDetailPage", new NavigationParameters() { { "item", obj } }, false, false);
         }
     }
 }

@@ -21,14 +21,15 @@ namespace BNV
 
         protected override async void OnInitialized()
         {
-            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MjE1NTIwQDMxMzcyZTM0MmUzMGdHam4wVGZ5bDRUTnNwQmJRdGhsUFluMFpjeDFtcnI0UGtVRjBsZXArYWc9");
+            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MjQ1MjAyQDMxMzgyZTMxMmUzME9sUGkxWDNsSE8rZG1qWjBlUDA4ZUI0UmZOTWd1ajgvZEcwNUViR3gyeE09");
             InitializeComponent();
+          
             await NavigationService.NavigateAsync("NavigationPage/LoginPage");
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            containerRegistry.RegisterForNavigation<NavigationPage>();
+            containerRegistry.RegisterForNavigation<NavigationPage, NavigationViewModel>();
             containerRegistry.RegisterForNavigation<MainPage, MainPageViewModel>();
             containerRegistry.RegisterForNavigation<LoginPage, LoginViewModel>();
             containerRegistry.RegisterForNavigation<RegisterPage, RegisterViewModel>();
@@ -43,6 +44,10 @@ namespace BNV
             containerRegistry.RegisterForNavigation<ChangeTypePage, ChangeTypeViewModel>();
             containerRegistry.RegisterForNavigation<BonoPage, BonoViewModel>();
             containerRegistry.RegisterForNavigation<ChangePasswordPage, ChangePasswordViewModel>();
+            containerRegistry.RegisterForNavigation<DetailsPage, DetailsViewModel>();
+            containerRegistry.RegisterForNavigation<InformationPage, InformationViewModel>();
+            containerRegistry.RegisterForNavigation<GraphicPage, GraphicViewModel>();
+            containerRegistry.RegisterForNavigation<HomeDetailPage, HomeDetailViewModel>();
         }
     }
    

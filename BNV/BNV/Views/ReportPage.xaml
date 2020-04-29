@@ -49,7 +49,7 @@
                                       <Frame
                                         Margin="11"
                                         Padding="5"
-                                        BackgroundColor="Red" 
+                                        BackgroundColor="{Binding ColorStatus}" 
                                         CornerRadius="5"
                                         VerticalOptions="StartAndExpand">
                                         <Grid

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using BNV.Events;
 using BNV.Models;
 using BNV.Settings;
@@ -21,6 +22,7 @@ namespace BNV.ViewModels
         {
             SetupCoin();
             SetupSector();
+            NavigateToDetailsCommand = new Command<ItemBase>(NavigateToDetailsAction);
             ea.GetEvent<FilterCoinEvent>().Subscribe(FilterCoin);
             ea.GetEvent<FilterSectorEvent>().Subscribe(FilterSector);
         }
@@ -44,21 +46,21 @@ namespace BNV.ViewModels
             {
                 for (int i = 0; i < 1; i++)
                 {
-                    reportos.Add(new Report());
+                    reportos.Add(new Report() { ColorStatus = "#FF0000" });
                 }
             }
             else if (value != null && value == Config.CoinTypes.CoinDolar)
             {
                 for (int i = 0; i < 3; i++)
                 {
-                    reportos.Add(new Report());
+                    reportos.Add(new Report() { ColorStatus = "#FF0000" });
                 }
             }
             else
             {
                 for (int i = 0; i < 15; i++)
                 {
-                    reportos.Add(new Report());
+                    reportos.Add(new Report() { ColorStatus = "#FF0000" });
                 }
             }
 
@@ -74,28 +76,28 @@ namespace BNV.ViewModels
             {
                 for (int i = 0; i < 8; i++)
                 {
-                    reportos.Add(new Report());
+                    reportos.Add(new Report() { ColorStatus = "#FF0000" });
                 }
             }
             else if (value != null && value == Config.SectorTypes.Privado)
             {
                 for (int i = 0; i < 3; i++)
                 {
-                    reportos.Add(new Report());
+                    reportos.Add(new Report() { ColorStatus = "#FF0000" });
                 }
             }
             else if (value != null && value == Config.SectorTypes.Mixto)
             {
                 for (int i = 0; i < 4; i++)
                 {
-                    reportos.Add(new Report());
+                    reportos.Add(new Report() { ColorStatus = "#FF0000" });
                 }
             }
             else
             {
                 for (int i = 0; i < 12; i++)
                 {
-                    reportos.Add(new Report());
+                    reportos.Add(new Report() { ColorStatus = "#FF0000" });
                 }
             }
 
@@ -106,6 +108,23 @@ namespace BNV.ViewModels
         {
             get { return _reports; }
             set { SetProperty( ref _reports, value); }
+        }
+
+        private Command<ItemBase> NavigateToDetailsCommand { get; set; }
+
+        private ItemBase _selectedItem;
+        public ItemBase SelectedItem
+        {
+            get { return _selectedItem;  }
+            set
+            {   _selectedItem = value;
+                NavigateToDetailsCommand.Execute(_selectedItem);
+            }
+        }
+
+        private async void NavigateToDetailsAction(ItemBase obj)
+        {
+            await NavigationService.NavigateAsync("HomeDetailPage", new NavigationParameters() { { "item", obj } }, false, false);
         }
     }
 }

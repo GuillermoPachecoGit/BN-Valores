@@ -1,0 +1,171 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Detalle"
+    BackgroundColor="Black"
+    Icon="ic_info"
+    xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+    xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+    prism:ViewModelLocator.AutowireViewModel="True"
+    x:Class="BNV.Views.InformationPage">
+    <ContentPage.Content>
+        <StackLayout
+            Padding="10"
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="FillAndExpand">
+            <StackLayout
+                Padding="20,10,20,0"
+                Orientation="Horizontal"
+                VerticalOptions="FillAndExpand"
+                HorizontalOptions="FillAndExpand">
+                <Label
+                    TextColor="White"
+                    FontSize="20"
+                    HorizontalOptions="StartAndExpand"
+                    FlexLayout.AlignSelf="Start"
+                    Text="{Binding ValueRendimiento, Mode=TwoWay}"/>
+                <Label
+                    TextColor="White"
+                    FontSize="20"
+                    HorizontalOptions="EndAndExpand"
+                    FlexLayout.AlignSelf="End"
+                    Text="{Binding PercentageRendimiento, Mode=TwoWay}"/>
+            </StackLayout>
+            <StackLayout
+                Padding="20,0,20,0"
+                Orientation="Horizontal"
+                Margin="0,5,0,20"
+                VerticalOptions="FillAndExpand"
+                HorizontalOptions="FillAndExpand">
+                <Label
+                    TextColor="White"
+                    FontSize="20"
+                    HorizontalOptions="StartAndExpand"
+                    FlexLayout.AlignSelf="Start"
+                    Text="{Binding ValueVolumen, Mode=TwoWay}"/>
+                <Label
+                    TextColor="White"
+                    FontSize="20"
+                    HorizontalOptions="EndAndExpand"
+                    Text="{Binding PercentageVolumen, Mode=TwoWay}"/>
+            </StackLayout>
+                <buttons:SfChipGroup Margin="15,5,15,0" SelectedItem="{Binding SelectedItem}" HorizontalOptions ="Center"  VerticalOptions="StartAndExpand" HeightRequest="35" BackgroundColor="#535353" ChipTextColor="white" ChipBackgroundColor="#535353" SelectedChipBackgroundColor="#808080"  Type="Choice">
+                    <buttons:SfChipGroup.ChipLayout>
+					        <FlexLayout 
+						        HorizontalOptions="Fill" 
+						        VerticalOptions="CenterAndExpand" 
+						        Direction="Row" 
+						        Wrap="Wrap"
+						        JustifyContent="Center"
+						        AlignContent="Center" 
+						        AlignItems="Center"/>
+				        </buttons:SfChipGroup.ChipLayout>
+			        <buttons:SfChipGroup.Items>
+				        <buttons:SfChip WidthRequest="70" BackgroundColor="#535353"  VerticalOptions="Fill" TextColor="White" Text="1 mes"/>
+				        <buttons:SfChip WidthRequest="70" BackgroundColor="#535353"  VerticalOptions="Fill" TextColor="White" Text="3 meses"/>
+                        <buttons:SfChip WidthRequest="70" BackgroundColor="#535353"  VerticalOptions="Fill" TextColor="White" Text="6 meses"/>
+                        <buttons:SfChip WidthRequest="70" BackgroundColor="#535353"  VerticalOptions="Fill" TextColor="White" Text="1 año"/>
+                        <buttons:SfChip WidthRequest="70" BackgroundColor="#535353"  VerticalOptions="Fill" TextColor="White" Text="2 años"/>
+			        </buttons:SfChipGroup.Items>
+		        </buttons:SfChipGroup>
+            <StackLayout
+                Padding="30,0,30,7"
+                Orientation="Horizontal"
+                VerticalOptions="FillAndExpand"
+                HorizontalOptions="FillAndExpand">
+                <Label
+                    TextColor="White"
+                    Margin="0,0,5,0"
+                    FontSize="18"
+                    HorizontalOptions="EndAndExpand"
+                    Text="Volumen transado mínimo"/>
+                <Label
+                    TextColor="White"
+                    FontSize="18"
+                    HorizontalOptions="EndAndExpand"
+                    FlexLayout.AlignSelf="Center"
+                    Text="{Binding VolumenMin, Mode=TwoWay}"/>
+            </StackLayout>
+            <StackLayout
+                Padding="30,0,30,7"
+                Orientation="Horizontal"
+                VerticalOptions="FillAndExpand"
+                HorizontalOptions="FillAndExpand">
+                <Label
+                    TextColor="White"
+                    Margin="0,0,5,0"
+                    FontSize="18"
+                    HorizontalOptions="EndAndExpand"
+                    Text="Volumen transado máximo"/>
+                <Label
+                    TextColor="White"
+                    FontSize="18"
+                    HorizontalOptions="EndAndExpand"
+                    FlexLayout.AlignSelf="Center"
+                    Text="{Binding VolumenMax, Mode=TwoWay}"/>
+            </StackLayout>
+            <StackLayout
+                Padding="30,0,30,7"
+                Orientation="Horizontal"
+                VerticalOptions="FillAndExpand"
+                HorizontalOptions="FillAndExpand">
+                <Label
+                    TextColor="White"
+                    Margin="0,0,5,0"
+                    FontSize="18"
+                    HorizontalOptions="EndAndExpand"
+                    Text="Valor promedio"/>
+                <Label
+                    TextColor="White"
+                    FontSize="18"
+                    HorizontalOptions="EndAndExpand"
+                    FlexLayout.AlignSelf="Center"
+                    Text="{Binding Average, Mode=TwoWay}"/>
+            </StackLayout>
+            <StackLayout
+                Padding="30,0,30,7"
+                Orientation="Horizontal"
+                VerticalOptions="FillAndExpand"
+                HorizontalOptions="FillAndExpand">
+                <Label
+                    TextColor="White"
+                    Margin="0,0,5,0"
+                    HorizontalOptions="EndAndExpand"
+                    FontSize="18"
+                    Text="Valor mínimo"/>
+                <Label
+                    TextColor="White"
+                    FontSize="18"
+                    HorizontalOptions="EndAndExpand"
+                    FlexLayout.AlignSelf="Center"
+                    Text="{Binding Minimum, Mode=TwoWay}"/>
+            </StackLayout>
+            <StackLayout
+                Padding="30,0,30,7"
+                Orientation="Horizontal"
+                VerticalOptions="FillAndExpand"
+                HorizontalOptions="FillAndExpand">
+                <Label
+                    TextColor="White"
+                    Margin="0,0,5,0"
+                    HorizontalOptions="EndAndExpand"
+                    FontSize="18"
+                    Text="Valor máximo"/>
+                <Label
+                    TextColor="White"
+                    FontSize="18"
+                    HorizontalOptions="EndAndExpand"
+                    FlexLayout.AlignSelf="End"
+                    Text="{Binding Maximum, Mode=TwoWay}"/>
+            </StackLayout>
+            <Label
+               HorizontalOptions="End"
+               TextColor="White"
+               Margin="0,15,10,0"
+               FontSize="12"
+               VerticalOptions="FillAndExpand"
+               Text="Al día: 04/07/2019 a las 00:00:00"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

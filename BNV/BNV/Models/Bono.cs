@@ -1,7 +1,7 @@
 ﻿using System;
 namespace BNV.Models
 {
-    public class Bono
+    public class Bono : ItemBase
     {
         public CoinType Coin { get; set; }
 

@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<TabbedPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:views="clr-namespace:BNV.Views"
+    xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
+    xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+    prism:ViewModelLocator.AutowireViewModel="True"
+    android:TabbedPage.ToolbarPlacement="Bottom"
+    android:TabbedPage.BarItemColor="White"
+    android:TabbedPage.BarSelectedItemColor="#00579F"
+    Title="{Binding Title}"
+    BackgroundColor="Black"
+    BarBackgroundColor="#4BA0D9"
+    x:Class="BNV.Views.HomeDetailPage"
+    BackgroundImage="White"
+    BarTextColor="White">
+    <NavigationPage.TitleView>
+        <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+            <Label Text="{Binding Title}" TextColor="White" HorizontalOptions="CenterAndExpand" Margin="0,0,10,0" HorizontalTextAlignment="Center" FontSize="20"/>
+        </StackLayout>
+    </NavigationPage.TitleView>
+    <!--Pages can be added as references or inline-->
+    <views:DetailsPage />
+    <views:SettingPage />
+</TabbedPage>

@@ -17,7 +17,7 @@ namespace BNV.ViewModels
         {
             Title = "Login";
 
-            SignInCommand = new Command(async () => await SignInActionExecute()  );
+            SignInCommand = new Command(async () => await SignInActionExecute());
             SignUpCommand = new Command(async () => await SignUpActionExecute());
             RecoveryCommand = new Command(async () => await RecoveryActionExecute());
 

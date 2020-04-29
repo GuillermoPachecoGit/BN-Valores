@@ -52,5 +52,6 @@ namespace BNV.Views
         void SfComboBox_SelectionChanged(System.Object sender, Syncfusion.XForms.ComboBox.SelectionChangedEventArgs e)
         {
         }
+
     }
 }
