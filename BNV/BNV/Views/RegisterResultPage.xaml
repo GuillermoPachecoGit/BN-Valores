@@ -16,27 +16,27 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
-           <FlexLayout
-                Direction="Column"
-                AlignItems="Center"
-                JustifyContent="SpaceEvenly">
+           <StackLayout
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="FillAndExpand">
             <Image
-                Margin="0,10,0,0"
+                Margin="0,5,0,0"
                 Source="bn_logo"
-                HeightRequest="120"
-                WidthRequest="250"
+                HeightRequest="90"
+                WidthRequest="220"
                 HorizontalOptions="Center"
                 VerticalOptions="Center"/>
             <Label
                 Text="Registro de usuario"
                 TextColor="White"
-                FontSize="20"
-                Margin="0,16,0,0"
+                FontSize="24"
+                FontAttributes="Bold"
+                Margin="0,10,0,0"
                 HorizontalOptions="Center"
                 VerticalOptions="Center"/>
 
              <Image
-                Margin="0,40,0,0"
+                Margin="0,20,0,0"
                 Source="tick"
                 HeightRequest="120"
                 WidthRequest="250"
@@ -48,7 +48,7 @@
                 TextColor="White"
                 FontSize="20"
                 WidthRequest="250"
-                Margin="0,16,0,30"
+                Margin="0,16,0,20"
                 HorizontalTextAlignment="Center"
                 HorizontalOptions="Center"
                 VerticalOptions="Center"/>
@@ -59,24 +59,12 @@
                 TextColor="White"
                 BackgroundColor="#AFBC24"
                 HeightRequest="56"
+
                 WidthRequest="250"
                 Command="{Binding ReturnInitCommand}"
                 VerticalOptions="Center"
                 HorizontalOptions="Center"/>
-            <Button
-                Text="Solicitar contraseña nuevamente"
-                TextColor="White"
-                BorderColor="White"
-                BackgroundColor="Black"
-                BorderWidth="1"
-                CornerRadius="2"
-                FontSize="12"
-                Margin="0,10,0,0"
-                HeightRequest="56"
-                Command="{Binding RequestPasswordAgainCommand}"
-                WidthRequest="250"
-                VerticalOptions="Center"
-                HorizontalOptions="Center"/>
-        </FlexLayout>
+
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>

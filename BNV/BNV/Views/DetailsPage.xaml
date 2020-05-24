@@ -9,7 +9,7 @@
     BackgroundColor="Black"
     android:TabbedPage.BarItemColor="White"
     android:TabbedPage.BarSelectedItemColor="White"
-    BarBackgroundColor="#00579F"
+    BarBackgroundColor="#323232"
     Icon="estadistica"
     Title="Estadísticas"
     x:Class="BNV.Views.DetailsPage"
@@ -17,7 +17,7 @@
     BarTextColor="White">
     <NavigationPage.TitleView>
         <StackLayout>
-            <Label Text="{Binding Title}" TextColor="White" HorizontalTextAlignment="Center" FontSize="20"/>
+            <Label Text="{Binding TitleNav, Mode=TwoWay}" TextColor="White" HorizontalTextAlignment="Center" FontSize="20"/>
         </StackLayout>
     </NavigationPage.TitleView>
     <!--Pages can be added as references or inline-->

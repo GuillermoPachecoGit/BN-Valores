@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
+﻿using BNV.ViewModels;
 using Xamarin.Forms;
 
 namespace BNV.Views
@@ -12,8 +10,10 @@ namespace BNV.Views
             InitializeComponent();
         }
 
-        void ListView_ItemSelected(System.Object sender, Xamarin.Forms.SelectedItemChangedEventArgs e)
+        protected override void OnAppearing()
         {
+            base.OnAppearing();
+            ((ReportViewModel)this.BindingContext).LoadData();
         }
     }
 }

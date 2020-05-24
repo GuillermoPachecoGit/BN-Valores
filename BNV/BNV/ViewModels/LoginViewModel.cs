@@ -2,10 +2,8 @@
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Acr.UserDialogs;
-using BNV.Settings;
 using BNV.Validator;
 using Prism.Navigation;
-using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace BNV.ViewModels
@@ -50,7 +48,7 @@ namespace BNV.ViewModels
                 return;
             }
 
-                await NavigationService.NavigateAsync("HomePage", null, false, false);
+            await NavigationService.NavigateAsync("HomePage");
         }
 
         public ICommand SignUpCommand { get; set; }

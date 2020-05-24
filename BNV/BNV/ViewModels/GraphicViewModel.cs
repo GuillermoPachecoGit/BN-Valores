@@ -2,7 +2,8 @@
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using BNV.Models;
+using BNV.Events;
+using Prism.Events;
 using Prism.Navigation;
 using Syncfusion.XForms.Buttons;
 using Xamarin.Forms;
@@ -11,16 +12,20 @@ namespace BNV.ViewModels
 {
     public class GraphicViewModel : ViewModelBase
     {
-        public GraphicViewModel(INavigationService navigationService)
+        public GraphicViewModel(INavigationService navigationService, IEventAggregator ea)
             : base(navigationService)
         {
+            Events = ea;
+
+            Events.GetEvent<NavigationColorEvent>().Subscribe(SetColor);
+
             Data = new ObservableCollection<Model>()
             {
-                new Model("5 Jun", 873.8, 878.85, 855.5, 860.5),
-                new Model("6 Jun", 861, 868.4, 835.2, 843.45),
-                new Model("7 Jun", 846.15, 853, 838.5, 847.5),
-                new Model("8 Jun", 846, 860.75, 841, 855),
-                new Model("9 Jun", 841, 845, 827.85, 838.65)
+                new Model("5 Jun", 50),
+                new Model("6 Jun", 70),
+                new Model("7 Jun", 65),
+                new Model("8 Jun", 57),
+                new Model("9 Jun", 43)
             };
 
             Periods = new ObservableCollection<string>()
@@ -50,13 +55,21 @@ namespace BNV.ViewModels
 
             Data = new ObservableCollection<Model>()
             {
-                new Model("5 Jun", rnd.Next(820,880), rnd.Next(820,880), rnd.Next(820,880), rnd.Next(820,880)),
-                new Model("6 Jun", rnd.Next(820,880), rnd.Next(820,880), rnd.Next(820,880), rnd.Next(820,880)),
-                new Model("7 Jun", rnd.Next(820,880), rnd.Next(820,880), rnd.Next(820,880), rnd.Next(820,880)),
-                new Model("8 Jun", rnd.Next(820,880), rnd.Next(820,880), rnd.Next(820,880), rnd.Next(820,880)),
-                new Model("9 Jun", rnd.Next(820,880), rnd.Next(820,880), rnd.Next(820,880), rnd.Next(820,880))
+                new Model("5 Jun", rnd.Next(10,100)),
+                new Model("6 Jun", rnd.Next(10,100)),
+                new Model("7 Jun", rnd.Next(10,100)),
+                new Model("8 Jun", rnd.Next(10,100)),
+                new Model("9 Jun", rnd.Next(10,100))
             };
         }
+
+
+        private void SetColor(string obj)
+        {
+            Color = obj;
+        }
+
+
 
         public ICommand ActionCommand { get; set; }
 
@@ -96,30 +109,30 @@ namespace BNV.ViewModels
             set { SetProperty(ref _seletedItem, value); ActionCommand.Execute(null); }
         }
 
+        public IEventAggregator Events { get; }
         public ObservableCollection<Model> Data { get; set; }
 
         public ObservableCollection<string> Periods { get; set; }
+
+        private string _color;
+        public string Color
+        {
+            get => _color;
+            set => SetProperty(ref _color, value);
+        }
     }
 
     public class Model
     {
-        public string Year { get; set; }
+        public string Month { get; set; }
 
-        public double High { get; set; }
+        public double Target { get; set; }
 
-        public double Low { get; set; }
 
-        public double Open { get; set; }
-
-        public double Close { get; set; }
-
-        public Model(string xValue, double open, double high, double low, double close)
+        public Model(string xValue, double target)
         {
-            Year = xValue;
-            Open = open;
-            High = high;
-            Low = low;
-            Close = close;
+            Target = target;
+            Month = xValue;
         }
     }
 }

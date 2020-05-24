@@ -12,7 +12,7 @@
             VerticalOptions="FillAndExpand"
             Margin="0,5,0,0">
              <CollectionView
-                 ItemsSource="{Binding Shares}"
+                 ItemsSource="{Binding Shares, Mode=TwoWay}"
                  SelectionMode="Single"
                  SelectionChanged="CollectionView_SelectionChanged">
                 
@@ -34,7 +34,7 @@
                         CornerRadius="5">
                             <Grid
                                 Margin="5"
-                                BackgroundColor="#81B71A"
+                                BackgroundColor="{Binding ColorStatus}"
                                 VerticalOptions="Center"
                                 HorizontalOptions="Center"
                                 > 

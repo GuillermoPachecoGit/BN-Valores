@@ -1,5 +1,4 @@
-﻿using System;
-using BNV.Events;
+﻿using BNV.Events;
 using Prism.Events;
 using Prism.Navigation;
 

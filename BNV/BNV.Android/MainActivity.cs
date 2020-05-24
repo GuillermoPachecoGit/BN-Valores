@@ -5,6 +5,7 @@ using Android.OS;
 using Prism;
 using Prism.Ioc;
 using Xamarin.Forms;
+using Xamarin.Forms.PlatformConfiguration.AndroidSpecific;
 
 namespace BNV.Droid
 {

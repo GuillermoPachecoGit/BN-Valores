@@ -12,9 +12,11 @@ namespace BNV.ViewModels
             : base(navigationService)
         {
             Events = ea;
+            TitleNav = "BNVR C";
         }
 
         public IEventAggregator Events { get; set; }
+        public string TitleNav { get; private set; }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
@@ -28,13 +30,20 @@ namespace BNV.ViewModels
                 {
                     ColorStatus = item.ColorStatus;
                     Events.GetEvent<NavigationColorEvent>().Publish(item.ColorStatus);
-                    Title = "BNVR C";
+                    Events.GetEvent<NavigationTitleEvent>().Subscribe(SetTitle);
+
+                    TitleNav = "BNVR C";
                 }
             }
             catch (Exception ex)
             {
 
             }
+        }
+
+        private void SetTitle(string obj)
+        {
+            TitleNav = obj;
         }
 
         public override void Destroy()

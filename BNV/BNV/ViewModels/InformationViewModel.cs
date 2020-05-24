@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using BNV.Models;
 using Prism.Navigation;
 using Syncfusion.XForms.Buttons;
 using Xamarin.Forms;

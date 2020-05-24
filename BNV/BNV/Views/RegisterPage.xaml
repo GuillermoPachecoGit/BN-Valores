@@ -16,6 +16,7 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
+        <ScrollView>
           <FlexLayout
             Direction="Column"
             AlignItems="Center"
@@ -30,7 +31,8 @@
             <Label
                 Text="Registro de usuario"
                 TextColor="White"
-                FontSize="20"
+                FontSize="24"
+                FontAttributes="Bold"
                 Margin="0,16,0,0"
                 HorizontalOptions="Center"
                 VerticalOptions="Center"/>
@@ -191,5 +193,6 @@
                 VerticalOptions="Center"
                 HorizontalOptions="Center"/>
         </FlexLayout>
+      </ScrollView>
     </ContentPage.Content>
 </ContentPage>

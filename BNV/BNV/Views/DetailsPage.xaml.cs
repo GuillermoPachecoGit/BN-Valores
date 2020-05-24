@@ -9,6 +9,12 @@ namespace BNV.Views
         public DetailsPage()
         {
             InitializeComponent();
+            
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
         }
     }
 }

@@ -11,6 +11,12 @@ namespace BNV.ViewModels
           : base(navigationService)
         {
             ea.GetEvent<NavigationColorEvent>().Subscribe(SetColor);
+            ea.GetEvent<NavigationTitleEvent>().Subscribe(SetTitle);
+        }
+
+        private void SetTitle(string obj)
+        {
+            Title = obj;
         }
 
         private void SetColor(string obj)

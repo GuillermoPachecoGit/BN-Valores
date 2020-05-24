@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using BNV.Models;
 using BNV.ViewModels;
 using Xamarin.Forms;

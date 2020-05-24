@@ -1,10 +1,6 @@
-﻿using Prism.Commands;
-using Prism.Mvvm;
+﻿using Prism.Mvvm;
 using Prism.Navigation;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Text;
 
 namespace BNV.ViewModels
 {
@@ -19,7 +15,10 @@ namespace BNV.ViewModels
             set { SetProperty(ref _title, value); }
         }
 
-        private string _colorStatus;
+        public bool AlreadyLoaded { get; set; }
+
+        protected string _colorStatus;
+
         public string ColorStatus
         {
             get { return _colorStatus; }

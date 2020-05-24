@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using BNV.Events;
@@ -19,11 +18,10 @@ namespace BNV.ViewModels
         public ChangeTypeViewModel(INavigationService navigationService, IEventAggregator ea)
             : base(navigationService)
         {
-            SetupCoin();
-            SetupSector();
             NavigateToDetailsCommand = new Command<ItemBase>(NavigateToDetailsAction);
             ea.GetEvent<FilterCoinEvent>().Subscribe(FilterCoin);
             ea.GetEvent<FilterSectorEvent>().Subscribe(FilterSector);
+            LoadData();
         }
 
         private void FilterSector(string obj)
@@ -46,21 +44,21 @@ namespace BNV.ViewModels
             {
                 for (int i = 0; i < 14; i++)
                 {
-                    types.Add(new ShareOfStock() { ColorStatus = "Red" });
+                    types.Add(new ShareOfStock() { ColorStatus = "#B51010" });
                 }
             }
             else if (value != null && value == Config.CoinTypes.CoinDolar)
             {
                 for (int i = 0; i < 1; i++)
                 {
-                    types.Add(new ShareOfStock() { ColorStatus = "Red" });
+                    types.Add(new ShareOfStock() { ColorStatus = "#B51010" });
                 }
             }
             else
             {
                 for (int i = 0; i < 15; i++)
                 {
-                    types.Add(new ShareOfStock() { ColorStatus = "Red" });
+                    types.Add(new ShareOfStock() { ColorStatus = "#B51010" });
                 }
             }
 
@@ -76,28 +74,28 @@ namespace BNV.ViewModels
             {
                 for (int i = 0; i < 2; i++)
                 {
-                    types.Add(new ShareOfStock() { ColorStatus = "Red" });
+                    types.Add(new ShareOfStock() { ColorStatus = "#B51010" });
                 }
             }
             else if (value != null && value == Config.SectorTypes.Privado)
             {
                 for (int i = 0; i < 11; i++)
                 {
-                    types.Add(new ShareOfStock() { ColorStatus = "Red" });
+                    types.Add(new ShareOfStock() { ColorStatus = "#B51010" });
                 }
             }
             else if (value != null && value == Config.SectorTypes.Mixto)
             {
                 for (int i = 0; i < 6; i++)
                 {
-                    types.Add(new ShareOfStock() { ColorStatus = "Red" });
+                    types.Add(new ShareOfStock() { ColorStatus = "#B51010" });
                 }
             }
             else
             {
                 for (int i = 0; i < 15; i++)
                 {
-                    types.Add(new ShareOfStock() { ColorStatus = "Red"});
+                    types.Add(new ShareOfStock() { ColorStatus = "#B51010"});
                 }
             }
 
@@ -126,6 +124,18 @@ namespace BNV.ViewModels
         private async void NavigateToDetailsAction(ItemBase obj)
         {
             await NavigationService.NavigateAsync("HomeDetailPage", new NavigationParameters() { { "item", obj } }, false, false);
+        }
+
+        public void LoadData()
+        {
+            if (AlreadyLoaded)
+                return;
+            Task.Run(async () =>
+            {
+                await SetupCoin();
+                await SetupSector();
+                AlreadyLoaded = true;
+            });
         }
     }
 }

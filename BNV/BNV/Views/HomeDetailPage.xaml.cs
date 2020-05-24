@@ -12,16 +12,19 @@ namespace BNV.Views
         {
             InitializeComponent();
             ((NavigationPage)Xamarin.Forms.Application.Current.MainPage).BarTextColor = Color.White;
+            this.CurrentPageChanged += CurrentPageHasChanged;
         }
 
-        protected override void OnAppearing()
+        protected override bool OnBackButtonPressed()
         {
-            base.OnAppearing();
+            ((NavigationPage)Xamarin.Forms.Application.Current.MainPage).BarBackgroundColor = Color.Black;
+            return base.OnBackButtonPressed();
         }
 
-        protected override void OnDisappearing()
+        public void CurrentPageHasChanged(object sender, EventArgs e)
         {
-            base.OnDisappearing();
+            //this.Title = this.CurrentPage.Title;
+            //((HomeDetailViewModel)this.BindingContext).Title = this.Title;
         }
     }
 }

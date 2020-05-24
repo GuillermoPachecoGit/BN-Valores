@@ -23,7 +23,6 @@
                TextColor="White"
                HorizontalOptions="Start"
                VerticalOptions="Start"/>
-
              <StackLayout
                 Margin="33,0,0,0"
                 Orientation="Horizontal">
@@ -54,9 +53,9 @@
                                  RangeStart="5"
                                  ValueChanging="SfRangeSlider_ValueChanging"
                                  ShowRange="False"
-                                 Minimum="0"
+                                 Minimum="1"
                                  FlexLayout.AlignSelf="Center"
-                                 Maximum="10"
+                                 Maximum="11"
                                  TickColor="#4BA0D9"
                                  TickFrequency="1"
                                  StepFrequency="1"
@@ -88,7 +87,7 @@
                     Margin="0,0,90,0"
                     HorizontalOptions="End"
                     VerticalOptions="Start"/>
-                 </StackLayout>
+               </StackLayout>
 
               <range:SfRangeSlider Orientation="Horizontal"
                                  HorizontalOptions="FillAndExpand"
@@ -100,9 +99,9 @@
                                  RangeStart="5"
                                  ValueChanging="SfRangeSlider_ValueChanging_1"
                                  ShowRange="False"
-                                 Minimum="0"
+                                 Minimum="1"
                                  FlexLayout.AlignSelf="Center"
-                                 Maximum="10"
+                                 Maximum="11"
                                  TickFrequency="1"
                                  StepFrequency="1"
                                  TickColor="#4BA0D9"
@@ -243,7 +242,6 @@
                       BackgroundColor="#A5A5A5">
                       <combobox:SfComboBox
                         HeightRequest="35"
-                        Text="Home"
                         EnableAutoSize="True"
                         TextSize="12"
                         VerticalOptions="Fill"

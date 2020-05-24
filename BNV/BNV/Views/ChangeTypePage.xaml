@@ -13,7 +13,7 @@
             HorizontalOptions="FillAndExpand"
             VerticalOptions="FillAndExpand"
             Margin="0,5,0,0">
-              <ListView ItemsSource="{Binding Types}"
+              <ListView ItemsSource="{Binding Types, Mode=TwoWay}"
                                 SeparatorVisibility="Default"
                                 SeparatorColor="White"
                                 HasUnevenRows="true"
@@ -58,7 +58,7 @@
                                             WidthRequest="65"
                                             VerticalOptions="Center"
                                             HorizontalOptions="Center"
-                                            BackgroundColor="Red">
+                                            BackgroundColor="{Binding ColorStatus}" >
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="Auto" />
                                             <RowDefinition Height="Auto" />

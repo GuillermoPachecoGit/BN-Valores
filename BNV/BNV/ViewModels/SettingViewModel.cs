@@ -1,8 +1,8 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Windows.Input;
 using BNV.Events;
 using BNV.Settings;
+using Prism.AppModel;
 using Prism.Events;
 using Prism.Navigation;
 using Xamarin.Essentials;
@@ -10,21 +10,20 @@ using Xamarin.Forms;
 
 namespace BNV.ViewModels
 {
-    public class SettingViewModel : ViewModelBase
+    public class SettingViewModel : ViewModelBase, IPageLifecycleAware
     {
         public SettingViewModel(INavigationService navigationService, IEventAggregator ea)
           : base(navigationService)
         {
             Title = "Register Page";
-            TypeChange = "5 colones";
-            Bonos = "5 colones";
+            TypeChange = "0.50 colones";
+            Bonos = "0.50%";
             Events = ea;
             ChangePasswordCommand = new Command(async () => await ChangePasswordActionExecute());
             CloseSessionCommand = new Command(async () => await CloseSessionActionExecute());
-            SetupFilters();
         }
 
-        private async Task SetupFilters()
+        public async Task SetupFilters()
         {
             var coin = await SecureStorage.GetAsync(Config.FilterCoin);
             if (coin != null)
@@ -70,6 +69,7 @@ namespace BNV.ViewModels
 
         private string _selectedSector;
 
+
         public string SelectedSector
         {
             get { return _selectedSector; }
@@ -94,6 +94,16 @@ namespace BNV.ViewModels
         private async Task CloseSessionActionExecute()
         {
             await NavigationService.GoBackToRootAsync();
+        }
+
+        public void OnAppearing()
+        {
+            Events.GetEvent<NavigationTitleEvent>().Publish("Configuración");
+        }
+
+        public void OnDisappearing()
+        {
+            
         }
 
         public ICommand ChangePasswordCommand { get; set; }

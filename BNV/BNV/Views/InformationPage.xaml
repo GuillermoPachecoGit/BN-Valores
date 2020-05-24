@@ -50,7 +50,11 @@
                     HorizontalOptions="EndAndExpand"
                     Text="{Binding PercentageVolumen, Mode=TwoWay}"/>
             </StackLayout>
-                <buttons:SfChipGroup Margin="15,5,15,0" SelectedItem="{Binding SelectedItem}" HorizontalOptions ="Center"  VerticalOptions="StartAndExpand" HeightRequest="35" BackgroundColor="#535353" ChipTextColor="white" ChipBackgroundColor="#535353" SelectedChipBackgroundColor="#808080"  Type="Choice">
+              <Frame
+                Padding="0"
+                Margin="15,5,15,0"
+                CornerRadius="20">
+                <buttons:SfChipGroup SelectedItem="{Binding SelectedItem}" HorizontalOptions ="Center"  VerticalOptions="StartAndExpand" HeightRequest="35" BackgroundColor="#535353" ChipTextColor="white" ChipBackgroundColor="#535353" SelectedChipBackgroundColor="#808080"  Type="Choice">
                     <buttons:SfChipGroup.ChipLayout>
 					        <FlexLayout 
 						        HorizontalOptions="Fill" 
@@ -62,18 +66,21 @@
 						        AlignItems="Center"/>
 				        </buttons:SfChipGroup.ChipLayout>
 			        <buttons:SfChipGroup.Items>
-				        <buttons:SfChip WidthRequest="70" BackgroundColor="#535353"  VerticalOptions="Fill" TextColor="White" Text="1 mes"/>
-				        <buttons:SfChip WidthRequest="70" BackgroundColor="#535353"  VerticalOptions="Fill" TextColor="White" Text="3 meses"/>
-                        <buttons:SfChip WidthRequest="70" BackgroundColor="#535353"  VerticalOptions="Fill" TextColor="White" Text="6 meses"/>
-                        <buttons:SfChip WidthRequest="70" BackgroundColor="#535353"  VerticalOptions="Fill" TextColor="White" Text="1 año"/>
-                        <buttons:SfChip WidthRequest="70" BackgroundColor="#535353"  VerticalOptions="Fill" TextColor="White" Text="2 años"/>
+                        <buttons:SfChip  FontSize="14" BackgroundColor="#535353"  VerticalOptions="Fill" TextColor="White" Text="1 sem"/>
+				        <buttons:SfChip  FontSize="14" BackgroundColor="#535353"  VerticalOptions="Fill" TextColor="White" Text="1 mes"/>
+				        <buttons:SfChip FontSize="14"  BackgroundColor="#535353"  VerticalOptions="Fill" TextColor="White" Text="3 meses"/>
+                        <buttons:SfChip FontSize="14"  BackgroundColor="#535353"  VerticalOptions="Fill" TextColor="White" Text="6 meses"/>
+                        <buttons:SfChip FontSize="14"  BackgroundColor="#535353"  VerticalOptions="Fill" TextColor="White" Text="1 año"/>
+                        <buttons:SfChip FontSize="14"  BackgroundColor="#535353"  VerticalOptions="Fill" TextColor="White" Text="2 años"/>
+			       
 			        </buttons:SfChipGroup.Items>
 		        </buttons:SfChipGroup>
+              </Frame>
             <StackLayout
-                Padding="30,0,30,7"
+                Padding="45,0,45,7"
                 Orientation="Horizontal"
                 VerticalOptions="FillAndExpand"
-                HorizontalOptions="FillAndExpand">
+                HorizontalOptions="EndAndExpand">
                 <Label
                     TextColor="White"
                     Margin="0,0,5,0"
@@ -83,15 +90,16 @@
                 <Label
                     TextColor="White"
                     FontSize="18"
+                    HorizontalTextAlignment="End"
+                    WidthRequest="60"
                     HorizontalOptions="EndAndExpand"
-                    FlexLayout.AlignSelf="Center"
                     Text="{Binding VolumenMin, Mode=TwoWay}"/>
             </StackLayout>
             <StackLayout
-                Padding="30,0,30,7"
+                Padding="45,0,45,7"
                 Orientation="Horizontal"
                 VerticalOptions="FillAndExpand"
-                HorizontalOptions="FillAndExpand">
+                HorizontalOptions="EndAndExpand">
                 <Label
                     TextColor="White"
                     Margin="0,0,5,0"
@@ -101,33 +109,37 @@
                 <Label
                     TextColor="White"
                     FontSize="18"
+                    HorizontalTextAlignment="End"
+                    WidthRequest="60"
                     HorizontalOptions="EndAndExpand"
-                    FlexLayout.AlignSelf="Center"
                     Text="{Binding VolumenMax, Mode=TwoWay}"/>
             </StackLayout>
             <StackLayout
-                Padding="30,0,30,7"
+                Padding="45,0,45,7"
                 Orientation="Horizontal"
                 VerticalOptions="FillAndExpand"
-                HorizontalOptions="FillAndExpand">
+                HorizontalOptions="EndAndExpand">
                 <Label
                     TextColor="White"
                     Margin="0,0,5,0"
                     FontSize="18"
+                    HorizontalTextAlignment="End"
                     HorizontalOptions="EndAndExpand"
                     Text="Valor promedio"/>
                 <Label
                     TextColor="White"
                     FontSize="18"
+                    WidthRequest="60"
+                    HorizontalTextAlignment="End"
                     HorizontalOptions="EndAndExpand"
-                    FlexLayout.AlignSelf="Center"
+                    
                     Text="{Binding Average, Mode=TwoWay}"/>
             </StackLayout>
             <StackLayout
-                Padding="30,0,30,7"
+                Padding="45,0,45,7"
                 Orientation="Horizontal"
                 VerticalOptions="FillAndExpand"
-                HorizontalOptions="FillAndExpand">
+                HorizontalOptions="EndAndExpand">
                 <Label
                     TextColor="White"
                     Margin="0,0,5,0"
@@ -137,15 +149,16 @@
                 <Label
                     TextColor="White"
                     FontSize="18"
-                    HorizontalOptions="EndAndExpand"
-                    FlexLayout.AlignSelf="Center"
+                    WidthRequest="60"
+                    HorizontalTextAlignment="End"
+                    HorizontalOptions="End"
                     Text="{Binding Minimum, Mode=TwoWay}"/>
             </StackLayout>
             <StackLayout
-                Padding="30,0,30,7"
+                Padding="45,0,45,7"
                 Orientation="Horizontal"
                 VerticalOptions="FillAndExpand"
-                HorizontalOptions="FillAndExpand">
+                HorizontalOptions="EndAndExpand">
                 <Label
                     TextColor="White"
                     Margin="0,0,5,0"
@@ -155,8 +168,9 @@
                 <Label
                     TextColor="White"
                     FontSize="18"
-                    HorizontalOptions="EndAndExpand"
-                    FlexLayout.AlignSelf="End"
+                    WidthRequest="60"
+                    HorizontalTextAlignment="End"
+                    HorizontalOptions="End"
                     Text="{Binding Maximum, Mode=TwoWay}"/>
             </StackLayout>
             <Label
