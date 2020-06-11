@@ -1,0 +1,845 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
+    xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+    prism:ViewModelLocator.AutowireViewModel="True"
+    Title="{Binding Title}"
+    BackgroundColor="Black"
+    xmlns:range="clr-namespace:Syncfusion.SfRangeSlider.XForms;assembly=Syncfusion.SfRangeSlider.XForms"
+    xmlns:ListCollection="clr-namespace:System.Collections.Generic;assembly=netstandard"
+    xmlns:combobox="clr-namespace:Syncfusion.XForms.ComboBox;assembly=Syncfusion.SfComboBox.XForms"
+    xmlns:tabView="clr-namespace:Syncfusion.XForms.TabView;assembly=Syncfusion.SfTabView.XForms" 
+    android:TabbedPage.IsSwipePagingEnabled="False"
+    x:Class="BNV.Views.GraphicAndDetails.HomePage" >
+    <NavigationPage.TitleView>
+        <StackLayout>
+            <Label Text="{Binding Title}" TextColor="White" HorizontalTextAlignment="Center" FontSize="20"/>
+        </StackLayout>
+    </NavigationPage.TitleView>
+    <!--Pages can be added as references or inline-->
+    <tabView:SfTabView BackgroundColor="Black" SelectionChanged="TabExternal_SelectionChanged" EnableSwiping="False" Margin="-7" HorizontalOptions="FillAndExpand" TabHeight="65" VerticalOptions="FillAndExpand"  TabHeaderBackgroundColor="#4BA0D9" VisibleHeaderCount="2" TabHeaderPosition="Bottom" DisplayMode="ImageWithText" >
+        <tabView:SfTabView.SelectionIndicatorSettings>
+            <tabView:SelectionIndicatorSettings
+                Color="#00579F"
+                Position="Fill" 
+                StrokeThickness="5"/>
+        </tabView:SfTabView.SelectionIndicatorSettings>
+        <tabView:SfTabItem TitleFontColor="White"  SelectionColor="White" Title="Estadísticas" ImageSource="estadistica">
+                        <tabView:SfTabItem.Content>
+                             <tabView:SfTabView x:Name="TabExternal" EnableSwiping="True" TabHeight="55" BackgroundColor="Black" TabHeaderBackgroundColor="#00579F"  VisibleHeaderCount="4" DisplayMode="Text">
+                                 <tabView:SfTabView.SelectionIndicatorSettings>
+                                   <tabView:SelectionIndicatorSettings
+                                       Color="#AFBC24"
+                                       Position="Bottom" 
+                                       StrokeThickness="5"/>
+                                </tabView:SfTabView.SelectionIndicatorSettings>
+
+                                 <!--<tabView:SfTabItem TitleFontColor="White"  SelectionColor="White" Title="REPORTOS" />
+                                 <tabView:SfTabItem TitleFontColor="White"  SelectionColor="White" Title="BONOS" />
+                                 <tabView:SfTabItem TitleFontColor="White"  SelectionColor="White" Title="ACCIONES" />
+                                 <tabView:SfTabItem TitleFontColor="White"  SelectionColor="White" Title="TIPO CAMBIO" />-->
+
+                                 <tabView:SfTabItem TitleFontColor="White"  SelectionColor="White" Title="REPORTOS">
+                                            <tabView:SfTabItem.Content>
+                                                <StackLayout
+                                                    HeightRequest="90"
+                                                    HorizontalOptions="FillAndExpand"
+                                                    VerticalOptions="FillAndExpand"
+                                                    Margin="0,5,0,0">
+                                                    <ListView
+                                                        x:Name="list1"
+                                                        ItemsSource="{Binding Reports, Mode=TwoWay}"
+                                                        SeparatorVisibility="Default"
+                                                        SeparatorColor="White"
+                                                        HasUnevenRows="true"
+                                                        SelectedItem="{Binding SelectedItem}">
+                                                            <ListView.ItemTemplate>
+                                                                <DataTemplate>
+                                                                    <ViewCell>
+                                                                        <FlexLayout
+                                                                            Margin="0,5,0,0"
+                                                                            Direction="Row"
+                                                                            AlignItems="Center"
+                                                                            JustifyContent="SpaceEvenly">
+                                                                            <Image
+                                                                                Margin="30,5,0,0"
+                                                                                Source="{Binding Arrow}"
+                                                                                HeightRequest="21"
+                                                                                WidthRequest="15" />
+                                                                             <Label
+                                                                                Margin="15,0,0,0"
+                                                                                Text="Pub C 8-15d"
+                                                                                TextColor="White"
+                                                                                FontSize="20"
+                                                                                FontAttributes="Bold"
+                                                                                HorizontalOptions="FillAndExpand"
+                                                                                VerticalOptions="Center"/>
+                                                                            <Label
+                                                                                Margin="35,0,0,0"
+                                                                                Text="5.75"
+                                                                                FontSize="20"
+                                                                                TextColor="White"
+                                                                                HorizontalOptions="FillAndExpand"
+                                                                                VerticalOptions="Center" />
+                                                                              <Frame
+                                                                                Margin="11"
+                                                                                Padding="5"
+                                                                                BackgroundColor="{Binding ColorStatus}" 
+                                                                                CornerRadius="5"
+                                                                                VerticalOptions="StartAndExpand">
+                                                                                <Grid
+                                                                                    VerticalOptions="Center"
+                                                                                    HorizontalOptions="Center"
+                                                                                    BackgroundColor="{Binding ColorStatus}" >
+                                                                                <Grid.RowDefinitions>
+                                                                                    <RowDefinition Height="Auto" />
+                                                                                    <RowDefinition Height="Auto" />
+                                                                                </Grid.RowDefinitions>
+                                                                                <Grid.ColumnDefinitions>
+                                                                                    <ColumnDefinition Width="Auto" />
+                                                                                    <ColumnDefinition Width="Auto" />
+                                                                                </Grid.ColumnDefinitions>
+                                                                                <Image
+                                                                                    Source="{Binding Triangle}"
+                                                                                    HorizontalOptions="Center"
+                                                                                    VerticalOptions="Center"/>
+                                                                                 <Label
+                                                                                    Grid.Row="0"
+                                                                                    Grid.Column="1"
+                                                                                    Text="-2.00%"
+                                                                                    FontAttributes="Bold"
+                                                                                    FontSize="14"
+                                                                                    TextColor="White"
+                                                                                    HorizontalOptions="Center"
+                                                                                    VerticalOptions="Center"/>
+                                                                                <Label
+                                                                                    Grid.Row="1"
+                                                                                    Grid.Column="0"
+                                                                                    Text="5.5"
+                                                                                    FontAttributes="Bold"
+                                                                                    FontSize="14"
+                                                                                    TextColor="White"
+                                                                                    HorizontalOptions="Center"
+                                                                                    VerticalOptions="Center" />
+                                                                                <Label
+                                                                                    Grid.Row="1"
+                                                                                    Grid.Column="1"
+                                                                                    Text="N.D"
+                                                                                    FontAttributes="Bold"
+                                                                                    FontSize="14"
+                                                                                    TextColor="White"
+                                                                                    HorizontalOptions="End"
+                                                                                    VerticalOptions="Center" />
+                                                                            </Grid>
+                                                                            </Frame>
+
+
+                                                                        </FlexLayout>
+                                                                    </ViewCell>
+                                                                </DataTemplate>
+                                                            </ListView.ItemTemplate>
+                                                        </ListView>
+                                                    <StackLayout
+                                                        Padding="0"
+                                                        Margin="0"
+                                                        HorizontalOptions="FillAndExpand"
+                                                        VerticalOptions="EndAndExpand"
+                                                        BackgroundColor="#242424"
+                                                        Orientation="Horizontal">
+                                                        <Image
+                                                            Source="bn_logo"
+                                                            HeightRequest="28"
+                                                            WidthRequest="56"
+                                                            Aspect="AspectFit"
+                                                            HorizontalOptions="CenterAndExpand" />
+                                                        <Label
+                                                           HorizontalTextAlignment="End"
+                                                           HorizontalOptions="CenterAndExpand"
+                                                           TextColor="White"
+                                                           FontSize="12"
+                                                           VerticalOptions="Center"
+                                                           Text="Al día: 04/07/2019"/>
+                                                    </StackLayout>
+                                                 </StackLayout>
+                                            </tabView:SfTabItem.Content>
+                                    </tabView:SfTabItem>
+                                 <tabView:SfTabItem TitleFontColor="White"  SelectionColor="White" Title="BONOS">
+                                        <tabView:SfTabItem.Content>
+                                           <StackLayout
+                                                HorizontalOptions="FillAndExpand"
+                                                VerticalOptions="FillAndExpand"
+                                                Margin="0,5,0,0">
+                                                   <CollectionView
+                                                       ItemsSource="{Binding Bonos, Mode=TwoWay}"
+                                                       SelectionMode="Single"
+                                                       SelectionChanged="CollectionView_SelectionChanged">
+                
+                                                    <CollectionView.ItemsLayout>
+                                                       <GridItemsLayout
+                                                            Orientation="Vertical"
+                                                            Span="3"/>
+                                                    </CollectionView.ItemsLayout>
+
+                                                    <CollectionView.ItemTemplate>
+                                                        <DataTemplate>
+                                                         <Frame
+                                                            Padding="2"
+                                                            BackgroundColor="Black"
+                                                            CornerRadius="5">
+                                                             <Frame
+                                                            Padding="1"
+                                                            BackgroundColor="{Binding ColorStatus}" 
+                                                            CornerRadius="5">
+                                                                <Grid
+                                                                    Margin="2"
+                                                                    BackgroundColor="{Binding ColorStatus}" 
+                                                                    VerticalOptions="Center"
+                                                                    HorizontalOptions="Center"
+                                                                    > 
+                                                                    <Grid.RowDefinitions>
+                                                                        <RowDefinition Height="*" />
+                                                                        <RowDefinition Height="*" />
+                                                                        <RowDefinition Height="*" />
+                                                                    </Grid.RowDefinitions>
+                                                                    <Grid.ColumnDefinitions>
+                                                                        <ColumnDefinition Width="Auto" />
+                                                                        <ColumnDefinition Width="Auto" />
+                                                                    </Grid.ColumnDefinitions>
+
+                                                                        <Label
+                                                                            Grid.Row="0"
+                                                                            Text="FIFCO acom-010100"
+                                                                            Grid.ColumnSpan="2"
+                                                                            TextColor="White"
+                                                                            FontSize="9"
+                                                                            HorizontalOptions="StartAndExpand"
+                                                                            VerticalOptions="Center"
+                                                                            FontAttributes="Bold" />
+
+                                                                        <Label Text="98.86"
+                                                                               Grid.Row="1"
+                                                                               TextColor="White"
+                                                                               Grid.Column="0"
+                                                                               FontSize="16"
+                                                                               HorizontalOptions="Start"
+                                                                               VerticalOptions="Center"
+                                                                               FontAttributes="Bold" />
+                                                                        <Label Text="-0.92%"
+                                                                               Grid.Row="1"
+                                                                               Grid.Column="1"
+                                                                               TextColor="White"
+                                                                               FontSize="14"
+                                                                               VerticalOptions="Center"
+                                                                               HorizontalOptions="End"
+                                                                               FontAttributes="Bold" />
+
+                                                                        <Label Text="-0.92%"
+                                                                               Grid.Row="2"
+                                                                               Grid.Column="1"
+                                                                               VerticalOptions="Center"
+                                                                               TextColor="White"
+                                                                               FontSize="14"
+                                                                               HorizontalOptions="End"
+                                                                               FontAttributes="Bold" />
+
+                                                                        <StackLayout
+                                                                            Grid.Row="2"
+                                                                            Grid.Column="0"
+                                                                            Orientation="Horizontal">
+                                                                               <Label
+                                                                                   Text="-0.92%"
+                                                                                   TextColor="White"
+                                                                                   FontSize="12"
+                                                                                   VerticalOptions="Center"
+                                                                                   HorizontalOptions="Start"
+                                                                                   FontAttributes="Bold" />
+                                
+                                                                             <Image
+                                                                                 Margin="0,0,0,0"
+                                                                                 Source="triangle_down"
+                                                                                 HorizontalOptions="Start"
+                                                                                 VerticalOptions="Center"/>
+                                                                        </StackLayout>
+
+                                                                </Grid>
+                                                             </Frame>
+                                                             </Frame>
+                                                        </DataTemplate>
+                                                    </CollectionView.ItemTemplate>
+                                                </CollectionView>
+                                                <StackLayout
+                                                    Padding="0"
+                                                    Margin="0"
+                                                    HorizontalOptions="FillAndExpand"
+                                                    VerticalOptions="EndAndExpand"
+                                                    BackgroundColor="#242424"
+                                                    Orientation="Horizontal">
+                                                    <Image
+                                                        Source="bn_logo"
+                                                        HeightRequest="28"
+                                                        WidthRequest="56"
+                                                        Aspect="AspectFit"
+                                                        HorizontalOptions="CenterAndExpand" />
+                                                    <Label
+                                                       HorizontalTextAlignment="End"
+                                                       HorizontalOptions="CenterAndExpand"
+                                                       TextColor="White"
+                                                       FontSize="12"
+                                                       VerticalOptions="Center"
+                                                       Text="Al día: 04/07/2019"/>
+                                                </StackLayout>
+                                            </StackLayout>
+                                        </tabView:SfTabItem.Content>
+                                    </tabView:SfTabItem>
+                                 <tabView:SfTabItem TitleFontColor="White"  SelectionColor="White" Title="ACCIONES">
+                                        <tabView:SfTabItem.Content>
+                                          <StackLayout
+                                                HorizontalOptions="FillAndExpand"
+                                                VerticalOptions="FillAndExpand"
+                                                Margin="0,5,0,0">
+                                                 <CollectionView
+                                                     ItemsSource="{Binding Shares, Mode=TwoWay}"
+                                                     SelectionMode="Single"
+                                                     SelectionChanged="CollectionView_SelectionChanged">
+                
+                                                    <CollectionView.ItemsLayout>
+                                                       <GridItemsLayout
+                                                            Orientation="Vertical"
+                                                            Span="3"/>
+                                                    </CollectionView.ItemsLayout>
+
+                                                    <CollectionView.ItemTemplate>
+                                                        <DataTemplate>
+                                                         <Frame
+                                                            Padding="2"
+                                                            BackgroundColor="Black"
+                                                            CornerRadius="5">
+                                                             <Frame
+                                                            Padding="1"
+                                                            BackgroundColor="{Binding ColorStatus}" 
+                                                            CornerRadius="5">
+                                                                <Grid
+                                                                    Margin="2"
+                                                                    BackgroundColor="{Binding ColorStatus}"
+                                                                    VerticalOptions="Center"
+                                                                    HorizontalOptions="Center"
+                                                                    > 
+                                                                    <Grid.RowDefinitions>
+                                                                        <RowDefinition Height="*" />
+                                                                        <RowDefinition Height="*" />
+                                                                        <RowDefinition Height="*" />
+                                                                    </Grid.RowDefinitions>
+                                                                    <Grid.ColumnDefinitions>
+                                                                        <ColumnDefinition Width="Auto" />
+                                                                        <ColumnDefinition Width="Auto" />
+                                                                    </Grid.ColumnDefinitions>
+
+                                                                        <Label
+                                                                            Grid.Row="0"
+                                                                            Text="FIFCO acom-010100"
+                                                                            Grid.ColumnSpan="2"
+                                                                            TextColor="White"
+                                                                            FontSize="9"
+                                                                            HorizontalOptions="StartAndExpand"
+                                                                            VerticalOptions="Center"
+                                                                            FontAttributes="Bold" />
+
+                                                                        <Label Text="98.86"
+                                                                               Grid.Row="1"
+                                                                               TextColor="White"
+                                                                               Grid.Column="0"
+                                                                               FontSize="16"
+                                                                               HorizontalOptions="Start"
+                                                                               VerticalOptions="Center"
+                                                                               FontAttributes="Bold" />
+                                                                        <Label Text="-0.92%"
+                                                                               Grid.Row="1"
+                                                                               Grid.Column="1"
+                                                                               TextColor="White"
+                                                                               FontSize="14"
+                                                                               VerticalOptions="Center"
+                                                                               HorizontalOptions="End"
+                                                                               FontAttributes="Bold" />
+
+                                                                        <Label Text="-0.92%"
+                                                                               Grid.Row="2"
+                                                                               Grid.Column="1"
+                                                                               VerticalOptions="Center"
+                                                                               TextColor="White"
+                                                                               FontSize="14"
+                                                                               HorizontalOptions="End"
+                                                                               FontAttributes="Bold" />
+
+                                                                        <StackLayout
+                                                                            Grid.Row="2"
+                                                                            Grid.Column="0"
+                                                                            Orientation="Horizontal">
+                                                                               <Label
+                                                                                   Text="-0.92%"
+                                                                                   TextColor="White"
+                                                                                   FontSize="12"
+                                                                                   VerticalOptions="Center"
+                                                                                   HorizontalOptions="Start"
+                                                                                   FontAttributes="Bold" />
+                                
+                                                                             <Image
+                                                                                 Margin="0"
+                                                                                 Source="{Binding Triangle}"
+                                                                                 HorizontalOptions="Start"
+                                                                                 VerticalOptions="Center"/>
+                                                                        </StackLayout>
+
+                                                                </Grid>
+                                                             </Frame>
+                                                             </Frame>
+                                                        </DataTemplate>
+                                                    </CollectionView.ItemTemplate>
+                                                </CollectionView>
+                                                 <StackLayout
+                                                    Padding="0"
+                                                    Margin="0"
+                                                    HorizontalOptions="FillAndExpand"
+                                                    VerticalOptions="EndAndExpand"
+                                                    BackgroundColor="#242424"
+                                                    Orientation="Horizontal">
+                                                    <Image
+                                                        Source="bn_logo"
+                                                        HeightRequest="28"
+                                                        WidthRequest="56"
+                                                        Aspect="AspectFit"
+                                                        HorizontalOptions="CenterAndExpand" />
+                                                    <Label
+                                                       HorizontalTextAlignment="End"
+                                                       HorizontalOptions="CenterAndExpand"
+                                                       TextColor="White"
+                                                       FontSize="12"
+                                                       VerticalOptions="Center"
+                                                       Text="Al día: 04/07/2019"/>
+                                                </StackLayout>
+                                                 </StackLayout>
+                                        </tabView:SfTabItem.Content>
+                                    </tabView:SfTabItem>
+                                 <tabView:SfTabItem TitleFontColor="White"  SelectionColor="White" Title="TIPO CAMBIO">
+                                        <tabView:SfTabItem.Content>
+                                           <StackLayout
+                                                HeightRequest="90"
+                                                HorizontalOptions="FillAndExpand"
+                                                VerticalOptions="FillAndExpand"
+                                                Margin="0,5,0,0">
+                                                  <ListView ItemsSource="{Binding Types, Mode=TwoWay}"
+                                                            x:Name="list2"
+                                                                    SeparatorVisibility="Default"
+                                                                    SeparatorColor="White"
+                                                                    HasUnevenRows="true"
+                                                                    SelectedItem="{Binding SelectedItem}">
+                                                        <ListView.ItemTemplate>
+                                                            <DataTemplate>
+                                                                <ViewCell>
+                                                                    <StackLayout
+                                                                        Margin="0,5,0,0"
+                                                                        Orientation="Horizontal"
+                                                                        HorizontalOptions="FillAndExpand"
+                                                                        VerticalOptions="Center">
+                                                                        <Image
+                                                                            Margin="30,5,0,0"
+                                                                            Source="red_arrow"
+                                                                            HeightRequest="21"
+                                                                            WidthRequest="15" />
+                                                                              <Label
+                                                                            Margin="15,0,0,0"
+                                                                            Text="BNCR ref V"
+                                                                            TextColor="White"
+                                                                            FontSize="20"
+                                                                            FontAttributes="Bold"
+                                                                            HorizontalOptions="FillAndExpand"
+                                                                            VerticalOptions="Center"/>
+
+                                                                        <Label
+                                                                            Margin="35,0,0,0"
+                                                                            Text="5.75"
+                                                                            FontSize="20"
+                                                                            TextColor="White"
+                                                                            HorizontalOptions="FillAndExpand"
+                                                                            VerticalOptions="Center" />
+
+                                                                         <Frame
+                                                                            Margin="11"
+                                                                            Padding="5"
+                                                                            BackgroundColor="{Binding ColorStatus}" 
+                                                                            CornerRadius="5"
+                                                                            VerticalOptions="StartAndExpand">
+                                                                            <Grid
+                                                                                VerticalOptions="Center"
+                                                                                HorizontalOptions="Center"
+                                                                                BackgroundColor="{Binding ColorStatus}" >
+                                                                            <Grid.RowDefinitions>
+                                                                                <RowDefinition Height="Auto" />
+                                                                                <RowDefinition Height="Auto" />
+                                                                            </Grid.RowDefinitions>
+                                                                            <Grid.ColumnDefinitions>
+                                                                                <ColumnDefinition Width="Auto" />
+                                                                                <ColumnDefinition Width="Auto" />
+                                                                            </Grid.ColumnDefinitions>
+                                                                            <Image
+                                                                                Source="{Binding Triangle}"
+                                                                                HorizontalOptions="Center"
+                                                                                VerticalOptions="Center"/>
+                                                                             <Label
+                                                                                Grid.Row="0"
+                                                                                Grid.Column="1"
+                                                                                Text="-2.00%"
+                                                                                FontAttributes="Bold"
+                                                                                FontSize="14"
+                                                                                TextColor="White"
+                                                                                HorizontalOptions="Center"
+                                                                                VerticalOptions="Center"/>
+                                                                            <Label
+                                                                                Grid.Row="1"
+                                                                                Grid.Column="0"
+                                                                                Text="5.5"
+                                                                                FontAttributes="Bold"
+                                                                                FontSize="14"
+                                                                                TextColor="White"
+                                                                                HorizontalOptions="Center"
+                                                                                VerticalOptions="Center" />
+                                                                            <Label
+                                                                                Grid.Row="1"
+                                                                                Grid.Column="1"
+                                                                                Text="N.D"
+                                                                                FontAttributes="Bold"
+                                                                                FontSize="14"
+                                                                                TextColor="White"
+                                                                                HorizontalOptions="End"
+                                                                                VerticalOptions="Center" />
+                                                                        </Grid>
+                                                                        </Frame>
+
+                                 
+                                                                    </StackLayout>
+                                                                </ViewCell>
+                                                            </DataTemplate>
+                                                        </ListView.ItemTemplate>
+                                                    </ListView>
+                                                <StackLayout
+                                                    Padding="0"
+                                                    Margin="0"
+                                                    HorizontalOptions="FillAndExpand"
+                                                    VerticalOptions="EndAndExpand"
+                                                    BackgroundColor="#242424"
+                                                    Orientation="Horizontal">
+                                                    <Image
+                                                        Source="bn_logo"
+                                                        HeightRequest="28"
+                                                        WidthRequest="56"
+                                                        Aspect="AspectFit"
+                                                        HorizontalOptions="CenterAndExpand" />
+                                                    <Label
+                                                       HorizontalTextAlignment="End"
+                                                       HorizontalOptions="CenterAndExpand"
+                                                       TextColor="White"
+                                                       FontSize="12"
+                                                       VerticalOptions="Center"
+                                                       Text="Al día: 04/07/2019"/>
+                                                </StackLayout>
+                                             </StackLayout>
+                                        </tabView:SfTabItem.Content>
+                                    </tabView:SfTabItem>
+
+                             </tabView:SfTabView>
+                        </tabView:SfTabItem.Content>
+                    </tabView:SfTabItem>
+        <tabView:SfTabItem  TitleFontColor="White"  SelectionColor="White" Title="Configuración" ImageSource="config">
+                        <tabView:SfTabItem.Content>
+                                    <FlexLayout
+                                        BackgroundColor="Black"
+                                        HorizontalOptions="CenterAndExpand"
+                                        Direction="Column"
+                                        AlignContent="End"
+                                        JustifyContent="SpaceAround">
+                                        <Label
+                                           Text="Notificaciones"
+                                           FontAttributes="Bold"
+                                           FontSize="16"
+                                           Margin="33,0,0,0"
+                                           TextColor="White"
+                                           HorizontalOptions="Start"
+                                           VerticalOptions="Start"/>
+                                         <StackLayout
+                                            Margin="33,0,0,0"
+                                            Orientation="Horizontal">
+                                             <Label
+                                                Text="Tipo de cambio a partir de:"
+                                                FontAttributes="Bold"
+                                                FontSize="12"
+                                                TextColor="#A5A5A5"
+                                                HorizontalOptions="StartAndExpand"
+                                                VerticalOptions="Start"/>
+                                              <Label
+                                                Text="{Binding TypeChange, Mode=TwoWay}"
+                                                FontAttributes="Bold"
+                                                FontSize="12"
+                                                TextColor="White"
+                                                Margin="0,0,90,0"
+                                                HorizontalOptions="End"
+                                                VerticalOptions="Start"/>
+                                             </StackLayout>
+
+                                        <range:SfRangeSlider Orientation="Horizontal"
+                                                             HorizontalOptions="FillAndExpand"
+                                                             HeightRequest="40"
+                                                             Value="5"
+                                                             WidthRequest="320"
+                                                             ValuePlacement="BottomRight"
+                                                             LabelPlacement="BottomRight"
+                                                             RangeStart="5"
+                                                             ValueChanging="SfRangeSlider_ValueChanging"
+                                                             ShowRange="False"
+                                                             Minimum="1"
+                                                             FlexLayout.AlignSelf="Center"
+                                                             Maximum="11"
+                                                             TickColor="#4BA0D9"
+                                                             TickFrequency="1"
+                                                             StepFrequency="1"
+                                                             TickPlacement="Inline"
+                                                             KnobColor="#4BA0D9"
+                                                             TrackSelectionColor="#504BA0D9"
+                                                             LabelColor="#4BA0D9"
+                                                             TrackColor="#504BA0D9"
+                                                             SnapsTo="StepValues"
+                                                             ShowValueLabel="True"
+                                                             ToolTipPlacement="None">    
+                                            </range:SfRangeSlider>
+
+                                          <StackLayout
+                                            Margin="33,0,0,0"
+                                            Orientation="Horizontal">
+                                             <Label
+                                                Text="Cambios en bonos a partir de:"
+                                                FontAttributes="Bold"
+                                                FontSize="12"
+                                                TextColor="#A5A5A5"
+                                                HorizontalOptions="StartAndExpand"
+                                                VerticalOptions="Start"/>
+                                              <Label
+                                                Text="{Binding BonosLabel, Mode=TwoWay}"
+                                                FontAttributes="Bold"
+                                                FontSize="12"
+                                                TextColor="White"
+                                                Margin="0,0,90,0"
+                                                HorizontalOptions="End"
+                                                VerticalOptions="Start"/>
+                                           </StackLayout>
+
+                                          <range:SfRangeSlider Orientation="Horizontal"
+                                                             HorizontalOptions="FillAndExpand"
+                                                             HeightRequest="40"
+                                                             Value="5"
+                                                             WidthRequest="320"
+                                                             ValuePlacement="BottomRight"
+                                                             LabelPlacement="BottomRight"
+                                                             RangeStart="5"
+                                                             ValueChanging="SfRangeSlider_ValueChanging_1"
+                                                             ShowRange="False"
+                                                             Minimum="1"
+                                                             FlexLayout.AlignSelf="Center"
+                                                             Maximum="11"
+                                                             TickFrequency="1"
+                                                             StepFrequency="1"
+                                                             TickColor="#4BA0D9"
+                                                             TickPlacement="Inline"
+                                                             KnobColor="#4BA0D9"
+                                                             TrackSelectionColor="#504BA0D9"
+                                                             LabelColor="#4BA0D9"
+                                                             TrackColor="#504BA0D9"
+                                                             SnapsTo="StepValues"
+                                                             ShowValueLabel="True"
+                                                             ToolTipPlacement="None">    
+                                            </range:SfRangeSlider>
+                
+                                          <Label
+                                            Text="Filtros de información"
+                                            FontAttributes="Bold"
+                                            FontSize="16"
+                                            Margin="33,0,0,0"
+                                            TextColor="White"
+                                            HorizontalOptions="Start"
+                                            VerticalOptions="Start"/>          
+
+                                        <StackLayout
+                                            Margin="33,0,0,0"
+                                            Orientation="Horizontal">
+                                            <Label
+                                                Text="Moneda:"
+                                                FontAttributes="Bold"
+                                                FontSize="12"
+                                                TextColor="#A5A5A5"
+                                                HorizontalOptions="StartAndExpand"
+                                                VerticalOptions="Start"/>
+                                             <Frame
+                                                  Margin="0,0,120,0"
+                                                  Padding="1"
+                                                  BorderColor="#A5A5A5"
+                                                  HorizontalOptions="Fill"
+                                                  BackgroundColor="#A5A5A5">
+                                                  <combobox:SfComboBox
+                                                    HeightRequest="35"
+                                                    Text="Moneda"
+                                                    TextSize="12"
+                                                    VerticalOptions="Fill"
+                                                    HorizontalOptions="EndAndExpand"
+                                                    TextColor="White"
+                                                    DropDownTextSize="12"
+                                                    FlexLayout.AlignSelf="Center"
+                                                    BorderColor="#A5A5A5"
+                                                    HighlightedTextColor="#A5A5A5"
+                                                    BackgroundColor="Black"
+                                                    WidthRequest="120"                        
+                                                    ShowBorder="False"
+                                                    SelectedItem="{Binding SelectedCoin, Mode=TwoWay}"
+                                                    DropDownBorderColor="#A5A5A5">
+
+                                                 <combobox:SfComboBox.ComboBoxSource>
+                                                         <ListCollection:List x:TypeArguments="x:String">
+                                                              <x:String>Todas</x:String>
+                                                              <x:String>Colones</x:String>
+                                                              <x:String>Dólares</x:String>
+                                                          </ListCollection:List>
+                                                 </combobox:SfComboBox.ComboBoxSource>
+                                                 </combobox:SfComboBox>
+                                                 </Frame>
+                                        </StackLayout>
+
+                                         <StackLayout
+                                            Margin="33,0,0,0"
+                                             VerticalOptions="FillAndExpand"
+                                            Orientation="Horizontal">
+                                            <Label
+                                                Text="Sector:"
+                                                FontAttributes="Bold"
+                                                FontSize="12"
+                                                TextColor="#A5A5A5"
+                                                HorizontalOptions="StartAndExpand"
+                                                VerticalOptions="Start"/>
+                                            <Frame
+                                                  Margin="0,0,120,0"
+                                                  Padding="1"
+                                                  BorderColor="#A5A5A5"
+                                                  HorizontalOptions="Fill"
+                                                  BackgroundColor="#A5A5A5">
+                                                  <combobox:SfComboBox
+                                                    HeightRequest="35"
+                                                    Text="Sector"
+                                                    TextSize="12"
+                                                    VerticalOptions="Fill"
+                                                    HorizontalOptions="EndAndExpand"
+                                                    TextColor="White"
+                                                    DropDownTextSize="12"
+                                                    FlexLayout.AlignSelf="Center"
+                                                    BorderColor="#A5A5A5"
+                                                    HighlightedTextColor="#A5A5A5"
+                                                    BackgroundColor="Black"
+                                                    WidthRequest="120"
+                                                    SelectedItem="{Binding SelectedSector, Mode=TwoWay}"
+                                                    ShowBorder="False"
+                                                    DropDownBorderColor="#A5A5A5">
+
+                                                    <combobox:SfComboBox.ComboBoxSource>
+                                                             <ListCollection:List  x:TypeArguments="x:String">
+                                                                  <x:String>Todos</x:String>
+                                                                  <x:String>Público</x:String>
+                                                                  <x:String>Privado</x:String>
+                                                                  <x:String>Mixto</x:String>
+            	                                             </ListCollection:List>
+                                                     </combobox:SfComboBox.ComboBoxSource>
+                                                    </combobox:SfComboBox>
+                                            </Frame>
+                                        </StackLayout>
+               
+                                        <Label
+                                           Margin="33,0,0,0"
+                                           Text="Pantalla principal"
+                                           FontAttributes="Bold"
+                                           FontSize="16"
+                                           TextColor="White"
+                                           HorizontalOptions="Start"
+                                           VerticalOptions="Start"/>    
+                    
+                                          <StackLayout
+                                            Margin="33,0,0,0"
+                                            Orientation="Horizontal">
+                                            <Label
+                                                Text="Home:"
+                                                FontAttributes="Bold"
+                                                FontSize="12"
+                                                TextColor="#A5A5A5"
+                                                HorizontalOptions="StartAndExpand"
+                                                VerticalOptions="Start"/>
+
+                                              <Frame
+                                                  Margin="0,0,120,0"
+                                                  Padding="1"
+                                                  BorderColor="#A5A5A5"
+                                                  HorizontalOptions="Fill"
+                                                  BackgroundColor="#A5A5A5">
+                                                  <combobox:SfComboBox
+                                                    HeightRequest="35"
+                                                    EnableAutoSize="True"
+                                                    TextSize="12"
+                                                    VerticalOptions="Fill"
+                                                    HorizontalOptions="EndAndExpand"
+                                                    TextColor="White"
+                                                    DropDownTextSize="12"
+                                                    FlexLayout.AlignSelf="Center"
+                                                    BorderColor="#A5A5A5"
+                                                    HighlightedTextColor="#A5A5A5"
+                                                    BackgroundColor="Black"
+                                                    WidthRequest="120"
+                                                    SelectedItem="{Binding SelectedHomePage, Mode=TwoWay}"
+                                                    ShowBorder="False"
+                                                    DropDownBorderColor="#A5A5A5">
+                                                        <combobox:SfComboBox.ComboBoxSource>
+                                                                 <ListCollection:List x:TypeArguments="x:String">
+                                                                  <x:String>Reportos</x:String>
+                                                                  <x:String>Bonos</x:String>
+                                                                  <x:String>Acciones</x:String>
+                                                                  <x:String>Tipo Cambio</x:String>
+            	                                                </ListCollection:List>
+                                                         </combobox:SfComboBox.ComboBoxSource>
+                                              </combobox:SfComboBox>
+                                              </Frame>
+                                        </StackLayout>
+
+                                        <Button
+                                            Text="Cambiar contraseña"
+                                            TextColor="White"
+                                            BorderColor="White"
+                                            BackgroundColor="Black"
+                                            BorderWidth="1"
+                                            FontSize="14"
+                                            CornerRadius="2"
+                                            Margin="0,0,0,0"
+                                            HeightRequest="50"
+                                            WidthRequest="244"
+                                            Command="{Binding ChangePasswordCommand}"
+                                            FlexLayout.AlignSelf="Center"
+                                            VerticalOptions="CenterAndExpand"/>
+
+                                        <Button
+                                            Text="Cerrar sesión"
+                                            TextColor="White"
+                                            BackgroundColor="#AFBC24"
+                                            HeightRequest="50"
+                                            WidthRequest="244"
+                                            FontSize="14"
+                                            Command="{Binding CloseSessionCommand}"
+                                            VerticalOptions="Center"
+                                            FlexLayout.AlignSelf="Center"/>
+                                    </FlexLayout>
+                        </tabView:SfTabItem.Content>
+                </tabView:SfTabItem>
+    </tabView:SfTabView>
+
+    
+</ContentPage>

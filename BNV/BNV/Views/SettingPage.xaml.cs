@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using BNV.ViewModels;
+using Plugin.DeviceOrientation;
 using Syncfusion.SfRangeSlider.XForms;
 using Xamarin.Forms;
 
@@ -76,45 +77,53 @@ namespace BNV.Views
             switch (slider.Value)
             {
                 case 1:
-                    vm.Bonos = $"No notificar";
+                    vm.BonosLabel = $"No notificar";
                     break;
                 case 2:
-                    vm.Bonos = $"0.05%";
+                    vm.BonosLabel = $"0.05%";
                     break;
                 case 3:
-                    vm.Bonos = $"0.10%";
+                    vm.BonosLabel = $"0.10%";
                     break;
                 case 4:
-                    vm.Bonos = $"0.25%";
+                    vm.BonosLabel = $"0.25%";
                     break;
                 case 5:
-                    vm.Bonos = $"0.50%";
+                    vm.BonosLabel = $"0.50%";
                     break;
                 case 6:
-                    vm.Bonos = $"0.75%";
+                    vm.BonosLabel = $"0.75%";
                     break;
                 case 7:
-                    vm.Bonos = $"1.00%";
+                    vm.BonosLabel = $"1.00%";
                     break;
                 case 8:
-                    vm.Bonos = $"2.00%";
+                    vm.BonosLabel = $"2.00%";
                     break;
                 case 9:
-                    vm.Bonos = $"3.00%";
+                    vm.BonosLabel = $"3.00%";
                     break;
                 case 10:
-                    vm.Bonos = $"4.00%";
+                    vm.BonosLabel = $"4.00%";
                     break;
                 case 11:
-                    vm.Bonos = $"5.00%";
+                    vm.BonosLabel = $"5.00%";
                     break;
                 default:
                     break;
             }
         }
 
-        void SfComboBox_SelectionChanged(System.Object sender, Syncfusion.XForms.ComboBox.SelectionChangedEventArgs e)
+        protected override void OnAppearing()
         {
+            base.OnAppearing();
+            if (CrossDeviceOrientation.IsSupported) CrossDeviceOrientation.Current.LockOrientation(Plugin.DeviceOrientation.Abstractions.DeviceOrientations.Portrait);
+        }
+
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+            if (CrossDeviceOrientation.IsSupported) CrossDeviceOrientation.Current.UnlockOrientation();
         }
 
     }

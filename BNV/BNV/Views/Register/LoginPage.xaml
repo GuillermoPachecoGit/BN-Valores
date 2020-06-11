@@ -3,8 +3,7 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:converters="clr-namespace:BNV.Converters"
-    x:Class="BNV.Views.LoginPage"
-    
+    x:Class="BNV.Views.LoginPage"  
     BackgroundColor="Black">
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -61,7 +60,6 @@
                     WidthRequest="250"
                     Text="{Binding Email.Value}"
                     TextColor="White"
-                    Keyboard="Email"
                     PlaceholderColor="White"
                     Placeholder="Usuario">
                    </Entry>
@@ -81,7 +79,7 @@
 
             
             <StackLayout
-                Margin="0,0,0,15"
+                Margin="0,15"
                 Orientation="Vertical"
                 WidthRequest="280"
                 HorizontalOptions="Center"
@@ -122,6 +120,7 @@
 
 
             <Button
+                Margin="0,20"
                 Text="Iniciar sesión"
                 TextColor="White"
                 BackgroundColor="#AFBC24"
@@ -134,7 +133,7 @@
             <Label
                 Text="¿Olvidó su contraseña?"
                 TextColor="White"
-                Margin="0,8,0,0"
+                Margin="0,10,0,10"
                 FontSize="14"
                 IsEnabled="True"
                 HorizontalOptions="Center"
@@ -144,6 +143,7 @@
                 </Label.GestureRecognizers>
              </Label>
             <Button
+                Margin="0,20"
                 Text="Registrarse"
                 TextColor="White"
                 BorderColor="White"
@@ -151,7 +151,6 @@
                 BorderWidth="1"
                 FontSize="18"
                 CornerRadius="2"
-                Margin="0,30,0,0"
                 HeightRequest="56"
                 Command="{Binding SignUpCommand}"
                 WidthRequest="200"

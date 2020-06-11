@@ -4,6 +4,9 @@ using BNV.ViewModels;
 using BNV.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using BNV.Views.Register;
+using BNV.Views.Tabs;
+using BNV.Views.GraphicAndDetails;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace BNV

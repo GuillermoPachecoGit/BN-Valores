@@ -14,7 +14,7 @@ namespace BNV.ViewModels
     public class BonoViewModel : ViewModelBase
     {
 
-        private ObservableCollection<Bono> _bonos;
+       
 
 
         public BonoViewModel(INavigationService navigationService, IEventAggregator ea)
@@ -23,7 +23,6 @@ namespace BNV.ViewModels
             NavigateToDetailsCommand = new Command<ItemBase>(NavigateToDetailsAction);
             ea.GetEvent<FilterCoinEvent>().Subscribe(FilterCoin);
             ea.GetEvent<FilterSectorEvent>().Subscribe(FilterSector);
-            LoadData();
         }
 
         private void FilterSector(string obj)
@@ -46,21 +45,21 @@ namespace BNV.ViewModels
             {
                 for (int i = 0; i < 4; i++)
                 {
-                    bonos.Add(new Bono() { ColorStatus = "#B51010" });
+                    bonos.Add(new Bono() { ColorStatus = "#B51010", IsRed = true, Triangle = "triangle_down" });
                 }
             }
             else if (value != null && value == Config.CoinTypes.CoinDolar)
             {
                 for (int i = 0; i < 11; i++)
                 {
-                    bonos.Add(new Bono() { ColorStatus = "#B51010" });
+                    bonos.Add(new Bono() { ColorStatus = "#B51010", IsRed = true, Triangle = "triangle_down" });
                 }
             }
             else
             {
                 for (int i = 0; i < 15; i++)
                 {
-                    bonos.Add(new Bono() { ColorStatus = "#B51010" });
+                    bonos.Add(new Bono() { ColorStatus = "#B51010", IsRed = true, Triangle = "triangle_down" });
                 }
             }
 
@@ -76,38 +75,36 @@ namespace BNV.ViewModels
             {
                 for (int i = 0; i < 8; i++)
                 {
-                    bonos.Add(new Bono() { ColorStatus = "#B51010" });
+                    bonos.Add(new Bono() { ColorStatus = "#B51010", IsRed = true, Triangle = "triangle_down" });
                 }
             }
             else if (value != null && value == Config.SectorTypes.Privado)
             {
                 for (int i = 0; i < 3; i++)
                 {
-                    bonos.Add(new Bono() { ColorStatus = "#B51010" });
+                    bonos.Add(new Bono() { ColorStatus = "#B51010", IsRed = true, Triangle = "triangle_down" });
                 }
             }
             else if (value != null && value == Config.SectorTypes.Mixto)
             {
                 for (int i = 0; i < 4; i++)
                 {
-                    bonos.Add(new Bono() { ColorStatus = "#B51010" });
+                    bonos.Add(new Bono() { ColorStatus = "#B51010", IsRed = true, Triangle = "triangle_down" });
                 }
             }
             else
             {
                 for (int i = 0; i < 15; i++)
                 {
-                    bonos.Add(new Bono() { ColorStatus = "#B51010" });
+                    bonos.Add(new Bono() { ColorStatus = "#B51010", IsRed = true, Triangle = "triangle_down" });
                 }
             }
 
             Bonos = new ObservableCollection<Bono>(bonos);
         }
 
-        public Command<ItemBase> SelectionCommand { get; set; }
-
-        
-
+      
+        private ObservableCollection<Bono> _bonos;
         public ObservableCollection<Bono> Bonos
         {
             get { return _bonos; }
@@ -133,10 +130,12 @@ namespace BNV.ViewModels
              await NavigationService.NavigateAsync("HomeDetailPage", new NavigationParameters() { { "item", obj } }, false, false);
         }
 
+        public Command<ItemBase> SelectionCommand { get; set; }
+
+
+
         public void LoadData()
         {
-            if (AlreadyLoaded)
-                return;
             Task.Run(async () =>
             {
                 await SetupCoin();

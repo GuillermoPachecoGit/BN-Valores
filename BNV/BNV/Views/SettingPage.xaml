@@ -141,7 +141,7 @@
                       HorizontalOptions="Fill"
                       BackgroundColor="#A5A5A5">
                       <combobox:SfComboBox
-                        HeightRequest="35"
+                        HeightRequest="45"
                         Text="Moneda"
                         TextSize="12"
                         VerticalOptions="Fill"
@@ -186,7 +186,7 @@
                       HorizontalOptions="Fill"
                       BackgroundColor="#A5A5A5">
                       <combobox:SfComboBox
-                        HeightRequest="35"
+                        HeightRequest="45"
                         Text="Sector"
                         TextSize="12"
                         VerticalOptions="Fill"
@@ -241,7 +241,7 @@
                       HorizontalOptions="Fill"
                       BackgroundColor="#A5A5A5">
                       <combobox:SfComboBox
-                        HeightRequest="35"
+                        HeightRequest="45"
                         EnableAutoSize="True"
                         TextSize="12"
                         VerticalOptions="Fill"
@@ -258,11 +258,11 @@
                         DropDownBorderColor="#A5A5A5">
                             <combobox:SfComboBox.ComboBoxSource>
                                      <ListCollection:List x:TypeArguments="x:String">
-                                  <x:String>Reportos</x:String>
-                                  <x:String>Bonos</x:String>
-                                  <x:String>Acciones</x:String>
-                                  <x:String>Tipo Cambio</x:String>
-            	                 </ListCollection:List>
+                                      <x:String>Reportos</x:String>
+                                      <x:String>Bonos</x:String>
+                                      <x:String>Acciones</x:String>
+                                      <x:String>Tipo Cambio</x:String>
+            	                    </ListCollection:List>
                              </combobox:SfComboBox.ComboBoxSource>
                   </combobox:SfComboBox>
                   </Frame>

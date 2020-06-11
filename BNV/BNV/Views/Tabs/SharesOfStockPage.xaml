@@ -98,7 +98,7 @@
                                 
                                          <Image
                                              Margin="0,0,0,0"
-                                             Source="triangle_up"
+                                             Source="{Binding Triangle}"
                                              HorizontalOptions="Start"
                                              VerticalOptions="Center"/>
                                     </StackLayout>
@@ -109,13 +109,27 @@
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
-             <Label
-                HorizontalOptions="End"
-                TextColor="White"
-                Margin="0,8,10,20"
-                FontSize="12"
-                VerticalOptions="FillAndExpand"
-                Text="Al día: 04/07/2019 a las 00:00:00"/>
+             <StackLayout
+                Padding="0"
+                Margin="0"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="EndAndExpand"
+                BackgroundColor="#242424"
+                Orientation="Horizontal">
+                <Image
+                    Source="bn_logo"
+                    HeightRequest="28"
+                    WidthRequest="56"
+                    Aspect="AspectFit"
+                    HorizontalOptions="CenterAndExpand" />
+                <Label
+                   HorizontalTextAlignment="End"
+                   HorizontalOptions="CenterAndExpand"
+                   TextColor="White"
+                   FontSize="12"
+                   VerticalOptions="Center"
+                   Text="Al día: 04/07/2019"/>
+            </StackLayout>
              </StackLayout>
     </ContentPage.Content>
 </ContentPage>

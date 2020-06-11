@@ -1,30 +1,166 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using BNV.ViewModels;
+using BNV.Views.Bases;
+using Syncfusion.SfRangeSlider.XForms;
 using Xamarin.Forms;
 
 namespace BNV.Views
 {
-    public partial class HomeDetailPage : TabbedPage
+    public partial class HomeDetailPage : ContentPageBase
     {
+        private double StepValue;
+
         public HomeDetailPage()
         {
             InitializeComponent();
             ((NavigationPage)Xamarin.Forms.Application.Current.MainPage).BarTextColor = Color.White;
-            this.CurrentPageChanged += CurrentPageHasChanged;
+            SizeChanged += MainPageSizeChanged;
+            StepValue = 1;
+            navConfig.IsVisible = false;
+            nav.IsVisible = true;
         }
 
-        protected override bool OnBackButtonPressed()
+        void SfRangeSlider_ValueChanging(System.Object sender, Syncfusion.SfRangeSlider.XForms.ValueEventArgs e)
         {
-            ((NavigationPage)Xamarin.Forms.Application.Current.MainPage).BarBackgroundColor = Color.Black;
-            return base.OnBackButtonPressed();
+            var newStep = Math.Round(e.Value / StepValue);
+            var vm = BindingContext as HomeDetailViewModel;
+            if (vm == null) return;
+            var slider = (SfRangeSlider)sender;
+            slider.Value = newStep * StepValue;
+
+            switch (slider.Value)
+            {
+                case 1:
+                    vm.TypeChange = $"No notificar";
+                    break;
+                case 2:
+                    vm.TypeChange = $"0.05 colones";
+                    break;
+                case 3:
+                    vm.TypeChange = $"0.10 colones";
+                    break;
+                case 4:
+                    vm.TypeChange = $"0.25 colones";
+                    break;
+                case 5:
+                    vm.TypeChange = $"0.50 colones";
+                    break;
+                case 6:
+                    vm.TypeChange = $"0.75 colones";
+                    break;
+                case 7:
+                    vm.TypeChange = $"1.00 colon";
+                    break;
+                case 8:
+                    vm.TypeChange = $"2.00 colones";
+                    break;
+                case 9:
+                    vm.TypeChange = $"3.00 colones";
+                    break;
+                case 10:
+                    vm.TypeChange = $"4.00 colones";
+                    break;
+                case 11:
+                    vm.TypeChange = $"5.00 colones";
+                    break;
+                default:
+                    break;
+            }
         }
 
-        public void CurrentPageHasChanged(object sender, EventArgs e)
+        void SfRangeSlider_ValueChanging_1(System.Object sender, Syncfusion.SfRangeSlider.XForms.ValueEventArgs e)
         {
-            //this.Title = this.CurrentPage.Title;
-            //((HomeDetailViewModel)this.BindingContext).Title = this.Title;
+            var newStep = Math.Round(e.Value / StepValue);
+            var vm = BindingContext as HomeDetailViewModel;
+            if (vm == null) return;
+            var slider = (SfRangeSlider)sender;
+            slider.Value = newStep * StepValue;
+            switch (slider.Value)
+            {
+                case 1:
+                    vm.Bonos = $"No notificar";
+                    break;
+                case 2:
+                    vm.Bonos = $"0.05%";
+                    break;
+                case 3:
+                    vm.Bonos = $"0.10%";
+                    break;
+                case 4:
+                    vm.Bonos = $"0.25%";
+                    break;
+                case 5:
+                    vm.Bonos = $"0.50%";
+                    break;
+                case 6:
+                    vm.Bonos = $"0.75%";
+                    break;
+                case 7:
+                    vm.Bonos = $"1.00%";
+                    break;
+                case 8:
+                    vm.Bonos = $"2.00%";
+                    break;
+                case 9:
+                    vm.Bonos = $"3.00%";
+                    break;
+                case 10:
+                    vm.Bonos = $"4.00%";
+                    break;
+                case 11:
+                    vm.Bonos = $"5.00%";
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        void MainPageSizeChanged(object sender, EventArgs e)
+        {
+            bool isPortrait = this.Height > this.Width;
+            if (!isPortrait)
+            {
+                tabHorizontal.IsVisible = true;
+                tab.IsVisible = false;
+            }
+            else
+            {
+                tab.IsVisible = true;
+                tabHorizontal.IsVisible = false;
+            }
+            
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            group1.SelectedItem = group1.Items[0];
+            group.SelectedItem = group.Items[0];
+            group3.SelectedItem = group3.Items[0];
+            group4.SelectedItem = group4.Items[0];
+        }
+
+        void SfTabView_SelectionChanged(System.Object sender, Syncfusion.XForms.TabView.SelectionChangedEventArgs e)
+        {
+            var vm = BindingContext as HomeDetailViewModel;
+            if (vm == null) return;
+
+            var selectedIndex = e.Index;
+            if (selectedIndex == 0)
+            {
+                vm.SetDetailsCommand.Execute(null);
+                navConfig.IsVisible = false;
+                nav.IsVisible = true;
+                nav2.IsVisible = true;
+            }
+            else
+            {
+                vm.SetConfigCommand.Execute(null);
+                nav.IsVisible = false;
+                navConfig.IsVisible = true;
+                nav2.IsVisible = false;
+            }
+               
         }
     }
 }

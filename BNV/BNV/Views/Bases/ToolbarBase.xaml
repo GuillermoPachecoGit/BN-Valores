@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Renderers="clr-namespace:BNV.Views.Bases"
+    x:Class="BNV.Views.Bases.ToolbarBase" >
+    <ContentView.Content>
+        <Frame IsClippedToBounds="True" BackgroundColor="{StaticResource NavigationBarColor}" HasShadow="true" CornerRadius="0" Padding="10" HorizontalOptions="FillAndExpand" OutlineColor="{StaticResource NavigationBarColor}" BorderColor="{StaticResource NavigationBarColor}" HeightRequest="56">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="45" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="45" />
+                </Grid.ColumnDefinitions>
+                <Renderers:IconAwesomeButtonBase BackgroundColor="{StaticResource NavigationBarColor}" BorderColor="{StaticResource NavigationBarColor}" Command="{Binding ShowMenuCommand}" FontSize="20" TextColor="{StaticResource IconMenuColor}" Grid.Column="2" Grid.Row="0" Icon="Bars" />
+                <Label FontSize="16" VerticalOptions="Center" HorizontalOptions="Center" FontAttributes="Bold" Grid.Column="1" Grid.Row="0" Text="{Binding TitleToolbar}" TextColor="{StaticResource TitleNavigationBarColor}" />
+            </Grid>
+        </Frame>
+    </ContentView.Content>
+</ContentView>

@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using BNV.Settings;
+using Plugin.DeviceOrientation;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -12,6 +13,7 @@ namespace BNV.Views
         public StatisticPage()
         {
            InitializeComponent();
+
             Task.Run(async () =>
            {
                var value = await SecureStorage.GetAsync(Config.MainPage);
@@ -35,6 +37,18 @@ namespace BNV.Views
                else
                    CurrentPage = Children[0];
            });
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            if (CrossDeviceOrientation.IsSupported) CrossDeviceOrientation.Current.LockOrientation(Plugin.DeviceOrientation.Abstractions.DeviceOrientations.Portrait);
+        }
+
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+            if (CrossDeviceOrientation.IsSupported) CrossDeviceOrientation.Current.UnlockOrientation();
         }
     }
 }

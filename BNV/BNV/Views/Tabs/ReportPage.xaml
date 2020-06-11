@@ -2,44 +2,45 @@
 <ContentPage
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    x:Class="BNV.Views.ChangeTypePage"
-    Title="Tipo Cambio"
+    x:Class="BNV.Views.Tabs.ReportPage"
     xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
     prism:ViewModelLocator.AutowireViewModel="True"
+    Title="Reportos"
     BackgroundColor="Black">
     <ContentPage.Content>
-         <StackLayout
+        <StackLayout
             HeightRequest="90"
             HorizontalOptions="FillAndExpand"
             VerticalOptions="FillAndExpand"
             Margin="0,5,0,0">
-              <ListView ItemsSource="{Binding Types, Mode=TwoWay}"
-                                SeparatorVisibility="Default"
-                                SeparatorColor="White"
-                                HasUnevenRows="true"
-                                SelectedItem="{Binding SelectedItem}">
+            <ListView
+                x:Name="list"
+                ItemsSource="{Binding Reports, Mode=TwoWay}"
+                SeparatorVisibility="Default"
+                SeparatorColor="White"
+                HasUnevenRows="true"
+                SelectedItem="{Binding SelectedItem}">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
-                                <StackLayout
+                                <FlexLayout
                                     Margin="0,5,0,0"
-                                    Orientation="Horizontal"
-                                    HorizontalOptions="FillAndExpand"
-                                    VerticalOptions="Center">
+                                    Direction="Row"
+                                    AlignItems="Center"
+                                    JustifyContent="SpaceEvenly">
                                     <Image
                                         Margin="30,5,0,0"
-                                        Source="red_arrow"
+                                        Source="{Binding Arrow}"
                                         HeightRequest="21"
                                         WidthRequest="15" />
-                                          <Label
+                                     <Label
                                         Margin="15,0,0,0"
-                                        Text="BNCR ref V"
+                                        Text="Pub C 8-15d"
                                         TextColor="White"
                                         FontSize="20"
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
                                         VerticalOptions="Center"/>
-
                                     <Label
                                         Margin="35,0,0,0"
                                         Text="5.75"
@@ -47,15 +48,13 @@
                                         TextColor="White"
                                         HorizontalOptions="FillAndExpand"
                                         VerticalOptions="Center" />
-
-                                     <Frame
+                                      <Frame
                                         Margin="11"
                                         Padding="5"
                                         BackgroundColor="{Binding ColorStatus}" 
                                         CornerRadius="5"
                                         VerticalOptions="StartAndExpand">
                                         <Grid
-                                            WidthRequest="65"
                                             VerticalOptions="Center"
                                             HorizontalOptions="Center"
                                             BackgroundColor="{Binding ColorStatus}" >
@@ -63,8 +62,26 @@
                                             <RowDefinition Height="Auto" />
                                             <RowDefinition Height="Auto" />
                                         </Grid.RowDefinitions>
-                                        <Label
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <Image
+                                            Source="{Binding Triangle}"
+                                            HorizontalOptions="Center"
+                                            VerticalOptions="Center"/>
+                                         <Label
                                             Grid.Row="0"
+                                            Grid.Column="1"
+                                            Text="-2.00%"
+                                            FontAttributes="Bold"
+                                            FontSize="14"
+                                            TextColor="White"
+                                            HorizontalOptions="Center"
+                                            VerticalOptions="Center"/>
+                                        <Label
+                                            Grid.Row="1"
+                                            Grid.Column="0"
                                             Text="5.5"
                                             FontAttributes="Bold"
                                             FontSize="14"
@@ -73,28 +90,43 @@
                                             VerticalOptions="Center" />
                                         <Label
                                             Grid.Row="1"
-                                            Text="N.D."
+                                            Grid.Column="1"
+                                            Text="N.D"
                                             FontAttributes="Bold"
                                             FontSize="14"
                                             TextColor="White"
-                                            HorizontalOptions="Center"
+                                            HorizontalOptions="End"
                                             VerticalOptions="Center" />
                                     </Grid>
                                     </Frame>
 
-                                 
-                                </StackLayout>
+
+                                </FlexLayout>
                             </ViewCell>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
-            <Label
-                HorizontalOptions="End"
-                TextColor="White"
-                Margin="0,8,10,20"
-                FontSize="12"
-                VerticalOptions="FillAndExpand"
-                Text="Al día: 04/07/2019 a las 00:00:00"/>
+            <StackLayout
+                Padding="0"
+                Margin="0"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="EndAndExpand"
+                BackgroundColor="#242424"
+                Orientation="Horizontal">
+                <Image
+                    Source="bn_logo"
+                    HeightRequest="28"
+                    WidthRequest="56"
+                    Aspect="AspectFit"
+                    HorizontalOptions="CenterAndExpand" />
+                <Label
+                   HorizontalTextAlignment="End"
+                   HorizontalOptions="CenterAndExpand"
+                   TextColor="White"
+                   FontSize="12"
+                   VerticalOptions="Center"
+                   Text="Al día: 04/07/2019"/>
+            </StackLayout>
          </StackLayout>
     </ContentPage.Content>
 </ContentPage>

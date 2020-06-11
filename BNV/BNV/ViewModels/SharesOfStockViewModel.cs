@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using Acr.UserDialogs;
 using BNV.Events;
 using BNV.Models;
 using BNV.Settings;
@@ -21,7 +23,6 @@ namespace BNV.ViewModels
             NavigateToDetailsCommand = new Command<ItemBase>(NavigateToDetailsAction);
             ea.GetEvent<FilterCoinEvent>().Subscribe(FilterCoin);
             ea.GetEvent<FilterSectorEvent>().Subscribe(FilterSector);
-            LoadData();
         }
 
         private void FilterSector(string obj)
@@ -43,21 +44,21 @@ namespace BNV.ViewModels
             {
                 for (int i = 0; i < 3; i++)
                 {
-                    shares.Add(new ShareOfStock() { ColorStatus = "#00579F" });
+                    shares.Add(new ShareOfStock() { ColorStatus = "#00579F", IsBlue = true });
                 }
             }
             else if (value != null && value == Config.CoinTypes.CoinDolar)
             {
                 for (int i = 0; i < 2; i++)
                 {
-                    shares.Add(new ShareOfStock() { ColorStatus = "#00579F" });
+                    shares.Add(new ShareOfStock() { ColorStatus = "#00579F", IsBlue = true });
                 }
             }
             else
             {
                 for (int i = 0; i < 11; i++)
                 {
-                    shares.Add(new ShareOfStock() { ColorStatus = "#00579F" });
+                    shares.Add(new ShareOfStock() { ColorStatus = "#00579F", IsBlue = true });
                 }
             }
 
@@ -73,28 +74,28 @@ namespace BNV.ViewModels
             {
                 for (int i = 0; i < 1; i++)
                 {
-                    shares.Add(new ShareOfStock() { ColorStatus = "#00579F" });
+                    shares.Add(new ShareOfStock() { ColorStatus = "#00579F", IsBlue = true });
                 }
             }
             else if (value != null && value == Config.SectorTypes.Privado)
             {
                 for (int i = 0; i < 3; i++)
                 {
-                    shares.Add(new ShareOfStock() { ColorStatus = "#00579F" });
+                    shares.Add(new ShareOfStock() { ColorStatus = "#00579F", IsBlue = true });
                 }
             }
             else if (value != null && value == Config.SectorTypes.Mixto)
             {
                 for (int i = 0; i < 8; i++)
                 {
-                    shares.Add(new ShareOfStock() { ColorStatus = "#00579F" });
+                    shares.Add(new ShareOfStock() { ColorStatus = "#00579F", IsBlue = true });
                 }
             }
             else
             {
                 for (int i = 0; i < 15; i++)
                 {
-                    shares.Add(new ShareOfStock() { ColorStatus = "#00579F" });
+                    shares.Add(new ShareOfStock() { ColorStatus = "#00579F", IsBlue = true });
                 }
             }
 
@@ -124,6 +125,7 @@ namespace BNV.ViewModels
         {
             await NavigationService.NavigateAsync("HomeDetailPage", new NavigationParameters() { { "item", obj } }, false, false);
         }
+
 
         public void LoadData()
         {

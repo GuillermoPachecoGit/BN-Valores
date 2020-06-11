@@ -28,15 +28,6 @@ namespace BNV.ViewModels
                 new Model("9 Jun", 43)
             };
 
-            Periods = new ObservableCollection<string>()
-            {
-                "1 mes" ,
-                "3 meses",
-                "6 meses" ,
-                "1 año" ,
-                "2 años"
-            };
-
             ValueRendimiento = "3.70";
             PercentageRendimiento = "Rendimiento: " + "3.55%";
             ValueVolumen = "13.0%";
@@ -62,7 +53,6 @@ namespace BNV.ViewModels
                 new Model("9 Jun", rnd.Next(10,100))
             };
         }
-
 
         private void SetColor(string obj)
         {
@@ -111,8 +101,6 @@ namespace BNV.ViewModels
 
         public IEventAggregator Events { get; }
         public ObservableCollection<Model> Data { get; set; }
-
-        public ObservableCollection<string> Periods { get; set; }
 
         private string _color;
         public string Color

@@ -53,8 +53,8 @@
               <Frame
                 Padding="0"
                 Margin="15,5,15,0"
-                CornerRadius="20">
-                <buttons:SfChipGroup SelectedItem="{Binding SelectedItem}" HorizontalOptions ="Center"  VerticalOptions="StartAndExpand" HeightRequest="35" BackgroundColor="#535353" ChipTextColor="white" ChipBackgroundColor="#535353" SelectedChipBackgroundColor="#808080"  Type="Choice">
+                CornerRadius="56">
+                <buttons:SfChipGroup x:Name="group" SelectedItem="{Binding SelectedItem}" HorizontalOptions ="Center"  VerticalOptions="StartAndExpand" HeightRequest="35" BackgroundColor="#535353" ChipTextColor="white" ChipBackgroundColor="#535353" SelectedChipBackgroundColor="#808080"  Type="Choice">
                     <buttons:SfChipGroup.ChipLayout>
 					        <FlexLayout 
 						        HorizontalOptions="Fill" 
@@ -66,12 +66,12 @@
 						        AlignItems="Center"/>
 				        </buttons:SfChipGroup.ChipLayout>
 			        <buttons:SfChipGroup.Items>
-                        <buttons:SfChip  FontSize="14" BackgroundColor="#535353"  VerticalOptions="Fill" TextColor="White" Text="1 sem"/>
-				        <buttons:SfChip  FontSize="14" BackgroundColor="#535353"  VerticalOptions="Fill" TextColor="White" Text="1 mes"/>
-				        <buttons:SfChip FontSize="14"  BackgroundColor="#535353"  VerticalOptions="Fill" TextColor="White" Text="3 meses"/>
-                        <buttons:SfChip FontSize="14"  BackgroundColor="#535353"  VerticalOptions="Fill" TextColor="White" Text="6 meses"/>
-                        <buttons:SfChip FontSize="14"  BackgroundColor="#535353"  VerticalOptions="Fill" TextColor="White" Text="1 año"/>
-                        <buttons:SfChip FontSize="14"  BackgroundColor="#535353"  VerticalOptions="Fill" TextColor="White" Text="2 años"/>
+                        <buttons:SfChip FontSize="12" BackgroundColor="#535353"  VerticalOptions="Fill" TextColor="White" Text="1 sem"/>
+				        <buttons:SfChip FontSize="12" BackgroundColor="#535353"  VerticalOptions="Fill" TextColor="White" Text="1 mes"/>
+				        <buttons:SfChip FontSize="12"  BackgroundColor="#535353"  VerticalOptions="Fill" TextColor="White" Text="3 meses"/>
+                        <buttons:SfChip FontSize="12"  BackgroundColor="#535353"  VerticalOptions="Fill" TextColor="White" Text="6 meses"/>
+                        <buttons:SfChip FontSize="12"  BackgroundColor="#535353"  VerticalOptions="Fill" TextColor="White" Text="1 año"/>
+                        <buttons:SfChip FontSize="12"  BackgroundColor="#535353"  VerticalOptions="Fill" TextColor="White" Text="2 años"/>
 			       
 			        </buttons:SfChipGroup.Items>
 		        </buttons:SfChipGroup>

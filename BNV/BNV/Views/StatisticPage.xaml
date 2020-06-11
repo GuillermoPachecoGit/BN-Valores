@@ -8,10 +8,11 @@
     Icon="estadistica"
     Title="Estadísticas"
     xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+    xmlns:views1="clr-namespace:BNV.Views.Tabs"
     prism:ViewModelLocator.AutowireViewModel="True"
     x:Class="BNV.Views.StatisticPage">
     <!--Pages can be added as references or inline-->
-    <views:ReportPage/>
+    <views1:ReportPage/>
     <views:BonoPage/>
     <views:SharesOfStockPage/>
     <views:ChangeTypePage/>

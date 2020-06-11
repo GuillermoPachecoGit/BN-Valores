@@ -21,7 +21,6 @@ namespace BNV.ViewModels
             NavigateToDetailsCommand = new Command<ItemBase>(NavigateToDetailsAction);
             ea.GetEvent<FilterCoinEvent>().Subscribe(FilterCoin);
             ea.GetEvent<FilterSectorEvent>().Subscribe(FilterSector);
-            LoadData();
         }
 
         private void FilterSector(string obj)
@@ -44,21 +43,21 @@ namespace BNV.ViewModels
             {
                 for (int i = 0; i < 14; i++)
                 {
-                    types.Add(new ShareOfStock() { ColorStatus = "#B51010" });
+                    types.Add(new ShareOfStock() { ColorStatus = "#B51010", IsRed = true, Triangle = "triangle_down" });
                 }
             }
             else if (value != null && value == Config.CoinTypes.CoinDolar)
             {
                 for (int i = 0; i < 1; i++)
                 {
-                    types.Add(new ShareOfStock() { ColorStatus = "#B51010" });
+                    types.Add(new ShareOfStock() { ColorStatus = "#B51010", IsRed = true, Triangle = "triangle_down" });
                 }
             }
             else
             {
                 for (int i = 0; i < 15; i++)
                 {
-                    types.Add(new ShareOfStock() { ColorStatus = "#B51010" });
+                    types.Add(new ShareOfStock() { ColorStatus = "#B51010", IsRed = true, Triangle = "triangle_down" });
                 }
             }
 
@@ -74,28 +73,28 @@ namespace BNV.ViewModels
             {
                 for (int i = 0; i < 2; i++)
                 {
-                    types.Add(new ShareOfStock() { ColorStatus = "#B51010" });
+                    types.Add(new ShareOfStock() { ColorStatus = "#B51010", IsRed = true, Triangle = "triangle_down" });
                 }
             }
             else if (value != null && value == Config.SectorTypes.Privado)
             {
                 for (int i = 0; i < 11; i++)
                 {
-                    types.Add(new ShareOfStock() { ColorStatus = "#B51010" });
+                    types.Add(new ShareOfStock() { ColorStatus = "#B51010", IsRed = true, Triangle = "triangle_down" });
                 }
             }
             else if (value != null && value == Config.SectorTypes.Mixto)
             {
                 for (int i = 0; i < 6; i++)
                 {
-                    types.Add(new ShareOfStock() { ColorStatus = "#B51010" });
+                    types.Add(new ShareOfStock() { ColorStatus = "#B51010", IsRed = true, Triangle = "triangle_down" });
                 }
             }
             else
             {
                 for (int i = 0; i < 15; i++)
                 {
-                    types.Add(new ShareOfStock() { ColorStatus = "#B51010"});
+                    types.Add(new ShareOfStock() { ColorStatus = "#B51010", IsRed = true, Triangle = "triangle_down" });
                 }
             }
 
@@ -128,8 +127,6 @@ namespace BNV.ViewModels
 
         public void LoadData()
         {
-            if (AlreadyLoaded)
-                return;
             Task.Run(async () =>
             {
                 await SetupCoin();

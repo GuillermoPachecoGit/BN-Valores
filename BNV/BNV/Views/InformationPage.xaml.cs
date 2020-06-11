@@ -12,5 +12,11 @@ namespace BNV.Views
             InitializeComponent();
 
         }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            group.SelectedItem = group.Items[0];
+        }
     }
 }

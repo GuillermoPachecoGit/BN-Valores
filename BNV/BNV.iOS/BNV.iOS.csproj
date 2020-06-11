@@ -199,6 +199,8 @@
     <BundleResource Include="Resources\green_arrow.png" />
     <BundleResource Include="Resources\red_arrow.png" />
     <BundleResource Include="Resources\phone.png" />
+    <BundleResource Include="Resources\ic_back_arrow.png" />
+    <BundleResource Include="Resources\ic_logo_small.png" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -207,7 +209,7 @@
     <Reference Include="Xamarin.iOS" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Xamarin.Forms" Version="3.6.0.344457" />
+    <PackageReference Include="Xamarin.Forms" Version="4.6.0.726" />
     <PackageReference Include="Prism.Unity.Forms" Version="7.2.0.1367" />
     <PackageReference Include="Acr.UserDialogs">
       <Version>7.0.35</Version>
@@ -227,12 +229,24 @@
     <PackageReference Include="Syncfusion.Xamarin.Buttons">
       <Version>18.1.0.45</Version>
     </PackageReference>
+    <PackageReference Include="Com.Airbnb.Xamarin.Forms.Lottie">
+      <Version>3.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="Syncfusion.Xamarin.SfTabView">
+      <Version>18.1.0.45</Version>
+    </PackageReference>
+    <PackageReference Include="Plugin.DeviceOrientation">
+      <Version>1.0.7</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BNV\BNV.csproj">
       <Project>{C51907B5-3BAB-40F4-A277-46E9E0CD551E}</Project>
       <Name>BNV</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\ic_graph_active.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Renderers="clr-namespace:BNV.Views.Bases"
+    x:Class="BNV.Views.Bases.ToolbarBackBase" >
+    <ContentView.Content>
+        <Frame BackgroundColor="{StaticResource NavigationBarBackColor}" HasShadow="true" CornerRadius="0" Padding="10" OutlineColor="{StaticResource NavigationBarBackColor}" BorderColor="{StaticResource NavigationBarBackColor}" HeightRequest="56">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="45" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="45" />
+                </Grid.ColumnDefinitions>
+                <Renderers:IconAwesomeButtonBase BackgroundColor="{StaticResource NavigationBarColor}" BorderColor="{StaticResource NavigationBarColor}" Command="{Binding ShowMenuCommand}" FontSize="20" TextColor="{StaticResource IconMenuColor}" Grid.Column="2" Grid.Row="0" Icon="Bars" />
+                <Image
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    HorizontalOptions="Center" 
+                    VerticalOptions="Center"
+			        WidthRequest="30" HeightRequest="30"
+			        Source = "logo.png"/>
+
+                <!--<Renderers:IconAwesomeButtonBase Command="{Binding ReturnToPreviousPageCommand}" FontSize="30" TextColor="{StaticResource IconBackColor}" Grid.Column="0" Grid.Row="0" TypeIcon="Light" BackgroundColor="{StaticResource NavigationBarBackColor}" BorderColor="{StaticResource NavigationBarBackColor}" Icon="AngleLeft" />-->
+                <Label VerticalOptions="Center" HorizontalOptions="Center"  Grid.Column="1" Grid.Row="0" FontSize="16" FontAttributes="Bold" Text="{Binding TitleToolbar}" TextColor="{StaticResource TitleNavigationBarBackColor}" />
+            </Grid>
+        </Frame>
+    </ContentView.Content>
+</ContentView>

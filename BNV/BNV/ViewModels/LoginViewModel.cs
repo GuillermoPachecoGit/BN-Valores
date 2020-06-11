@@ -48,7 +48,23 @@ namespace BNV.ViewModels
                 return;
             }
 
-            await NavigationService.NavigateAsync("HomePage");
+            Device.BeginInvokeOnMainThread(async () =>
+            {
+
+                try
+                {
+                    using (UserDialogs.Instance.Loading("Iniciando Sesión..."))
+                    {
+                        await Task.Delay(5);
+                        await NavigationService.NavigateAsync("HomePage");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    var val = ex.Message;
+                }
+            });
+
         }
 
         public ICommand SignUpCommand { get; set; }

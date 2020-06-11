@@ -17,11 +17,14 @@ namespace BNV.ViewModels
         {
             Title = "Register Page";
             TypeChange = "0.50 colones";
-            Bonos = "0.50%";
+            BonosLabel = "0.50%";
             Events = ea;
             ChangePasswordCommand = new Command(async () => await ChangePasswordActionExecute());
             CloseSessionCommand = new Command(async () => await CloseSessionActionExecute());
         }
+
+        public IEventAggregator Events { get; }
+
 
         public async Task SetupFilters()
         {
@@ -49,14 +52,13 @@ namespace BNV.ViewModels
 
         private string _bonos;
 
-        public string Bonos
+        public string BonosLabel
         {
             get { return _bonos; }
             set { _bonos = value; RaisePropertyChanged(); }
 
         }
 
-        public IEventAggregator Events { get; }
 
         private string _selectedCoin;
 
@@ -96,9 +98,14 @@ namespace BNV.ViewModels
             await NavigationService.GoBackToRootAsync();
         }
 
-        public void OnAppearing()
+        public async void OnAppearing()
         {
             Events.GetEvent<NavigationTitleEvent>().Publish("Configuración");
+            var value = await SecureStorage.GetAsync(Config.MainPage);
+            if (!string.IsNullOrEmpty(value))
+                SelectedHomePage = value;
+            else
+                SelectedHomePage = "Reportos";
         }
 
         public void OnDisappearing()
