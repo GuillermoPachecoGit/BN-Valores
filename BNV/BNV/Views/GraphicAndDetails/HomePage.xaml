@@ -172,9 +172,10 @@
                                                 VerticalOptions="FillAndExpand"
                                                 Margin="0,5,0,0">
                                                    <CollectionView
+                                                       x:Name="list3"
+                                                       SelectedItem="{Binding SelectedItem}"
                                                        ItemsSource="{Binding Bonos, Mode=TwoWay}"
-                                                       SelectionMode="Single"
-                                                       SelectionChanged="CollectionView_SelectionChanged">
+                                                       SelectionMode="Single">
                 
                                                     <CollectionView.ItemsLayout>
                                                        <GridItemsLayout
@@ -300,9 +301,10 @@
                                                 VerticalOptions="FillAndExpand"
                                                 Margin="0,5,0,0">
                                                  <CollectionView
+                                                     x:Name="list4"
+                                                     SelectedItem="{Binding SelectedItem}"
                                                      ItemsSource="{Binding Shares, Mode=TwoWay}"
-                                                     SelectionMode="Single"
-                                                     SelectionChanged="CollectionView_SelectionChanged">
+                                                     SelectionMode="Single">
                 
                                                     <CollectionView.ItemsLayout>
                                                        <GridItemsLayout

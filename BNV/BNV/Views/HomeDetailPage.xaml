@@ -30,7 +30,7 @@
                     <ColumnDefinition Width="*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="65"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0" Grid.Column="0"  HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
                     <Grid.GestureRecognizers>
@@ -52,7 +52,7 @@
                         <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
                     </Grid.RowDefinitions>
-                    <Label Grid.Column="0" Grid.Row="0" FontAttributes="Bold" TextColor="White" FontSize="16" VerticalTextAlignment="Center" Text="{Binding ValueRendimiento, Mode=TwoWay}"></Label>
+                    <Label Grid.Column="0" Grid.Row="0" FontAttributes="Bold" TextColor="White"  FontSize="16" VerticalTextAlignment="Center" Text="{Binding ValueRendimiento, Mode=TwoWay}"></Label>
                         
                     <StackLayout Grid.Column="1" Grid.Row="0" HorizontalOptions="StartAndExpand" VerticalOptions="Center" Orientation="Horizontal">
                         <Image
@@ -68,7 +68,7 @@
                     <Label Grid.Column="1" HorizontalOptions="EndAndExpand" Grid.Row="2" HorizontalTextAlignment="End" TextColor="White" FontSize="12" VerticalTextAlignment="Center" Text="{Binding PercentageVolumen, Mode=TwoWay}"></Label>
                 </Grid>
             </Grid>
-            <Grid x:Name="navConfig" Margin="0" Padding="0" BackgroundColor="{Binding Color}">
+            <Grid x:Name="navConfig"  Margin="0" Padding="0" BackgroundColor="{Binding Color}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="60"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>
@@ -85,7 +85,7 @@
                      <Label Grid.Row="0" Grid.Column="1" Text="Configuración" Margin="0,0,50,0" VerticalTextAlignment="Center" HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalOptions="CenterAndExpand" TextColor="White" FontSize="20"></Label>
             </Grid>
             <!--Vertical Pages -->
-            <tabView:SfTabView EnableSwiping="False" Margin="-7" HorizontalOptions="FillAndExpand" TabHeight="65" VerticalOptions="FillAndExpand" SelectionChanged="SfTabView_SelectionChanged" TabHeaderBackgroundColor="#4BA0D9" VisibleHeaderCount="2" TabHeaderPosition="Bottom" BackgroundColor="#4BA0D9" DisplayMode="ImageWithText" >
+            <tabView:SfTabView x:Name="TabVerticalMain" EnableSwiping="False" Margin="-7" HorizontalOptions="FillAndExpand" TabHeight="65" VerticalOptions="FillAndExpand" SelectionChanged="SfTabView_SelectionChanged" TabHeaderBackgroundColor="#4BA0D9" VisibleHeaderCount="2" TabHeaderPosition="Bottom" BackgroundColor="#4BA0D9" DisplayMode="ImageWithText" >
                 <tabView:SfTabView.SelectionIndicatorSettings>
                     <tabView:SelectionIndicatorSettings
                         Color="#00579F"
@@ -94,7 +94,7 @@
                 </tabView:SfTabView.SelectionIndicatorSettings>
                 <tabView:SfTabItem TitleFontColor="White"  SelectionColor="White" Title="Estadísticas" ImageSource="estadistica">
                         <tabView:SfTabItem.Content>
-                             <tabView:SfTabView EnableSwiping="True" TabHeight="60" BackgroundColor="Black" TabHeaderBackgroundColor="#737477" VisibleHeaderCount="2" DisplayMode="ImageWithText">
+                             <tabView:SfTabView SelectionChanged="tabs_vertical_SelectionChanged"  x:Name="tabs_vertical" EnableSwiping="True" TabHeight="60" BackgroundColor="Black" TabHeaderBackgroundColor="#737477" VisibleHeaderCount="2" DisplayMode="ImageWithText">
                                  <tabView:SfTabView.SelectionIndicatorSettings>
                                    <tabView:SelectionIndicatorSettings
                                        Color="#00579F" 
@@ -769,14 +769,14 @@
         <!--Horinzontal Pages -->
         <StackLayout x:Name="tabHorizontal" Padding="0" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
 
-            <Grid x:Name="nav2" Margin="0" Padding="10" BackgroundColor="{Binding Color}">
+            <Grid x:Name="nav2" Margin="0" Padding="5" BackgroundColor="{Binding Color}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="60"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="65"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
                 </Grid.RowDefinitions>
 
                  <Grid Grid.Row="0" Grid.Column="0"  HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
@@ -817,7 +817,7 @@
             
             </Grid>
 
-            <tabView:SfTabView Margin="-7" TabHeight="38" BackgroundColor="Black"  TabHeaderBackgroundColor="#737477" VisibleHeaderCount="2" DisplayMode="ImageWithText">
+            <tabView:SfTabView SelectionChanged="tabs_horizontal_SelectionChanged"   x:Name="tabs_horizontal" Margin="-7" TabHeight="38" BackgroundColor="Black"  TabHeaderBackgroundColor="#737477" VisibleHeaderCount="2" DisplayMode="ImageWithText">
                     <tabView:SfTabItem TitleFontColor="White"  SelectionColor="White" Title="Gráfica" ImageSource="ic_graph_active" >
                         <tabView:SfTabItem.HeaderContent>
                             <Grid HorizontalOptions="CenterAndExpand" >
@@ -1014,7 +1014,7 @@
                                     Text="Al día: 04/07/2019"/>
                             </StackLayout>
                         </tabView:SfTabItem.Content>
-                    </tabView:SfTabItem>
+                        </tabView:SfTabItem>
                     <tabView:SfTabItem  TitleFontColor="White"  SelectionColor="White" Title="Detalle" ImageSource="ic_info">
                         <tabView:SfTabItem.HeaderContent>
                             <Grid HorizontalOptions="CenterAndExpand" >
@@ -1042,11 +1042,11 @@
                                       <Frame
                                         Padding="0"
                                         WidthRequest="450"
-                                        Margin="0,10"
+                                        Margin="0,5"
                                          Grid.Column="0"
                                         HorizontalOptions="CenterAndExpand"
                                         CornerRadius="20">
-                                        <buttons:SfChipGroup x:Name="group4" SelectedItem="{Binding SelectedItem4, Mode=TwoWay}" HorizontalOptions="Center" VerticalOptions="StartAndExpand" HeightRequest="35" BackgroundColor="#535353" ChipTextColor="white" ChipBackgroundColor="#535353" SelectedChipBackgroundColor="#808080"  Type="Choice">
+                                        <buttons:SfChipGroup x:Name="group4" SelectedItem="{Binding SelectedItem4, Mode=TwoWay}" HorizontalOptions="Center" VerticalOptions="StartAndExpand"  BackgroundColor="#535353" ChipTextColor="white" ChipBackgroundColor="#535353" SelectedChipBackgroundColor="#808080"  Type="Choice">
                                             <buttons:SfChipGroup.ChipLayout>
 					                                <FlexLayout 
 						                                HorizontalOptions="Fill" 
@@ -1079,9 +1079,6 @@
                                     </StackLayout>
 
                                 </Grid>
-
-
-
                                  <StackLayout
                                       HorizontalOptions="Center"
                                       VerticalOptions="CenterAndExpand">
@@ -1122,14 +1119,14 @@
                                               Grid.Column="0"
                                               TextColor="White"
                                               Margin="0,0,5,0"
-                                              FontSize="18"
+                                              FontSize="16"
                                               HorizontalOptions="StartAndExpand"
                                               HorizontalTextAlignment="Start"
                                               Text="Volumen transado máximo"/>
                                           <Label
                                               Grid.Column="1"
                                               TextColor="White"
-                                              FontSize="18"
+                                              FontSize="16"
                                               HorizontalTextAlignment="End"
                                               WidthRequest="80"
                                               HorizontalOptions="EndAndExpand"
@@ -1147,13 +1144,13 @@
                                               Grid.Column="0"
                                               TextColor="White"
                                               Margin="0,0,5,0"
-                                              FontSize="18"
+                                              FontSize="16"
                                               HorizontalOptions="StartAndExpand"
                                               HorizontalTextAlignment="Start"
                                               Text="Valor promedio"/>
                                           <Label
                                               TextColor="White"
-                                              FontSize="18"
+                                              FontSize="16"
                                               WidthRequest="80"
                                               HorizontalTextAlignment="End"
                                               HorizontalOptions="EndAndExpand"
@@ -1174,12 +1171,12 @@
                                               Margin="0,0,5,0"
                                               HorizontalOptions="StartAndExpand"
                                               HorizontalTextAlignment="Start"
-                                              FontSize="18"
+                                              FontSize="16"
                                               Text="Valor mínimo"/>
                                           <Label
                                               Grid.Column="1"
                                               TextColor="White"
-                                              FontSize="18"
+                                              FontSize="16"
                                               WidthRequest="80"
                                               HorizontalTextAlignment="End"
                                               HorizontalOptions="End"
@@ -1199,12 +1196,12 @@
                                               Margin="0,0,5,0"
                                               HorizontalOptions="StartAndExpand"
                                               HorizontalTextAlignment="Start"
-                                              FontSize="18"
+                                              FontSize="16"
                                               Text="Valor máximo"/>
                                           <Label
                                               Grid.Column="1"
                                               TextColor="White"
-                                              FontSize="18"
+                                              FontSize="16"
                                               WidthRequest="80"
                                               HorizontalTextAlignment="End"
                                               HorizontalOptions="End"

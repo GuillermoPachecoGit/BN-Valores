@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Threading.Tasks;
 using BNV.ViewModels;
 using BNV.Views.Bases;
+using Plugin.DeviceOrientation;
 using Syncfusion.SfRangeSlider.XForms;
 using Xamarin.Forms;
 
@@ -120,15 +122,17 @@ namespace BNV.Views
             bool isPortrait = this.Height > this.Width;
             if (!isPortrait)
             {
-                tabHorizontal.IsVisible = true;
-                tab.IsVisible = false;
+                if(TabVerticalMain.SelectedIndex != 1)
+                {
+                    tabHorizontal.IsVisible = true;
+                    tab.IsVisible = false;
+                }
             }
             else
             {
                 tab.IsVisible = true;
                 tabHorizontal.IsVisible = false;
             }
-            
         }
 
         protected override void OnAppearing()
@@ -148,6 +152,7 @@ namespace BNV.Views
             var selectedIndex = e.Index;
             if (selectedIndex == 0)
             {
+                if (CrossDeviceOrientation.IsSupported) CrossDeviceOrientation.Current.UnlockOrientation();
                 vm.SetDetailsCommand.Execute(null);
                 navConfig.IsVisible = false;
                 nav.IsVisible = true;
@@ -155,12 +160,23 @@ namespace BNV.Views
             }
             else
             {
+                if (CrossDeviceOrientation.IsSupported) CrossDeviceOrientation.Current.LockOrientation(Plugin.DeviceOrientation.Abstractions.DeviceOrientations.Portrait);
                 vm.SetConfigCommand.Execute(null);
-                nav.IsVisible = false;
                 navConfig.IsVisible = true;
                 nav2.IsVisible = false;
+                nav.IsVisible = false;
             }
                
+        }
+
+        void tabs_vertical_SelectionChanged(System.Object sender, Syncfusion.XForms.TabView.SelectionChangedEventArgs e)
+        {
+            tabs_horizontal.SelectedIndex = e.Index;
+        }
+
+        void tabs_horizontal_SelectionChanged(System.Object sender, Syncfusion.XForms.TabView.SelectionChangedEventArgs e)
+        {
+            tabs_vertical.SelectedIndex = e.Index;
         }
     }
 }

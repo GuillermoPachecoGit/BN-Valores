@@ -1,7 +1,9 @@
 ﻿using Acr.UserDialogs;
 using Android.App;
 using Android.Content.PM;
+using Android.Content.Res;
 using Android.OS;
+using Android.Util;
 using Plugin.CurrentActivity;
 using Prism;
 using Prism.Ioc;
@@ -21,7 +23,6 @@ namespace BNV.Droid
             ToolbarResource = Resource.Layout.Toolbar;
             Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MjQ1MjAyQDMxMzgyZTMxMmUzME9sUGkxWDNsSE8rZG1qWjBlUDA4ZUI0UmZOTWd1ajgvZEcwNUViR3gyeE09");
             base.OnCreate(bundle);
-
             UserDialogs.Init(this);
             Forms.SetFlags("CollectionView_Experimental");
             global::Xamarin.Forms.Forms.Init(this, bundle);

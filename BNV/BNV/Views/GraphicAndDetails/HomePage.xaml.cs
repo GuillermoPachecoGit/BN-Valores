@@ -19,8 +19,7 @@ namespace BNV.Views.GraphicAndDetails
         {
             InitializeComponent();
             ((NavigationPage)Application.Current.MainPage).BarTextColor = Color.White;
-            ((NavigationPage)Application.Current.MainPage).SetBinding(NavigationPage.BarBackgroundColorProperty, new Binding("ColorStatus", BindingMode.TwoWay));
-            Title = "Estadísticas";
+            //((NavigationPage)Application.Current.MainPage).SetBinding(NavigationPage.BarBackgroundColorProperty, new Binding("ColorStatus", BindingMode.TwoWay));
             StepValue = 1;
             NavigationPage.SetHasBackButton(this, false);
         }
@@ -40,8 +39,11 @@ namespace BNV.Views.GraphicAndDetails
             base.OnAppearing();
             list1.SelectedItem = null;
             list2.SelectedItem = null;
+            list3.SelectedItem = null;
+            list4.SelectedItem = null;
 
-            
+            ((NavigationPage)Xamarin.Forms.Application.Current.MainPage).BarBackgroundColor = Color.FromHex("#AFBC24");
+            ((HomeViewModel)this.BindingContext).Title = "Estadísticas";
             if (CrossDeviceOrientation.IsSupported) CrossDeviceOrientation.Current.LockOrientation(Plugin.DeviceOrientation.Abstractions.DeviceOrientations.Portrait);
 
             if (((HomeViewModel)this.BindingContext).AlreadyLoaded)

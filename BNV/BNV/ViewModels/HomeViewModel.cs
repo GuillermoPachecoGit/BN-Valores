@@ -31,8 +31,8 @@ namespace BNV.ViewModels
         public HomeViewModel(INavigationService navigationService, IEventAggregator ea)
             : base(navigationService)
         {
-            Title = TitleLabelStatistics;
-            ea.GetEvent<NavigationColorEvent>().Publish(ColorGreenNavigation);
+            //Title = TitleLabelStatistics;
+            //ea.GetEvent<NavigationColorEvent>().Publish(ColorGreenNavigation);
             NavigateToDetailsCommand = new Command<ItemBase>(NavigateToDetailsAction);
             ea.GetEvent<FilterCoinEvent>().Subscribe(FilterCoin);
             ea.GetEvent<FilterSectorEvent>().Subscribe(FilterSector);

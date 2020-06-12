@@ -51,9 +51,11 @@ namespace BNV.ViewModels
             CloseSessionCommand = new Command(async () => await CloseSessionActionExecute());
             SetConfigCommand = new Command(() => {
                 Events.GetEvent<NavigationTitleEvent>().Publish("Configuración");
+                Color = "#AFBC24";
             });
             SetDetailsCommand = new Command(() => {
                 Events.GetEvent<NavigationTitleEvent>().Publish("BNVR C");
+                Color = Item.ColorStatus;
             });
 
             BackCommand = new Command( async () => {
@@ -77,12 +79,15 @@ namespace BNV.ViewModels
                 if (item != null)
                 {
                     ColorStatus = item.ColorStatus;
-                    Events.GetEvent<NavigationColorEvent>().Publish(item.ColorStatus);
-                    Events.GetEvent<NavigationTitleEvent>().Subscribe(SetTitle);
+                    Color = item.ColorStatus;
+                    // Events.GetEvent<NavigationColorEvent>().Publish(item.ColorStatus);
+                    // Events.GetEvent<NavigationTitleEvent>().Subscribe(SetTitle);
 
                     TitleNav = "BNVR C";
                 }
 
+
+                Item = item;
                 IsBlue = item.IsBlue;
                 IsRed = item.IsRed;
                 IsGreen = item.IsGreen;
@@ -103,15 +108,10 @@ namespace BNV.ViewModels
             }
         }
 
-        private void SetTitle(string obj)
-        {
-            TitleNav = obj;
-        }
-
         public override void Destroy()
         {
             base.Destroy();
-            Events.GetEvent<NavigationColorEvent>().Publish("#AFBC24");
+           // Events.GetEvent<NavigationColorEvent>().Publish("#AFBC24");
         }
 
 
@@ -310,6 +310,9 @@ namespace BNV.ViewModels
         public string Triangle { get; private set; }
 
         private bool _isBlue;
+
+        public ItemBase Item { get; private set; }
+
         public bool IsBlue
         {
             get { return _isBlue; }
