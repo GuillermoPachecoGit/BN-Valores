@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:combobox="clr-namespace:Syncfusion.XForms.ComboBox;assembly=Syncfusion.SfComboBox.XForms"
+    xmlns:ListCollection="clr-namespace:System.Collections.Generic;assembly=netstandard"
+    BackgroundColor="Black"
+    x:Class="BNV.Views.Register.RegisterIdentificationPage">
+    <ContentPage.Content>
+         <ScrollView>
+             <StackLayout
+                VerticalOptions="FillAndExpand"
+                HorizontalOptions="FillAndExpand">
+                <Image
+                    Margin="0,5,0,0"
+                    Source="bn_logo"
+                    HeightRequest="130"
+                    WidthRequest="260"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"/>
+
+                <Label
+                    Margin="0,0,0,73"
+                    VerticalOptions="Center"
+                    HorizontalOptions="CenterAndExpand"
+                    Text="Registro de usuario"
+                    FontSize="24"
+                    TextColor="White"></Label>
+
+                  <StackLayout
+                    Orientation="Vertical"
+                    WidthRequest="280"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center">
+                        <StackLayout
+                            Orientation="Horizontal"
+                            WidthRequest="280"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center">
+                            <Image
+                                HeightRequest="28"
+                                WidthRequest="28"
+                                Margin="0,0,4,0"
+                                Source="cedula"
+                                HorizontalOptions="Fill"
+                                VerticalOptions="Fill" />
+                           <combobox:SfComboBox HeightRequest="45" BorderColor="Transparent" HorizontalOptions="FillAndExpand" DropDownBackgroundColor="#2A2A2A" EnableSelectionIndicator="False" DropDownTextColor="White" DropDownBorderColor="Transparent" TextColor="White" SelectedDropDownItemColor="#464646" TextSize="20" WatermarkColor="White" Watermark="Identificación"  x:Name="comboBox2" >
+                               <combobox:SfComboBox.DropDownButtonSettings>
+     		                        <combobox:DropDownButtonSettings FontColor="White" />
+     	                        </combobox:SfComboBox.DropDownButtonSettings >
+                                <combobox:SfComboBox.ComboBoxSource>
+                                    <ListCollection:List x:TypeArguments="x:String">
+                	                <x:String> Cédula de identidad </x:String>
+                	                <x:String> Cédula de residencia </x:String>
+                	                <x:String> Pasaporte </x:String>
+                	                <x:String> Carné de refugiado </x:String>
+                	                <x:String> Carné de pensionado </x:String>
+                                    <x:String> ID físico extranjero </x:String>
+                	                <x:String> DIMEX </x:String>
+                	                <x:String> DIDI </x:String>
+            	                </ListCollection:List>
+                            </combobox:SfComboBox.ComboBoxSource>
+                           </combobox:SfComboBox>
+                        </StackLayout>
+                        <BoxView
+                            VerticalOptions="CenterAndExpand"
+                            HeightRequest="1"
+                            BackgroundColor="White"/>
+                </StackLayout>
+
+                <StackLayout
+                    Orientation="Vertical"
+                    WidthRequest="280"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center">
+                        <StackLayout
+                            Orientation="Horizontal"
+                            WidthRequest="280"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center">
+                            <Image
+                                HeightRequest="28"
+                                WidthRequest="28"
+                                Margin="0,0,4,0"
+                                Source="cedula"
+                                HorizontalOptions="Fill"
+                                VerticalOptions="Fill" />
+                           <Entry
+                                VerticalOptions="Center"
+                                HorizontalOptions="Center"
+                                FontSize="20"
+                                Keyboard="Numeric"
+                                Text="{Binding Cedula}"
+                                TextColor="White"
+                                WidthRequest="250"
+                                PlaceholderColor="White"
+                                Placeholder="d  " />
+                        </StackLayout>
+                        <BoxView
+                            VerticalOptions="CenterAndExpand"
+                            HeightRequest="1"
+                            BackgroundColor="White"/>
+                </StackLayout>
+
+                <Button
+                    Margin="0,68,0,0"
+                    Text="Validar"
+                    TextColor="White"
+                    BackgroundColor="#AFBC24"
+                    HeightRequest="56"
+                    WidthRequest="250"
+                    FontSize="18"
+                    Command="{Binding ValidateCommand}"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center"/>
+
+                 <Label
+                     Margin="0,0,0,24"
+                     VerticalOptions="EndAndExpand"
+                     HorizontalOptions="CenterAndExpand"
+                     Text="Contáctenos  *medio contacto*"
+                     TextColor="#AAAAAA"
+                     FontSize="12"></Label>
+             </StackLayout>
+          </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

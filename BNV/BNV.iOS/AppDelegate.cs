@@ -3,6 +3,7 @@ using Foundation;
 using Prism;
 using Prism.Ioc;
 using Syncfusion.SfRangeSlider.XForms.iOS;
+using Syncfusion.XForms.Pickers.iOS;
 using UIKit;
 using Xamarin.Forms;
 
@@ -27,9 +28,11 @@ namespace BNV.iOS
             _ = new Syncfusion.XForms.iOS.ComboBox.SfComboBoxRenderer();
             _ = new SfRangeSliderRenderer();
             Syncfusion.XForms.iOS.TabView.SfTabViewRenderer.Init();
+            new Syncfusion.XForms.iOS.ComboBox.SfComboBoxRenderer();
             Forms.SetFlags("CollectionView_Experimental");
             global::Xamarin.Forms.Forms.Init();
             LoadApplication(new App(new iOSInitializer()));
+            SfDatePickerRenderer.Init();
 
             return base.FinishedLaunching(app, options);
         }

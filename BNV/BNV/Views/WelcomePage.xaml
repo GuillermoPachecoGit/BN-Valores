@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    BackgroundColor="Black"
+    x:Class="BNV.Views.WelcomePage">
+    <ContentPage.Content>
+         <ScrollView>
+             <StackLayout
+                VerticalOptions="FillAndExpand"
+                HorizontalOptions="FillAndExpand">
+                <Image
+                    Margin="0,5,0,0"
+                    Source="bn_logo"
+                    HeightRequest="130"
+                    WidthRequest="260"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"/>
+
+                <Label
+                    Margin="0,0,0,16"
+                    HorizontalOptions="CenterAndExpand"
+                    Text="Bienvenido"
+                    FontSize="28"
+                    TextColor="White"></Label>
+
+                <Label
+                    HorizontalOptions="CenterAndExpand"
+                    Text="¿Qué desea hacer?"
+                    FontSize="20"
+                    TextColor="White"></Label>
+
+                <Button
+                    Margin="0,68,0,0"
+                    Text="Iniciar sesión"
+                    TextColor="White"
+                    BackgroundColor="#AFBC24"
+                    HeightRequest="56"
+                    WidthRequest="250"
+                    FontSize="18"
+                    Command="{Binding LoginCommand}"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center"/>
+                <Button
+                    Margin="0,28"
+                    Text="Registrarse"
+                    TextColor="White"
+                    BorderColor="White"
+                    BackgroundColor="Black"
+                    BorderWidth="1"
+                    FontSize="18"
+                    CornerRadius="2"
+                    HeightRequest="56"
+                    Command="{Binding RegisterCommand}"
+                    WidthRequest="250"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center"/>
+             </StackLayout>
+          </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

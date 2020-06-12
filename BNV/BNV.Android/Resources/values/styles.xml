@@ -30,9 +30,17 @@
     
     <item name="android:datePickerDialogTheme">@style/AppCompatDialogStyle</item>
   </style>
-    <color name="ListViewSelected">#323232</color>
+
+     <color name="ListViewSelected">#323232</color>
     <color name="ListViewHighlighted">#323232</color>
+
   <style name="AppCompatDialogStyle" parent="Theme.AppCompat.Light.Dialog">
-    <item name="colorAccent">#ffffff</item>
+            <item name="colorPrimary">#000000</item>
+    <!-- colorPrimaryDark is used for the status bar -->
+    <item name="colorPrimaryDark">#ffffff</item>
+    <!-- colorAccent is used as the default value for colorControlActivated
+         which is used to tint widgets -->
+    <item name="colorAccent">#000000</item>
+    <item name="colorAccent">#ff4081</item>
   </style>
 </resources>

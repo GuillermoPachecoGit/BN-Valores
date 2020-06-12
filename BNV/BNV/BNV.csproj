@@ -18,6 +18,7 @@
     <PackageReference Include="Com.Airbnb.Xamarin.Forms.Lottie" Version="3.0.1" />
     <PackageReference Include="Syncfusion.Xamarin.SfTabView" Version="18.1.0.45" />
     <PackageReference Include="Plugin.DeviceOrientation" Version="1.0.7" />
+    <PackageReference Include="Syncfusion.Xamarin.SfPicker" Version="18.1.0.45" />
   </ItemGroup>
 
   <ItemGroup>
@@ -27,5 +28,6 @@
     <Folder Include="Converters\" />
     <Folder Include="Settings\" />
     <Folder Include="Events\" />
+    <Folder Include="Views\Customs\" />
   </ItemGroup>
 </Project>

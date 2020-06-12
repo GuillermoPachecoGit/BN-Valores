@@ -27,7 +27,7 @@ namespace BNV
             Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MjQ1MjAyQDMxMzgyZTMxMmUzME9sUGkxWDNsSE8rZG1qWjBlUDA4ZUI0UmZOTWd1ajgvZEcwNUViR3gyeE09");
             InitializeComponent();
           
-            await NavigationService.NavigateAsync("NavigationPage/LoginPage");
+            await NavigationService.NavigateAsync("NavigationPage/WelcomePage");
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
@@ -51,6 +51,9 @@ namespace BNV
             containerRegistry.RegisterForNavigation<InformationPage, InformationViewModel>();
             containerRegistry.RegisterForNavigation<GraphicPage, GraphicViewModel>();
             containerRegistry.RegisterForNavigation<HomeDetailPage, HomeDetailViewModel>();
+
+            containerRegistry.RegisterForNavigation<WelcomePage, WelcomeViewModel>();
+            containerRegistry.RegisterForNavigation<RegisterIdentificationPage, RegisterIdentificationViewModel>();
         }
     }
    
