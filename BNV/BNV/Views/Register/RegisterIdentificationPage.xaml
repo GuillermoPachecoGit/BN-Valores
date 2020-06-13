@@ -44,20 +44,20 @@
                                 Source="cedula"
                                 HorizontalOptions="Fill"
                                 VerticalOptions="Fill" />
-                           <combobox:SfComboBox HeightRequest="45" BorderColor="Transparent" HorizontalOptions="FillAndExpand" DropDownBackgroundColor="#2A2A2A" EnableSelectionIndicator="False" DropDownTextColor="White" DropDownBorderColor="Transparent" TextColor="White" SelectedDropDownItemColor="#464646" TextSize="20" WatermarkColor="White" Watermark="Identificación"  x:Name="comboBox2" >
+                           <combobox:SfComboBox x:Name="ComboId" HeightRequest="45" SelectionChanged="comboBox2_SelectionChanged" BorderColor="Transparent" HorizontalOptions="FillAndExpand" DropDownBackgroundColor="#2A2A2A" EnableSelectionIndicator="False" DropDownTextColor="White" DropDownBorderColor="Transparent" TextColor="White" SelectedDropDownItemColor="#464646" TextSize="20" WatermarkColor="White" Watermark="Tipo de identificación" >
                                <combobox:SfComboBox.DropDownButtonSettings>
      		                        <combobox:DropDownButtonSettings FontColor="White" />
      	                        </combobox:SfComboBox.DropDownButtonSettings >
                                 <combobox:SfComboBox.ComboBoxSource>
                                     <ListCollection:List x:TypeArguments="x:String">
-                	                <x:String> Cédula de identidad </x:String>
-                	                <x:String> Cédula de residencia </x:String>
-                	                <x:String> Pasaporte </x:String>
-                	                <x:String> Carné de refugiado </x:String>
-                	                <x:String> Carné de pensionado </x:String>
-                                    <x:String> ID físico extranjero </x:String>
-                	                <x:String> DIMEX </x:String>
-                	                <x:String> DIDI </x:String>
+                	                <x:String>Cédula de identidad</x:String>
+                	                <x:String>Cédula de residencia</x:String>
+                	                <x:String>Pasaporte</x:String>
+                	                <x:String>Carné de refugiado</x:String>
+                	                <x:String>Carné de pensionado</x:String>
+                                    <x:String>ID físico extranjero</x:String>
+                	                <x:String>DIMEX</x:String>
+                	                <x:String>DIDI</x:String>
             	                </ListCollection:List>
                             </combobox:SfComboBox.ComboBoxSource>
                            </combobox:SfComboBox>
@@ -86,6 +86,7 @@
                                 HorizontalOptions="Fill"
                                 VerticalOptions="Fill" />
                            <Entry
+                                x:Name="IdentValue"
                                 VerticalOptions="Center"
                                 HorizontalOptions="Center"
                                 FontSize="20"
@@ -94,7 +95,7 @@
                                 TextColor="White"
                                 WidthRequest="250"
                                 PlaceholderColor="White"
-                                Placeholder="d  " />
+                                Placeholder="Identificación" />
                         </StackLayout>
                         <BoxView
                             VerticalOptions="CenterAndExpand"

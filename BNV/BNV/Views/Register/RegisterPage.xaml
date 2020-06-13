@@ -155,7 +155,7 @@
                             HeightRequest="28"
                             WidthRequest="28"
                             Margin="0,0,4,0"
-                            Source="phone"
+                            Source="ic_phone.png"
                             HorizontalOptions="Fill"
                             VerticalOptions="Fill" />
                        <Entry
@@ -190,12 +190,10 @@
                                 HeightRequest="28"
                                 WidthRequest="28"
                                 Margin="0,0,4,0"
-                                Source="phone"
+                                Source="ic_calendar.png"
                                 HorizontalOptions="Fill"
                                 VerticalOptions="Fill" />
-                           <customs:DatePickerCustom
-                                 HorizontalOptions="FillAndExpand"
-                                 VerticalOptions="FillAndExpand" />
+                            <customs:CustomDatePicker></customs:CustomDatePicker>
                         </StackLayout>
                          <BoxView
                             Margin="0,0,0,0"
@@ -218,7 +216,7 @@
                                 HeightRequest="28"
                                 WidthRequest="28"
                                 Margin="0,0,4,0"
-                                Source="cedula"
+                                Source="ic_flag.png"
                                 HorizontalOptions="Fill"
                                 VerticalOptions="Fill" />
                            <combobox:SfComboBox HeightRequest="45" BorderColor="Transparent" HorizontalOptions="FillAndExpand" DropDownBackgroundColor="#2A2A2A" EnableSelectionIndicator="False" DropDownTextColor="White" DropDownBorderColor="Transparent" TextColor="White" SelectedDropDownItemColor="#464646" TextSize="20" WatermarkColor="White" Watermark="Nacionalidad"  x:Name="comboBox2" >
@@ -254,7 +252,7 @@
                                 HeightRequest="28"
                                 WidthRequest="28"
                                 Margin="0,0,4,0"
-                                Source="cedula"
+                                Source="ic_gender.png"
                                 HorizontalOptions="Fill"
                                 VerticalOptions="Fill" />
                            <combobox:SfComboBox HeightRequest="45" BorderColor="Transparent" HorizontalOptions="FillAndExpand" DropDownBackgroundColor="#2A2A2A" EnableSelectionIndicator="False" DropDownTextColor="White" DropDownBorderColor="Transparent" TextColor="White" SelectedDropDownItemColor="#464646" TextSize="20" WatermarkColor="White" Watermark="Género"  x:Name="comboBox1" >
@@ -285,7 +283,7 @@
                 TextColor="White"
                 BackgroundColor="#AFBC24"
                 HeightRequest="56"
-                WidthRequest="200"
+                WidthRequest="250"
                 FontSize="16"
                 Margin="0,14,0,0"
                 Command="{Binding AcceptCommand}"

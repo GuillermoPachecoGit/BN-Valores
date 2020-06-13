@@ -25,12 +25,6 @@ namespace BNV.ViewModels
 
         private async Task AcceptActionExecute()
         {
-            if (string.IsNullOrEmpty(Email.Value) && Email.IsValid || string.IsNullOrEmpty(Cedula) || string.IsNullOrEmpty(Name) || string.IsNullOrEmpty(PhoneNumber))
-            {
-                UserDialogs.Instance.Toast("Debe completar todos los campos", TimeSpan.FromSeconds(4));
-                return;
-            }
-
             await NavigationService.NavigateAsync("RegisterResultPage");
         }
 
@@ -38,10 +32,17 @@ namespace BNV.ViewModels
 
         public ValidatableObject<string> Email { get; }
 
-        public string Cedula { get; set; }
+        public DateTime Birthday  { get; set; }
+
+        public string Surname { get; set; }
 
         public string Name { get; set; }
 
         public string PhoneNumber { get; set; }
+
+        public string Gender { get; set; }
+
+        public string Nationality { get; set; }
+
     }
 }
