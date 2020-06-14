@@ -5,9 +5,9 @@ namespace BNV.Validator
 {
     public class PasswordValidator : IValidationRule<string>
     {
-        const int minLength = 6;
+        const int minLength = 8;
         public string Description =>
-        $"Password should be at least {minLength } characters long.";
+        $"Contraseñas deben contener al menos {minLength} caracteres";
 
         public bool Validate(string value)
         {

@@ -7,13 +7,14 @@ namespace BNV.Views.Register
 {
     public partial class RegisterIdentificationPage : ContentPage
     {
-        private const string Mask15 = "###############";
+       
 
         public RegisterIdentificationPage()
         {
             InitializeComponent();
         }
 
+        private const string Mask15 = "###############";
         void comboBox2_SelectionChanged(System.Object sender, Syncfusion.XForms.ComboBox.SelectionChangedEventArgs e)
         {
             IdentValue.Text = string.Empty;

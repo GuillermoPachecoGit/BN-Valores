@@ -19,6 +19,21 @@ namespace BNV.Views.Customs
         void _datePicker_DateSelected(System.Object sender, Xamarin.Forms.DateChangedEventArgs e)
         {
             _label.Text = e.NewDate.ToShortDateString();
+            Date = _label.Text;
+        }
+
+        public static readonly BindableProperty DateProperty = BindableProperty.Create(nameof(Date), typeof(string), typeof(CustomDatePicker), default(string), BindingMode.TwoWay);
+        public string Date
+        {
+            get
+            {
+                return (string)GetValue(DateProperty);
+            }
+
+            set
+            {
+                SetValue(DateProperty, value);
+            }
         }
     }
 }

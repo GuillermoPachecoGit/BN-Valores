@@ -20,50 +20,61 @@
                 HorizontalOptions="FillAndExpand"
                 VerticalOptions="FillAndExpand">
             <Image
-                Margin="0,5,0,0"
-                Source="bn_logo"
-                HeightRequest="90"
-                WidthRequest="220"
-                HorizontalOptions="Center"
-                VerticalOptions="Center"/>
+                    Margin="0,-5,0,-10"
+                    Source="bn_logo"
+                    HeightRequest="130"
+                    WidthRequest="260"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"/>
+
             <Label
+                Margin="0,-5,0,10"
+                VerticalOptions="Center"
+                HorizontalOptions="CenterAndExpand"
                 Text="Registro de usuario"
-                TextColor="White"
                 FontSize="24"
-                FontAttributes="Bold"
-                Margin="0,10,0,0"
-                HorizontalOptions="Center"
-                VerticalOptions="Center"/>
+                TextColor="White"></Label>
 
              <Image
                 Margin="0,20,0,0"
                 Source="tick"
-                HeightRequest="120"
-                WidthRequest="250"
+                HeightRequest="76"
+                WidthRequest="76"
                 HorizontalOptions="Center"
                 VerticalOptions="Center"/>
 
             <Label
-                Text="El usuario y la contraseña han sido enviados a su correo"
+                Text="Sus datos están siendo verificados por BN Valores"
                 TextColor="White"
                 FontSize="20"
-                WidthRequest="250"
-                Margin="0,16,0,20"
+                Margin="35,16,35,20"
                 HorizontalTextAlignment="Center"
-                HorizontalOptions="Center"
+                HorizontalOptions="CenterAndExpand"
                 VerticalOptions="Center"/>
-            
-
+            <Label
+                Text="Una vez aprobado su registro se enviará una contraseña temporal a su correo registrado"
+                TextColor="White"
+                FontSize="20"
+                Margin="35,0,35,5"
+                HorizontalTextAlignment="Center"
+                HorizontalOptions="CenterAndExpand"
+                VerticalOptions="Center"/>
+                <Label
+                     Margin="0,0,0,24"
+                     VerticalOptions="Center"
+                     HorizontalOptions="CenterAndExpand"
+                     Text="Este proceso puede tomar de N a X tiempo"
+                     TextColor="#AAAAAA"
+                     FontSize="12"></Label>
            <Button
-                Text="Volver a inicio"
+                Margin="65,0"
+                Text="Aceptar"
                 TextColor="White"
                 BackgroundColor="#AFBC24"
-                HeightRequest="56"
-
-                WidthRequest="250"
+                HeightRequest="44"
                 Command="{Binding ReturnInitCommand}"
                 VerticalOptions="Center"
-                HorizontalOptions="Center"/>
+                HorizontalOptions="FillAndExpand"/>
 
         </StackLayout>
     </ContentPage.Content>

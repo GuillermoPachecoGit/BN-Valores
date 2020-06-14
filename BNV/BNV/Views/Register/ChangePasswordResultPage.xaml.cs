@@ -3,20 +3,19 @@ using System.Collections.Generic;
 using Plugin.DeviceOrientation;
 using Xamarin.Forms;
 
-namespace BNV.Views
+namespace BNV.Views.Register
 {
-    public partial class WelcomePage : ContentPage
+    public partial class ChangePasswordResultPage : ContentPage
     {
-        public WelcomePage()
+        public ChangePasswordResultPage()
         {
             InitializeComponent();
+            NavigationPage.SetHasBackButton(this, false);
         }
 
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            ((NavigationPage)Xamarin.Forms.Application.Current.MainPage).BarBackgroundColor = Color.Black;
-
             if (CrossDeviceOrientation.IsSupported) CrossDeviceOrientation.Current.LockOrientation(Plugin.DeviceOrientation.Abstractions.DeviceOrientations.Portrait);
         }
 

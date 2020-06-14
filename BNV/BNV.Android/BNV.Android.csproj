@@ -99,6 +99,7 @@
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SplashActivity.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -220,6 +221,14 @@
       <Generator></Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\Drawable\ic_phone.png">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\Drawable\check.png">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\Drawable\splash.png">
       <SubType></SubType>
       <Generator></Generator>
     </AndroidResource>

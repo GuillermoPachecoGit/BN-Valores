@@ -8,7 +8,7 @@ namespace BNV
     {
         const string pattern = @"^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$";
 
-        public string Description => "Please enter a valid email.";
+        public string Description => "Ingrese un formato válido (usuario@email.com)";
 
         public bool Validate(string value)
         {

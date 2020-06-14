@@ -9,6 +9,8 @@ namespace BNV.Settings
 
         public static string MainPage = "MainPage";
 
+        public static string FirstLogin = "FirstLogin";
+
         public class MainPageTypes
         {
             public static string Reportos = "Reportos";

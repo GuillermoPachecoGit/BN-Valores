@@ -11,32 +11,31 @@
              <StackLayout
                 VerticalOptions="FillAndExpand"
                 HorizontalOptions="FillAndExpand">
-                <Image
-                    Margin="0,5,0,0"
+                 <Image
+                    Margin="0,-5,0,-10"
                     Source="bn_logo"
                     HeightRequest="130"
                     WidthRequest="260"
                     HorizontalOptions="Center"
                     VerticalOptions="Center"/>
 
-                <Label
-                    Margin="0,0,0,73"
-                    VerticalOptions="Center"
-                    HorizontalOptions="CenterAndExpand"
-                    Text="Registro de usuario"
-                    FontSize="24"
-                    TextColor="White"></Label>
+                 <Label
+                     Margin="0,-15,0,10"
+                     VerticalOptions="Center"
+                     HorizontalOptions="CenterAndExpand"
+                     Text="Registro de usuario"
+                     FontSize="24"
+                     TextColor="White"></Label>
 
-                  <StackLayout
+                <StackLayout
                     Orientation="Vertical"
-                    WidthRequest="280"
-                    HorizontalOptions="Center"
+                    Margin="32,70,32,0"
+                    HorizontalOptions="FillAndExpand"
                     VerticalOptions="Center">
                         <StackLayout
                             Orientation="Horizontal"
-                            WidthRequest="280"
-                            HorizontalOptions="Center"
-                            VerticalOptions="Center">
+                            HorizontalOptions="FillAndExpand"
+                            VerticalOptions="FillAndExpand">
                             <Image
                                 HeightRequest="28"
                                 WidthRequest="28"
@@ -70,14 +69,13 @@
 
                 <StackLayout
                     Orientation="Vertical"
-                    WidthRequest="280"
-                    HorizontalOptions="Center"
+                    Margin="32,0"
+                    HorizontalOptions="FillAndExpand"
                     VerticalOptions="Center">
                         <StackLayout
                             Orientation="Horizontal"
-                            WidthRequest="280"
-                            HorizontalOptions="Center"
-                            VerticalOptions="Center">
+                            HorizontalOptions="FillAndExpand"
+                            VerticalOptions="FillAndExpand">
                             <Image
                                 HeightRequest="28"
                                 WidthRequest="28"
@@ -104,16 +102,15 @@
                 </StackLayout>
 
                 <Button
-                    Margin="0,68,0,0"
+                    Margin="65,68,65,0"
                     Text="Validar"
                     TextColor="White"
                     BackgroundColor="#AFBC24"
-                    HeightRequest="56"
-                    WidthRequest="250"
+                    HeightRequest="44"
                     FontSize="18"
                     Command="{Binding ValidateCommand}"
                     VerticalOptions="Center"
-                    HorizontalOptions="Center"/>
+                    HorizontalOptions="FillAndExpand"/>
 
                  <Label
                      Margin="0,0,0,24"

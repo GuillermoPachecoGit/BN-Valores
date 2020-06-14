@@ -31,18 +31,17 @@
                     TextColor="White"></Label>
 
                 <Button
-                    Margin="0,68,0,0"
+                    Margin="65,68,65,00"
                     Text="Iniciar sesión"
                     TextColor="White"
                     BackgroundColor="#AFBC24"
-                    HeightRequest="56"
-                    WidthRequest="250"
+                    HeightRequest="44"
                     FontSize="18"
                     Command="{Binding LoginCommand}"
                     VerticalOptions="Center"
-                    HorizontalOptions="Center"/>
+                    HorizontalOptions="FillAndExpand"/>
                 <Button
-                    Margin="0,28"
+                    Margin="65,28"
                     Text="Registrarse"
                     TextColor="White"
                     BorderColor="White"
@@ -50,11 +49,10 @@
                     BorderWidth="1"
                     FontSize="18"
                     CornerRadius="2"
-                    HeightRequest="56"
+                    HeightRequest="44"
                     Command="{Binding RegisterCommand}"
-                    WidthRequest="250"
                     VerticalOptions="Center"
-                    HorizontalOptions="Center"/>
+                    HorizontalOptions="FillAndExpand"/>
              </StackLayout>
           </ScrollView>
     </ContentPage.Content>

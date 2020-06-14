@@ -51,9 +51,11 @@ namespace BNV
             containerRegistry.RegisterForNavigation<InformationPage, InformationViewModel>();
             containerRegistry.RegisterForNavigation<GraphicPage, GraphicViewModel>();
             containerRegistry.RegisterForNavigation<HomeDetailPage, HomeDetailViewModel>();
-
             containerRegistry.RegisterForNavigation<WelcomePage, WelcomeViewModel>();
             containerRegistry.RegisterForNavigation<RegisterIdentificationPage, RegisterIdentificationViewModel>();
+            containerRegistry.RegisterForNavigation<PasswordSettingPage, PasswordSettingViewModel>();
+            containerRegistry.RegisterForNavigation<PasswordSettingResultPage, PasswordSettingResultViewModel>();
+            containerRegistry.RegisterForNavigation<ChangePasswordResultPage, ChangePasswordResultViewModel>();
         }
     }
    

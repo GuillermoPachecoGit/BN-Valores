@@ -2,8 +2,10 @@
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Acr.UserDialogs;
+using BNV.Settings;
 using BNV.Validator;
 using Prism.Navigation;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace BNV.ViewModels
@@ -23,9 +25,11 @@ namespace BNV.ViewModels
             (propChangedCallBack, new EmailValidator());
             Email.Value = string.Empty;
 
-            Password = new ValidatableObject<string>
-            (propChangedCallBack, new PasswordValidator());
-            Password.Value = string.Empty;
+            //Password = new ValidatableObject<string>
+            //(propChangedCallBack, new PasswordValidator());
+            //Password.Value = string.Empty;
+
+            IsValid = true;
         }
 
         Action propChangedCallBack => (SignInCommand as Command).ChangeCanExecute;
@@ -37,17 +41,11 @@ namespace BNV.ViewModels
 
         private async Task SignUpActionExecute()
         {
-          await  NavigationService.NavigateAsync("RegisterPage",null, false, false);
+          await  NavigationService.NavigateAsync("RegisterIdentificationPage", null, false, false);
         }
 
         private async Task SignInActionExecute()
         {
-            if (string.IsNullOrEmpty(Email.Value) && Email.IsValid || string.IsNullOrEmpty(Password.Value) && Password.IsValid)
-            {
-                UserDialogs.Instance.Toast("Debe completar todos los campos", TimeSpan.FromSeconds(4));
-                return;
-            }
-
             Device.BeginInvokeOnMainThread(async () =>
             {
 
@@ -56,8 +54,18 @@ namespace BNV.ViewModels
                     using (UserDialogs.Instance.Loading("Iniciando Sesión..."))
                     {
                         await Task.Delay(5);
-                        await NavigationService.NavigateAsync("HomePage");
+                        var firstLogin = await SecureStorage.GetAsync(Config.FirstLogin);
+                        if (string.IsNullOrEmpty(firstLogin))
+                        {
+                            await SecureStorage.SetAsync(Config.FirstLogin, "y");
+                            await NavigationService.NavigateAsync("PasswordSettingPage");
+                        }
+                        else
+                        {
+                            await NavigationService.NavigateAsync("HomePage");
+                        }
                     }
+                    
                 }
                 catch (Exception ex)
                 {
@@ -83,6 +91,8 @@ namespace BNV.ViewModels
 
         public ValidatableObject<string> Email { get; }
 
-        public ValidatableObject<string> Password { get; }
+        public string Password { get; set; }
+
+        public bool IsValid { get; set; }
     }
 }
