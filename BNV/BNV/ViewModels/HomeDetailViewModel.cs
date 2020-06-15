@@ -55,7 +55,7 @@ namespace BNV.ViewModels
             });
             SetDetailsCommand = new Command(() => {
                 Events.GetEvent<NavigationTitleEvent>().Publish("BNVR C");
-                Color = Item.ColorStatus;
+                Color = Item?.ColorStatus;
             });
 
             BackCommand = new Command( async () => {
@@ -74,24 +74,25 @@ namespace BNV.ViewModels
 
             try
             {
-                var item = parameters.GetValue<ItemBase>("item");
-
-                if (item != null)
+                if (Item == null)
                 {
-                    ColorStatus = item.ColorStatus;
-                    Color = item.ColorStatus;
-                    // Events.GetEvent<NavigationColorEvent>().Publish(item.ColorStatus);
-                    // Events.GetEvent<NavigationTitleEvent>().Subscribe(SetTitle);
+                    var item = parameters.GetValue<ItemBase>("item");
 
-                    TitleNav = "BNVR C";
+                    if (item != null)
+                    {
+                        Item = item;
+                        ColorStatus = item.ColorStatus;
+                        Color = item.ColorStatus;
+                        TitleNav = "BNVR C";
+                    }
+
+                    Item = item;
                 }
-
-
-                Item = item;
-                IsBlue = item.IsBlue;
-                IsRed = item.IsRed;
-                IsGreen = item.IsGreen;
-                Triangle = item.Triangle;
+              
+                IsBlue = Item.IsBlue;
+                IsRed = Item.IsRed;
+                IsGreen = Item.IsGreen;
+                Triangle = Item.Triangle;
 
                 Task.Run(async () =>
                 {

@@ -122,7 +122,7 @@ namespace BNV.Views
             bool isPortrait = this.Height > this.Width;
             if (!isPortrait)
             {
-                if(TabVerticalMain.SelectedIndex != 1)
+                if (TabVerticalMain.SelectedIndex != 1)
                 {
                     tabHorizontal.IsVisible = true;
                     tab.IsVisible = false;
@@ -166,7 +166,6 @@ namespace BNV.Views
                 nav2.IsVisible = false;
                 nav.IsVisible = false;
             }
-               
         }
 
         void tabs_vertical_SelectionChanged(System.Object sender, Syncfusion.XForms.TabView.SelectionChangedEventArgs e)

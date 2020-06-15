@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionName="15.0" package="BNVApp" android:versionCode="15">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionName="16.0" package="BNVApp" android:versionCode="16">
 	<uses-sdk android:minSdkVersion="22" android:targetSdkVersion="28" />
 	<uses-permission android:name="android.permission.INTERNET" />
 	<application android:label="BNV.Android" android:icon="@mipmap/ic_launcher"></application>
