@@ -21,5 +21,12 @@ namespace BNV.ViewModels
         }
 
         public ICommand ReturnLoginCommand { get; set; }
+
+        public override void OnNavigatedTo(INavigationParameters parameters)
+        {
+            base.OnNavigatedTo(parameters);
+            var title = parameters.GetValue<string>("title");
+            Title = string.IsNullOrEmpty(title) ? title : "Cambio de contraseña";
+        }
     }
 }

@@ -11,6 +11,10 @@ namespace BNV.Settings
 
         public static string FirstLogin = "FirstLogin";
 
+        public static string TypeChange = "TypeChange";
+
+        public static string BonosChange = "BonosChange";
+
         public class MainPageTypes
         {
             public static string Reportos = "Reportos";

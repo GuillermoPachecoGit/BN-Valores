@@ -109,6 +109,8 @@ namespace BNV.ViewModels
                 SelectedHomePage = value;
             else
                 SelectedHomePage = "Reportos";
+
+            SetupFilters();
         }
 
         public void OnDisappearing()
@@ -124,7 +126,7 @@ namespace BNV.ViewModels
 
         private async Task ChangePasswordActionExecute()
         {
-            await NavigationService.NavigateAsync("ChangePasswordPage", null, false, false);
+            await NavigationService.NavigateAsync("ChangePasswordPage", new NavigationParameters() { { "title", "Cambio de contraseña" } }, false, false);
         }
 
         private async Task CloseSessionActionExecute()

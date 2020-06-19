@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Windows.Input;
 using BNV.Validator;
 using Prism.Navigation;
@@ -18,7 +19,7 @@ namespace BNV.ViewModels
             {
                 Value = string.Empty
             };
-            IsMatch = true;
+            IsNotMatch = false;
         }
 
         private async void AcceptCommandExecute(object obj)
@@ -28,6 +29,21 @@ namespace BNV.ViewModels
                 IsEmpty = true;
                 return;
             }
+            IsEmpty = false;
+
+            if (NewPassword.Value.Length < 8 && !NewPassword.Value.ToCharArray().Any(x => char.IsDigit(x)) || !NewPassword.Value.ToCharArray().Any(x => char.IsUpper(x)) || NewPassword.Value.ToLower().ToCharArray().Any(x => x == 'a' || x == 'e' || x == 'i' || x == 'o' || x == 'u'))
+            {
+                IsNotValid = true;
+                return;
+            }
+            IsNotValid = false;
+
+            if (NewPassword.Value != ConfirmPassword)
+            {
+                IsNotMatch = true;
+                return;
+            }
+            IsNotMatch = false;
 
             await NavigationService.NavigateAsync("PasswordSettingResultPage");
         }
@@ -41,7 +57,6 @@ namespace BNV.ViewModels
             set
             {
                 SetProperty(ref _confirmPassword, value);
-                IsMatch = !string.IsNullOrEmpty(value) && value == NewPassword.Value || string.IsNullOrEmpty(value);
             }
         }
 
@@ -51,6 +66,8 @@ namespace BNV.ViewModels
 
         public bool IsEmpty { get; private set; }
 
-        public bool IsMatch { get; private set; }
+        public bool IsNotMatch { get; private set; }
+        public bool IsNotValid { get; private set; }
+        public bool IsErrorLenght { get; private set; }
     }
 }

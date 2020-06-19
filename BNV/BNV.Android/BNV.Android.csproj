@@ -94,6 +94,9 @@
     <PackageReference Include="Syncfusion.Xamarin.SfPicker">
       <Version>18.1.0.45</Version>
     </PackageReference>
+    <PackageReference Include="Syncfusion.Xamarin.SfMaskedEdit">
+      <Version>18.1.0.45</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainActivity.cs" />
@@ -229,6 +232,26 @@
       <Generator></Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\Drawable\splash.png">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable-hdpi\splash.png">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable-mdpi\splash.png">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable-xhdpi\splash.png">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable-xxhdpi\splash.png">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\splash.png">
       <SubType></SubType>
       <Generator></Generator>
     </AndroidResource>

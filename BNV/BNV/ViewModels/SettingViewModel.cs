@@ -90,7 +90,7 @@ namespace BNV.ViewModels
 
         private async Task ChangePasswordActionExecute()
         {
-            await NavigationService.NavigateAsync("ChangePasswordPage", null, false, false);
+            await NavigationService.NavigateAsync("PasswordSettingPage", null, false, false);
         }
 
         private async Task CloseSessionActionExecute()

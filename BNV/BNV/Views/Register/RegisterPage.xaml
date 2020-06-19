@@ -3,10 +3,10 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="BNV.Views.RegisterPage"
-    xmlns:syncfusion="clr-namespace:Syncfusion.XForms.Pickers;assembly=Syncfusion.SfPicker.XForms"
     xmlns:combobox="clr-namespace:Syncfusion.XForms.ComboBox;assembly=Syncfusion.SfComboBox.XForms"
     xmlns:ListCollection="clr-namespace:System.Collections.Generic;assembly=netstandard"
     xmlns:customs="clr-namespace:BNV.Views.Customs"
+    xmlns:syncfusion="clr-namespace:Syncfusion.XForms.MaskedEdit;assembly=Syncfusion.SfMaskedEdit.XForms"
     xmlns:converters="clr-namespace:BNV.Converters"
     BackgroundColor="Black">
      <ContentPage.Resources>
@@ -239,7 +239,22 @@
                                 Source="ic_calendar.png"
                                 HorizontalOptions="Fill"
                                 VerticalOptions="Fill" />
-                            <customs:CustomDatePicker Date="{Binding Birthday.Value}" ></customs:CustomDatePicker>
+
+                                <syncfusion:SfMaskedEdit
+                                    VerticalOptions="Center"
+                                    HorizontalOptions="Center"
+                                    FontSize="20"
+                                    Value="{Binding Birthday}"
+                                    TextColor="White"
+                                    WidthRequest="250"
+                                    WatermarkColor="White"
+                                    Watermark="00/00/0000"
+                                    MaskType="RegEx"
+                                    WatermarkFontSize="20"
+                                    PromptChar="#"
+                                    ClearButtonVisibility="Never"
+                                    Mask="(0[0-9]|1[0-9]|2[0-9]|3[0-1])/(0[0-9]|1[0-2])/\d{4}" >
+                               </syncfusion:SfMaskedEdit>
                         </StackLayout>
                           <BoxView
                             Margin="0,0,0,0"
@@ -247,14 +262,21 @@
                             HeightRequest="1"
                             BackgroundColor="White">
                           <BoxView.Triggers>
-                             <DataTrigger TargetType="BoxView" Binding="{Binding Birthday.IsValid}" Value="false">
+                             <DataTrigger TargetType="BoxView" Binding="{Binding DateValid}" Value="false">
                                 <Setter Property="BackgroundColor"  Value="#FF5B5B" />
                               </DataTrigger>
-                              <DataTrigger TargetType="BoxView" Binding="{Binding Birthday.IsValid}" Value="true">
+                              <DataTrigger TargetType="BoxView" Binding="{Binding DateValid}" Value="true">
                                   <Setter Property="BackgroundColor"  Value="White" />
                                </DataTrigger>
                            </BoxView.Triggers>
                           </BoxView>
+                        <!--<Label
+                            Padding="0"
+                            Margin="0"
+                            HorizontalOptions="FillAndExpand"
+                            Style="{StaticResource errorDescriptionStyle}"
+                            Text="La fecha es inválida"
+                            IsVisible="{Binding DateValid}" />-->
                     </StackLayout>
 
             <StackLayout

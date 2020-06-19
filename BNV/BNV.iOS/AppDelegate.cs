@@ -3,6 +3,7 @@ using Foundation;
 using Prism;
 using Prism.Ioc;
 using Syncfusion.SfRangeSlider.XForms.iOS;
+using Syncfusion.XForms.iOS.MaskedEdit;
 using Syncfusion.XForms.Pickers.iOS;
 using UIKit;
 using Xamarin.Forms;
@@ -33,6 +34,7 @@ namespace BNV.iOS
             global::Xamarin.Forms.Forms.Init();
             LoadApplication(new App(new iOSInitializer()));
             SfDatePickerRenderer.Init();
+            SfMaskedEditRenderer.Init();
 
             return base.FinishedLaunching(app, options);
         }

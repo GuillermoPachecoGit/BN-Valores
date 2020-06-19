@@ -42,11 +42,6 @@ namespace BNV.ViewModels
                 Value = string.Empty
             };
 
-            Birthday = new ValidatableObject<string>(propChangedCallBack, new EmptyValidator())
-            {
-                Value = string.Empty
-            };
-
             valid = true;
         }
 
@@ -60,9 +55,8 @@ namespace BNV.ViewModels
             PhoneNumber.Value = string.IsNullOrEmpty(PhoneNumber.Value) ? null : PhoneNumber.Value;
             Gender.Value = string.IsNullOrEmpty(Gender.Value) ? null : Gender.Value;
             Email.Value = string.IsNullOrEmpty(Email.Value) ? null : Email.Value;
-            Birthday.Value = string.IsNullOrEmpty(Birthday.Value) ? null : Birthday.Value;
 
-            if (string.IsNullOrEmpty(Email.Value) || string.IsNullOrEmpty(Birthday.Value) || string.IsNullOrEmpty(Name.Value) || string.IsNullOrEmpty(Surname.Value) || string.IsNullOrEmpty(PhoneNumber.Value) || string.IsNullOrEmpty(Gender.Value) || string.IsNullOrEmpty(Nationality.Value))
+            if (string.IsNullOrEmpty(Email.Value) || string.IsNullOrEmpty(Birthday) || string.IsNullOrEmpty(Name.Value) || string.IsNullOrEmpty(Surname.Value) || string.IsNullOrEmpty(PhoneNumber.Value) || string.IsNullOrEmpty(Gender.Value) || string.IsNullOrEmpty(Nationality.Value))
             {
                 valid = false;
                 RaisePropertyChanged(nameof(IsMissingField));
@@ -77,7 +71,9 @@ namespace BNV.ViewModels
 
         public ValidatableObject<string> Email { get; }
 
-        public ValidatableObject<string> Birthday { get; set; }
+        public string Birthday { get; set; }
+
+        public bool DateValid { get; set; }
 
         public ValidatableObject<string> Surname { get; set; }
 
@@ -91,7 +87,7 @@ namespace BNV.ViewModels
 
         public bool valid;
         public bool IsMissingField {
-            get => (valid || !((string.IsNullOrEmpty(Email.Value) || string.IsNullOrEmpty(Birthday.Value) || string.IsNullOrEmpty(Name.Value) || string.IsNullOrEmpty(Surname.Value) || string.IsNullOrEmpty(PhoneNumber.Value) || string.IsNullOrEmpty(Gender.Value) || string.IsNullOrEmpty(Nationality.Value))));
+            get => (valid || !((string.IsNullOrEmpty(Email.Value) || string.IsNullOrEmpty(Birthday) || string.IsNullOrEmpty(Name.Value) || string.IsNullOrEmpty(Surname.Value) || string.IsNullOrEmpty(PhoneNumber.Value) || string.IsNullOrEmpty(Gender.Value) || string.IsNullOrEmpty(Nationality.Value))));
         }
     }
 }

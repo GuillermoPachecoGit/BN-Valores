@@ -5,13 +5,13 @@ namespace BNV.Validator
 {
     public class PhoneValidator : IValidationRule<string>
     {
-        public string Description => "Teléfono debe contener 10 dígitos";
+        public string Description => "Teléfono debe contener 13 dígitos";
 
         public bool Validate(string value)
         {
             if (value == string.Empty) return true;
             if (string.IsNullOrWhiteSpace(value)) return false;
-            return value.Length == 10 ;
+            return value.Length == 13 ;
         }
     }
 }

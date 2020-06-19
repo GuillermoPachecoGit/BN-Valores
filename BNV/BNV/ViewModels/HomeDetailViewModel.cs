@@ -61,6 +61,8 @@ namespace BNV.ViewModels
             BackCommand = new Command( async () => {
                 await navigationService.GoBackAsync();
             });
+
+            SetupFilters();
         }
 
         public IEventAggregator Events { get; set; }
@@ -350,7 +352,7 @@ namespace BNV.ViewModels
 
         private async Task ChangePasswordActionExecute()
         {
-            await NavigationService.NavigateAsync("ChangePasswordPage", null, false, false);
+            await NavigationService.NavigateAsync("ChangePasswordPage", new NavigationParameters() { { "title", "Cambio de contraseña" } }, false, false);
         }
 
         private async Task CloseSessionActionExecute()

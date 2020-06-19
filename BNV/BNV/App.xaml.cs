@@ -7,6 +7,7 @@ using Xamarin.Forms.Xaml;
 using BNV.Views.Register;
 using BNV.Views.Tabs;
 using BNV.Views.GraphicAndDetails;
+using ChangePasswordPage = BNV.Views.Register.ChangePasswordPage;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace BNV

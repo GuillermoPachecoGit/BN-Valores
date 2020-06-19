@@ -42,6 +42,17 @@ namespace BNV.Views.GraphicAndDetails
             list3.SelectedItem = null;
             list4.SelectedItem = null;
 
+            var bonosChanges = await SecureStorage.GetAsync(Config.BonosChange);
+            var typeChanges = await SecureStorage.GetAsync(Config.TypeChange);
+
+            int indexBonos;
+            if (int.TryParse(bonosChanges, out indexBonos))
+                bonosSlider.Value = indexBonos;
+
+            int indexTypes;
+            if (int.TryParse(typeChanges, out indexTypes))
+                typesSlider.Value = indexTypes;
+
             ((NavigationPage)Xamarin.Forms.Application.Current.MainPage).BarBackgroundColor = Color.FromHex("#AFBC24");
             ((HomeViewModel)this.BindingContext).Title = "Estadísticas";
             if (CrossDeviceOrientation.IsSupported) CrossDeviceOrientation.Current.LockOrientation(Plugin.DeviceOrientation.Abstractions.DeviceOrientations.Portrait);
@@ -130,6 +141,8 @@ namespace BNV.Views.GraphicAndDetails
                 default:
                     break;
             }
+
+            SecureStorage.SetAsync(Config.TypeChange, slider.Value.ToString());
         }
 
         void SfRangeSlider_ValueChanging_1(object sender, ValueEventArgs e)
@@ -177,6 +190,8 @@ namespace BNV.Views.GraphicAndDetails
                 default:
                     break;
             }
+
+            SecureStorage.SetAsync(Config.BonosChange, slider.Value.ToString());
         }
 
         void TabExternal_SelectionChanged(System.Object sender, Syncfusion.XForms.TabView.SelectionChangedEventArgs e)

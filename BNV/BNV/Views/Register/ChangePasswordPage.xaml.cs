@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Plugin.DeviceOrientation;
 using Xamarin.Forms;
 
-namespace BNV.Views
+namespace BNV.Views.Register
 {
     public partial class ChangePasswordPage : ContentPage
     {
@@ -17,6 +17,9 @@ namespace BNV.Views
         {
             base.OnAppearing();
             if (CrossDeviceOrientation.IsSupported) CrossDeviceOrientation.Current.LockOrientation(Plugin.DeviceOrientation.Abstractions.DeviceOrientations.Portrait);
+
+            ((NavigationPage)Xamarin.Forms.Application.Current.MainPage).BarBackgroundColor = Color.FromHex("#AFBC24");
+            ((NavigationPage)Xamarin.Forms.Application.Current.MainPage).BarTextColor = Color.White;
         }
 
         protected override void OnDisappearing()

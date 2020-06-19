@@ -1,77 +1,171 @@
 ﻿using System;
-using System.Threading.Tasks;
+using System.Collections.Generic;
 using System.Windows.Input;
-using BNV.Validator;
+using BNV.Models;
+using BNV.Settings;
+using Prism.AppModel;
 using Prism.Navigation;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace BNV.ViewModels
 {
-    public class ChangePasswordViewModel : ViewModelBase
+    public class ChangePasswordViewModel : ViewModelBase, IPageLifecycleAware
     {
+        private const string ErrorLenght = "El identificador debe estar completo.";
+
         public ChangePasswordViewModel(INavigationService navigationService)
             : base(navigationService)
         {
+            ValidateCommand = new Command(ValidateCommandExecute);
             Title = "Cambio de contraseña";
-
-            ChangePasswordCommand = new Command(async () => await ChangePasswordActionExecute());
-
-            NewPassword = new ValidatableObject<string>(propChangedCallBack, new PasswordValidator())
-            {
-                Value = string.Empty
-            };
-
-            Password = new ValidatableObject<string>(propChangedCallBack, new PasswordValidator())
-            {
-                Value = string.Empty
-            };
-            IsMatch = true;
-            IsTheSame = false;
         }
 
-        private async Task ChangePasswordActionExecute()
+        private async void ValidateCommandExecute(object obj)
         {
-
-            if (string.IsNullOrEmpty(NewPassword.Value) || string.IsNullOrEmpty(ConfirmPassword) || string.IsNullOrEmpty(Password.Value))
+            if (string.IsNullOrEmpty(Identification))
             {
-                IsEmpty = true;
-                
+                IsErrorEmpty = true;
+                return;
+            }
+            IsErrorEmpty = false;
+
+            if (Identification.Replace("#", string.Empty).Length < MaskWatermark.Length)
+            {
+                IsErrorIdentLenght = true;
                 return;
             }
 
-            if (NewPassword.Value == Password.Value)
-            {
-                IsTheSame = true;
-                IsEmpty = false;
-                return;
-            }
+            IsErrorIdentLenght = false;
 
-            await NavigationService.NavigateAsync("ChangePasswordResultPage");
+             await SecureStorage.SetAsync(Config.FirstLogin, "n");
+             await NavigationService.NavigateAsync("ChangePasswordResultPage", new NavigationParameters() { { "title", Title } });
         }
 
-        public ValidatableObject<string> NewPassword { get; set; }
-
-        public ValidatableObject<string> Password { get; set; }
-
-        private string _confirmPassword;
-        public string ConfirmPassword
+        public void OnAppearing()
         {
-            get => _confirmPassword;
+            MaskWatermark = "Identificación";
+            IsErrorLenght = false;
+            //call to api
+            IdentificationTypes = new List<IdentificationType>()
+            {
+                new IdentificationType()
+                {
+                    Description = "Cédula de identidad",
+                    MaskWatermark = "0#-####-####",
+                    Mask = "0#-####-####",
+                },
+                new IdentificationType()
+                {
+                    Description = "Cédula de residencia",
+                    MaskWatermark = "###############",
+                    Mask = "AAAAAAAAAAAAAAA",
+                },
+                new IdentificationType()
+                {
+                    Description = "Pasaporte",
+                    MaskWatermark = "###############",
+                    Mask = "AAAAAAAAAAAAAAA",
+                },
+                new IdentificationType()
+                {
+                    Description = "Carné de refugiado",
+                    MaskWatermark = "###############",
+                    Mask = "AAAAAAAAAAAAAAA",
+                },
+                new IdentificationType()
+                {
+                    Description = "Carné de pensionado",
+                    MaskWatermark = "###############",
+                    Mask = "AAAAAAAAAAAAAAA",
+                },
+                new IdentificationType()
+                {
+                    Description = "DIMEX",
+                    MaskWatermark = "1###########",
+                    Mask = "1###########"
+
+                },
+                new IdentificationType()
+                {
+                    Description = "DIDI",
+                    MaskWatermark = "5###########",
+                    Mask = "5###########"
+                }
+            };
+        }
+
+        public void OnDisappearing()
+        {
+
+        }
+
+        public ICommand ValidateCommand { get; set; }
+
+        private string _identification;
+        public string Identification
+        {
+            get => _identification;
             set
             {
-                SetProperty(ref _confirmPassword, value);
-                IsTheSame = NewPassword.Value == Password.Value || string.IsNullOrEmpty(value);
-                IsMatch = !string.IsNullOrEmpty(value) && value == NewPassword.Value || string.IsNullOrEmpty(value);
+                SetProperty(ref _identification, value);
+               
             }
         }
 
-        Action propChangedCallBack => (ChangePasswordCommand as Command).ChangeCanExecute;
+        public int LimitSize { get; set; }
 
-        public bool IsEmpty { get; private set; }
+        private string _mask;
 
-        public bool IsMatch { get; private set; }
+        public string MaskTemplate
+        {
+            get => _mask;
+            set
+            {
+                SetProperty(ref _mask, value);
+            }
+        }
 
-        public ICommand ChangePasswordCommand { get; set; }
-        public bool IsTheSame { get; private set; }
+        public string MaskWatermark { get; private set; }
+
+        public string RegEx { get; set; }
+
+        public string ErrorIdentSize { get; set; }
+
+        public List<IdentificationType> IdentificationTypes { get; set; }
+
+        private IdentificationType _selectedType;
+
+        public IdentificationType SelectedType
+        {
+            get => _selectedType;
+
+            set
+            {
+                SetProperty(ref _selectedType, value);
+                LimitSize = value.Mask.Length;
+                MaskTemplate = value.Mask;
+                MaskWatermark = value.MaskWatermark;
+                //RegEx = value.RegEx;
+                Identification = string.Empty;
+                IsErrorLenght = false;
+                ErrorIdentSize = string.Format(ErrorLenght, LimitSize);
+            }
+        }
+
+        Action propChangedCallBack => (ValidateCommand as Command).ChangeCanExecute;
+
+        public bool IsErrorIdentLenght { get; set; }
+
+        public bool IsErrorEmpty { get; set; }
+
+        public bool IsErrorLenght { get; set; }
+
+        public override void OnNavigatedTo(INavigationParameters parameters)
+        {
+            base.OnNavigatedTo(parameters);
+            var title = parameters.GetValue<string>("title");
+            Title = !string.IsNullOrEmpty(title) ? title : "Cambio de contraseña";
+        }
     }
 }

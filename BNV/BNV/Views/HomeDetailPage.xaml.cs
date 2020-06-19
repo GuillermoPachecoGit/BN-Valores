@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Threading.Tasks;
+using BNV.Settings;
 using BNV.ViewModels;
 using BNV.Views.Bases;
 using Plugin.DeviceOrientation;
 using Syncfusion.SfRangeSlider.XForms;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace BNV.Views
@@ -68,6 +70,8 @@ namespace BNV.Views
                 default:
                     break;
             }
+
+            SecureStorage.SetAsync(Config.TypeChange, slider.Value.ToString());
         }
 
         void SfRangeSlider_ValueChanging_1(System.Object sender, Syncfusion.SfRangeSlider.XForms.ValueEventArgs e)
@@ -115,6 +119,8 @@ namespace BNV.Views
                 default:
                     break;
             }
+
+            SecureStorage.SetAsync(Config.BonosChange, slider.Value.ToString());
         }
 
         void MainPageSizeChanged(object sender, EventArgs e)
@@ -135,13 +141,24 @@ namespace BNV.Views
             }
         }
 
-        protected override void OnAppearing()
+        protected async override void OnAppearing()
         {
             base.OnAppearing();
             group1.SelectedItem = group1.Items[0];
             group.SelectedItem = group.Items[0];
             group3.SelectedItem = group3.Items[0];
             group4.SelectedItem = group4.Items[0];
+
+            var bonosChanges = await SecureStorage.GetAsync(Config.BonosChange);
+            var typeChanges = await SecureStorage.GetAsync(Config.TypeChange);
+
+            int indexBonos;
+            if (int.TryParse(bonosChanges, out indexBonos))
+                bonosSlider.Value = indexBonos;
+
+            int indexTypes;
+            if (int.TryParse(typeChanges, out indexTypes))
+                typeSlider.Value = indexTypes;
         }
 
         void SfTabView_SelectionChanged(System.Object sender, Syncfusion.XForms.TabView.SelectionChangedEventArgs e)
