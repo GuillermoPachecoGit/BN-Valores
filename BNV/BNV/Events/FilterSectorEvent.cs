@@ -3,5 +3,5 @@ using Prism.Events;
 
 namespace BNV.Events
 {
-    public class FilterSectorEvent : PubSubEvent<string> { }
+    public class FilterSectorEvent : PubSubEvent { }
 }

@@ -5,7 +5,6 @@
     x:Class="BNV.Views.RegisterPage"
     xmlns:combobox="clr-namespace:Syncfusion.XForms.ComboBox;assembly=Syncfusion.SfComboBox.XForms"
     xmlns:ListCollection="clr-namespace:System.Collections.Generic;assembly=netstandard"
-    xmlns:customs="clr-namespace:BNV.Views.Customs"
     xmlns:syncfusion="clr-namespace:Syncfusion.XForms.MaskedEdit;assembly=Syncfusion.SfMaskedEdit.XForms"
     xmlns:converters="clr-namespace:BNV.Converters"
     BackgroundColor="Black">
@@ -261,22 +260,15 @@
                             VerticalOptions="CenterAndExpand"
                             HeightRequest="1"
                             BackgroundColor="White">
-                          <BoxView.Triggers>
+                          <!--<BoxView.Triggers>
                              <DataTrigger TargetType="BoxView" Binding="{Binding DateValid}" Value="false">
                                 <Setter Property="BackgroundColor"  Value="#FF5B5B" />
                               </DataTrigger>
                               <DataTrigger TargetType="BoxView" Binding="{Binding DateValid}" Value="true">
                                   <Setter Property="BackgroundColor"  Value="White" />
                                </DataTrigger>
-                           </BoxView.Triggers>
+                           </BoxView.Triggers>-->
                           </BoxView>
-                        <!--<Label
-                            Padding="0"
-                            Margin="0"
-                            HorizontalOptions="FillAndExpand"
-                            Style="{StaticResource errorDescriptionStyle}"
-                            Text="La fecha es inválida"
-                            IsVisible="{Binding DateValid}" />-->
                     </StackLayout>
 
             <StackLayout
@@ -295,17 +287,10 @@
                                 Source="ic_flag.png"
                                 HorizontalOptions="Fill"
                                 VerticalOptions="Fill" />
-                           <combobox:SfComboBox SelectedItem="{Binding Nationality.Value}" HeightRequest="45" BorderColor="Transparent" HorizontalOptions="FillAndExpand" DropDownBackgroundColor="#2A2A2A" EnableSelectionIndicator="False" DropDownTextColor="White" DropDownBorderColor="Transparent" TextColor="White" SelectedDropDownItemColor="#464646" TextSize="20" WatermarkColor="White" Watermark="Nacionalidad"  x:Name="comboBox2" >
+                           <combobox:SfComboBox DataSource="{Binding Countries, Mode=TwoWay}" DisplayMemberPath="DesIdPais"  SelectedItem="{Binding Nationality}" HeightRequest="45" BorderColor="Transparent" HorizontalOptions="FillAndExpand" DropDownBackgroundColor="#2A2A2A" EnableSelectionIndicator="False" DropDownTextColor="White" DropDownBorderColor="Transparent" TextColor="White" SelectedDropDownItemColor="#464646" TextSize="20" WatermarkColor="White" Watermark="Nacionalidad"  x:Name="comboBox2" >
                                <combobox:SfComboBox.DropDownButtonSettings>
      		                        <combobox:DropDownButtonSettings FontColor="White" />
      	                        </combobox:SfComboBox.DropDownButtonSettings >
-                                <combobox:SfComboBox.ComboBoxSource>
-                                    <ListCollection:List x:TypeArguments="x:String">
-                	                <x:String> Hombre </x:String>
-                	                <x:String> Mujer </x:String>
-                	                <x:String> Otro </x:String>
-            	                </ListCollection:List>
-                            </combobox:SfComboBox.ComboBoxSource>
                            </combobox:SfComboBox>
                         </StackLayout>
                          <BoxView
@@ -314,10 +299,10 @@
                             HeightRequest="1"
                             BackgroundColor="White">
                           <BoxView.Triggers>
-                             <DataTrigger TargetType="BoxView" Binding="{Binding Nationality.IsValid}" Value="false">
+                             <DataTrigger TargetType="BoxView" Binding="{Binding Nationality}" Value="false">
                                 <Setter Property="BackgroundColor"  Value="#FF5B5B" />
                               </DataTrigger>
-                              <DataTrigger TargetType="BoxView" Binding="{Binding Nationality.IsValid}" Value="true">
+                              <DataTrigger TargetType="BoxView" Binding="{Binding Nationality}" Value="true">
                                   <Setter Property="BackgroundColor"  Value="White" />
                                </DataTrigger>
                            </BoxView.Triggers>
@@ -340,17 +325,10 @@
                                 Source="ic_gender.png"
                                 HorizontalOptions="Fill"
                                 VerticalOptions="Fill" />
-                           <combobox:SfComboBox HeightRequest="45" SelectedItem="{Binding Gender.Value}" BorderColor="Transparent" HorizontalOptions="FillAndExpand" DropDownBackgroundColor="#2A2A2A" EnableSelectionIndicator="False" DropDownTextColor="White" DropDownBorderColor="Transparent" TextColor="White" SelectedDropDownItemColor="#464646" TextSize="20" WatermarkColor="White" Watermark="Género"  x:Name="comboBox1" >
+                           <combobox:SfComboBox HeightRequest="45" DataSource="{Binding Genders, Mode=TwoWay}" DisplayMemberPath="DesIdGenero" SelectedItem="{Binding Gender}" BorderColor="Transparent" HorizontalOptions="FillAndExpand" DropDownBackgroundColor="#2A2A2A" EnableSelectionIndicator="False" DropDownTextColor="White" DropDownBorderColor="Transparent" TextColor="White" SelectedDropDownItemColor="#464646" TextSize="20" WatermarkColor="White" Watermark="Género"  x:Name="comboBox1" >
                                <combobox:SfComboBox.DropDownButtonSettings>
      		                        <combobox:DropDownButtonSettings FontColor="White" />
      	                        </combobox:SfComboBox.DropDownButtonSettings >
-                                <combobox:SfComboBox.ComboBoxSource>
-                                    <ListCollection:List x:TypeArguments="x:String">
-                	                 <x:String> Hombre </x:String>
-                	                 <x:String> Mujer </x:String>
-                	                 <x:String> Otro </x:String>
-            	                </ListCollection:List>
-                            </combobox:SfComboBox.ComboBoxSource>
                            </combobox:SfComboBox>
                         </StackLayout>
                          <BoxView
@@ -359,10 +337,10 @@
                             HeightRequest="1"
                             BackgroundColor="White">
                           <BoxView.Triggers>
-                             <DataTrigger TargetType="BoxView" Binding="{Binding Gender.IsValid}" Value="false">
+                             <DataTrigger TargetType="BoxView" Binding="{Binding Gender}" Value="false">
                                 <Setter Property="BackgroundColor"  Value="#FF5B5B" />
                               </DataTrigger>
-                              <DataTrigger TargetType="BoxView" Binding="{Binding Gender.IsValid}" Value="true">
+                              <DataTrigger TargetType="BoxView" Binding="{Binding Gender}" Value="true">
                                   <Setter Property="BackgroundColor"  Value="White" />
                                </DataTrigger>
                            </BoxView.Triggers>
@@ -390,7 +368,7 @@
                      Margin="0,0,0,24"
                      VerticalOptions="EndAndExpand"
                      HorizontalOptions="CenterAndExpand"
-                     Text="Contáctenos  *medio contacto*"
+                     Text="{Binding ContactInfo}"
                      TextColor="#AAAAAA"
                      FontSize="12"></Label>
         </StackLayout>

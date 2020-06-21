@@ -14,21 +14,21 @@ namespace BNV.ViewModels
 {
     public class LoginViewModel : ViewModelBase, IPageLifecycleAware
     {
+        private const string Label = "Login";
+        private const string PlaceHolder = "Identificación";
+
+
         public LoginViewModel(INavigationService navigationService)
             : base(navigationService)
         {
-            Title = "Login";
-
+            base.Title = Label;
             SignInCommand = new Command(async () => await SignInActionExecute());
             SignUpCommand = new Command(async () => await SignUpActionExecute());
             RecoveryCommand = new Command(async () => await RecoveryActionExecute());
-
             IsErrorEmpty = false;
             IsErrorLenght = false;
             IsErrorIdentLenght = false;
         }
-
-        Action propChangedCallBack => (SignInCommand as Command).ChangeCanExecute;
 
         private async Task RecoveryActionExecute()
         {
@@ -66,87 +66,59 @@ namespace BNV.ViewModels
             {
                 try
                 {
-                    using (UserDialogs.Instance.Loading("Iniciando Sesión..."))
+                    using (UserDialogs.Instance.Loading(MessagesAlert.InitSession))
                     {
-                        await Task.Delay(5);
-                        var firstLogin = await SecureStorage.GetAsync(Config.FirstLogin);
-                        if (string.IsNullOrEmpty(firstLogin) || firstLogin == "n")
+                        try
                         {
-                            await SecureStorage.SetAsync(Config.FirstLogin, "y");
-                            await NavigationService.NavigateAsync("PasswordSettingPage");
+                            using (UserDialogs.Instance.Loading(MessagesAlert.SendingData))
+                            {
+                                var loginParam = new LoginParam()
+                                {
+                                    TipId = SelectedType.CodIdType,
+                                    Id = Identification,
+                                    Password = Password
+                                };
+                                //TODO LOGIN ESTA EN OTRA DIRECCION URLBASE/Login, esto debe ser uniforme,como los demas endpoints urlbase/api/Login
+                                //var token = await App.ApiService.PostLogin(loginParam);
+                                await NavigationAction();
+                            }
                         }
-                        else
+                        catch (Exception ex)
                         {
-                            await NavigationService.NavigateAsync("HomePage");
+
                         }
                     }
-                    
                 }
                 catch (Exception ex)
                 {
                     var val = ex.Message;
                 }
             });
+        }
 
+        private async Task NavigationAction()
+        {
+            var firstLogin = await SecureStorage.GetAsync(Config.FirstLogin);
+            if (string.IsNullOrEmpty(firstLogin) || firstLogin == "n")
+            {
+                await SecureStorage.SetAsync(Config.FirstLogin, "y");
+                await NavigationService.NavigateAsync("PasswordSettingPage");
+            }
+            else
+            {
+                await NavigationService.NavigateAsync("HomePage");
+            }
         }
 
         public void OnAppearing()
         {
-            MaskWatermark = "Identificación";
+            MaskWatermark = PlaceHolder;
             IsErrorIdentLenght = false;
-            //call to api
-            IdentificationTypes = new List<IdentificationType>()
-            {
-                new IdentificationType()
-                {
-                    Description = "Cédula de identidad",
-                    MaskWatermark = "0#-####-####",
-                    Mask = "0#-####-####",
-                },
-                new IdentificationType()
-                {
-                    Description = "Cédula de residencia",
-                    MaskWatermark = "###############",
-                    Mask = "AAAAAAAAAAAAAAA",
-                },
-                new IdentificationType()
-                {
-                    Description = "Pasaporte",
-                    MaskWatermark = "###############",
-                    Mask = "AAAAAAAAAAAAAAA",
-                },
-                new IdentificationType()
-                {
-                    Description = "Carné de refugiado",
-                    MaskWatermark = "###############",
-                    Mask = "AAAAAAAAAAAAAAA",
-                },
-                new IdentificationType()
-                {
-                    Description = "Carné de pensionado",
-                    MaskWatermark = "###############",
-                    Mask = "AAAAAAAAAAAAAAA",
-                },
-                new IdentificationType()
-                {
-                    Description = "DIMEX",
-                    MaskWatermark = "1###########",
-                    Mask = "1###########"
-
-                },
-                new IdentificationType()
-                {
-                    Description = "DIDI",
-                    MaskWatermark = "5###########",
-                    Mask = "5###########"
-                }
-            };
+            IdentificationTypes = App.IdentificationTypes;
+            ContactInfo = $"Contáctenos {App.ContactInfo}";
         }
 
-        public void OnDisappearing()
-        {
-            
-        }
+        public void OnDisappearing(){}
 
         public ICommand SignUpCommand { get; set; }
 
@@ -169,7 +141,6 @@ namespace BNV.ViewModels
         public int LimitSize { get; set; }
 
         private string _mask;
-
         public string MaskTemplate
         {
             get => _mask;
@@ -179,10 +150,21 @@ namespace BNV.ViewModels
             }
         }
 
+        private string _contact;
+        public string ContactInfo
+        {
+            get => _contact;
+            set
+            {
+                SetProperty(ref _contact, value);
+            }
+        }
+
         public string MaskWatermark { get; private set; }
         public string RegEx { get; set; }
 
         public string ErrorIdentSize { get; set; }
+
         public List<IdentificationType> IdentificationTypes { get; set; }
 
         private IdentificationType _selectedType;
@@ -196,14 +178,11 @@ namespace BNV.ViewModels
                 SetProperty(ref _selectedType, value);
                 LimitSize = value.Mask.Length;
                 MaskTemplate = value.Mask;
-                MaskWatermark = value.MaskWatermark;
-                //RegEx = value.RegEx;
+                MaskWatermark = value.Mask;
                 Identification = string.Empty;
                 IsErrorIdentLenght = false;
             }
         }
-
-        Action PropChangedCallBack => (SignInCommand as Command).ChangeCanExecute;
 
         public bool IsErrorIdentLenght { get; set; }
 

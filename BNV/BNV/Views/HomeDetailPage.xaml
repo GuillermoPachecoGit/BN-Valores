@@ -21,6 +21,7 @@
         </StackLayout>
     </NavigationPage.TitleView>
     <Grid>
+        <!--Vertical Pages -->
         <StackLayout x:Name="tab" Padding="0" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
 
             <Grid x:Name="nav" Margin="0" Padding="0" BackgroundColor="{Binding Color}">
@@ -83,7 +84,6 @@
                     </Grid>
                      <Label Grid.Row="0" Grid.Column="1" Text="Configuración" Margin="0,0,50,0" VerticalTextAlignment="Center" HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalOptions="CenterAndExpand" TextColor="White" FontSize="20"></Label>
             </Grid>
-            <!--Vertical Pages -->
             <tabView:SfTabView x:Name="TabVerticalMain" EnableSwiping="False" Margin="-7" HorizontalOptions="FillAndExpand" TabHeight="65" VerticalOptions="FillAndExpand" SelectionChanged="SfTabView_SelectionChanged" TabHeaderBackgroundColor="#4BA0D9" VisibleHeaderCount="2" TabHeaderPosition="Bottom" BackgroundColor="#4BA0D9" DisplayMode="ImageWithText" >
                 <tabView:SfTabView.SelectionIndicatorSettings>
                     <tabView:SelectionIndicatorSettings
@@ -624,16 +624,10 @@
                                                     BackgroundColor="Black"
                                                     WidthRequest="120"                        
                                                     ShowBorder="False"
+                                                    DataSource="{Binding Currencies, Mode=TwoWay}"
+                                                    DisplayMemberPath="DesIdCurrency"
                                                     SelectedItem="{Binding SelectedCoin, Mode=TwoWay}"
                                                     DropDownBorderColor="#A5A5A5">
-
-                                                 <combobox:SfComboBox.ComboBoxSource>
-                                                         <ListCollection:List x:TypeArguments="x:String">
-                                                              <x:String>Todas</x:String>
-                                                              <x:String>Colones</x:String>
-                                                              <x:String>Dólares</x:String>
-                                                          </ListCollection:List>
-                                                 </combobox:SfComboBox.ComboBoxSource>
                                                  </combobox:SfComboBox>
                                                  </Frame>
                                         </StackLayout>
@@ -668,19 +662,12 @@
                                                     HighlightedTextColor="#A5A5A5"
                                                     BackgroundColor="Black"
                                                     WidthRequest="120"
+                                                    DataSource="{Binding Sectors, Mode=TwoWay}"
+                                                    DisplayMemberPath="DesIdSector"
                                                     SelectedItem="{Binding SelectedSector, Mode=TwoWay}"
                                                     ShowBorder="False"
                                                     DropDownBorderColor="#A5A5A5">
-
-                                                    <combobox:SfComboBox.ComboBoxSource>
-                                                             <ListCollection:List  x:TypeArguments="x:String">
-                                                                  <x:String>Todos</x:String>
-                                                                  <x:String>Público</x:String>
-                                                                  <x:String>Privado</x:String>
-                                                                  <x:String>Mixto</x:String>
-            	                                             </ListCollection:List>
-                                                     </combobox:SfComboBox.ComboBoxSource>
-                                                    </combobox:SfComboBox>
+                                                  </combobox:SfComboBox>
                                             </Frame>
                                         </StackLayout>
                

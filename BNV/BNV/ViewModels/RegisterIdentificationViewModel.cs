@@ -1,8 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Windows.Input;
+using Acr.UserDialogs;
 using BNV.Models;
-using BNV.Validator;
+using BNV.Settings;
 using Prism.AppModel;
 using Prism.Navigation;
 using Xamarin.Forms;
@@ -12,6 +13,9 @@ namespace BNV.ViewModels
     public class RegisterIdentificationViewModel : ViewModelBase, IPageLifecycleAware
     {
         private const string ErrorLenght = "El identificador debe estar completo.";
+        private const string Placeholder = "Identificación";
+        private const string CharacterDefault = "#";
+
         public RegisterIdentificationViewModel(INavigationService navigationService)
           : base(navigationService)
         {
@@ -29,7 +33,7 @@ namespace BNV.ViewModels
 
             IsErrorEmpty = false;
 
-            if (Identification.Replace("#", string.Empty).Length < MaskWatermark?.Length)
+            if (Identification.Replace(CharacterDefault, string.Empty).Length < MaskWatermark?.Length)
             {
                 IsErrorIdentLenght = true;
                 return;
@@ -37,66 +41,42 @@ namespace BNV.ViewModels
 
             IsErrorIdentLenght = false;
 
-            await NavigationService.NavigateAsync("RegisterPage");
+            using (UserDialogs.Instance.Loading("Verificando datos..."))
+            {
+                await App.ApiService.GetVerifyUser(new UserVerifyParam() { IdentificationType = SelectedType.CodIdType, Identification = Identification })
+                   .ContinueWith(async result =>
+                   {
+                       if (result.IsCompleted && result.Status == TaskStatus.RanToCompletion)
+                       {
+                           // TODO VERIFY BAD RESPONSE
+                           // TODO si tiene email, y cuenta como se debe completar la etapa de registro
+                           await NavigationService.NavigateAsync("RegisterPage", new NavigationParameters() { { KeyParams.VerifyParam, result.Result } });
+                       }
+                       else if (result.IsFaulted) { }
+                       else if (result.IsCanceled) { }
+                   }, TaskScheduler.FromCurrentSynchronizationContext());
+            }
         }
 
         public void OnAppearing()
         {
-            MaskWatermark = "Identificación";
+            MaskWatermark = Placeholder;
             IsErrorEmpty = false;
-            //call to api
-            IdentificationTypes = new List<IdentificationType>()
-            {
-                new IdentificationType()
-                {
-                    Description = "Cédula de identidad",
-                    MaskWatermark = "0#-####-####",
-                    Mask = "0#-####-####",
-                },
-                new IdentificationType()
-                {
-                    Description = "Cédula de residencia",
-                    MaskWatermark = "###############",
-                    Mask = "AAAAAAAAAAAAAAA",
-                },
-                new IdentificationType()
-                {
-                    Description = "Pasaporte",
-                    MaskWatermark = "###############",
-                    Mask = "AAAAAAAAAAAAAAA",
-                },
-                new IdentificationType()
-                {
-                    Description = "Carné de refugiado",
-                    MaskWatermark = "###############",
-                    Mask = "AAAAAAAAAAAAAAA",
-                },
-                new IdentificationType()
-                {
-                    Description = "Carné de pensionado",
-                    MaskWatermark = "###############",
-                    Mask = "AAAAAAAAAAAAAAA",
-                },
-                new IdentificationType()
-                {
-                    Description = "DIMEX",
-                    MaskWatermark = "1###########",
-                    Mask = "1###########"
-
-                },
-                new IdentificationType()
-                {
-                    Description = "DIDI",
-                    MaskWatermark = "5###########",
-                    Mask = "5###########"
-                }
-            };
+            IdentificationTypes = App.IdentificationTypes;
+            ContactInfo = $"Contáctenos {App.ContactInfo}";
         }
 
-        public void OnDisappearing()
+        private string _contact;
+        public string ContactInfo
         {
-
+            get => _contact;
+            set
+            {
+                SetProperty(ref _contact, value);
+            }
         }
+
+        public void OnDisappearing() { }
 
         public ICommand ValidateCommand { get; set; }
 
@@ -106,7 +86,6 @@ namespace BNV.ViewModels
             get => _identification;
             set {
                 SetProperty(ref _identification, value);
-                // add logic to validate RegEx
             }
         }
 
@@ -123,7 +102,8 @@ namespace BNV.ViewModels
             }
         }
 
-        public string MaskWatermark { get; private set; }
+        public string? MaskWatermark { get; private set; }
+
         public string RegEx { get; set; }
 
         public string ErrorIdentSize { get; set; }
@@ -141,15 +121,12 @@ namespace BNV.ViewModels
                 SetProperty(ref _selectedType, value);
                 LimitSize = value.Mask.Length;
                 MaskTemplate = value.Mask;
-                MaskWatermark = value.MaskWatermark;
-                //RegEx = value.RegEx;
+                MaskWatermark = value.Mask;
                 Identification = string.Empty;
                 IsErrorEmpty = false;
                 ErrorIdentSize = string.Format(ErrorLenght, LimitSize);
             }
         }
-
-        Action propChangedCallBack => (ValidateCommand as Command).ChangeCanExecute;
 
         public bool IsErrorEmpty{ get; private set; }
         public bool IsErrorIdentLenght { get; private set; }

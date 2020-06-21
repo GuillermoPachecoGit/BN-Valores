@@ -6,9 +6,9 @@ namespace BNV.Models
     public class ItemsParamModel
     {
         [AliasAs("currency")]
-        public int Currency { get; set; }
+        public long? Currency { get; set; }
 
         [AliasAs("sector")]
-        public int Sector { get; set; }
+        public long? Sector { get; set; }
     }
 }

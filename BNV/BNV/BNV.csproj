@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
@@ -30,7 +30,6 @@
     <Folder Include="Converters\" />
     <Folder Include="Settings\" />
     <Folder Include="Events\" />
-    <Folder Include="Views\Customs\" />
     <Folder Include="ServicesWebAPI\" />
     <Folder Include="ServicesWebAPI\Interfaces\" />
   </ItemGroup>

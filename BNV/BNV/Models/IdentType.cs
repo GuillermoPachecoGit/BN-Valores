@@ -3,13 +3,13 @@ using Newtonsoft.Json;
 
 namespace BNV.Models
 {
-    public class IdentificationType
+    public class IdentType
     {
         [JsonProperty("codIdType")]
         public long CodIdType { get; set; }
 
         [JsonProperty("desIdType")]
-        public string Description { get; set; }
+        public string DesIdType { get; set; }
 
         [JsonProperty("mask")]
         public string Mask { get; set; }
@@ -19,7 +19,5 @@ namespace BNV.Models
 
         [JsonProperty("order")]
         public long Order { get; set; }
-
-        public string MaskWatermark { get; internal set; }
     }
 }

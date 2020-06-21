@@ -144,7 +144,7 @@
                      Margin="0,0,0,24"
                      VerticalOptions="EndAndExpand"
                      HorizontalOptions="CenterAndExpand"
-                     Text="Contáctenos  *medio contacto*"
+                     Text="{Binding ContactInfo}"
                      TextColor="#AAAAAA"
                      FontSize="12"></Label>
              </StackLayout>

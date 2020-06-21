@@ -19,14 +19,13 @@ namespace BNV.Views.GraphicAndDetails
         {
             InitializeComponent();
             ((NavigationPage)Application.Current.MainPage).BarTextColor = Color.White;
-            //((NavigationPage)Application.Current.MainPage).SetBinding(NavigationPage.BarBackgroundColorProperty, new Binding("ColorStatus", BindingMode.TwoWay));
             StepValue = 1;
             NavigationPage.SetHasBackButton(this, false);
         }
 
         protected override bool OnBackButtonPressed()
         {
-            ((NavigationPage)Xamarin.Forms.Application.Current.MainPage).BarBackgroundColor = Color.Black;
+            ((NavigationPage)Application.Current.MainPage).BarBackgroundColor = Color.Black;
             return base.OnBackButtonPressed();
         }
 
@@ -53,8 +52,8 @@ namespace BNV.Views.GraphicAndDetails
             if (int.TryParse(typeChanges, out indexTypes))
                 typesSlider.Value = indexTypes;
 
-            ((NavigationPage)Xamarin.Forms.Application.Current.MainPage).BarBackgroundColor = Color.FromHex("#AFBC24");
-            ((HomeViewModel)this.BindingContext).Title = "Estadísticas";
+            ((NavigationPage)Application.Current.MainPage).BarBackgroundColor = Color.FromHex("#AFBC24");
+            ((HomeViewModel)BindingContext).Title = "Estadísticas";
             if (CrossDeviceOrientation.IsSupported) CrossDeviceOrientation.Current.LockOrientation(Plugin.DeviceOrientation.Abstractions.DeviceOrientations.Portrait);
 
             if (((HomeViewModel)this.BindingContext).AlreadyLoaded)
@@ -90,9 +89,9 @@ namespace BNV.Views.GraphicAndDetails
             if (CrossDeviceOrientation.IsSupported) CrossDeviceOrientation.Current.UnlockOrientation();
         }
 
-        void CollectionView_SelectionChanged(System.Object sender, Xamarin.Forms.SelectionChangedEventArgs e)
+        void CollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ((HomeViewModel)this.BindingContext).SelectedItem = (e.CurrentSelection.FirstOrDefault() as ItemBase);
+            ((HomeViewModel)BindingContext).SelectedItem = (e.CurrentSelection.FirstOrDefault() as ItemBase);
         }
 
         void SfRangeSlider_ValueChanging(object sender, ValueEventArgs e)
@@ -194,12 +193,12 @@ namespace BNV.Views.GraphicAndDetails
             SecureStorage.SetAsync(Config.BonosChange, slider.Value.ToString());
         }
 
-        void TabExternal_SelectionChanged(System.Object sender, Syncfusion.XForms.TabView.SelectionChangedEventArgs e)
+        void TabExternal_SelectionChanged(object sender, Syncfusion.XForms.TabView.SelectionChangedEventArgs e)
         {
             if (e.Index == 0)
-                ((HomeViewModel)this.BindingContext).Title = "Estadísticas";
+                ((HomeViewModel)BindingContext).Title = "Estadísticas";
             else
-                ((HomeViewModel)this.BindingContext).Title = "Configuración";
+                ((HomeViewModel)BindingContext).Title = "Configuración";
         }
     }
 }

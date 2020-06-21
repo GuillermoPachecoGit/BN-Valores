@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Acr.UserDialogs;
 using BNV.Events;
 using BNV.Models;
 using BNV.Settings;
@@ -15,46 +18,28 @@ namespace BNV.ViewModels
 {
     public class HomeDetailViewModel : ViewModelBase
     {
+        private const string DefaultLabelExchange = "0.50 colones";
+        private const string DefaultLabelBonos = "0.50%";
+        private const string ColorNavigationConfig = "#AFBC24";
+        private const string TitleNavConfig = "Configuración";
+        private const int Time = 7;
+
         public HomeDetailViewModel(INavigationService navigationService, IEventAggregator ea)
             : base(navigationService)
         {
             Events = ea;
             Events.GetEvent<NavigationColorEvent>().Subscribe(SetColor);
-
-            TitleNav = "BNVR C";
-
-            Data = new ObservableCollection<Model>()
-            {
-                new Model("5 Jun", 50),
-                new Model("6 Jun", 70),
-                new Model("7 Jun", 65),
-                new Model("8 Jun", 57)
-            };
-
-            Average = "4.36";
-            Maximum = "2.08";
-            Minimum = "5.7";
-            VolumenMax = "N.D.";
-            VolumenMin = "N.D.";
-            ValueRendimiento = "3.70";
-            PercentageRendimiento = "3.55%";
-            ValueVolumen = "13.0%";
-
-            PercentageVolumen = "N.D.";
-            ActionCommand = new Command(async () => await ActionExecute());
-            TypeChange = "0.50 colones";
-            Bonos = "0.50%";
-
-            SubTitle = "Priv $ > 31 días";
-            Events = ea;
+            ActionCommand = new Command<string>(async (value) => await ActionExecute(value));
+            TypeChange = DefaultLabelExchange;
+            Bonos = DefaultLabelBonos;
             ChangePasswordCommand = new Command(async () => await ChangePasswordActionExecute());
             CloseSessionCommand = new Command(async () => await CloseSessionActionExecute());
             SetConfigCommand = new Command(() => {
-                Events.GetEvent<NavigationTitleEvent>().Publish("Configuración");
-                Color = "#AFBC24";
+                Events.GetEvent<NavigationTitleEvent>().Publish(TitleNavConfig);
+                Color = ColorNavigationConfig;
             });
             SetDetailsCommand = new Command(() => {
-                Events.GetEvent<NavigationTitleEvent>().Publish("BNVR C");
+                Events.GetEvent<NavigationTitleEvent>().Publish(Item.Name);
                 Color = Item?.ColorStatus;
             });
 
@@ -62,18 +47,29 @@ namespace BNV.ViewModels
                 await navigationService.GoBackAsync();
             });
 
-            SetupFilters();
+            _appeared = false;
+            SetupHomePage();
         }
 
+        public ICommand SetConfigCommand { get; set; }
+
+        public ICommand SetDetailsCommand { get; set; }
+
+        public ICommand ChangePasswordCommand { get; set; }
+
+        public ICommand CloseSessionCommand { get; set; }
+
+        public ICommand BackCommand { get; set; }
+
         public IEventAggregator Events { get; set; }
+
         public string TitleNav { get; private set; }
 
         public string SubTitle { get; set; }
 
-        public override void OnNavigatedTo(INavigationParameters parameters)
+        public async override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
-
             try
             {
                 if (Item == null)
@@ -85,9 +81,9 @@ namespace BNV.ViewModels
                         Item = item;
                         ColorStatus = item.ColorStatus;
                         Color = item.ColorStatus;
-                        TitleNav = "BNVR C";
+                        TitleNav = item.Name;
+                        SubTitle = item.Description;
                     }
-
                     Item = item;
                 }
               
@@ -96,48 +92,161 @@ namespace BNV.ViewModels
                 IsGreen = Item.IsGreen;
                 Triangle = Item.Triangle;
 
-                Task.Run(async () =>
+                GetDetailsAsync(Time);
+
+                _ = Task.Run(async () =>
+                  {
+                      var value = await SecureStorage.GetAsync(Config.MainPage);
+                      if (!string.IsNullOrEmpty(value))
+                          SelectedHomePage = value;
+                      else
+                          SelectedHomePage = "Reportos";
+                  });
+            }
+            catch (Exception ex)
+            {
+            }
+        }
+
+        public async void GetDetailsAsync(int time)
+        {
+            try
+            {
+                using (UserDialogs.Instance.Loading("Cargando los datos..."))
                 {
-                    var value = await SecureStorage.GetAsync(Config.MainPage);
-                    if (!string.IsNullOrEmpty(value))
-                        SelectedHomePage = value;
-                    else
-                        SelectedHomePage = "Reportos";
-                });
+                    await Task.Delay(5);
+                    if (Item is Report)
+                    {
+                        await App.ApiService.GetReportoDetails(Item.Id, new DetailParamModel() { Time = time })
+                         .ContinueWith(result =>
+                         {
+                             if (result.IsCompleted && result.Status == TaskStatus.RanToCompletion)
+                             {
+                                 PopulateData(result);
+                             }
+                             else if (result.IsFaulted) { }
+                             else if (result.IsCanceled) { }
+                         }, TaskScheduler.FromCurrentSynchronizationContext())// execute in main/UI thread.
+                         .ConfigureAwait(false);
+                        _appeared = true;
+                        return;
+                    }
+
+                    if (Item is Bono)
+                    {
+                        await App.ApiService.GetBonoDetails(Item.Id, new DetailParamModel() { Time = time })
+                         .ContinueWith(result =>
+                         {
+                             if (result.IsCompleted && result.Status == TaskStatus.RanToCompletion)
+                             {
+                                 PopulateData(result);
+                             }
+                             else if (result.IsFaulted) { }
+                             else if (result.IsCanceled) { }
+                         }, TaskScheduler.FromCurrentSynchronizationContext())// execute in main/UI thread.
+                         .ConfigureAwait(false);
+                        _appeared = true;
+                        return;
+                    }
+
+                    if (Item is ChangeType)
+                    {
+                        await App.ApiService.GetExchangeDetails(Item.Id, new DetailParamModel() { Time = time })
+                         .ContinueWith(result =>
+                         {
+                             if (result.IsCompleted && result.Status == TaskStatus.RanToCompletion)
+                             {
+                                 PopulateData(result);
+                             }
+                             else if (result.IsFaulted) { }
+                             else if (result.IsCanceled) { }
+                         }, TaskScheduler.FromCurrentSynchronizationContext())// execute in main/UI thread.
+                         .ConfigureAwait(false);
+                        _appeared = true;
+                        return;
+                    }
+
+                    if (Item is ShareOfStock)
+                    {
+                        await App.ApiService.GetShareOfStockDetails(Item.Id, new DetailParamModel() { Time = time })
+                         .ContinueWith(result =>
+                         {
+                             if (result.IsCompleted && result.Status == TaskStatus.RanToCompletion)
+                             {
+                                 PopulateData(result);
+                             }
+                             else if (result.IsFaulted) { }
+                             else if (result.IsCanceled) { }
+                         }, TaskScheduler.FromCurrentSynchronizationContext())// execute in main/UI thread.
+                         .ConfigureAwait(false);
+                        _appeared = true;
+                        return;
+                    }
+                }
             }
             catch (Exception ex)
             {
 
             }
+            
+        }
+
+        private void PopulateData(Task<Details> result)
+        {
+            var value = result.Result;
+            long volMax;
+            long.TryParse(value.TradedVolumeMax,out volMax);
+            long volMin;
+            long.TryParse(value.TradedVolumeMin, out volMin);
+            long avr;
+            long.TryParse(value.TradedVolumeAverage, out avr);
+
+            VolumenMax = value.TradedVolumeMax.ToString().Length >= 9 ? $"{volMax / 1000000}M" : volMax == 0 ? "N.D." : volMax.ToString();
+            VolumenMin = value.TradedVolumeMin.ToString().Length >= 9 ? $"{volMin / 1000000}M" : volMin == 0 ? "N.D." : volMin.ToString();
+            Average = value.TradedVolumeAverage.ToString().Length >= 9 ? $"{avr / 1000000}M" : avr == 0 ? "N.D." : avr.ToString();
+            Maximum = value.ValueMax.ToString();
+            Minimum = value.ValueMin.ToString();
+            ValueRendimiento = Item.Performance.ToString();
+            PercentageRendimiento = Item.Performance.ToString();
+            ValueVolumen = Item.VolumeDisplay;
+
+            var list = new List<Model>();
+            foreach(var dataItem in value.Data)
+            {
+                list.Add(new Model(dataItem.Date.DayOfWeek.ToString(), dataItem.Price));
+            }
+            Data = new ObservableCollection<Model>(list);
         }
 
         public override void Destroy()
         {
             base.Destroy();
-           // Events.GetEvent<NavigationColorEvent>().Publish("#AFBC24");
         }
 
-
-        private async Task ActionExecute()
+        private async Task ActionExecute(string time)
         {
-            Random rnd = new Random();
-            ValueRendimiento = "3.70";
-            PercentageRendimiento = rnd.Next(100).ToString() + "%";
-            ValueVolumen = rnd.Next(100).ToString() + "%";
-            PercentageVolumen = "N.D.";
-            Average = rnd.Next(100).ToString();
-            Maximum = "2.08";
-            Minimum = rnd.Next(100).ToString();
-            VolumenMax = "N.D.";
-            VolumenMin = rnd.Next(100).ToString();
+           GetDetailsAsync(GetDays(time));
+        }
 
-            Data = new ObservableCollection<Model>()
+        private int GetDays(string time)
+        {
+            switch (time)
             {
-                new Model("5 Jun", rnd.Next(10,100)),
-                new Model("6 Jun", rnd.Next(10,100)),
-                new Model("7 Jun", rnd.Next(10,100)),
-                new Model("8 Jun", rnd.Next(10,100))
-            };
+                case "1 sem":
+                    return 7;
+                case "1 mes":
+                    return 30;
+                case "3 meses":
+                    return 90;
+                case "6 meses":
+                    return 180;
+                case "1 año":
+                    return 360;
+                case "2 años":
+                    return 720;
+                default:
+                    return 360;
+            }
         }
 
         private string _average;
@@ -180,7 +289,7 @@ namespace BNV.ViewModels
             Color = obj;
         }
 
-        public ICommand ActionCommand { get; set; }
+        public Command<string> ActionCommand { get; set; }
 
         private string _valueRendimiento;
         public string ValueRendimiento
@@ -215,7 +324,7 @@ namespace BNV.ViewModels
         {
             get { return _seletedItem1; }
 
-            set { SetProperty(ref _seletedItem1, value); ActionCommand.Execute(null); }
+            set { SetProperty(ref _seletedItem1, value); ActionCommand.Execute(value.Text); }
         }
 
         private SfChip _seletedItem2;
@@ -223,7 +332,7 @@ namespace BNV.ViewModels
         {
             get { return _seletedItem2; }
 
-            set { SetProperty(ref _seletedItem2, value); ActionCommand.Execute(null); }
+            set { SetProperty(ref _seletedItem2, value); ActionCommand.Execute(value.Text); }
         }
 
         private SfChip _seletedItem3;
@@ -231,7 +340,7 @@ namespace BNV.ViewModels
         {
             get { return _seletedItem3; }
 
-            set { SetProperty(ref _seletedItem3, value); ActionCommand.Execute(null); }
+            set { SetProperty(ref _seletedItem3, value); ActionCommand.Execute(value.Text); }
         }
 
         private SfChip _seletedItem4;
@@ -239,10 +348,14 @@ namespace BNV.ViewModels
         {
             get { return _seletedItem4; }
 
-            set { SetProperty(ref _seletedItem4, value); ActionCommand.Execute(null); }
+            set { SetProperty(ref _seletedItem4, value); ActionCommand.Execute(value.Text); }
         }
 
         public ObservableCollection<Model> Data { get; set; }
+
+        public ObservableCollection<Currency> Currencies { get; set; }
+
+        public ObservableCollection<Sector> Sectors { get; set; }
 
         private string _color;
         public string Color
@@ -264,28 +377,23 @@ namespace BNV.ViewModels
             }
         }
 
-        public async Task SetupFilters()
+        public async Task SetupHomePage()
         {
-            var coin = await SecureStorage.GetAsync(Config.FilterCoin);
-            if (coin != null)
-                SelectedCoin = coin;
-
-            var sector = await SecureStorage.GetAsync(Config.FilterSector);
-            if (sector != null)
-                SelectedSector = sector;
-
             var home = await SecureStorage.GetAsync(Config.MainPage);
-            if (sector != null)
+            if (home != null)
                 SelectedHomePage = home;
+
+            Currencies = App.Currencies;
+            Sectors = App.Sectors;
+            SelectedCoin = App.SelectedCoin;
+            SelectedSector = App.SelectedSector;
         }
 
         private string _typeChange;
-
         public string TypeChange
         {
             get { return _typeChange; }
             set { _typeChange = value; RaisePropertyChanged(); }
-
         }
 
         private string _bonos;
@@ -293,7 +401,6 @@ namespace BNV.ViewModels
         {
             get { return _bonos; }
             set { _bonos = value; RaisePropertyChanged(); }
-
         }
 
         private bool _isRed;
@@ -322,33 +429,38 @@ namespace BNV.ViewModels
             set { _isBlue = value; RaisePropertyChanged(); }
         }
 
-        private string _selectedCoin;
-
-        public string SelectedCoin
+        private Currency _selectedCoin;
+        public Currency SelectedCoin
         {
             get { return _selectedCoin; }
-            set { _selectedCoin = value; RaisePropertyChanged(); SecureStorage.SetAsync(Config.FilterCoin, value); Task.Run(() => Events.GetEvent<FilterCoinEvent>().Publish(value)); }
-
+            set {
+                _selectedCoin = value;
+                RaisePropertyChanged();
+                App.SelectedCoin = value;
+                SecureStorage.SetAsync(Config.FilterCoin, value.CodIdCurrency.ToString());
+            }
         }
 
-        private string _selectedSector;
-
-
-        public string SelectedSector
+        private Sector _selectedSector;
+        public Sector SelectedSector
         {
             get { return _selectedSector; }
-            set { _selectedSector = value; RaisePropertyChanged(); SecureStorage.SetAsync(Config.FilterSector, value); Task.Run(() => Events.GetEvent<FilterSectorEvent>().Publish(value)); }
-
+            set {
+                _selectedSector = value;
+                RaisePropertyChanged();
+                App.SelectedSector = value;
+                SecureStorage.SetAsync(Config.FilterSector, value.CodIdSector.ToString());
+            }
         }
 
         private string _selectedHomePage;
+        private bool _appeared;
 
         public string SelectedHomePage
         {
             get { return _selectedHomePage; }
             set { _selectedHomePage = value; RaisePropertyChanged(); SecureStorage.SetAsync(Config.MainPage, value); }
         }
-
 
         private async Task ChangePasswordActionExecute()
         {
@@ -360,18 +472,6 @@ namespace BNV.ViewModels
             Events.GetEvent<NavigationColorEvent>().Publish("#000000");
             await NavigationService.GoBackToRootAsync();
         }
-
-        public ICommand SetConfigCommand { get; set; }
-
-        public ICommand SetDetailsCommand { get; set; }
-
-        public ICommand ChangePasswordCommand { get; set; }
-
-        public ICommand CloseSessionCommand { get; set; }
-
-        public ICommand BackCommand { get; set; }
     }
-
-   
 }
 

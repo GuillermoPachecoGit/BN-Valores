@@ -718,30 +718,24 @@
                                                   HorizontalOptions="Fill"
                                                   BackgroundColor="#A5A5A5">
                                                   <combobox:SfComboBox
-                                                    HeightRequest="35"
-                                                    Text="Moneda"
-                                                    TextSize="12"
-                                                    VerticalOptions="Fill"
-                                                    HorizontalOptions="EndAndExpand"
-                                                    TextColor="White"
-                                                    DropDownTextSize="12"
-                                                    FlexLayout.AlignSelf="Center"
-                                                    BorderColor="#A5A5A5"
-                                                    HighlightedTextColor="#A5A5A5"
-                                                    BackgroundColor="Black"
-                                                    WidthRequest="120"                        
-                                                    ShowBorder="False"
-                                                    SelectedItem="{Binding SelectedCoin, Mode=TwoWay}"
-                                                    DropDownBorderColor="#A5A5A5">
-
-                                                 <combobox:SfComboBox.ComboBoxSource>
-                                                         <ListCollection:List x:TypeArguments="x:String">
-                                                              <x:String>Todas</x:String>
-                                                              <x:String>Colones</x:String>
-                                                              <x:String>Dólares</x:String>
-                                                          </ListCollection:List>
-                                                 </combobox:SfComboBox.ComboBoxSource>
-                                                 </combobox:SfComboBox>
+                                                        HeightRequest="35"
+                                                        Text="Moneda"
+                                                        TextSize="12"
+                                                        VerticalOptions="Fill"
+                                                        HorizontalOptions="EndAndExpand"
+                                                        TextColor="White"
+                                                        DropDownTextSize="12"
+                                                        FlexLayout.AlignSelf="Center"
+                                                        BorderColor="#A5A5A5"
+                                                        HighlightedTextColor="#A5A5A5"
+                                                        BackgroundColor="Black"
+                                                        WidthRequest="120"                        
+                                                        ShowBorder="False"
+                                                        DataSource="{Binding Currencies, Mode=TwoWay}"
+                                                        DisplayMemberPath="DesIdCurrency"
+                                                        SelectedItem="{Binding SelectedCoin, Mode=TwoWay}"
+                                                        DropDownBorderColor="#A5A5A5">
+                                                  </combobox:SfComboBox>
                                                  </Frame>
                                         </StackLayout>
 
@@ -763,31 +757,24 @@
                                                   HorizontalOptions="Fill"
                                                   BackgroundColor="#A5A5A5">
                                                   <combobox:SfComboBox
-                                                    HeightRequest="35"
-                                                    Text="Sector"
-                                                    TextSize="12"
-                                                    VerticalOptions="Fill"
-                                                    HorizontalOptions="EndAndExpand"
-                                                    TextColor="White"
-                                                    DropDownTextSize="12"
-                                                    FlexLayout.AlignSelf="Center"
-                                                    BorderColor="#A5A5A5"
-                                                    HighlightedTextColor="#A5A5A5"
-                                                    BackgroundColor="Black"
-                                                    WidthRequest="120"
-                                                    SelectedItem="{Binding SelectedSector, Mode=TwoWay}"
-                                                    ShowBorder="False"
-                                                    DropDownBorderColor="#A5A5A5">
-
-                                                    <combobox:SfComboBox.ComboBoxSource>
-                                                             <ListCollection:List  x:TypeArguments="x:String">
-                                                                  <x:String>Todos</x:String>
-                                                                  <x:String>Público</x:String>
-                                                                  <x:String>Privado</x:String>
-                                                                  <x:String>Mixto</x:String>
-            	                                             </ListCollection:List>
-                                                     </combobox:SfComboBox.ComboBoxSource>
-                                                    </combobox:SfComboBox>
+                                                        HeightRequest="35"
+                                                        Text="Sector"
+                                                        TextSize="12"
+                                                        VerticalOptions="Fill"
+                                                        HorizontalOptions="EndAndExpand"
+                                                        TextColor="White"
+                                                        DropDownTextSize="12"
+                                                        FlexLayout.AlignSelf="Center"
+                                                        BorderColor="#A5A5A5"
+                                                        HighlightedTextColor="#A5A5A5"
+                                                        BackgroundColor="Black"
+                                                        WidthRequest="120"
+                                                        DataSource="{Binding Sectors, Mode=TwoWay}"
+                                                        DisplayMemberPath="DesIdSector"
+                                                        SelectedItem="{Binding SelectedSector, Mode=TwoWay}"
+                                                        ShowBorder="False"
+                                                        DropDownBorderColor="#A5A5A5">
+                                                        </combobox:SfComboBox>
                                             </Frame>
                                         </StackLayout>
                

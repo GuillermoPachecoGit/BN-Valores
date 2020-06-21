@@ -1,14 +1,24 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Acr.UserDialogs;
+using BNV.Models;
+using BNV.Settings;
 using BNV.Validator;
+using Prism.AppModel;
 using Prism.Navigation;
 using Xamarin.Forms;
 
 namespace BNV.ViewModels
 {
-    public class RegisterViewModel : ViewModelBase
+    public class RegisterViewModel : ViewModelBase, IPageLifecycleAware
     {
+        private Task<List<Country>> _countries;
+        private Task<List<Gender>> _genders;
+        private long Identification;
+        private long IdentificationType;
+
         public RegisterViewModel(INavigationService navigationService)
           : base(navigationService)
         {
@@ -32,16 +42,6 @@ namespace BNV.ViewModels
                 Value = string.Empty
             };
 
-            Gender = new ValidatableObject<string>(propChangedCallBack, new EmptyValidator())
-            {
-                Value = string.Empty
-            };
-
-            Nationality = new ValidatableObject<string>(propChangedCallBack, new EmptyValidator())
-            {
-                Value = string.Empty
-            };
-
             valid = true;
         }
 
@@ -49,23 +49,93 @@ namespace BNV.ViewModels
 
         private async Task AcceptActionExecute()
         {
-            Name.Value = string.IsNullOrEmpty(Name.Value) ? null : Name.Value;
-            Surname.Value = string.IsNullOrEmpty(Surname.Value) ? null : Surname.Value;
-            Nationality.Value = string.IsNullOrEmpty(Nationality.Value) ? null : Nationality.Value;
-            PhoneNumber.Value = string.IsNullOrEmpty(PhoneNumber.Value) ? null : PhoneNumber.Value;
-            Gender.Value = string.IsNullOrEmpty(Gender.Value) ? null : Gender.Value;
-            Email.Value = string.IsNullOrEmpty(Email.Value) ? null : Email.Value;
-
-            if (string.IsNullOrEmpty(Email.Value) || string.IsNullOrEmpty(Birthday) || string.IsNullOrEmpty(Name.Value) || string.IsNullOrEmpty(Surname.Value) || string.IsNullOrEmpty(PhoneNumber.Value) || string.IsNullOrEmpty(Gender.Value) || string.IsNullOrEmpty(Nationality.Value))
+            try
             {
-                valid = false;
-                RaisePropertyChanged(nameof(IsMissingField));
-                return;
-            }
+                Name.Value = string.IsNullOrEmpty(Name.Value) ? null : Name.Value;
+                Surname.Value = string.IsNullOrEmpty(Surname.Value) ? null : Surname.Value;
+                PhoneNumber.Value = string.IsNullOrEmpty(PhoneNumber.Value) ? null : PhoneNumber.Value;
+                Email.Value = string.IsNullOrEmpty(Email.Value) ? null : Email.Value;
 
-            valid = true;
-            await NavigationService.NavigateAsync("RegisterResultPage");
+                if (string.IsNullOrEmpty(Email.Value) || string.IsNullOrEmpty(Birthday) || string.IsNullOrEmpty(Name.Value) || string.IsNullOrEmpty(Surname.Value) || string.IsNullOrEmpty(PhoneNumber.Value) || Gender == null || Nationality == null)
+                {
+                    valid = false;
+                    RaisePropertyChanged(nameof(IsMissingField));
+                    return;
+                }
+
+                valid = true;
+
+                var userParam = new RegisterParam()
+                {
+                    Name = Name.Value,
+                    Birthdate = Birthday,
+                    Country = Nationality.CodIdPais,
+                    Gender = Gender.CodIdGenero,
+                    Email = Email.Value,
+                    Phone = PhoneNumber.Value,
+                    Tipid = IdentificationType,
+                    Id = Identification
+                };
+
+                using (UserDialogs.Instance.Loading(MessagesAlert.SendingData))
+                {
+                    // TODO ADD TOKEN
+                    var result = App.ApiService.PostUser(userParam);
+                    // TODO que respuesta 
+                    await NavigationService.NavigateAsync("RegisterResultPage");
+                }
+            }
+            catch (Exception ex)
+            {
+                UserDialogs.Instance.HideLoading();
+            }
         }
+
+        public async void OnAppearing()
+        {
+            ContactInfo = $"Contáctenos {App.ContactInfo}";
+            try
+            {
+                using (UserDialogs.Instance.Loading(MessagesAlert.LoadingData))
+                {
+                    var getCountries= await App.ApiService.GetCountries().ContinueWith(countries => _countries = countries);
+                    var getGenders = await App.ApiService.GetGender().ContinueWith(genders => _genders = genders);
+                    await Task.WhenAll(getGenders, getCountries).ContinueWith(result =>
+                    {
+                        if (result.IsCompleted && result.Status == TaskStatus.RanToCompletion)
+                        {
+                            Countries = getCountries.Result;
+                            Genders = getGenders.Result;
+                        }
+                        else if (result.IsFaulted)
+                        {
+                            UserDialogs.Instance.HideLoading();
+                        }
+                        else if (result.IsCanceled)
+                        {
+                            UserDialogs.Instance.HideLoading();
+                        }
+                    }, TaskScheduler.FromCurrentSynchronizationContext()).ConfigureAwait(false);
+                }
+            }
+            catch (Exception ex)
+            {
+                UserDialogs.Instance.HideLoading();
+                UserDialogs.Instance.Alert(MessagesAlert.AlertServiceError);
+            }
+        }
+
+        public override void OnNavigatedTo(INavigationParameters parameters)
+        {
+            base.OnNavigatedTo(parameters);
+            var resultIdent = parameters.GetValue<UserVerificationModel>(KeyParams.VerifyParam);
+            if (resultIdent != null)
+            {
+                // TODO que hago con estos datos de la verificacion???
+            }
+        }
+
+        public void OnDisappearing() { }
 
         public ICommand AcceptCommand { get; set; }
 
@@ -81,13 +151,27 @@ namespace BNV.ViewModels
 
         public ValidatableObject<string> PhoneNumber { get; }
 
-        public ValidatableObject<string> Gender { get; set; }
+        public Gender? Gender { get; set; }
 
-        public ValidatableObject<string> Nationality { get; set; }
+        public Country? Nationality { get; set; }
+
+        public List<Country> Countries { get; set; }
+
+        public List<Gender> Genders { get; set; }
+
+        private string _contact;
+        public string ContactInfo
+        {
+            get => _contact;
+            set
+            {
+                SetProperty(ref _contact, value);
+            }
+        }
 
         public bool valid;
         public bool IsMissingField {
-            get => (valid || !((string.IsNullOrEmpty(Email.Value) || string.IsNullOrEmpty(Birthday) || string.IsNullOrEmpty(Name.Value) || string.IsNullOrEmpty(Surname.Value) || string.IsNullOrEmpty(PhoneNumber.Value) || string.IsNullOrEmpty(Gender.Value) || string.IsNullOrEmpty(Nationality.Value))));
+            get => valid || !(string.IsNullOrEmpty(Email.Value) || string.IsNullOrEmpty(Birthday) || string.IsNullOrEmpty(Name.Value) || string.IsNullOrEmpty(Surname.Value) || string.IsNullOrEmpty(PhoneNumber.Value) || Gender == null || Nationality == null);
         }
     }
 }

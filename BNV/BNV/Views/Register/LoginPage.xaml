@@ -239,7 +239,7 @@
                      Margin="0,5"
                      VerticalOptions="EndAndExpand"
                      HorizontalOptions="CenterAndExpand"
-                     Text="Contáctenos  *medio contacto*"
+                     Text="{Binding ContactInfo}"
                      TextColor="#AAAAAA"
                      FontSize="12" />
             </Grid>

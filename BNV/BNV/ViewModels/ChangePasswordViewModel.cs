@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Windows.Input;
+using Acr.UserDialogs;
 using BNV.Models;
 using BNV.Settings;
 using Prism.AppModel;
@@ -46,59 +48,10 @@ namespace BNV.ViewModels
         {
             MaskWatermark = "Identificación";
             IsErrorLenght = false;
-            //call to api
-            IdentificationTypes = new List<IdentificationType>()
-            {
-                new IdentificationType()
-                {
-                    Description = "Cédula de identidad",
-                    MaskWatermark = "0#-####-####",
-                    Mask = "0#-####-####",
-                },
-                new IdentificationType()
-                {
-                    Description = "Cédula de residencia",
-                    MaskWatermark = "###############",
-                    Mask = "AAAAAAAAAAAAAAA",
-                },
-                new IdentificationType()
-                {
-                    Description = "Pasaporte",
-                    MaskWatermark = "###############",
-                    Mask = "AAAAAAAAAAAAAAA",
-                },
-                new IdentificationType()
-                {
-                    Description = "Carné de refugiado",
-                    MaskWatermark = "###############",
-                    Mask = "AAAAAAAAAAAAAAA",
-                },
-                new IdentificationType()
-                {
-                    Description = "Carné de pensionado",
-                    MaskWatermark = "###############",
-                    Mask = "AAAAAAAAAAAAAAA",
-                },
-                new IdentificationType()
-                {
-                    Description = "DIMEX",
-                    MaskWatermark = "1###########",
-                    Mask = "1###########"
-
-                },
-                new IdentificationType()
-                {
-                    Description = "DIDI",
-                    MaskWatermark = "5###########",
-                    Mask = "5###########"
-                }
-            };
+            IdentificationTypes = App.IdentificationTypes;
         }
 
-        public void OnDisappearing()
-        {
-
-        }
+        public void OnDisappearing() { }
 
         public ICommand ValidateCommand { get; set; }
 
@@ -109,7 +62,6 @@ namespace BNV.ViewModels
             set
             {
                 SetProperty(ref _identification, value);
-               
             }
         }
 
@@ -145,8 +97,7 @@ namespace BNV.ViewModels
                 SetProperty(ref _selectedType, value);
                 LimitSize = value.Mask.Length;
                 MaskTemplate = value.Mask;
-                MaskWatermark = value.MaskWatermark;
-                //RegEx = value.RegEx;
+                MaskWatermark = value.Mask;
                 Identification = string.Empty;
                 IsErrorLenght = false;
                 ErrorIdentSize = string.Format(ErrorLenght, LimitSize);
