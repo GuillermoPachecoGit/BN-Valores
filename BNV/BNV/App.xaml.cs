@@ -5,9 +5,7 @@ using BNV.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using BNV.Views.Register;
-using BNV.Views.Tabs;
 using BNV.Views.GraphicAndDetails;
-using ChangePasswordPage = BNV.Views.Register.ChangePasswordPage;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace BNV
@@ -41,12 +39,6 @@ namespace BNV
             containerRegistry.RegisterForNavigation<PasswordRecoveryPage, PasswordRecoveryViewModel>();
             containerRegistry.RegisterForNavigation<PasswordRecoveryResultPage, PasswordRecoveryResultViewModel>();
             containerRegistry.RegisterForNavigation<HomePage, HomeViewModel>();
-            containerRegistry.RegisterForNavigation<SettingPage, SettingViewModel>();
-            containerRegistry.RegisterForNavigation<StatisticPage, StatisticViewModel>();
-            containerRegistry.RegisterForNavigation<ReportPage, ReportViewModel>();
-            containerRegistry.RegisterForNavigation<SharesOfStockPage, SharesOfStockViewModel>();
-            containerRegistry.RegisterForNavigation<ChangeTypePage, ChangeTypeViewModel>();
-            containerRegistry.RegisterForNavigation<BonoPage, BonoViewModel>();
             containerRegistry.RegisterForNavigation<ChangePasswordPage, ChangePasswordViewModel>();
             containerRegistry.RegisterForNavigation<DetailsPage, DetailsViewModel>();
             containerRegistry.RegisterForNavigation<InformationPage, InformationViewModel>();

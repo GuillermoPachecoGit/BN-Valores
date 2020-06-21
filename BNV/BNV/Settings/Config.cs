@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Net.Http;
+
 namespace BNV.Settings
 {
     public class Config
@@ -14,6 +16,8 @@ namespace BNV.Settings
         public static string TypeChange = "TypeChange";
 
         public static string BonosChange = "BonosChange";
+
+        public static string BaseUrl = "https://app-bnvalores-v1-0-0-bncr-as.bndesarrollo.com/api";
 
         public class MainPageTypes
         {

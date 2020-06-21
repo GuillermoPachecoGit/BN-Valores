@@ -1,10 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Acr.UserDialogs;
 using BNV.Events;
 using BNV.Models;
+using BNV.ServicesWebAPI;
 using BNV.Settings;
 using Prism.AppModel;
 using Prism.Events;
@@ -110,7 +114,94 @@ namespace BNV.ViewModels
             else
                 SelectedHomePage = "Reportos";
 
-            SetupFilters();
+
+            using (UserDialogs.Instance.Loading("Cargando los datos..."))
+            {
+                await Task.Delay(5);
+                var apiService = NetworkService.GetApiService();
+                var getShares = apiService.GetSharesStock(/*new ItemsParamModel() { Sector = 1, Currency = 1 }*/).ContinueWith(shares => _sharesStock = shares);
+                var getReportos = apiService.GetReportos(new ItemsParamModel() { Sector = 1, Currency = 1 }).ContinueWith(reportos => _reportos = reportos);
+                var getExchanges = apiService.GetExchangeRates(new ItemsParamModel() { Sector = 1, Currency = 1 }).ContinueWith(exchanges => _exchanges = exchanges);
+                var getBonos = apiService.GetBonos(new ItemsParamModel() { Sector = 1, Currency = 1 }).ContinueWith(bonos => _bonosItems = bonos);
+
+
+                await Task.WhenAll(getShares, getReportos, getExchanges, getBonos).ContinueWith(result =>
+                {
+                    if (result.IsCompleted && result.Status == TaskStatus.RanToCompletion)
+                    {
+                        // Get result and update any UI here.
+                        var itemsReports = _reportos?.Result;
+                        if (itemsReports != null)
+                            Reports = new ObservableCollection<Report>(itemsReports.Select(
+                                x =>
+                                {
+                                    x.ColorStatus = GetColor(x.Performance);
+                                    x.Triangle = GetTriangle(x.Performance);
+                                    x.IsBlue = x.Performance == 0;
+                                    x.IsGreen = x.Performance > 0;
+                                    x.IsRed = x.Performance < 0;
+                                    x.Arrow = GetArrow(x.Performance);
+                                    x.VolumeDisplay = x.Volume.ToString().Length >= 9 ? $"{x.Volume / 1000000}M" : x.Volume == 0 ? "N.D." :  x.Volume.ToString();
+                                    return x;
+                                }).ToList());
+
+                        var itemsShares = _sharesStock?.Result;
+                        if (itemsShares != null)
+                            Shares = new ObservableCollection<ShareOfStock>(itemsShares.Select(
+                                x =>
+                                {
+                                    x.ColorStatus = GetColor(x.Performance);
+                                    x.Triangle = GetTriangle(x.Performance);
+                                    x.IsBlue = x.Performance == 0;
+                                    x.IsGreen = x.Performance > 0;
+                                    x.IsRed = x.Performance < 0;
+                                    x.VolumeDisplay = x.Volume.ToString().Length >= 9 ? $"{x.Volume / 1000000}M" : x.Volume == 0 ? "N.D." : x.Volume.ToString();
+                                    return x;
+                                }).ToList());
+
+                        var itemsBonos = _bonosItems?.Result;
+                        if (itemsBonos != null)
+                            Bonos = new ObservableCollection<Bono>(itemsBonos.Select(
+                                x =>
+                                {
+                                    x.ColorStatus = GetColor(x.Performance);
+                                    x.Triangle = GetTriangle(x.Performance);
+                                    x.IsBlue = x.Performance == 0;
+                                    x.IsGreen = x.Performance > 0;
+                                    x.IsRed = x.Performance < 0;
+                                    x.VolumeDisplay = x.Volume.ToString().Length >= 9 ? $"{x.Volume / 1000000}M" : x.Volume == 0 ? "N.D." : x.Volume.ToString();
+                                    return x;
+                                }).ToList());
+
+                        var itemsExchanges = _exchanges?.Result;
+                        if (itemsExchanges != null)
+                            Types = new ObservableCollection<ChangeType>(itemsExchanges.Select(
+                                x =>
+                                {
+                                    x.ColorStatus = GetColor(x.Performance);
+                                    x.Triangle = GetTriangle(x.Performance);
+                                    x.IsBlue = x.Performance == 0;
+                                    x.IsGreen = x.Performance > 0;
+                                    x.IsRed = x.Performance < 0;
+                                    x.Arrow = GetArrow(x.Performance);
+                                    x.VolumeDisplay = x.Volume.ToString().Length >= 9 ? $"{x.Volume / 1000000}M" : x.Volume == 0 ? "N.D." : x.Volume.ToString();
+                                    return x;
+                                }).ToList());
+
+                        UserDialogs.Instance.HideLoading();
+                    }
+                    else if (result.IsFaulted)
+                    {
+                        // If any error occurred exception throws.
+                        UserDialogs.Instance.HideLoading();
+                    }
+                    else if (result.IsCanceled)
+                    {
+                        // Task cancelled
+                        UserDialogs.Instance.HideLoading();
+                    }
+                }, TaskScheduler.FromCurrentSynchronizationContext()).ConfigureAwait(false);
+            }
         }
 
         public void OnDisappearing()
@@ -162,134 +253,52 @@ namespace BNV.ViewModels
 
         private async Task SetupCoin(string coin)
         {
-            var shares = new List<ShareOfStock>();
-            var bonos = new List<Bono>();
-            var reportos = new List<Report>();
-            var types = new List<ShareOfStock>();
-            var value = coin;
-
-            if (value != null && value == Config.CoinTypes.CoinColon)
-            {
-                for (int i = 0; i < 1; i++)
-                {
-                    shares.Add(new ShareOfStock() { ColorStatus = ColorBlue, IsBlue = true });
-                    types.Add(new ShareOfStock() { ColorStatus = ColorRed, IsRed = true, Triangle = TriangleDown });
-                    types.Add(new ShareOfStock() { ColorStatus = ColorRed, IsRed = true, Triangle = TriangleDown });
-                    reportos.Add(new Report() { ColorStatus = ColorRed, Arrow = ArrowDown, Triangle = TriangleDown, IsRed = true });
-                    reportos.Add(new Report() { ColorStatus = ColorBlue, Arrow = ArrowStable, IsBlue = true });
-                    reportos.Add(new Report() { ColorStatus = ColorGreen, Arrow = ArrowUp, Triangle = TriangleUp, IsGreen = true });
-                    bonos.Add(new Bono() { ColorStatus = ColorRed, IsRed = true, Triangle = TriangleDown });
-                }
-            }
-            else if (value != null && value == Config.CoinTypes.CoinDolar)
-            {
-                for (int i = 0; i < 3; i++)
-                {
-                    shares.Add(new ShareOfStock() { ColorStatus = ColorBlue, IsBlue = true });
-                    types.Add(new ShareOfStock() { ColorStatus = ColorRed, IsRed = true, Triangle = TriangleDown });
-                    bonos.Add(new Bono() { ColorStatus = ColorRed, IsRed = true, Triangle = TriangleDown });
-                    reportos.Add(new Report() { ColorStatus = ColorRed, Arrow = ArrowDown, Triangle = TriangleDown, IsRed = true });
-                    reportos.Add(new Report() { ColorStatus = ColorBlue, Arrow = ArrowStable, IsBlue = true });
-                    reportos.Add(new Report() { ColorStatus = ColorGreen, Arrow = ArrowUp, Triangle = TriangleUp, IsGreen = true });
-                }
-            }
-            else
-            {
-                for (int i = 0; i < 4; i++)
-                {
-                    shares.Add(new ShareOfStock() { ColorStatus = ColorBlue, IsBlue = true });
-                    types.Add(new ShareOfStock() { ColorStatus = ColorRed, IsRed = true, Triangle = TriangleDown });
-
-                    bonos.Add(new Bono() { ColorStatus = ColorRed, IsRed = true, Triangle = TriangleDown });
-                    reportos.Add(new Report() { ColorStatus = ColorRed, Arrow = ArrowDown, Triangle = TriangleDown, IsRed = true });
-                    reportos.Add(new Report() { ColorStatus = ColorBlue, Arrow = ArrowStable, IsBlue = true });
-                    reportos.Add(new Report() { ColorStatus = ColorGreen, Arrow = ArrowUp, Triangle = TriangleUp, IsGreen = true });
-                }
-            }
-
-            Shares = new ObservableCollection<ShareOfStock>(shares);
-            Types = new ObservableCollection<ShareOfStock>(types);
-            Bonos = new ObservableCollection<Bono>(bonos);
-            Reports = new ObservableCollection<Report>(reportos);
+          
         }
 
-        private ObservableCollection<ShareOfStock> _types;
-        public ObservableCollection<ShareOfStock> Types
+        private ObservableCollection<ChangeType> _types;
+        public ObservableCollection<ChangeType> Types
         {
             get { return _types; }
             set { SetProperty(ref _types, value); }
         }
 
 
-        public override void Initialize(INavigationParameters parameters)
+        public async override void Initialize(INavigationParameters parameters)
         {
             base.Initialize(parameters);
-            Task.Run(async () =>
-            {
-                await SetupCoin(null);
-            });
+        }
+
+        private string GetArrow(double performance)
+        {
+            if (performance > 0)
+                return ArrowUp;
+            if (performance < 0)
+                return ArrowDown;
+            return ArrowStable;
+        }
+
+        private string GetTriangle(double performance)
+        {
+            if (performance > 0)
+                return TriangleUp;
+            if (performance < 0)
+                return TriangleDown;
+            return null;
+        }
+
+        private string GetColor(double performance)
+        {
+            if (performance > 0)
+                return ColorGreen;
+            if (performance < 0)
+                return ColorRed;
+            return ColorBlue;
         }
 
         private async Task SetupSector(string sector)
         {
-            var shares = new List<ShareOfStock>();
-            var types = new List<ShareOfStock>();
-            var bonos = new List<Bono>();
-            var reportos = new List<Report>();
-            var value = sector;
-
-            if (value != null && value == Config.SectorTypes.Public)
-            {
-                for (int i = 0; i < 4; i++)
-                {
-                    types.Add(new ShareOfStock() { ColorStatus = ColorRed, IsRed = true, Triangle = TriangleDown });
-                    bonos.Add(new Bono() { ColorStatus = ColorRed, IsRed = true, Triangle = TriangleDown });
-                    shares.Add(new ShareOfStock() { ColorStatus = ColorBlue, IsBlue = true });
-                    reportos.Add(new Report() { ColorStatus = ColorRed, Arrow = ArrowDown, Triangle = TriangleDown, IsRed = true });
-                    reportos.Add(new Report() { ColorStatus = ColorBlue, Arrow = ArrowStable, IsBlue = true });
-                    reportos.Add(new Report() { ColorStatus = ColorGreen, Arrow = ArrowUp, Triangle = TriangleUp, IsGreen = true });
-                }
-            }
-            else if (value != null && value == Config.SectorTypes.Privado)
-            {
-                for (int i = 0; i < 3; i++)
-                {
-                    types.Add(new ShareOfStock() { ColorStatus = ColorRed, IsRed = true, Triangle = TriangleDown });
-                    bonos.Add(new Bono() { ColorStatus = ColorRed, IsRed = true, Triangle = TriangleDown });
-                    shares.Add(new ShareOfStock() { ColorStatus = ColorBlue, IsBlue = true });
-                    reportos.Add(new Report() { ColorStatus = ColorRed, Arrow = ArrowDown, Triangle = TriangleDown, IsRed = true });
-                    reportos.Add(new Report() { ColorStatus = ColorBlue, Arrow = ArrowStable, IsBlue = true });
-                    reportos.Add(new Report() { ColorStatus = ColorGreen, Arrow = ArrowUp, Triangle = TriangleUp, IsGreen = true });
-                }
-            }
-            else if (value != null && value == Config.SectorTypes.Mixto)
-            {
-                for (int i = 0; i < 4; i++)
-                {
-                    shares.Add(new ShareOfStock() { ColorStatus = ColorBlue, IsBlue = true });
-                    types.Add(new ShareOfStock() { ColorStatus = ColorRed, IsRed = true, Triangle = TriangleDown });
-                    bonos.Add(new Bono() { ColorStatus = ColorRed, IsRed = true, Triangle = TriangleDown });
-                    shares.Add(new ShareOfStock() { ColorStatus = ColorBlue, IsBlue = true });
-                    reportos.Add(new Report() { ColorStatus = ColorRed, Arrow = ArrowDown, Triangle = TriangleDown, IsRed = true });
-                    reportos.Add(new Report() { ColorStatus = ColorGreen, Arrow = ArrowUp, Triangle = TriangleUp, IsGreen = true });
-                }
-            }
-            else
-            {
-                for (int i = 0; i < 5; i++)
-                {
-                    bonos.Add(new Bono() { ColorStatus = ColorRed, IsRed = true, Triangle = TriangleDown });
-                    shares.Add(new ShareOfStock() { ColorStatus = ColorBlue, IsBlue = true });
-                    types.Add(new ShareOfStock() { ColorStatus = ColorRed, IsRed = true, Triangle = TriangleDown });
-                    reportos.Add(new Report() { ColorStatus = ColorRed, Arrow = ArrowDown, Triangle = TriangleDown, IsRed = true });
-                    reportos.Add(new Report() { ColorStatus = ColorGreen, Arrow = ArrowUp, Triangle = TriangleUp, IsGreen = true });
-                }
-            }
-
-            Shares = new ObservableCollection<ShareOfStock>(shares);
-            Types = new ObservableCollection<ShareOfStock>(types);
-            Bonos = new ObservableCollection<Bono>(bonos);
-            Reports = new ObservableCollection<Report>(reportos);
+        
         }
 
         private ObservableCollection<ShareOfStock> _shares;
@@ -323,6 +332,11 @@ namespace BNV.ViewModels
         }
 
         private ObservableCollection<Bono> _bonos;
+        private Task<List<Report>> _reportos;
+        private Task<List<ShareOfStock>> _sharesStock;
+        private Task<List<ChangeType>> _exchanges;
+        private Task<List<Bono>> _bonosItems;
+
         public ObservableCollection<Bono> Bonos
         {
             get { return _bonos; }
@@ -332,17 +346,6 @@ namespace BNV.ViewModels
         private async void NavigateToDetailsAction(ItemBase obj)
         {
             await NavigationService.NavigateAsync("HomeDetailPage", new NavigationParameters() { { "item", obj } }, false, false);
-        }
-
-        public void LoadData()
-        {
-            if (AlreadyLoaded)
-                return;
-            Task.Run(async () =>
-            {
-                await SetupCoin(null);
-                AlreadyLoaded = true;
-            });
         }
     }
 }

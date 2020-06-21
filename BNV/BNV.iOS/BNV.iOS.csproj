@@ -244,6 +244,9 @@
     <PackageReference Include="Syncfusion.Xamarin.SfMaskedEdit">
       <Version>18.1.0.45</Version>
     </PackageReference>
+    <PackageReference Include="refit">
+      <Version>5.1.67</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BNV\BNV.csproj">

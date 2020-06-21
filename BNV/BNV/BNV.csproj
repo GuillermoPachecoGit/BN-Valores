@@ -20,6 +20,7 @@
     <PackageReference Include="Plugin.DeviceOrientation" Version="1.0.7" />
     <PackageReference Include="Syncfusion.Xamarin.SfPicker" Version="18.1.0.45" />
     <PackageReference Include="Syncfusion.Xamarin.SfMaskedEdit" Version="18.1.0.45" />
+    <PackageReference Include="refit" Version="5.1.67" />
   </ItemGroup>
 
   <ItemGroup>
@@ -30,5 +31,7 @@
     <Folder Include="Settings\" />
     <Folder Include="Events\" />
     <Folder Include="Views\Customs\" />
+    <Folder Include="ServicesWebAPI\" />
+    <Folder Include="ServicesWebAPI\Interfaces\" />
   </ItemGroup>
 </Project>
