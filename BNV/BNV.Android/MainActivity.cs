@@ -1,14 +1,11 @@
 ﻿using Acr.UserDialogs;
 using Android.App;
 using Android.Content.PM;
-using Android.Content.Res;
 using Android.OS;
-using Android.Util;
 using Plugin.CurrentActivity;
 using Prism;
 using Prism.Ioc;
 using Xamarin.Forms;
-using Xamarin.Forms.PlatformConfiguration.AndroidSpecific;
 
 namespace BNV.Droid
 {
@@ -28,6 +25,7 @@ namespace BNV.Droid
             global::Xamarin.Forms.Forms.Init(this, bundle);
             LoadApplication(new App(new AndroidInitializer()));
         }
+
     }
 
     public class AndroidInitializer : IPlatformInitializer

@@ -19,6 +19,14 @@ namespace BNV.Settings
 
         public static string BaseUrl = "https://app-bnvalores-v1-0-0-bncr-as.bndesarrollo.com/api";
 
+        public static string TokenExpiration = "tokenExpiration";
+
+        public static string Token = "token";
+
+        public static string TokenType = "token_type";
+
+        public static string Password = "Password";
+
         public class MainPageTypes
         {
             public static string Reportos = "Reportos";

@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Input;
+using BNV.Models;
+using BNV.Settings;
 using BNV.Validator;
 using Prism.Navigation;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace BNV.ViewModels
@@ -44,6 +48,34 @@ namespace BNV.ViewModels
                 return;
             }
             IsNotMatch = false;
+
+            var token = await SecureStorage.GetAsync(Config.Token);
+            var oldPass = await SecureStorage.GetAsync(Config.Password);
+            var authorization = $"Bearer {token}";
+            var param = new NewPasswordParam() {
+                OldPassword = oldPass,
+                Password = NewPassword.Value,
+                ConfirmPassword = ConfirmPassword
+            };
+
+//#if DEBUG
+//            param.OldPassword = "12345678";
+//            param.Password = "87654321";
+//            param.ConfirmPassword = "87654321";
+//#endif
+
+//            await App.ApiService.NewPassword(authorization, param).ContinueWith(async result =>
+//            {
+//                if (result.IsCompleted && result.Status == TaskStatus.RanToCompletion)
+//                {
+//                    await NavigationService.NavigateAsync("PasswordSettingResultPage");
+//                }
+//                else if (result.IsFaulted)
+//                {
+//                    IsErrorLenght = true;
+//                }
+//                else if (result.IsCanceled) { }
+//            }, TaskScheduler.FromCurrentSynchronizationContext());
 
             await NavigationService.NavigateAsync("PasswordSettingResultPage");
         }

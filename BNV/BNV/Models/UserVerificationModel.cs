@@ -10,5 +10,9 @@ namespace BNV.Models
 
         [JsonProperty("TieneCorreo")]
         public long TieneCorreo { get; set; }
+
+        [JsonProperty("Correo")]
+        public string Correo { get; set; }
+        
     }
 }

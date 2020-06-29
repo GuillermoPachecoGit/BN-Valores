@@ -9,7 +9,7 @@ namespace BNV.Models
         public long Tipid { get; set; }
 
         [JsonProperty("id")]
-        public long Id { get; set; }
+        public string Id { get; set; }
 
         [JsonProperty("name")]
         public string Name { get; set; }

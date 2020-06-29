@@ -33,9 +33,8 @@ namespace BNV.ViewModels
 
             IsErrorEmpty = false;
 
-            if (Identification.Replace(CharacterDefault, string.Empty).Length < MaskWatermark?.Length)
+            if (IsErrorIdentLenght)
             {
-                IsErrorIdentLenght = true;
                 return;
             }
 
@@ -43,18 +42,35 @@ namespace BNV.ViewModels
 
             using (UserDialogs.Instance.Loading("Verificando datos..."))
             {
-                await App.ApiService.GetVerifyUser(new UserVerifyParam() { IdentificationType = SelectedType.CodIdType, Identification = Identification })
+                try
+                {
+                    var param = new UserVerifyParam() { IdentificationType = SelectedType.CodIdType, Identification = Identification.Replace("-", "") };
+#if DEBUG
+                    param.Identification = "502500985";
+                    param.IdentificationType = 1;
+#endif
+                    await App.ApiService.GetVerifyUser(param)
                    .ContinueWith(async result =>
                    {
                        if (result.IsCompleted && result.Status == TaskStatus.RanToCompletion)
                        {
-                           // TODO VERIFY BAD RESPONSE
-                           // TODO si tiene email, y cuenta como se debe completar la etapa de registro
-                           await NavigationService.NavigateAsync("RegisterPage", new NavigationParameters() { { KeyParams.VerifyParam, result.Result } });
+                           // TODO el email en caso del que el usuario tenga un email valido???
+                           if (result.Result.EsCliOAutor == 1 && result.Result.TieneCorreo == 1)
+                               await NavigationService.NavigateAsync("RegisterRegisteredResultPage", new NavigationParameters() { { KeyParams.EmailRegistered, result.Result.Correo } });
+                           else
+                                await NavigationService.NavigateAsync("RegisterPage", new NavigationParameters() { { KeyParams.VerifyParam, param } });
                        }
-                       else if (result.IsFaulted) { }
+                       else if (result.IsFaulted) {
+
+                       }
                        else if (result.IsCanceled) { }
                    }, TaskScheduler.FromCurrentSynchronizationContext());
+                }
+                catch (System.Exception ex)
+                {
+
+                }
+
             }
         }
 
@@ -63,6 +79,7 @@ namespace BNV.ViewModels
             MaskWatermark = Placeholder;
             IsErrorEmpty = false;
             IdentificationTypes = App.IdentificationTypes;
+            SelectedType = IdentificationTypes[0];
             ContactInfo = $"Contáctenos {App.ContactInfo}";
         }
 
@@ -103,7 +120,7 @@ namespace BNV.ViewModels
         }
 
         public string? MaskWatermark { get; private set; }
-
+        public Syncfusion.XForms.MaskedEdit.MaskType MaskType { get; private set; }
         public string RegEx { get; set; }
 
         public string ErrorIdentSize { get; set; }
@@ -119,16 +136,18 @@ namespace BNV.ViewModels
             set
             {
                 SetProperty(ref _selectedType, value);
-                LimitSize = value.Mask.Length;
-                MaskTemplate = value.Mask;
-                MaskWatermark = value.Mask;
                 Identification = string.Empty;
+                LimitSize = value.Mask.Length;
+                MaskTemplate = value.RegExpression;
+                MaskWatermark = value.Mask;
+                MaskType = value.MaskType;
                 IsErrorEmpty = false;
                 ErrorIdentSize = string.Format(ErrorLenght, LimitSize);
             }
         }
 
         public bool IsErrorEmpty{ get; private set; }
-        public bool IsErrorIdentLenght { get; private set; }
+
+        public bool IsErrorIdentLenght { get; set; }
     }
 }

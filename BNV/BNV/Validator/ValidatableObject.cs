@@ -18,7 +18,6 @@ namespace BNV.Validator
         // PropertyChanged.Fody will call this method on Value change
         void OnValueChanged() => propertyChangedCallback?.Invoke();
 
-
         readonly Action propertyChangedCallback;
 
         public ValidatableObject(

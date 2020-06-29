@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using BNV.Settings;
 using BNV.ViewModels;
 using BNV.Views.Bases;
 using Plugin.DeviceOrientation;
 using Syncfusion.SfRangeSlider.XForms;
+using Syncfusion.XForms.Buttons;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -144,10 +146,16 @@ namespace BNV.Views
         protected async override void OnAppearing()
         {
             base.OnAppearing();
+            if (CrossDeviceOrientation.IsSupported) CrossDeviceOrientation.Current.UnlockOrientation();
             group1.SelectedItem = group1.Items[0];
             group.SelectedItem = group.Items[0];
             group3.SelectedItem = group3.Items[0];
             group4.SelectedItem = group4.Items[0];
+
+            group.SelectionChanged += Group_SelectionChanged;
+            group1.SelectionChanged += Group_SelectionChanged;
+            group3.SelectionChanged += Group_SelectionChanged;
+            group4.SelectionChanged += Group_SelectionChanged;
 
             var bonosChanges = await SecureStorage.GetAsync(Config.BonosChange);
             var typeChanges = await SecureStorage.GetAsync(Config.TypeChange);
@@ -159,6 +167,17 @@ namespace BNV.Views
             int indexTypes;
             if (int.TryParse(typeChanges, out indexTypes))
                 typeSlider.Value = indexTypes;
+
+        }
+
+        private void Group_SelectionChanged(object sender, Syncfusion.Buttons.XForms.SfChip.SelectionChangedEventArgs e)
+        {
+            var index = ((SfChipGroup)sender).Items.IndexOf((SfChip)e.AddedItem);
+
+            group1.SelectedItem = group1.Items[index];
+            group.SelectedItem = group.Items[index];
+            group3.SelectedItem = group3.Items[index];
+            group4.SelectedItem = group4.Items[index];
         }
 
         void SfTabView_SelectionChanged(System.Object sender, Syncfusion.XForms.TabView.SelectionChangedEventArgs e)
@@ -193,6 +212,12 @@ namespace BNV.Views
         void tabs_horizontal_SelectionChanged(System.Object sender, Syncfusion.XForms.TabView.SelectionChangedEventArgs e)
         {
             tabs_vertical.SelectedIndex = e.Index;
+        }
+
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+            if (CrossDeviceOrientation.IsSupported) CrossDeviceOrientation.Current.LockOrientation(Plugin.DeviceOrientation.Abstractions.DeviceOrientations.Portrait);
         }
     }
 }

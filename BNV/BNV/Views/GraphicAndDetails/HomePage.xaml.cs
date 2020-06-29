@@ -86,7 +86,6 @@ namespace BNV.Views.GraphicAndDetails
         protected override void OnDisappearing()
         {
             base.OnDisappearing();
-            if (CrossDeviceOrientation.IsSupported) CrossDeviceOrientation.Current.UnlockOrientation();
         }
 
         void CollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)

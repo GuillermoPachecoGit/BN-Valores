@@ -6,7 +6,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Acr.UserDialogs;
-using BNV.Events;
 using BNV.Models;
 using BNV.ServicesWebAPI;
 using BNV.Settings;
@@ -53,88 +52,101 @@ namespace BNV.ViewModels
 
         private async Task RefreshDataAsync()
         {
-            using (UserDialogs.Instance.Loading(LoadingMessageDialog))
+            try
             {
-                await Task.Delay(15);
-                var reportParam = new ItemsParamModel() { Sector = _selectedSector?.CodIdSector, Currency = _selectedCoin?.CodIdCurrency };
-                var apiService = NetworkService.GetApiService();
-                var getShares = App.ApiService.GetSharesStock(reportParam).ContinueWith(shares => _sharesStock = shares);
-                var getReportos = App.ApiService.GetReportos(reportParam).ContinueWith(reportos => _reportos = reportos);
-                var getExchanges = App.ApiService.GetExchangeRates(reportParam).ContinueWith(exchanges => _exchanges = exchanges);
-                var getBonos = App.ApiService.GetBonos(reportParam).ContinueWith(bonos => _bonosItems = bonos);
-
-                await Task.WhenAll(getShares, getReportos, getExchanges, getBonos).ContinueWith(async result =>
+                using (UserDialogs.Instance.Loading(LoadingMessageDialog))
                 {
-                    if (result.IsCompleted && result.Status == TaskStatus.RanToCompletion)
-                    {
-                        var itemsReports = _reportos?.Result;
-                        if (itemsReports != null)
-                            Reports = new ObservableCollection<Report>(itemsReports.Select(
-                                x =>
-                                {
-                                    x.ColorStatus = GetColor(x.Performance);
-                                    x.Triangle = GetTriangle(x.Performance);
-                                    x.IsBlue = x.Performance == 0;
-                                    x.IsGreen = x.Performance > 0;
-                                    x.IsRed = x.Performance < 0;
-                                    x.Arrow = GetArrow(x.Performance);
-                                    x.VolumeDisplay = x.Volume.ToString().Length >= 9 ? $"{x.Volume / 1000000}M" : x.Volume == 0 ? "N.D." : x.Volume.ToString();
-                                    return x;
-                                }).ToList());
+                    await Task.Delay(15);
+                    var token = await SecureStorage.GetAsync(Config.Token);
+                    var authorization = $"Bearer {token}";
+                    var reportParam = new ItemsParamModel() { Sector = _selectedSector?.CodIdSector, Currency = _selectedCoin?.CodIdCurrency };
+                    var apiService = NetworkService.GetApiService();
+                    var getShares = App.ApiService.GetSharesStock(authorization, reportParam).ContinueWith(shares => _sharesStock = shares);
+                    var getReportos = App.ApiService.GetReportos(authorization, reportParam).ContinueWith(reportos => _reportos = reportos);
+                    var getExchanges = App.ApiService.GetExchangeRates(authorization, reportParam).ContinueWith(exchanges => _exchanges = exchanges);
+                    var getBonos = App.ApiService.GetBonos(authorization, reportParam).ContinueWith(bonos => _bonosItems = bonos);
 
-                        var itemsShares = _sharesStock?.Result;
-                        if (itemsShares != null)
-                            Shares = new ObservableCollection<ShareOfStock>(itemsShares.Select(
-                                x =>
-                                {
-                                    x.ColorStatus = GetColor(x.Performance);
-                                    x.Triangle = GetTriangle(x.Performance);
-                                    x.IsBlue = x.Performance == 0;
-                                    x.IsGreen = x.Performance > 0;
-                                    x.IsRed = x.Performance < 0;
-                                    x.VolumeDisplay = x.Volume.ToString().Length >= 9 ? $"{x.Volume / 1000000}M" : x.Volume == 0 ? "N.D." : x.Volume.ToString();
-                                    return x;
-                                }).ToList());
-
-                        var itemsBonos = _bonosItems?.Result;
-                        if (itemsBonos != null)
-                            Bonos = new ObservableCollection<Bono>(itemsBonos.Select(
-                                x =>
-                                {
-                                    x.ColorStatus = GetColor(x.Performance);
-                                    x.Triangle = GetTriangle(x.Performance);
-                                    x.IsBlue = x.Performance == 0;
-                                    x.IsGreen = x.Performance > 0;
-                                    x.IsRed = x.Performance < 0;
-                                    x.VolumeDisplay = x.Volume.ToString().Length >= 9 ? $"{x.Volume / 1000000}M" : x.Volume == 0 ? "N.D." : x.Volume.ToString();
-                                    return x;
-                                }).ToList());
-
-                        var itemsExchanges = _exchanges?.Result;
-                        if (itemsExchanges != null)
-                            Types = new ObservableCollection<ChangeType>(itemsExchanges.Select(
-                                x =>
-                                {
-                                    x.ColorStatus = GetColor(x.Performance);
-                                    x.Triangle = GetTriangle(x.Performance);
-                                    x.IsBlue = x.Performance == 0;
-                                    x.IsGreen = x.Performance > 0;
-                                    x.IsRed = x.Performance < 0;
-                                    x.Arrow = GetArrow(x.Performance);
-                                    x.VolumeDisplay = x.Volume.ToString().Length >= 9 ? $"{x.Volume / 1000000}M" : x.Volume == 0 ? "N.D." : x.Volume.ToString();
-                                    return x;
-                                }).ToList());
-                        _alreadyLoaded = true;
-                    }
-                    else if (result.IsFaulted)
+                    await Task.WhenAll(getShares, getReportos, getExchanges, getBonos).ContinueWith(async result =>
                     {
-                        UserDialogs.Instance.HideLoading();
-                    }
-                    else if (result.IsCanceled)
-                    {
-                        UserDialogs.Instance.HideLoading();
-                    }
-                }, TaskScheduler.FromCurrentSynchronizationContext());
+                        if (result.IsCompleted && result.Status == TaskStatus.RanToCompletion)
+                        {
+                            var itemsReports = _reportos?.Result;
+                            if (itemsReports != null)
+                                Reports = new ObservableCollection<Report>(itemsReports.Select(
+                                    x =>
+                                    {
+                                        x.ColorStatus = GetColor(x.Variation);
+                                        x.Triangle = GetTriangle(x.Variation);
+                                        x.IsBlue = x.Variation == 0;
+                                        x.IsGreen = x.Variation > 0;
+                                        x.IsRed = x.Variation < 0;
+                                        x.Arrow = GetArrow(x.Variation);
+                                        x.VolumeDisplay = x.Volume.ToString().Length >= 7 ? $"{x.Volume / 1000000}M" : x.Volume == 0 ? "N.D." : x.Volume.ToString();
+                                        x.VariationDisplay = x.Variation > 0 ? $"+{x.Variation.ToString("F2")}%" : $"{x.Variation.ToString("F2")}%";
+                                        return x;
+                                    }).ToList());
+
+                            var itemsShares = _sharesStock?.Result;
+                            if (itemsShares != null)
+                                Shares = new ObservableCollection<ShareOfStock>(itemsShares.Select(
+                                    x =>
+                                    {
+                                        x.ColorStatus = GetColor(x.Variation);
+                                        x.Triangle = GetTriangle(x.Variation);
+                                        x.IsBlue = x.Variation == 0;
+                                        x.IsGreen = x.Variation > 0;
+                                        x.IsRed = x.Variation < 0;
+                                        x.VolumeDisplay = x.Volume.ToString().Length >= 7 ? $"{x.Volume / 1000000}M" : x.Volume == 0 ? "N.D." : x.Volume.ToString();
+                                        x.VariationDisplay = x.Variation > 0 ? $"+{x.Variation.ToString("F2")}%" : $"{x.Variation.ToString("F2")}%";
+                                        return x;
+                                    }).ToList());
+
+                            var itemsBonos = _bonosItems?.Result;
+                            if (itemsBonos != null)
+                                Bonos = new ObservableCollection<Bono>(itemsBonos.Select(
+                                    x =>
+                                    {
+                                        x.ColorStatus = GetColor(x.Variation);
+                                        x.Triangle = GetTriangle(x.Variation);
+                                        x.IsBlue = x.Variation == 0;
+                                        x.IsGreen = x.Variation > 0;
+                                        x.IsRed = x.Variation < 0;
+                                        x.VolumeDisplay = x.Volume.ToString().Length >= 7 ? $"{x.Volume / 1000000}M" : x.Volume == 0 ? "N.D." : x.Volume.ToString();
+                                        x.VariationDisplay = x.Variation > 0 ? $"+{x.Variation.ToString("F2")}%" : $"{x.Variation.ToString("F2")}%";
+                                        return x;
+                                    }).ToList());
+
+                            var itemsExchanges = _exchanges?.Result;
+                            if (itemsExchanges != null)
+                                Types = new ObservableCollection<ChangeType>(itemsExchanges.Select(
+                                    x =>
+                                    {
+                                        x.ColorStatus = GetColor(x.Variation);
+                                        x.Triangle = GetTriangle(x.Variation);
+                                        x.IsBlue = x.Variation == 0;
+                                        x.IsGreen = x.Variation > 0;
+                                        x.IsRed = x.Variation < 0;
+                                        x.Arrow = GetArrow(x.Variation);
+                                        x.VolumeDisplay = x.Volume.ToString().Length >= 7 ? $"{x.Volume / 1000000}M" : x.Volume == 0 ? "N.D." : x.Volume.ToString();
+                                        x.VariationDisplay = x.Variation > 0 ? $"+{x.Variation.ToString("F2")}%" : $"{x.Variation.ToString("F2")}%";
+                                        return x;
+                                    }).ToList());
+                            _alreadyLoaded = true;
+                        }
+                        else if (result.IsFaulted)
+                        {
+                            UserDialogs.Instance.HideLoading();
+                        }
+                        else if (result.IsCanceled)
+                        {
+                            UserDialogs.Instance.HideLoading();
+                        }
+                    }, TaskScheduler.FromCurrentSynchronizationContext());
+                }
+            }
+            catch (Exception ex)
+            {
+                UserDialogs.Instance.HideLoading();
             }
         }
 
@@ -155,6 +167,13 @@ namespace BNV.ViewModels
         public event PropertyChangedEventHandler PropertyChanged;
 
         public IEventAggregator Events { get; }
+
+        private string _date;
+        public string DataDate
+        {
+            get { return _date; }
+            set { _date = value; RaisePropertyChanged(); }
+        }
 
         private ObservableCollection<Currency> _currencies;
         public ObservableCollection<Currency> Currencies
@@ -242,6 +261,7 @@ namespace BNV.ViewModels
             Sectors = App.Sectors;
             SelectedCoin = App.SelectedCoin;
             SelectedSector = App.SelectedSector;
+            DataDate = $"Al dia: {DateTime.Today.ToShortDateString()}";
         }
 
         private async Task ChangePasswordActionExecute()
@@ -251,6 +271,10 @@ namespace BNV.ViewModels
 
         private async Task CloseSessionActionExecute()
         {
+            var token = await SecureStorage.GetAsync(Config.Token);
+            var response = await App.ApiService.CloseSession($"Bearer {token}");
+            await SecureStorage.SetAsync(Config.Token, string.Empty);
+            await SecureStorage.SetAsync(Config.TokenExpiration, string.Empty);
             await NavigationService.GoBackAsync();
         }
 

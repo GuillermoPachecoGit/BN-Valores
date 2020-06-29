@@ -1,5 +1,6 @@
 ﻿using System;
 using Newtonsoft.Json;
+using Syncfusion.XForms.MaskedEdit;
 
 namespace BNV.Models
 {
@@ -17,9 +18,14 @@ namespace BNV.Models
         [JsonProperty("regExpression")]
         public string RegExpression { get; set; }
 
+        [JsonProperty("maskExpression")]
+        public string MaskExpression { get; set; }
+        
         [JsonProperty("order")]
         public long Order { get; set; }
 
         public string MaskWatermark { get; internal set; }
+
+        public MaskType MaskType { get; internal set; }
     }
 }

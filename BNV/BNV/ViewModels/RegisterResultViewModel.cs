@@ -13,7 +13,6 @@ namespace BNV.ViewModels
             : base(navigationService)
         {
             ReturnInitCommand = new Command(async () => await ReturnActionExecute());
-            RequestPasswordAgainCommand = new Command(async () => await RequestPasswordAgainActionExecute());
         }
 
         private async Task ReturnActionExecute()
@@ -22,12 +21,5 @@ namespace BNV.ViewModels
         }
 
         public ICommand ReturnInitCommand { get; set; }
-
-        private async Task RequestPasswordAgainActionExecute()
-        {
-            //Send the email again
-        }
-
-        public ICommand RequestPasswordAgainCommand { get; set; }
     }
 }

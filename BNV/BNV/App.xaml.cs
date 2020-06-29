@@ -16,6 +16,8 @@ using System.Collections.Generic;
 using Xamarin.Essentials;
 using BNV.Settings;
 using System.Linq;
+using Plugin.DeviceOrientation;
+using Syncfusion.XForms.MaskedEdit;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace BNV
@@ -56,6 +58,7 @@ namespace BNV
         protected async override void OnStart()
         {
             base.OnStart();
+            if (CrossDeviceOrientation.IsSupported) CrossDeviceOrientation.Current.LockOrientation(Plugin.DeviceOrientation.Abstractions.DeviceOrientations.Portrait);
 
             try
             {
@@ -72,7 +75,16 @@ namespace BNV
 
                         if (_identTypes.Result.Count > 0)
                         {
-                            IdentificationTypes = _identTypes.Result;
+                            IdentificationTypes = _identTypes.Result.Select(x => {
+                                if (x.CodIdType == 1)
+                                {
+                                    x.MaskType = MaskType.Text;
+                                    x.RegExpression = x.MaskExpression;
+                                }
+                                else
+                                    x.MaskType = MaskType.RegEx;
+                                return x;
+                            }).ToList();
                         }
 
                         if (_currenciesItems.Result.Count > 0)
@@ -108,8 +120,6 @@ namespace BNV
             containerRegistry.RegisterForNavigation<LoginPage, LoginViewModel>();
             containerRegistry.RegisterForNavigation<RegisterPage, RegisterViewModel>();
             containerRegistry.RegisterForNavigation<RegisterResultPage, RegisterResultViewModel>();
-            containerRegistry.RegisterForNavigation<PasswordRecoveryPage, PasswordRecoveryViewModel>();
-            containerRegistry.RegisterForNavigation<PasswordRecoveryResultPage, PasswordRecoveryResultViewModel>();
             containerRegistry.RegisterForNavigation<HomePage, HomeViewModel>();
             containerRegistry.RegisterForNavigation<ChangePasswordPage, ChangePasswordViewModel>();
             containerRegistry.RegisterForNavigation<HomeDetailPage, HomeDetailViewModel>();
@@ -118,6 +128,7 @@ namespace BNV
             containerRegistry.RegisterForNavigation<PasswordSettingPage, PasswordSettingViewModel>();
             containerRegistry.RegisterForNavigation<PasswordSettingResultPage, PasswordSettingResultViewModel>();
             containerRegistry.RegisterForNavigation<ChangePasswordResultPage, ChangePasswordResultViewModel>();
+            containerRegistry.RegisterForNavigation<RegisterRegisteredResultPage, RegisterRegisteredResultViewModel>();
         }
     }
    

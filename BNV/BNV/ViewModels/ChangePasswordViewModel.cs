@@ -32,22 +32,52 @@ namespace BNV.ViewModels
             }
             IsErrorEmpty = false;
 
-            if (Identification.Replace("#", string.Empty).Length < MaskWatermark.Length)
+            if (IsErrorIdentLenght)
             {
-                IsErrorIdentLenght = true;
                 return;
             }
 
             IsErrorIdentLenght = false;
 
-             await SecureStorage.SetAsync(Config.FirstLogin, "n");
-             await NavigationService.NavigateAsync("ChangePasswordResultPage", new NavigationParameters() { { "title", Title } });
+            try
+            {
+                using (UserDialogs.Instance.Loading("Procesando datos.."))
+                {
+                    var param = new RecoveryPassParam() { TipId = SelectedType.CodIdType.ToString(), Id = Identification.Replace("-", "") };
+#if DEBUG
+                    param.Id = "502500985";
+                    param.TipId = "1";
+#endif
+                    await App.ApiService.PostRecoverPassword(param)
+                   .ContinueWith(async result =>
+                   {
+                       if (result.IsCompleted && result.Status == TaskStatus.RanToCompletion)
+                       {
+                           InvalidUser = false;
+                           await SecureStorage.SetAsync(Config.FirstLogin, "n");
+                           await NavigationService.NavigateAsync("ChangePasswordResultPage", new NavigationParameters() { { "title", Title } });
+                       }
+                       else if (result.IsFaulted)
+                       {
+                           InvalidUser = true;
+                       }
+                       else if (result.IsCanceled) { }
+                   }, TaskScheduler.FromCurrentSynchronizationContext());
+
+                }
+
+            }
+            catch (System.Exception ex)
+            {
+
+            }
         }
 
         public void OnAppearing()
         {
             MaskWatermark = "Identificación";
             IsErrorLenght = false;
+            InvalidUser = false;
             IdentificationTypes = App.IdentificationTypes;
         }
 
@@ -79,7 +109,7 @@ namespace BNV.ViewModels
         }
 
         public string MaskWatermark { get; private set; }
-
+        public Syncfusion.XForms.MaskedEdit.MaskType MaskType { get; private set; }
         public string RegEx { get; set; }
 
         public string ErrorIdentSize { get; set; }
@@ -95,10 +125,11 @@ namespace BNV.ViewModels
             set
             {
                 SetProperty(ref _selectedType, value);
-                LimitSize = value.Mask.Length;
-                MaskTemplate = value.Mask;
-                MaskWatermark = value.Mask;
                 Identification = string.Empty;
+                LimitSize = value.Mask.Length;
+                MaskTemplate = value.RegExpression;
+                MaskWatermark = value.Mask;
+                MaskType = value.MaskType;
                 IsErrorLenght = false;
                 ErrorIdentSize = string.Format(ErrorLenght, LimitSize);
             }
@@ -111,6 +142,7 @@ namespace BNV.ViewModels
         public bool IsErrorEmpty { get; set; }
 
         public bool IsErrorLenght { get; set; }
+        public bool InvalidUser { get; private set; }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
         {

@@ -23,7 +23,6 @@ namespace BNV.Views.Register
         protected override void OnDisappearing()
         {
             base.OnDisappearing();
-            if (CrossDeviceOrientation.IsSupported) CrossDeviceOrientation.Current.UnlockOrientation();
         }
     }
 }

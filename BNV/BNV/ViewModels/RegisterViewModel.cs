@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Acr.UserDialogs;
 using BNV.Models;
 using BNV.Settings;
 using BNV.Validator;
+using Newtonsoft.Json;
 using Prism.AppModel;
 using Prism.Navigation;
 using Xamarin.Forms;
@@ -16,7 +19,7 @@ namespace BNV.ViewModels
     {
         private Task<List<Country>> _countries;
         private Task<List<Gender>> _genders;
-        private long Identification;
+        private string Identification;
         private long IdentificationType;
 
         public RegisterViewModel(INavigationService navigationService)
@@ -26,10 +29,6 @@ namespace BNV.ViewModels
 
             AcceptCommand = new Command(async () => await AcceptActionExecute());
             Email = new ValidatableObject<string>(propChangedCallBack, new EmailValidator())
-            {
-                Value = string.Empty
-            };
-            PhoneNumber = new ValidatableObject<string>(propChangedCallBack, new PhoneValidator())
             {
                 Value = string.Empty
             };
@@ -53,10 +52,19 @@ namespace BNV.ViewModels
             {
                 Name.Value = string.IsNullOrEmpty(Name.Value) ? null : Name.Value;
                 Surname.Value = string.IsNullOrEmpty(Surname.Value) ? null : Surname.Value;
-                PhoneNumber.Value = string.IsNullOrEmpty(PhoneNumber.Value) ? null : PhoneNumber.Value;
                 Email.Value = string.IsNullOrEmpty(Email.Value) ? null : Email.Value;
 
-                if (string.IsNullOrEmpty(Email.Value) || string.IsNullOrEmpty(Birthday) || string.IsNullOrEmpty(Name.Value) || string.IsNullOrEmpty(Surname.Value) || string.IsNullOrEmpty(PhoneNumber.Value) || Gender == null || Nationality == null)
+                // check valid date
+                var values = Birthday.Split('/').Select(x => int.Parse(x)).ToList();
+
+                if ((values[0] != 0 && values[0] > 31) || (values[1] != 0 && values[1] > 12) || (values[2] != 0 && values[2] > DateTime.Now.Year))
+                {
+                    DateInvalid = true;
+                    return;
+                }
+                DateInvalid = false;
+
+                if (string.IsNullOrEmpty(Email.Value) || string.IsNullOrEmpty(Birthday) || string.IsNullOrEmpty(PhoneNumber) || string.IsNullOrWhiteSpace(PhoneNumber) || string.IsNullOrEmpty(Name.Value) || string.IsNullOrEmpty(Surname.Value) || Gender == null || Nationality == null)
                 {
                     valid = false;
                     RaisePropertyChanged(nameof(IsMissingField));
@@ -72,21 +80,33 @@ namespace BNV.ViewModels
                     Country = Nationality.CodIdPais,
                     Gender = Gender.CodIdGenero,
                     Email = Email.Value,
-                    Phone = PhoneNumber.Value,
+                    Phone = PhoneNumber,
                     Tipid = IdentificationType,
                     Id = Identification
                 };
 
                 using (UserDialogs.Instance.Loading(MessagesAlert.SendingData))
                 {
+                    var jsonData = JsonConvert.SerializeObject(userParam);
                     // TODO ADD TOKEN
-                    var result = App.ApiService.PostUser(userParam);
-                    // TODO que respuesta 
-                    await NavigationService.NavigateAsync("RegisterResultPage");
+                    var result = App.ApiService.PostUser(userParam).ContinueWith(async result =>
+                    {
+                        if (result.IsCompleted && result.Status == TaskStatus.RanToCompletion)
+                        {
+                            AlreadyExist = false;
+                            await NavigationService.NavigateAsync("RegisterResultPage");
+                        }
+                        else if (result.IsFaulted)
+                        {
+                            AlreadyExist = true;
+                        }
+                        else if (result.IsCanceled) { AlreadyExist = true; }
+                    }, TaskScheduler.FromCurrentSynchronizationContext());
                 }
             }
             catch (Exception ex)
             {
+                AlreadyExist = true;
                 UserDialogs.Instance.HideLoading();
             }
         }
@@ -128,10 +148,12 @@ namespace BNV.ViewModels
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
-            var resultIdent = parameters.GetValue<UserVerificationModel>(KeyParams.VerifyParam);
+            var resultIdent = parameters.GetValue<UserVerifyParam>(KeyParams.VerifyParam);
             if (resultIdent != null)
             {
                 // TODO que hago con estos datos de la verificacion???
+                Identification = resultIdent.Identification;
+                IdentificationType = resultIdent.IdentificationType;
             }
         }
 
@@ -149,7 +171,47 @@ namespace BNV.ViewModels
 
         public ValidatableObject<string> Name { get; set; }
 
-        public ValidatableObject<string> PhoneNumber { get; }
+        private List<char> _validCharacters = new List<char> { '-', '(', ')' };
+        private string _phone;
+        public string PhoneNumber
+        {
+            get => _phone;
+
+            set
+            {
+                _phone = value;
+                if (value == string.Empty)
+                {
+                    IsInvalidPhone = false;
+                    return;
+                }
+
+                if (value.ToCharArray().Any(x => !_validCharacters.Contains(x) && !char.IsDigit(x) && !char.IsWhiteSpace(x)))
+                {
+                    ErrorDescriptionPhone = MessagesAlert.ErrorPhoneInvalid;
+                    IsInvalidPhone = true;
+                    IsInvalidPhone = true;
+                    return;
+                }
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    ErrorDescriptionPhone = MessagesAlert.ErrorPhoneInvalid;
+                    IsInvalidPhone = false;
+                    IsInvalidPhone = false;
+                    return;
+                }
+
+                if (value.Length > 20)
+                {
+                    ErrorDescriptionPhone = MessagesAlert.ErrorPhoneLenght;
+                    IsInvalidPhone = true;
+                    IsInvalidPhone = true;
+                    return;
+                }
+
+                IsInvalidPhone = false;
+            }
+        }
 
         public Gender? Gender { get; set; }
 
@@ -169,9 +231,15 @@ namespace BNV.ViewModels
             }
         }
 
+        public bool IsInvalidPhone { get; set; }
+
+        public string ErrorDescriptionPhone { get; set; }
+
         public bool valid;
         public bool IsMissingField {
-            get => valid || !(string.IsNullOrEmpty(Email.Value) || string.IsNullOrEmpty(Birthday) || string.IsNullOrEmpty(Name.Value) || string.IsNullOrEmpty(Surname.Value) || string.IsNullOrEmpty(PhoneNumber.Value) || Gender == null || Nationality == null);
+            get => valid || !(string.IsNullOrEmpty(Email.Value) || string.IsNullOrEmpty(Birthday) || string.IsNullOrEmpty(Name.Value) || string.IsNullOrEmpty(Surname.Value) || string.IsNullOrEmpty(PhoneNumber) || string.IsNullOrWhiteSpace(PhoneNumber) || Gender == null || Nationality == null);
         }
+        public bool DateInvalid { get; private set; }
+        public bool AlreadyExist { get; private set; }
     }
 }

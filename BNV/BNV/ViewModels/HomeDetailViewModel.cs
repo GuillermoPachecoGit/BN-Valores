@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Acr.UserDialogs;
@@ -115,9 +114,11 @@ namespace BNV.ViewModels
                 using (UserDialogs.Instance.Loading("Cargando los datos..."))
                 {
                     await Task.Delay(5);
+                    var token = await SecureStorage.GetAsync(Config.Token);
+                    var authorization = $"Bearer {token}";
                     if (Item is Report)
                     {
-                        await App.ApiService.GetReportoDetails(Item.Id, new DetailParamModel() { Time = time })
+                        await App.ApiService.GetReportoDetails(authorization, Item.Id, new DetailParamModel() { Time = time })
                          .ContinueWith(result =>
                          {
                              if (result.IsCompleted && result.Status == TaskStatus.RanToCompletion)
@@ -129,12 +130,13 @@ namespace BNV.ViewModels
                          }, TaskScheduler.FromCurrentSynchronizationContext())// execute in main/UI thread.
                          .ConfigureAwait(false);
                         _appeared = true;
+                        _loading = false;
                         return;
                     }
 
                     if (Item is Bono)
                     {
-                        await App.ApiService.GetBonoDetails(Item.Id, new DetailParamModel() { Time = time })
+                        await App.ApiService.GetBonoDetails(authorization, Item.Id, new DetailParamModel() { Time = time })
                          .ContinueWith(result =>
                          {
                              if (result.IsCompleted && result.Status == TaskStatus.RanToCompletion)
@@ -146,12 +148,13 @@ namespace BNV.ViewModels
                          }, TaskScheduler.FromCurrentSynchronizationContext())// execute in main/UI thread.
                          .ConfigureAwait(false);
                         _appeared = true;
+                        _loading = false;
                         return;
                     }
 
                     if (Item is ChangeType)
                     {
-                        await App.ApiService.GetExchangeDetails(Item.Id, new DetailParamModel() { Time = time })
+                        await App.ApiService.GetExchangeDetails(authorization, Item.Id, new DetailParamModel() { Time = time })
                          .ContinueWith(result =>
                          {
                              if (result.IsCompleted && result.Status == TaskStatus.RanToCompletion)
@@ -163,12 +166,13 @@ namespace BNV.ViewModels
                          }, TaskScheduler.FromCurrentSynchronizationContext())// execute in main/UI thread.
                          .ConfigureAwait(false);
                         _appeared = true;
+                        _loading = false;
                         return;
                     }
 
                     if (Item is ShareOfStock)
                     {
-                        await App.ApiService.GetShareOfStockDetails(Item.Id, new DetailParamModel() { Time = time })
+                        await App.ApiService.GetShareOfStockDetails(authorization, Item.Id, new DetailParamModel() { Time = time })
                          .ContinueWith(result =>
                          {
                              if (result.IsCompleted && result.Status == TaskStatus.RanToCompletion)
@@ -180,6 +184,7 @@ namespace BNV.ViewModels
                          }, TaskScheduler.FromCurrentSynchronizationContext())// execute in main/UI thread.
                          .ConfigureAwait(false);
                         _appeared = true;
+                        _loading = false;
                         return;
                     }
                 }
@@ -188,7 +193,6 @@ namespace BNV.ViewModels
             {
 
             }
-            
         }
 
         private void PopulateData(Task<Details> result)
@@ -201,19 +205,20 @@ namespace BNV.ViewModels
             long avr;
             long.TryParse(value.TradedVolumeAverage, out avr);
 
-            VolumenMax = value.TradedVolumeMax.ToString().Length >= 9 ? $"{volMax / 1000000}M" : volMax == 0 ? "N.D." : volMax.ToString();
-            VolumenMin = value.TradedVolumeMin.ToString().Length >= 9 ? $"{volMin / 1000000}M" : volMin == 0 ? "N.D." : volMin.ToString();
-            Average = value.TradedVolumeAverage.ToString().Length >= 9 ? $"{avr / 1000000}M" : avr == 0 ? "N.D." : avr.ToString();
+            VolumenMax = value.TradedVolumeMax.ToString().Length >= 7 ? $"{volMax / 1000000}M" : volMax == 0 ? "N.D." : volMax.ToString();
+            VolumenMin = value.TradedVolumeMin.ToString().Length >= 7 ? $"{volMin / 1000000}M" : volMin == 0 ? "N.D." : volMin.ToString();
+            Average = value.TradedVolumeAverage.ToString().Length >= 7 ? $"{avr / 1000000}M" : avr == 0 ? "N.D." : avr.ToString();
             Maximum = value.ValueMax.ToString();
             Minimum = value.ValueMin.ToString();
             ValueRendimiento = Item.Performance.ToString();
-            PercentageRendimiento = Item.Performance.ToString();
-            ValueVolumen = Item.VolumeDisplay;
+            PercentageRendimiento = Item.Price.ToString();
+            ValueVolumen = Item.Variation.ToString("F2") + "%";
+            PercentageVolumen = Item.VolumeDisplay;
 
             var list = new List<Model>();
             foreach(var dataItem in value.Data)
             {
-                list.Add(new Model(dataItem.Date.DayOfWeek.ToString(), dataItem.Price));
+                list.Add(new Model(dataItem.Date.ToString("m"), dataItem.Price));
             }
             Data = new ObservableCollection<Model>(list);
         }
@@ -225,7 +230,10 @@ namespace BNV.ViewModels
 
         private async Task ActionExecute(string time)
         {
-           GetDetailsAsync(GetDays(time));
+            if (_loading)
+                return;
+            _loading = true;
+            GetDetailsAsync(GetDays(time));
         }
 
         private int GetDays(string time)
@@ -298,6 +306,13 @@ namespace BNV.ViewModels
             set { _valueRendimiento = value; RaisePropertyChanged(); }
         }
 
+        private string _date;
+        public string DataDate
+        {
+            get { return _date; }
+            set { _date = value; RaisePropertyChanged(); }
+        }
+        
         private string _percentageRendimiento;
         public string PercentageRendimiento
         {
@@ -387,6 +402,7 @@ namespace BNV.ViewModels
             Sectors = App.Sectors;
             SelectedCoin = App.SelectedCoin;
             SelectedSector = App.SelectedSector;
+            DataDate = $"Al dia: {DateTime.Today.ToShortDateString()}";
         }
 
         private string _typeChange;
@@ -455,6 +471,7 @@ namespace BNV.ViewModels
 
         private string _selectedHomePage;
         private bool _appeared;
+        private bool _loading;
 
         public string SelectedHomePage
         {
@@ -470,6 +487,10 @@ namespace BNV.ViewModels
         private async Task CloseSessionActionExecute()
         {
             Events.GetEvent<NavigationColorEvent>().Publish("#000000");
+            var token = await SecureStorage.GetAsync(Config.Token);
+            var response = await App.ApiService.CloseSession($"Bearer {token}");
+            await SecureStorage.SetAsync(Config.Token, string.Empty);
+            await SecureStorage.SetAsync(Config.TokenExpiration, string.Empty);
             await NavigationService.GoBackToRootAsync();
         }
     }

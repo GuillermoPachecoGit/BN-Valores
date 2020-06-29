@@ -49,5 +49,8 @@ namespace BNV.Models
 
         [JsonIgnore]
         public string VolumeDisplay { get; set; }
+
+        [JsonIgnore]
+        public string VariationDisplay { get; set; }
     }
 }

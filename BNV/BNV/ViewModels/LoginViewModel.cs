@@ -49,21 +49,18 @@ namespace BNV.ViewModels
             }
             IsErrorEmpty = false;
 
-            if (Identification.Replace("#", string.Empty).Length < MaskWatermark.Length)
+            if (IsErrorIdentLenght)
             {
-                IsErrorIdentLenght = true;
                 return;
             }
 
-            IsErrorIdentLenght = false;
             if (Password.Length < 8)
             {
                 IsErrorLenght = true;
                 return;
             }
             IsErrorLenght = false;
-            Device.BeginInvokeOnMainThread(async () =>
-            {
+
                 try
                 {
                     using (UserDialogs.Instance.Loading(MessagesAlert.InitSession))
@@ -75,17 +72,35 @@ namespace BNV.ViewModels
                                 var loginParam = new LoginParam()
                                 {
                                     TipId = SelectedType.CodIdType,
-                                    Id = Identification,
+                                    Id = Identification.Replace("-", ""),
                                     Password = Password
                                 };
-                                //TODO LOGIN ESTA EN OTRA DIRECCION URLBASE/Login, esto debe ser uniforme,como los demas endpoints urlbase/api/Login
-                                //var token = await App.ApiService.PostLogin(loginParam);
-                                await NavigationAction();
+
+#if DEBUG
+                                loginParam.Id = "303760038";
+                                loginParam.Password = "12345678";
+#endif
+                                var token = await App.ApiService.PostLogin(loginParam).ContinueWith(async result =>
+                                {
+                                    if (result.IsCompleted && result.Status == TaskStatus.RanToCompletion)
+                                    {
+                                        await SecureStorage.SetAsync(Config.Token, result.Result.AccessToken);
+                                        await SecureStorage.SetAsync(Config.TokenExpiration, result.Result.ExpiresIn.ToString());
+                                        await SecureStorage.SetAsync(Config.Password, Password);
+                                        await NavigationAction();
+                                        Password = string.Empty;
+                                    }
+                                    else if (result.IsFaulted)
+                                    {
+                                        IsErrorLenght = true;
+                                    }
+                                    else if (result.IsCanceled) { }
+                                }, TaskScheduler.FromCurrentSynchronizationContext());
                             }
                         }
                         catch (Exception ex)
                         {
-
+                            IsErrorLenght = true;
                         }
                     }
                 }
@@ -93,7 +108,6 @@ namespace BNV.ViewModels
                 {
                     var val = ex.Message;
                 }
-            });
         }
 
         private async Task NavigationAction()
@@ -115,6 +129,9 @@ namespace BNV.ViewModels
             MaskWatermark = PlaceHolder;
             IsErrorIdentLenght = false;
             IdentificationTypes = App.IdentificationTypes;
+            SelectedType = null;
+            if (IdentificationTypes != null)
+                SelectedType = IdentificationTypes[0];
             ContactInfo = $"Contáctenos {App.ContactInfo}";
         }
 
@@ -161,6 +178,9 @@ namespace BNV.ViewModels
         }
 
         public string MaskWatermark { get; private set; }
+
+        public Syncfusion.XForms.MaskedEdit.MaskType MaskType { get; set; }
+
         public string RegEx { get; set; }
 
         public string ErrorIdentSize { get; set; }
@@ -176,11 +196,15 @@ namespace BNV.ViewModels
             set
             {
                 SetProperty(ref _selectedType, value);
-                LimitSize = value.Mask.Length;
-                MaskTemplate = value.Mask;
-                MaskWatermark = value.Mask;
-                Identification = string.Empty;
-                IsErrorIdentLenght = false;
+                if (value != null)
+                {
+                    Identification = string.Empty;
+                    LimitSize = value.Mask.Length;
+                    MaskTemplate = value.RegExpression;
+                    MaskWatermark = value.Mask;
+                    MaskType = value.MaskType;
+                    IsErrorIdentLenght = false;
+                }
             }
         }
 

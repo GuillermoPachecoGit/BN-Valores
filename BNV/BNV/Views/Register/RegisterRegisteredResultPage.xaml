@@ -2,7 +2,7 @@
 <ContentPage
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    x:Class="BNV.Views.RegisterResultPage"
+    x:Class="BNV.Views.Register.RegisterRegisteredResultPage"
     xmlns:converters="clr-namespace:BNV.Converters"
     BackgroundColor="Black">
       <ContentPage.Resources>
@@ -44,28 +44,21 @@
                 VerticalOptions="Center"/>
 
             <Label
-                Text="Sus datos están siendo verificados por BN Valores"
                 TextColor="White"
                 FontSize="20"
                 Margin="35,16,35,20"
                 HorizontalTextAlignment="Center"
                 HorizontalOptions="CenterAndExpand"
-                VerticalOptions="Center"/>
-            <Label
-                Text="Una vez aprobado su registro se enviará una contraseña temporal a su correo registrado"
-                TextColor="White"
-                FontSize="20"
-                Margin="35,0,35,5"
-                HorizontalTextAlignment="Center"
-                HorizontalOptions="CenterAndExpand"
-                VerticalOptions="Center"/>
-                <Label
-                     Margin="0,0,0,24"
-                     VerticalOptions="Center"
-                     HorizontalOptions="CenterAndExpand"
-                     Text="Este proceso puede tomar de 1 a 3 días hábiles"
-                     TextColor="#AAAAAA"
-                     FontSize="12"></Label>
+                VerticalOptions="Center">
+                <Label.FormattedText>
+                <FormattedString>
+                    <Span Text="Se envió una contraseña temporal al correo:" FontSize="18" TextColor="White" />
+                    <Span Text="{Binding EmailRegistered, Mode=TwoWay}" FontSize="20" TextColor="White" FontAttributes="Bold" >
+                    </Span>
+                    <Span Text="por favor siga los pasos indicados en el correo." FontSize="18" TextColor="White" />
+                </FormattedString>
+            </Label.FormattedText>
+            </Label>
            <Button
                 Margin="65,0"
                 Text="Aceptar"

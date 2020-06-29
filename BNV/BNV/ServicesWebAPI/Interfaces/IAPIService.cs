@@ -8,28 +8,28 @@ namespace BNV.ServicesWebAPI.Interfaces
     public interface IAPIService
     {
         [Get("/Acciones")]
-        Task<List<ShareOfStock>> GetSharesStock(ItemsParamModel param);
+        Task<List<ShareOfStock>> GetSharesStock([Header("Authorization")] string token, ItemsParamModel param);
 
         [Get("/ExchangeRates")]
-        Task<List<ChangeType>> GetExchangeRates(ItemsParamModel param);
+        Task<List<ChangeType>> GetExchangeRates([Header("Authorization")] string token, ItemsParamModel param);
 
         [Get("/Bonos")]
-        Task<List<Bono>> GetBonos(ItemsParamModel param);
+        Task<List<Bono>> GetBonos([Header("Authorization")] string token, ItemsParamModel param);
 
         [Get("/Reportos")]
-        Task<List<Report>> GetReportos(ItemsParamModel param);
+        Task<List<Report>> GetReportos([Header("Authorization")] string token, ItemsParamModel param);
 
         [Get("/Reportos/{id}")]
-        Task<Details> GetReportoDetails([AliasAs("id")] string id, DetailParamModel param);
+        Task<Details> GetReportoDetails([Header("Authorization")] string token, [AliasAs("id")] string id, DetailParamModel param);
 
         [Get("/Bonos/{id}")]
-        Task<Details> GetBonoDetails([AliasAs("id")] string id, DetailParamModel param);
+        Task<Details> GetBonoDetails([Header("Authorization")] string token, [AliasAs("id")] string id, DetailParamModel param);
 
         [Get("/Acciones/{id}")]
-        Task<Details> GetShareOfStockDetails([AliasAs("id")] string id, DetailParamModel param);
+        Task<Details> GetShareOfStockDetails([Header("Authorization")] string token, [AliasAs("id")] string id, DetailParamModel param);
 
         [Get("/ExchangeRates/{id}")]
-        Task<Details> GetExchangeDetails([AliasAs("id")] string id, DetailParamModel param);
+        Task<Details> GetExchangeDetails([Header("Authorization")] string token, [AliasAs("id")] string id, DetailParamModel param);
 
         [Get("/General/Currency")]
         Task<List<Currency>> GetCurrency();
@@ -49,16 +49,22 @@ namespace BNV.ServicesWebAPI.Interfaces
         [Get("/LoginVerify")]
         Task<UserVerificationModel> GetVerifyUser(UserVerifyParam param);
 
-        [Post("/Signup")] // TODO ver respuesta???
+        [Post("/Signup")]
         Task<string> PostUser(RegisterParam param);
 
-        [Post("/Login")] 
+        [Post("/login")] 
         Task<LoginTokenModel> PostLogin([Body(BodySerializationMethod.UrlEncoded)] LoginParam param);
 
-        [Post("/RecoverPassword")] // TODO TRABAJAR SOBRE LA RESPONSE, TIENE QUE SER UNIFORME
+        [Post("/RecoverPassword")]
         Task<string> PostRecoverPassword(RecoveryPassParam param);
 
         [Get("/General/ContactLabel")] 
         Task<string> GetContactInfo();
+
+        [Delete("/Logout")]
+        Task<string> CloseSession([Header("Authorization")] string token);
+
+        [Put("/Password")]
+        Task<string> NewPassword([Header("Authorization")] string token, NewPasswordParam param);
     }
 }

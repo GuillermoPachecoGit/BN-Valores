@@ -9,5 +9,9 @@
         public static string SendingData = "Enviando datos de usuario...";
 
         public static string InitSession = "Iniciando Sesión...";
+
+        public static string ErrorPhoneLenght = "Teléfono tiene una longitud máxima de 20 caracteres";
+
+        public static string ErrorPhoneInvalid = "Teléfono solo puede contener: - , (, ) y digitos.";
     }
 }
