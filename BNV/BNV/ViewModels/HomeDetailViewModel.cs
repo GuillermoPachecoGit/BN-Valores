@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Acr.UserDialogs;
@@ -101,6 +103,12 @@ namespace BNV.ViewModels
                       else
                           SelectedHomePage = "Reportos";
                   });
+
+                //SelectedCoin = App.SelectedCoin;
+                //SelectedSector = App.SelectedSector;
+                //SelectedHomePage = App.HomePage;
+                //BonosIndex = App.BonosIndexNotify;
+                //ExchangesIndex = App.ExchangesIndexNotify;
             }
             catch (Exception ex)
             {
@@ -216,9 +224,9 @@ namespace BNV.ViewModels
             PercentageVolumen = Item.VolumeDisplay;
 
             var list = new List<Model>();
-            foreach(var dataItem in value.Data)
+            foreach(var dataItem in value.Data.OrderBy(x => x.Date))
             {
-                list.Add(new Model(dataItem.Date.ToString("m"), dataItem.Price));
+                list.Add(new Model(dataItem.Date.ToString("d - MMM", CultureInfo.CreateSpecificCulture("es-MX")), dataItem.Price));
             }
             Data = new ObservableCollection<Model>(list);
         }
@@ -478,6 +486,12 @@ namespace BNV.ViewModels
             get { return _selectedHomePage; }
             set { _selectedHomePage = value; RaisePropertyChanged(); SecureStorage.SetAsync(Config.MainPage, value); }
         }
+
+        public int BonosIndex { get; set; }
+
+        public int ExchangesIndex { get; set; }
+        public double ExchangeNotify { get; set; }
+        public double BonosNotify { get; set; }
 
         private async Task ChangePasswordActionExecute()
         {

@@ -207,9 +207,9 @@
                                                                     VerticalOptions="Center"
                                                                     HorizontalOptions="Center"> 
                                                                     <Grid.RowDefinitions>
-                                                                        <RowDefinition Height="*" />
-                                                                        <RowDefinition Height="*" />
-                                                                        <RowDefinition Height="*" />
+                                                                        <RowDefinition Height="35" />
+                                                                        <RowDefinition Height="25" />
+                                                                        <RowDefinition Height="25" />
                                                                     </Grid.RowDefinitions>
                                                                     <Grid.ColumnDefinitions>
                                                                         <ColumnDefinition Width="Auto" />
@@ -339,9 +339,9 @@
                                                                     VerticalOptions="Center"
                                                                     HorizontalOptions="Center"> 
                                                                     <Grid.RowDefinitions>
-                                                                        <RowDefinition Height="*" />
-                                                                        <RowDefinition Height="*" />
-                                                                        <RowDefinition Height="*" />
+                                                                        <RowDefinition Height="35" />
+                                                                        <RowDefinition Height="25" />
+                                                                        <RowDefinition Height="25" />
                                                                     </Grid.RowDefinitions>
                                                                     <Grid.ColumnDefinitions>
                                                                         <ColumnDefinition Width="Auto" />

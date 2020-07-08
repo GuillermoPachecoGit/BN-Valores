@@ -108,7 +108,7 @@
 
                                                     <Frame
                                                         Padding="0"
-                                                        Margin="30,45,30,30"
+                                                        Margin="15,45,15,30"
                                                         CornerRadius="20">
                                                         <buttons:SfChipGroup x:Name="group1" SelectedItem="{Binding SelectedItem1, Mode=TwoWay}" HorizontalOptions ="Center" VerticalOptions="StartAndExpand" HeightRequest="35" BackgroundColor="#535353" ChipTextColor="white" ChipBackgroundColor="#535353" SelectedChipBackgroundColor="#808080"  Type="Choice">
                                                             <buttons:SfChipGroup.ChipLayout>
@@ -122,12 +122,12 @@
 						                                                AlignItems="Center"/>
 				                                                </buttons:SfChipGroup.ChipLayout>
 			                                                <buttons:SfChipGroup.Items>
-                                                                <buttons:SfChip FontSize="12" BackgroundColor="#535353"  VerticalOptions="Fill" TextColor="White" Text="1 sem"/>
-				                                                <buttons:SfChip FontSize="12" BackgroundColor="#535353"  VerticalOptions="Fill" TextColor="White" Text="1 mes"/>
-				                                                <buttons:SfChip FontSize="12"  BackgroundColor="#535353"  VerticalOptions="Fill" TextColor="White" Text="3 meses"/>
-                                                                <buttons:SfChip FontSize="12"  BackgroundColor="#535353"  VerticalOptions="Fill" TextColor="White" Text="6 meses"/>
-                                                                <buttons:SfChip FontSize="12"  BackgroundColor="#535353"  VerticalOptions="Fill" TextColor="White" Text="1 año"/>
-                                                                <buttons:SfChip FontSize="12"  BackgroundColor="#535353"  VerticalOptions="Fill" TextColor="White" Text="2 años"/>
+                                                                <buttons:SfChip FontSize="11" BackgroundColor="#535353"  VerticalOptions="Fill" TextColor="White" Text="1 sem"/>
+				                                                <buttons:SfChip FontSize="11" BackgroundColor="#535353"  VerticalOptions="Fill" TextColor="White" Text="1 mes"/>
+				                                                <buttons:SfChip FontSize="11"  BackgroundColor="#535353"  VerticalOptions="Fill" TextColor="White" Text="3 meses"/>
+                                                                <buttons:SfChip FontSize="11"  BackgroundColor="#535353"  VerticalOptions="Fill" TextColor="White" Text="6 meses"/>
+                                                                <buttons:SfChip FontSize="11"  BackgroundColor="#535353"  VerticalOptions="Fill" TextColor="White" Text="1 año"/>
+                                                                <buttons:SfChip FontSize="11"  BackgroundColor="#535353"  VerticalOptions="Fill" TextColor="White" Text="2 años"/>
 			                                                </buttons:SfChipGroup.Items>
 		                                                </buttons:SfChipGroup>
                                                     </Frame>
@@ -289,7 +289,7 @@
                                                     VerticalOptions="FillAndExpand">
                                                       <Frame
                                                         Padding="0"
-                                                        Margin="25,45,25,30"
+                                                        Margin="15,45,15,30"
                                                         CornerRadius="56">
                                                         <buttons:SfChipGroup x:Name="group" SelectedItem="{Binding SelectedItem2, Mode=TwoWay}" HorizontalOptions ="Center"  VerticalOptions="StartAndExpand" HeightRequest="35" BackgroundColor="#535353" ChipTextColor="white" ChipBackgroundColor="#535353" SelectedChipBackgroundColor="#808080"  Type="Choice">
                                                             <buttons:SfChipGroup.ChipLayout>
@@ -303,12 +303,12 @@
 						                                                AlignItems="Center"/>
 				                                                </buttons:SfChipGroup.ChipLayout>
 			                                                <buttons:SfChipGroup.Items>
-                                                                <buttons:SfChip FontSize="12" BackgroundColor="#535353"  VerticalOptions="Fill" TextColor="White" Text="1 sem"/>
-				                                                <buttons:SfChip FontSize="12" BackgroundColor="#535353"  VerticalOptions="Fill" TextColor="White" Text="1 mes"/>
-				                                                <buttons:SfChip FontSize="12"  BackgroundColor="#535353"  VerticalOptions="Fill" TextColor="White" Text="3 meses"/>
-                                                                <buttons:SfChip FontSize="12"  BackgroundColor="#535353"  VerticalOptions="Fill" TextColor="White" Text="6 meses"/>
-                                                                <buttons:SfChip FontSize="12"  BackgroundColor="#535353"  VerticalOptions="Fill" TextColor="White" Text="1 año"/>
-                                                                <buttons:SfChip FontSize="12"  BackgroundColor="#535353"  VerticalOptions="Fill" TextColor="White" Text="2 años"/>
+                                                                <buttons:SfChip FontSize="11" BackgroundColor="#535353"  VerticalOptions="Fill" TextColor="White" Text="1 sem"/>
+				                                                <buttons:SfChip FontSize="11" BackgroundColor="#535353"  VerticalOptions="Fill" TextColor="White" Text="1 mes"/>
+				                                                <buttons:SfChip FontSize="11"  BackgroundColor="#535353"  VerticalOptions="Fill" TextColor="White" Text="3 meses"/>
+                                                                <buttons:SfChip FontSize="11"  BackgroundColor="#535353"  VerticalOptions="Fill" TextColor="White" Text="6 meses"/>
+                                                                <buttons:SfChip FontSize="11"  BackgroundColor="#535353"  VerticalOptions="Fill" TextColor="White" Text="1 año"/>
+                                                                <buttons:SfChip FontSize="11"  BackgroundColor="#535353"  VerticalOptions="Fill" TextColor="White" Text="2 años"/>
 			       
 			                                                </buttons:SfChipGroup.Items>
 		                                                </buttons:SfChipGroup>
@@ -877,10 +877,10 @@
                                 <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
                                   <chart:SfChart
                                        IsVisible="{Binding IsRed, Mode=TwoWay}"
-                                       Margin="5,0"
+                                       Margin="15,0"
                                        VerticalOptions="FillAndExpand"
                                        HorizontalOptions="FillAndExpand"
-                                       ChartPadding="90,10"
+                                       ChartPadding="100,30"
                                        BackgroundColor="Black">
                                 
                                          <chart:SfChart.PrimaryAxis>
@@ -916,10 +916,10 @@
                                    </chart:SfChart>
                                    <chart:SfChart
                                        IsVisible="{Binding IsBlue, Mode=TwoWay}"
-                                       Margin="5,0"
+                                       Margin="15,0"
                                        VerticalOptions="FillAndExpand"
                                        HorizontalOptions="FillAndExpand"
-                                       ChartPadding="90,10"
+                                       ChartPadding="100,30"
                                        BackgroundColor="Black">
                                 
                                        <chart:SfChart.PrimaryAxis>
@@ -955,10 +955,10 @@
                                    </chart:SfChart>
                                    <chart:SfChart
                                        IsVisible="{Binding IsGreen, Mode=TwoWay}"
-                                       Margin="5,0"
+                                       Margin="15,0"
                                        VerticalOptions="FillAndExpand"
                                        HorizontalOptions="FillAndExpand"
-                                       ChartPadding="90,10"
+                                       ChartPadding="100,30"
                                        BackgroundColor="Black">
                                 
                                          <chart:SfChart.PrimaryAxis>

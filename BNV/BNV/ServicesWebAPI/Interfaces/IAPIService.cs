@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using BNV.Models;
+using BNV.ViewModels;
 using Refit;
 
 namespace BNV.ServicesWebAPI.Interfaces
@@ -66,5 +67,11 @@ namespace BNV.ServicesWebAPI.Interfaces
 
         [Put("/Password")]
         Task<string> NewPassword([Header("Authorization")] string token, NewPasswordParam param);
+
+        [Get("/Settings")]
+        Task<SettingResponse> GetSettings([Header("Authorization")] string token);
+
+        [Put("/Settings")]
+        Task<string> UpdateSettings([Header("Authorization")] string token, SettingsModel param);
     }
 }

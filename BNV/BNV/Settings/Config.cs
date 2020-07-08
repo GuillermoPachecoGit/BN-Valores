@@ -27,6 +27,8 @@ namespace BNV.Settings
 
         public static string Password = "Password";
 
+        public static string Email = "Email";
+
         public class MainPageTypes
         {
             public static string Reportos = "Reportos";
