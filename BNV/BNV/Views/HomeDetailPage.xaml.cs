@@ -38,36 +38,47 @@ namespace BNV.Views
             {
                 case 1:
                     vm.TypeChange = $"No notificar";
+                    vm.ExchangeNotify = -1;
                     break;
                 case 2:
                     vm.TypeChange = $"0.05 colones";
+                    vm.ExchangeNotify = 0.05;
                     break;
                 case 3:
                     vm.TypeChange = $"0.10 colones";
+                    vm.ExchangeNotify = 0.10;
                     break;
                 case 4:
                     vm.TypeChange = $"0.25 colones";
+                    vm.ExchangeNotify = 0.25;
                     break;
                 case 5:
                     vm.TypeChange = $"0.50 colones";
+                    vm.ExchangeNotify = 0.50;
                     break;
                 case 6:
                     vm.TypeChange = $"0.75 colones";
+                    vm.ExchangeNotify = 0.75;
                     break;
                 case 7:
                     vm.TypeChange = $"1.00 colon";
+                    vm.ExchangeNotify = 1;
                     break;
                 case 8:
                     vm.TypeChange = $"2.00 colones";
+                    vm.ExchangeNotify = 2;
                     break;
                 case 9:
                     vm.TypeChange = $"3.00 colones";
+                    vm.ExchangeNotify = 3;
                     break;
                 case 10:
                     vm.TypeChange = $"4.00 colones";
+                    vm.ExchangeNotify = 4;
                     break;
                 case 11:
                     vm.TypeChange = $"5.00 colones";
+                    vm.ExchangeNotify = 5;
                     break;
                 default:
                     break;
@@ -87,36 +98,47 @@ namespace BNV.Views
             {
                 case 1:
                     vm.Bonos = $"No notificar";
+                    vm.BonosNotify = -1;
                     break;
                 case 2:
                     vm.Bonos = $"0.05%";
+                    vm.BonosNotify = 0.05;
                     break;
                 case 3:
                     vm.Bonos = $"0.10%";
+                    vm.BonosNotify = 0.1;
                     break;
                 case 4:
                     vm.Bonos = $"0.25%";
+                    vm.BonosNotify = 0.25;
                     break;
                 case 5:
                     vm.Bonos = $"0.50%";
+                    vm.BonosNotify = 0.50;
                     break;
                 case 6:
                     vm.Bonos = $"0.75%";
+                    vm.BonosNotify = 0.75;
                     break;
                 case 7:
                     vm.Bonos = $"1.00%";
+                    vm.BonosNotify = 1;
                     break;
                 case 8:
                     vm.Bonos = $"2.00%";
+                    vm.BonosNotify = 2;
                     break;
                 case 9:
                     vm.Bonos = $"3.00%";
+                    vm.BonosNotify = 3;
                     break;
                 case 10:
                     vm.Bonos = $"4.00%";
+                    vm.BonosNotify = 4;
                     break;
                 case 11:
                     vm.Bonos = $"5.00%";
+                    vm.BonosNotify = 5;
                     break;
                 default:
                     break;

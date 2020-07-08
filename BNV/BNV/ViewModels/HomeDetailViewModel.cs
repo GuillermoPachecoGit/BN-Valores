@@ -101,6 +101,12 @@ namespace BNV.ViewModels
                       else
                           SelectedHomePage = "Reportos";
                   });
+
+                //SelectedCoin = App.SelectedCoin;
+                //SelectedSector = App.SelectedSector;
+                //SelectedHomePage = App.HomePage;
+                //BonosIndex = App.BonosIndexNotify;
+                //ExchangesIndex = App.ExchangesIndexNotify;
             }
             catch (Exception ex)
             {
@@ -218,7 +224,7 @@ namespace BNV.ViewModels
             var list = new List<Model>();
             foreach(var dataItem in value.Data)
             {
-                list.Add(new Model(dataItem.Date.ToString("m"), dataItem.Price));
+                list.Add(new Model(dataItem.Date.ToString("m").Substring(0,6), dataItem.Price));
             }
             Data = new ObservableCollection<Model>(list);
         }
@@ -478,6 +484,12 @@ namespace BNV.ViewModels
             get { return _selectedHomePage; }
             set { _selectedHomePage = value; RaisePropertyChanged(); SecureStorage.SetAsync(Config.MainPage, value); }
         }
+
+        public int BonosIndex { get; set; }
+
+        public int ExchangesIndex { get; set; }
+        public double ExchangeNotify { get; set; }
+        public double BonosNotify { get; set; }
 
         private async Task ChangePasswordActionExecute()
         {

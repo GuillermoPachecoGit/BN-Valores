@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Acr.UserDialogs;
 using BNV.Models;
 using BNV.Settings;
 using BNV.Validator;
@@ -63,21 +64,21 @@ namespace BNV.ViewModels
 //            param.Password = "87654321";
 //            param.ConfirmPassword = "87654321";
 //#endif
+            await App.ApiService.NewPassword(authorization, param).ContinueWith(async result =>
+            {
+                if (result.IsCompleted && result.Status == TaskStatus.RanToCompletion)
+                {
+                    await NavigationService.NavigateAsync("PasswordSettingResultPage");
+                }
+                else if (result.IsFaulted)
+                {
+                    await UserDialogs.Instance.AlertAsync("Error de servicio");
+                    await NavigationService.NavigateAsync("PasswordSettingResultPage");
+                }
+                else if (result.IsCanceled) { }
+            }, TaskScheduler.FromCurrentSynchronizationContext());
 
-//            await App.ApiService.NewPassword(authorization, param).ContinueWith(async result =>
-//            {
-//                if (result.IsCompleted && result.Status == TaskStatus.RanToCompletion)
-//                {
-//                    await NavigationService.NavigateAsync("PasswordSettingResultPage");
-//                }
-//                else if (result.IsFaulted)
-//                {
-//                    IsErrorLenght = true;
-//                }
-//                else if (result.IsCanceled) { }
-//            }, TaskScheduler.FromCurrentSynchronizationContext());
-
-            await NavigationService.NavigateAsync("PasswordSettingResultPage");
+            //await NavigationService.NavigateAsync("PasswordSettingResultPage");
         }
 
         public ValidatableObject<string> NewPassword { get; set; }

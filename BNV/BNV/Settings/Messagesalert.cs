@@ -13,5 +13,11 @@
         public static string ErrorPhoneLenght = "Teléfono tiene una longitud máxima de 20 caracteres";
 
         public static string ErrorPhoneInvalid = "Teléfono solo puede contener: - , (, ) y digitos.";
+
+        public static string SavingSettings = "Guardando configuración...";
+
+        public static string SuccessSaving = "Guardado exitoso";
+
+        public static string ErrorSaving = "Error de servicio";
     }
 }

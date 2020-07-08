@@ -46,6 +46,9 @@ namespace BNV
         public static List<IdentificationType> IdentificationTypes { get; private set; }
         public static string ContactInfo { get; set; }
         public static bool Refresh { get; internal set; }
+        public static string HomePage { get; internal set; }
+        public static int BonosIndexNotify { get; internal set; }
+        public static int ExchangesIndexNotify { get; internal set; }
 
         protected override async void OnInitialized()
         {
