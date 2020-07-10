@@ -18,6 +18,8 @@ namespace BNV.ViewModels
 
         }
 
+        public bool HasEmail { get; set; }
+
         public string EmailRegistered {get; set;}
 
         private async Task ReturnActionExecute()
@@ -31,9 +33,14 @@ namespace BNV.ViewModels
         {
             base.OnNavigatedTo(parameters);
             var email = parameters.GetValue<string>(KeyParams.EmailRegistered);
-            if (email != null)
+            if (!string.IsNullOrEmpty(email))
             {
+                HasEmail = true;
                 EmailRegistered = string.Format(_email, email.Substring(0,4));
+            }
+            else
+            {
+                HasEmail = false;
             }
         }
     }

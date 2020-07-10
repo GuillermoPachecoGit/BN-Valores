@@ -54,7 +54,6 @@ namespace BNV.ViewModels
                        if (result.IsCompleted && result.Status == TaskStatus.RanToCompletion)
                        {
                            InvalidUser = false;
-                           await SecureStorage.SetAsync(Config.FirstLogin, "n");
                            await NavigationService.NavigateAsync("ChangePasswordResultPage", new NavigationParameters() { { "title", Title } });
                        }
                        else if (result.IsFaulted)

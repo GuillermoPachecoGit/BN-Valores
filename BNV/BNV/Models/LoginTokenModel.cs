@@ -13,5 +13,9 @@ namespace BNV.Models
 
         [JsonProperty("expires_in")]
         public long ExpiresIn { get; set; }
+
+        [JsonProperty("isTempPass")]
+        public long IsTemp { get; set; }
+        
     }
 }

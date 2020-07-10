@@ -76,10 +76,10 @@ namespace BNV.ViewModels
                                     Password = Password
                                 };
 
-#if DEBUG
-                                loginParam.Id = "0303760038";
-                                loginParam.Password = "V2fghjkl";
-#endif
+//#if DEBUG
+//                                loginParam.Id = "0303760038";
+//                                loginParam.Password = "V2fghjkl";
+//#endif
                                 var token = await App.ApiService.PostLogin(loginParam).ContinueWith(async result =>
                                 {
                                     if (result.IsCompleted && result.Status == TaskStatus.RanToCompletion)
@@ -87,7 +87,16 @@ namespace BNV.ViewModels
                                         await SecureStorage.SetAsync(Config.Token, result.Result.AccessToken);
                                         await SecureStorage.SetAsync(Config.TokenExpiration, result.Result.ExpiresIn.ToString());
                                         await SecureStorage.SetAsync(Config.Password, Password);
-                                        await NavigationAction();
+
+                                        if (result.Result.IsTemp == 1)
+                                        {
+                                            await NavigationService.NavigateAsync("PasswordSettingPage");
+                                        }
+                                        else
+                                        {
+                                            await NavigationService.NavigateAsync("HomePage");
+                                        }
+
                                         Password = string.Empty;
                                     }
                                     else if (result.IsFaulted)
@@ -108,20 +117,6 @@ namespace BNV.ViewModels
                 {
                     var val = ex.Message;
                 }
-        }
-
-        private async Task NavigationAction()
-        {
-            var firstLogin = await SecureStorage.GetAsync(Config.FirstLogin);
-            if (string.IsNullOrEmpty(firstLogin) || firstLogin == "n")
-            {
-                await SecureStorage.SetAsync(Config.FirstLogin, "y");
-                await NavigationService.NavigateAsync("PasswordSettingPage");
-            }
-            else
-            {
-                await NavigationService.NavigateAsync("HomePage");
-            }
         }
 
         public void OnAppearing()
