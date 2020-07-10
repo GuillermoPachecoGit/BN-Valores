@@ -26,6 +26,7 @@ namespace BNV.Views
         {
             base.OnAppearing();
             App.Current.On<Android>().UseWindowSoftInputModeAdjust(WindowSoftInputModeAdjust.Resize);
+            //ComboId.SelectedIndex = 0;
             boxIdent.BackgroundColor = Color.White;
 
             identError.IsVisible = false;
