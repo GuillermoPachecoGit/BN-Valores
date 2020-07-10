@@ -26,16 +26,17 @@ namespace BNV.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MjQ1MjAyQDMxMzgyZTMxMmUzME9sUGkxWDNsSE8rZG1qWjBlUDA4ZUI0UmZOTWd1ajgvZEcwNUViR3gyeE09");
-            _ = new Syncfusion.XForms.iOS.ComboBox.SfComboBoxRenderer();
-            _ = new SfRangeSliderRenderer();
+            new SfRangeSliderRenderer();
             Syncfusion.XForms.iOS.TabView.SfTabViewRenderer.Init();
             new Syncfusion.XForms.iOS.ComboBox.SfComboBoxRenderer();
             Forms.SetFlags("CollectionView_Experimental");
             global::Xamarin.Forms.Forms.Init();
-            LoadApplication(new App(new iOSInitializer()));
             SfDatePickerRenderer.Init();
             SfMaskedEditRenderer.Init();
-
+            Syncfusion.SfChart.XForms.iOS.Renderers.SfChartRenderer.Init();
+            Syncfusion.XForms.iOS.Buttons.SfChipRenderer.Init();
+            LoadApplication(new App(new iOSInitializer()));
+ 
             return base.FinishedLaunching(app, options);
         }
 

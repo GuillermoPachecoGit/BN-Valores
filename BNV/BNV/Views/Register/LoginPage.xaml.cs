@@ -60,7 +60,7 @@ namespace BNV.Views
         {
             base.OnAppearing();
             App.Current.On<Android>().UseWindowSoftInputModeAdjust(WindowSoftInputModeAdjust.Resize);
-            ComboId.SelectedIndex = 0;
+            //ComboId.SelectedIndex = 0;
             boxIdent.BackgroundColor = Color.White;
             identError.IsVisible = false;
             if (CrossDeviceOrientation.IsSupported) CrossDeviceOrientation.Current.LockOrientation(Plugin.DeviceOrientation.Abstractions.DeviceOrientations.Portrait);

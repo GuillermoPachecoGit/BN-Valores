@@ -38,12 +38,14 @@
                                  <tabView:SfTabItem TitleFontColor="White"  SelectionColor="White" Title="REPORTOS">
                                             <tabView:SfTabItem.Content>
                                                 <StackLayout
+                                                    BackgroundColor="Black"
                                                     HeightRequest="90"
                                                     HorizontalOptions="FillAndExpand"
                                                     VerticalOptions="FillAndExpand"
                                                     Margin="0,5,0,0">
                                                     <ListView
                                                         x:Name="list1"
+                                                        BackgroundColor="Black"
                                                         ItemsSource="{Binding Reports, Mode=TwoWay}"
                                                         SeparatorVisibility="Default"
                                                         SeparatorColor="White"
@@ -443,13 +445,15 @@
                                                 HorizontalOptions="FillAndExpand"
                                                 VerticalOptions="FillAndExpand"
                                                 Margin="0,5,0,0">
-                                                <ListView ItemsSource="{Binding Types, Mode=TwoWay}"
-                                                            x:Name="list2"
-                                                                    SeparatorVisibility="Default"
-                                                                    SeparatorColor="White"
-                                                                    HasUnevenRows="true"
-                                                                    SelectedItem="{Binding SelectedItem}">
-                                                                                                                <ListView.ItemTemplate>
+                                                <ListView
+                                                    ItemsSource="{Binding Types, Mode=TwoWay}"
+                                                    x:Name="list2"
+                                                    BackgroundColor="Black"
+                                                    SeparatorVisibility="Default"
+                                                    SeparatorColor="White"
+                                                    HasUnevenRows="true"
+                                                    SelectedItem="{Binding SelectedItem}">
+                                                    <ListView.ItemTemplate>
                                                                 <DataTemplate>
                                                                     <ViewCell>
                                                                         <Grid>
