@@ -44,10 +44,10 @@ namespace BNV.ViewModels
                 using (UserDialogs.Instance.Loading("Procesando datos.."))
                 {
                     var param = new RecoveryPassParam() { TipId = SelectedType.CodIdType.ToString(), Id = Identification.Replace("-", "") };
-#if DEBUG
-                    param.Id = "502500985";
-                    param.TipId = "1";
-#endif
+//#if DEBUG
+//                    param.Id = "502500985";
+//                    param.TipId = "1";
+//#endif
                     await App.ApiService.PostRecoverPassword(param)
                    .ContinueWith(async result =>
                    {

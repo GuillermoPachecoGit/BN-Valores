@@ -76,10 +76,10 @@ namespace BNV.ViewModels
                                     Password = Password
                                 };
 
-#if DEBUG
-                                loginParam.Id = "0303760038";
-                                loginParam.Password = "V2fghjkl";
-#endif
+//#if DEBUG
+//                                loginParam.Id = "0303760038";
+//                                loginParam.Password = "V2fghjkl";
+//#endif
                                 var token = await App.ApiService.PostLogin(loginParam).ContinueWith(async result =>
                                 {
                                     if (result.IsCompleted && result.Status == TaskStatus.RanToCompletion)

@@ -70,7 +70,7 @@ namespace BNV.Views.Register
         {
             boxIdent.BackgroundColor = Color.White;
             identError.IsVisible = false;
-            var vm = (LoginViewModel)BindingContext;
+            var vm = (ChangePasswordViewModel)BindingContext;
             vm.IsErrorIdentLenght = false;
         }
     }

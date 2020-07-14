@@ -45,10 +45,10 @@ namespace BNV.ViewModels
                 try
                 {
                     var param = new UserVerifyParam() { IdentificationType = SelectedType.CodIdType, Identification = Identification.Replace("-", "") };
-#if DEBUG
-                    param.Identification = "502500985";
-                    param.IdentificationType = 1;
-#endif
+//#if DEBUG
+//                    param.Identification = "502500985";
+//                    param.IdentificationType = 1;
+//#endif
                     await App.ApiService.GetVerifyUser(param)
                    .ContinueWith(async result =>
                    {

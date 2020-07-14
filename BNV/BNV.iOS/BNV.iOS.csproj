@@ -178,6 +178,38 @@
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\ItunesArtwork@2x.png">
       <Visible>false</Visible>
     </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_graph_active.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_graph_active.imageset\ic_graph_active.png" />
+    <ImageAsset Include="Assets.xcassets\ic_graph_active.imageset\ic_graph_active%402x.png" />
+    <ImageAsset Include="Assets.xcassets\ic_graph_active.imageset\ic_graph_active%403x.png" />
+    <ImageAsset Include="Assets.xcassets\ic_info.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_info.imageset\ic_detail_disabled.png" />
+    <ImageAsset Include="Assets.xcassets\ic_info.imageset\ic_detail_disabled%402x.png" />
+    <ImageAsset Include="Assets.xcassets\ic_info.imageset\ic_detail_disabled%403x.png" />
+    <ImageAsset Include="Assets.xcassets\usuario.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\usuario.imageset\ic_user.png" />
+    <ImageAsset Include="Assets.xcassets\usuario.imageset\ic_user%402x.png" />
+    <ImageAsset Include="Assets.xcassets\usuario.imageset\ic_user%403x.png" />
+    <ImageAsset Include="Assets.xcassets\correo.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\correo.imageset\ic_mail.png" />
+    <ImageAsset Include="Assets.xcassets\correo.imageset\ic_mail%402x.png" />
+    <ImageAsset Include="Assets.xcassets\correo.imageset\ic_mail%403x.png" />
+    <ImageAsset Include="Assets.xcassets\ic_phone.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_phone.imageset\ic_phone.png" />
+    <ImageAsset Include="Assets.xcassets\ic_phone.imageset\ic_phone%402x.png" />
+    <ImageAsset Include="Assets.xcassets\ic_phone.imageset\ic_phone%403x.png" />
+    <ImageAsset Include="Assets.xcassets\ic_calendar.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_calendar.imageset\ic_calendar.png" />
+    <ImageAsset Include="Assets.xcassets\ic_calendar.imageset\ic_calendar%402x.png" />
+    <ImageAsset Include="Assets.xcassets\ic_calendar.imageset\ic_calendar%403x.png" />
+    <ImageAsset Include="Assets.xcassets\ic_flag.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_flag.imageset\ic_flag%402x.png" />
+    <ImageAsset Include="Assets.xcassets\ic_flag.imageset\ic_flag%402x-1.png" />
+    <ImageAsset Include="Assets.xcassets\ic_flag.imageset\ic_flag%403x.png" />
+    <ImageAsset Include="Assets.xcassets\ic_gender.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_gender.imageset\ic_gender.png" />
+    <ImageAsset Include="Assets.xcassets\ic_gender.imageset\ic_gender%402x.png" />
+    <ImageAsset Include="Assets.xcassets\ic_gender.imageset\ic_gender%403x.png" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\Default-568h@2x.png" />
@@ -257,6 +289,16 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\ic_graph_active.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Assets.xcassets\ic_graph_active.imageset\" />
+    <Folder Include="Assets.xcassets\ic_info.imageset\" />
+    <Folder Include="Assets.xcassets\usuario.imageset\" />
+    <Folder Include="Assets.xcassets\correo.imageset\" />
+    <Folder Include="Assets.xcassets\ic_phone.imageset\" />
+    <Folder Include="Assets.xcassets\ic_calendar.imageset\" />
+    <Folder Include="Assets.xcassets\ic_flag.imageset\" />
+    <Folder Include="Assets.xcassets\ic_gender.imageset\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>
