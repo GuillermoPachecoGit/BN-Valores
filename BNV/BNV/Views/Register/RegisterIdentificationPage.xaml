@@ -6,7 +6,7 @@
     x:Name="IdentValue"
     xmlns:combobox="clr-namespace:Syncfusion.XForms.ComboBox;assembly=Syncfusion.SfComboBox.XForms"
     xmlns:syncfusion="clr-namespace:Syncfusion.XForms.MaskedEdit;assembly=Syncfusion.SfMaskedEdit.XForms"
-    xmlns:converters="clr-namespace:BNV.Converters"
+    xmlns:converters="clr-namespace:BNV.Converters" xmlns:behavior="clr-namespace:BNV.Validator"
     x:Class="BNV.Views.Register.RegisterIdentificationPage">
        <ContentPage.Resources>
         <ResourceDictionary>
@@ -83,7 +83,7 @@
                                 Source="cedula"
                                 HorizontalOptions="Fill"
                                 VerticalOptions="Fill" />
-                           <syncfusion:SfMaskedEdit
+                           <!--<syncfusion:SfMaskedEdit
                                 VerticalOptions="Center"
                                 HorizontalOptions="FillAndExpand"
                                 FontSize="20"
@@ -100,7 +100,13 @@
                                 PromptChar="#"
                                 ClearButtonVisibility="Never"
                                 Mask="{Binding MaskTemplate}" >
-                           </syncfusion:SfMaskedEdit>
+                           </syncfusion:SfMaskedEdit>-->
+
+                            <Entry FontSize="20" Text="{Binding Identification, Mode=TwoWay}" BackgroundColor="Black" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" PlaceholderColor="White" TextColor="White" Placeholder="{Binding MaskWatermark, Mode=TwoWay}" Keyboard="Default">
+                                <Entry.Behaviors>
+                                    <behavior:MaskedBehavior x:Name="MaskTemplate" />
+                                </Entry.Behaviors>
+                            </Entry>
                         </StackLayout>
                         <BoxView
                                 Margin="0"

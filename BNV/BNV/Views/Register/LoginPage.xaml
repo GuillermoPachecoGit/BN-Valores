@@ -5,6 +5,7 @@
     xmlns:converters="clr-namespace:BNV.Converters"
     xmlns:combobox="clr-namespace:Syncfusion.XForms.ComboBox;assembly=Syncfusion.SfComboBox.XForms"
     xmlns:syncfusion="clr-namespace:Syncfusion.XForms.MaskedEdit;assembly=Syncfusion.SfMaskedEdit.XForms"
+    xmlns:behavior="clr-namespace:BNV.Validator"
     x:Class="BNV.Views.LoginPage"  
     BackgroundColor="Black">
     <ContentPage.Resources>
@@ -83,7 +84,7 @@
                                 Source="cedula"
                                 HorizontalOptions="Fill"
                                 VerticalOptions="Fill" />
-                           <syncfusion:SfMaskedEdit
+                           <!--<syncfusion:SfMaskedEdit
                                 x:Name="identification"
                                 VerticalOptions="Center"
                                 HorizontalOptions="FillAndExpand"
@@ -91,7 +92,7 @@
                                 Value="{Binding Identification, Mode=TwoWay}"
                                 TextColor="White"
                                 ValueChanged="Identification_ValueChanged"
-                                WatermarkColor="White"
+                                WatermarkColor="Black"
                                 ValidationMode="KeyPress"
                                 Watermark="{Binding MaskWatermark, Mode=TwoWay}"
                                 MaskType="{Binding MaskType, Mode=TwoWay}"
@@ -100,7 +101,12 @@
                                 PromptChar="#"
                                 ClearButtonVisibility="Never"
                                 Mask="{Binding MaskTemplate}" >
-                           </syncfusion:SfMaskedEdit>
+                           </syncfusion:SfMaskedEdit>-->
+                            <Entry Text="{Binding Identification, Mode=TwoWay}" FontSize="20" BackgroundColor="Black" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" PlaceholderColor="White" TextColor="White" Placeholder="{Binding MaskWatermark, Mode=TwoWay}" Keyboard="Default">
+                                <Entry.Behaviors>
+                                    <behavior:MaskedBehavior x:Name="MaskTemplate" />
+                                </Entry.Behaviors>
+                            </Entry>
                         </StackLayout>
                          <BoxView
                             x:Name="boxIdent"

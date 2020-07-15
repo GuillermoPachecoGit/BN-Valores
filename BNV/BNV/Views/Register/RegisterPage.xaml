@@ -5,6 +5,7 @@
     x:Class="BNV.Views.RegisterPage"
     xmlns:combobox="clr-namespace:Syncfusion.XForms.ComboBox;assembly=Syncfusion.SfComboBox.XForms"
     xmlns:ListCollection="clr-namespace:System.Collections.Generic;assembly=netstandard"
+    xmlns:behavior="clr-namespace:BNV.Validator"
     xmlns:syncfusion="clr-namespace:Syncfusion.XForms.MaskedEdit;assembly=Syncfusion.SfMaskedEdit.XForms"
     xmlns:converters="clr-namespace:BNV.Converters"
     BackgroundColor="Black">
@@ -239,7 +240,7 @@
                                 HorizontalOptions="Fill"
                                 VerticalOptions="Fill" />
 
-                                <syncfusion:SfMaskedEdit
+                                <!--<syncfusion:SfMaskedEdit
                                     VerticalOptions="Center"
                                     HorizontalOptions="FillAndExpand"
                                     FontSize="20"
@@ -252,7 +253,13 @@
                                     PromptChar="#"
                                     ClearButtonVisibility="Never"
                                     Mask="00/00/0000" >
-                               </syncfusion:SfMaskedEdit>
+                               </syncfusion:SfMaskedEdit>-->
+                            <Entry Text="{Binding Birthday, Mode=TwoWay}" FontSize="20" BackgroundColor="Black" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" PlaceholderColor="White" TextColor="White" Placeholder="00/00/00" Keyboard="Default">
+                                <Entry.Behaviors>
+                                    <behavior:MaskedBehavior Mask="##/##/####" />
+                                </Entry.Behaviors>
+                            </Entry>
+                               
                         </StackLayout>
                           <BoxView
                             Margin="0,0,0,0"
