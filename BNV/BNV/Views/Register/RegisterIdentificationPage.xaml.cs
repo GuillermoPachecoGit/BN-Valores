@@ -9,7 +9,8 @@ namespace BNV.Views.Register
 {
     public partial class RegisterIdentificationPage : ContentPage
     {
-       
+        public int MaxSize { get; private set; }
+        public int MinSize { get; private set; }
 
         public RegisterIdentificationPage()
         {
@@ -24,16 +25,47 @@ namespace BNV.Views.Register
             identError.IsVisible = false;
         }
 
-        private void Identification_ValueChanged(object sender, Syncfusion.XForms.MaskedEdit.ValueChangedEventArgs eventArgs)
+        void Entry_TextChanged(System.Object sender, Xamarin.Forms.TextChangedEventArgs e)
         {
+            var vm = (LoginViewModel)BindingContext;
+
+            if (identification.Text.ToString().Length == 0)
+                return;
+
+            if (identification.Text.ToString().Length < MinSize && identification.Text.ToString().Length < vm?.SelectedType?.Mask.Length)
+            {
+                boxIdent.BackgroundColor = Color.FromHex("#FF5B5B");
+                identError.IsVisible = true;
+                vm.IsErrorIdentLenght = true;
+            }
+            else
+            {
+                boxIdent.BackgroundColor = Color.White;
+                identError.IsVisible = false;
+                vm.IsErrorIdentLenght = false;
+            }
         }
 
         void ComboId_SelectionChanged(System.Object sender, Syncfusion.XForms.ComboBox.SelectionChangedEventArgs e)
         {
+            var vm = (RegisterIdentificationViewModel)BindingContext;
             boxIdent.BackgroundColor = Color.White;
             identError.IsVisible = false;
             MaskTemplate.Mask = ((IdentificationType)e.Value).Mask;
-            var vm = (RegisterIdentificationViewModel)BindingContext;
+            MaskTemplate.MaxSize = ((IdentificationType)e.Value).Mask.Length;
+            MaxSize = ((IdentificationType)e.Value).Mask.Length;
+            MinSize = ((IdentificationType)e.Value).Mask.Length;
+            var minMax = vm.SelectedType.RegExpression.Split('{', '}');
+            if (minMax != null && minMax.Length > 1)
+            {
+                var values = minMax[1].Split(",");
+                if (values != null && values.Length > 1)
+                {
+                    MinSize = int.Parse(values[0]);
+                    MaxSize = int.Parse(values[1]);
+                }
+            }
+
             vm.IsErrorIdentLenght = false;
         }
 

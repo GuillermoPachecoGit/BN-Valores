@@ -120,7 +120,7 @@
                                                                                     Grid.Column="1"
                                                                                     Text="{Binding VariationDisplay}"
                                                                                     FontAttributes="Bold"
-                                                                                    FontSize="12"
+                                                                                    FontSize="10"
                                                                                     TextColor="White"
                                                                                     HorizontalOptions="End"
                                                                                     VerticalOptions="Center"/>
@@ -129,7 +129,7 @@
                                                                                     Grid.Column="0"
                                                                                     Text="{Binding Performance}"
                                                                                     FontAttributes="Bold"
-                                                                                    FontSize="12"
+                                                                                    FontSize="10"
                                                                                     TextColor="White"
                                                                                     HorizontalOptions="Center"
                                                                                     VerticalOptions="Center" />
@@ -138,7 +138,7 @@
                                                                                     Grid.Column="1"
                                                                                     Text="{Binding VolumeDisplay}"
                                                                                     FontAttributes="Bold"
-                                                                                    FontSize="12"
+                                                                                    FontSize="10"
                                                                                     TextColor="White"
                                                                                     HorizontalOptions="End"
                                                                                     VerticalOptions="Center" />
@@ -453,7 +453,7 @@
                                                     SeparatorColor="White"
                                                     HasUnevenRows="true"
                                                     SelectedItem="{Binding SelectedItem}">
-                                                    <ListView.ItemTemplate>
+                                                     <ListView.ItemTemplate>
                                                                 <DataTemplate>
                                                                     <ViewCell>
                                                                         <Grid>
@@ -496,9 +496,8 @@
                                                                               <Frame
                                                                                 Grid.Row="0"
                                                                                 Grid.Column="3"
-                                                                                Margin="5,5,15,5"
+                                                                                Margin="0,5,15,5"
                                                                                 Padding="2"
-                                                                                HorizontalOptions="FillAndExpand"
                                                                                 BackgroundColor="{Binding ColorStatus}" 
                                                                                 CornerRadius="5"
                                                                                 VerticalOptions="StartAndExpand">
@@ -523,7 +522,7 @@
                                                                                     Grid.Column="1"
                                                                                     Text="{Binding VariationDisplay}"
                                                                                     FontAttributes="Bold"
-                                                                                    FontSize="12"
+                                                                                    FontSize="10"
                                                                                     TextColor="White"
                                                                                     HorizontalOptions="End"
                                                                                     VerticalOptions="Center"/>
@@ -532,7 +531,7 @@
                                                                                     Grid.Column="0"
                                                                                     Text="{Binding Performance}"
                                                                                     FontAttributes="Bold"
-                                                                                    FontSize="12"
+                                                                                    FontSize="10"
                                                                                     TextColor="White"
                                                                                     HorizontalOptions="Center"
                                                                                     VerticalOptions="Center" />
@@ -541,7 +540,7 @@
                                                                                     Grid.Column="1"
                                                                                     Text="{Binding VolumeDisplay}"
                                                                                     FontAttributes="Bold"
-                                                                                    FontSize="12"
+                                                                                    FontSize="10"
                                                                                     TextColor="White"
                                                                                     HorizontalOptions="End"
                                                                                     VerticalOptions="Center" />
@@ -552,7 +551,6 @@
                                                                     </ViewCell>
                                                                 </DataTemplate>
                                                             </ListView.ItemTemplate>
-
                                                 </ListView>
                                                 <StackLayout
                                                     Padding="0"

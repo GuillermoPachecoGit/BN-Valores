@@ -102,7 +102,7 @@
                                 ClearButtonVisibility="Never"
                                 Mask="{Binding MaskTemplate}" >
                            </syncfusion:SfMaskedEdit>-->
-                            <Entry Text="{Binding Identification, Mode=TwoWay}" FontSize="20" BackgroundColor="Black" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" PlaceholderColor="White" TextColor="White" Placeholder="{Binding MaskWatermark, Mode=TwoWay}" Keyboard="Default">
+                            <Entry x:Name="identification" TextChanged="Entry_TextChanged" Text="{Binding Identification, Mode=TwoWay}" FontSize="20" BackgroundColor="Black" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" PlaceholderColor="White" TextColor="White" Placeholder="{Binding MaskWatermark, Mode=TwoWay}" Keyboard="Default">
                                 <Entry.Behaviors>
                                     <behavior:MaskedBehavior x:Name="MaskTemplate" />
                                 </Entry.Behaviors>

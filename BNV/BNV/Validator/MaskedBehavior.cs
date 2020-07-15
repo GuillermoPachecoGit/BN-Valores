@@ -17,6 +17,26 @@ namespace BNV.Validator
             }
         }
 
+        private int _minSize;
+        public int MinSize
+        {
+            get => _minSize;
+            set
+            {
+                _minSize = value;
+            }
+        }
+
+        private int _maxSize;
+        public int MaxSize
+        {
+            get => _maxSize;
+            set
+            {
+                _maxSize = value;
+            }
+        }
+
         protected override void OnAttachedTo(Entry entry)
         {
             entry.TextChanged += OnEntryTextChanged;
@@ -56,7 +76,7 @@ namespace BNV.Validator
             if (string.IsNullOrWhiteSpace(text) || _positions == null)
                 return;
 
-            if (text.Length > _mask.Length)
+            if (text.Length > MaxSize)
             {
                 entry.Text = text.Remove(text.Length - 1);
                 return;

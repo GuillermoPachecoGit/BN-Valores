@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Acr.UserDialogs;
@@ -224,7 +225,7 @@ namespace BNV.ViewModels
             var list = new List<Model>();
             foreach(var dataItem in value.Data)
             {
-                list.Add(new Model(dataItem.Date.ToString("m").Substring(0,6), dataItem.Price));
+                list.Add(new Model(dataItem.Date.ToString("d - MMM", CultureInfo.CreateSpecificCulture("es-MX")), dataItem.Price));
             }
             Data = new ObservableCollection<Model>(list);
         }

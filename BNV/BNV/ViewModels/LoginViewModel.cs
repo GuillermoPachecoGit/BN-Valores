@@ -195,9 +195,9 @@ namespace BNV.ViewModels
 
             set
             {
-                SetProperty(ref _selectedType, value);
                 if (value != null)
                 {
+                    SetProperty(ref _selectedType, value);
                     Identification = string.Empty;
                     LimitSize = value.Mask.Length;
                     MaskTemplate = value.RegExpression;

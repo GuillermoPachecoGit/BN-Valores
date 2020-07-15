@@ -210,6 +210,15 @@
     <ImageAsset Include="Assets.xcassets\ic_gender.imageset\ic_gender.png" />
     <ImageAsset Include="Assets.xcassets\ic_gender.imageset\ic_gender%402x.png" />
     <ImageAsset Include="Assets.xcassets\ic_gender.imageset\ic_gender%403x.png" />
+    <ImageAsset Include="Assets.xcassets\splash_background.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\splash_background.imageset\splash.png" />
+    <ImageAsset Include="Assets.xcassets\splash_background.imageset\splash-1.png" />
+    <ImageAsset Include="Assets.xcassets\splash_background.imageset\splash-2.png" />
+    <ImageAsset Include="Assets.xcassets\splash_background.imageset\splash-3.png" />
+    <ImageAsset Include="Assets.xcassets\splash_background.imageset\splash_background.png" />
+    <ImageAsset Include="Assets.xcassets\splash_background.imageset\splash_background-1.png" />
+    <ImageAsset Include="Assets.xcassets\splash_background.imageset\splash_background-2.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon-1.appiconset\Contents.json" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\Default-568h@2x.png" />
@@ -217,7 +226,6 @@
     <BundleResource Include="Resources\Default-Portrait@2x.png" />
     <BundleResource Include="Resources\Default.png" />
     <BundleResource Include="Resources\Default@2x.png" />
-    <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
     <BundleResource Include="Resources\bn_logo.png" />
     <BundleResource Include="Resources\tick.png" />
     <BundleResource Include="Resources\contrasena.png" />
@@ -234,6 +242,7 @@
     <BundleResource Include="Resources\phone.png" />
     <BundleResource Include="Resources\ic_back_arrow.png" />
     <BundleResource Include="Resources\ic_logo_small.png" />
+    <InterfaceDefinition Include="Resources\LaunchScreen2.storyboard" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -289,6 +298,10 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\ic_graph_active.png" />
+    <AndroidResource Include="Resources\splash_background.png">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets.xcassets\ic_graph_active.imageset\" />
@@ -299,6 +312,7 @@
     <Folder Include="Assets.xcassets\ic_calendar.imageset\" />
     <Folder Include="Assets.xcassets\ic_flag.imageset\" />
     <Folder Include="Assets.xcassets\ic_gender.imageset\" />
+    <Folder Include="Assets.xcassets\splash_background.imageset\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>
