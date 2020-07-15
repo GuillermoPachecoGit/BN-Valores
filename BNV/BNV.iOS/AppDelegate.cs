@@ -32,12 +32,10 @@ namespace BNV.iOS
             Forms.SetFlags("CollectionView_Experimental");
             global::Xamarin.Forms.Forms.Init();
             SfDatePickerRenderer.Init();
-            LoadApplication(new App(new iOSInitializer()));
-            SfMaskedEditRenderer.Init();
             Syncfusion.SfChart.XForms.iOS.Renderers.SfChartRenderer.Init();
             Syncfusion.XForms.iOS.Buttons.SfChipRenderer.Init();
             LoadApplication(new App(new iOSInitializer()));
- 
+            SfMaskedEditRenderer.Init();
             return base.FinishedLaunching(app, options);
         }
 

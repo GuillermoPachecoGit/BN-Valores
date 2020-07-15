@@ -92,7 +92,7 @@
                                 Value="{Binding Identification, Mode=TwoWay}"
                                 TextColor="White"
                                 ValueChanged="Identification_ValueChanged"
-                                WatermarkColor="White"
+                                WatermarkColor="Black"
                                 ValidationMode="KeyPress"
                                 Watermark="{Binding MaskWatermark, Mode=TwoWay}"
                                 MaskType="{Binding MaskType, Mode=TwoWay}"
