@@ -15,7 +15,6 @@ namespace BNV.Views.Register
         public ChangePasswordPage()
         {
             InitializeComponent();
-            NavigationPage.SetHasBackButton(this, false);
         }
 
         protected override void OnAppearing()
@@ -36,10 +35,14 @@ namespace BNV.Views.Register
 
         void Entry_TextChanged(System.Object sender, Xamarin.Forms.TextChangedEventArgs e)
         {
-            var vm = (LoginViewModel)BindingContext;
+            var vm = (ChangePasswordViewModel)BindingContext;
 
-            if (identification.Text.ToString().Length == 0)
+            if (identification.Text == null || identification.Text.ToString().Length == 0)
+            {
+                boxIdent.BackgroundColor = Color.White;
+                identError.IsVisible = false;
                 return;
+            }
 
             if (identification.Text.ToString().Length < MinSize && identification.Text.ToString().Length < vm?.SelectedType?.Mask.Length)
             {

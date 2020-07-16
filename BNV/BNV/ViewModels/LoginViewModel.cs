@@ -189,7 +189,7 @@ namespace BNV.ViewModels
 
         private IdentificationType _selectedType;
 
-        public IdentificationType SelectedType
+        public IdentificationType? SelectedType
         {
             get => _selectedType;
 

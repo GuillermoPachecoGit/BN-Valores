@@ -76,6 +76,7 @@ namespace BNV.ViewModels
 
         public void OnAppearing()
         {
+            Task.Delay(200);
             MaskWatermark = Placeholder;
             IsErrorEmpty = false;
             IdentificationTypes = App.IdentificationTypes;

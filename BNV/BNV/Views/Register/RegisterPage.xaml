@@ -23,7 +23,7 @@
         <ScrollView>
           <StackLayout
             HorizontalOptions="CenterAndExpand"
-              VerticalOptions="CenterAndExpand">
+              VerticalOptions="FillAndExpand">
              <Image
                     Margin="0,-5,0,-10"
                     Source="bn_logo"
@@ -256,7 +256,7 @@
                                </syncfusion:SfMaskedEdit>-->
                             <Entry Text="{Binding Birthday, Mode=TwoWay}" FontSize="20" BackgroundColor="Black" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" PlaceholderColor="White" TextColor="White" Placeholder="00/00/00" Keyboard="Default">
                                 <Entry.Behaviors>
-                                    <behavior:MaskedBehavior Mask="##/##/####" />
+                                    <behavior:MaskedBehavior Mask="##/##/####" MaxSize="10"/>
                                 </Entry.Behaviors>
                             </Entry>
                                
@@ -385,6 +385,7 @@
                 Command="{Binding AcceptCommand}"
                 VerticalOptions="Center"
                 HorizontalOptions="FillAndExpand"/>
+
                <Label
                      Margin="0,0,0,24"
                      VerticalOptions="EndAndExpand"

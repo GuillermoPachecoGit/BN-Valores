@@ -72,10 +72,14 @@ namespace BNV.Views
         {
             var vm = (LoginViewModel)BindingContext;
 
-            if (identification.Text.ToString().Length == 0)
+            if (identification.Text == null || identification.Text.ToString().Length == 0)
+            {
+                boxIdent.BackgroundColor = Color.White;
+                identError.IsVisible = false;
                 return;
+            }
 
-                if (identification.Text.ToString().Length < MinSize && identification.Text.ToString().Length < vm?.SelectedType?.Mask.Length)
+            if (identification.Text.ToString().Length < MinSize && identification.Text.ToString().Length < vm?.SelectedType?.Mask.Length)
             {
                 boxIdent.BackgroundColor = Color.FromHex("#FF5B5B");
                 identError.IsVisible = true;
