@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Acr.UserDialogs;
@@ -39,7 +40,7 @@ namespace BNV.ViewModels
                        {
                            if (result.IsCompleted && result.Status == TaskStatus.RanToCompletion)
                            {
-                             
+                               App.IdentificationTypes = result.Result.ToList();
                            }
                            else if (result.IsFaulted) { }
                            else if (result.IsCanceled) { }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Xamarin.Forms;
 
 namespace BNV.Validator
@@ -34,6 +35,16 @@ namespace BNV.Validator
             set
             {
                 _maxSize = value;
+            }
+        }
+
+        private bool _isAlphanumeric;
+        public bool IsAlphanumeric
+        {
+            get => _isAlphanumeric;
+            set
+            {
+                _isAlphanumeric = value;
             }
         }
 
@@ -75,6 +86,12 @@ namespace BNV.Validator
 
             if (string.IsNullOrWhiteSpace(text) || _positions == null)
                 return;
+
+            if (!IsAlphanumeric && text.Replace("-", String.Empty).ToCharArray().Any(x => !char.IsDigit(x)))
+             {
+                entry.Text = text.Remove(text.Length - 1);
+                return;
+            }
 
             if (text.Length > MaxSize)
             {

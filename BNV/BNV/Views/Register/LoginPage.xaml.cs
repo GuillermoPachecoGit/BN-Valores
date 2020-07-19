@@ -53,7 +53,7 @@ namespace BNV.Views
             MaskTemplate.Mask = ((IdentificationType)e.Value).Mask;
             MaskTemplate.MaxSize = ((IdentificationType)e.Value).Mask.Length;
             MaxSize = ((IdentificationType)e.Value).Mask.Length;
-            MaxSize = ((IdentificationType)e.Value).Mask.Length;
+            MinSize = ((IdentificationType)e.Value).Mask.Length;
             var minMax = vm.SelectedType.RegExpression.Split('{', '}');
             if (minMax != null && minMax.Length > 1)
             {
@@ -64,6 +64,11 @@ namespace BNV.Views
                     MaxSize = int.Parse(values[1]);
                 }
             }
+
+            if (!((IdentificationType)e.Value).MaskExpression.Contains('A'))
+                MaskTemplate.IsAlphanumeric = false;
+            else
+                MaskTemplate.IsAlphanumeric = true;
 
             vm.IsErrorIdentLenght = false;
         }

@@ -93,6 +93,7 @@ namespace BNV.ViewModels
                                 Reports = new ObservableCollection<Report>(itemsReports.Select(
                                     x =>
                                     {
+                                        x.PriceDisplay = x.Price.ToString("F2");
                                         x.ColorStatus = GetColor(x.Variation);
                                         x.Triangle = GetTriangle(x.Variation);
                                         x.IsBlue = x.Variation == 0;
@@ -109,6 +110,7 @@ namespace BNV.ViewModels
                                 Shares = new ObservableCollection<ShareOfStock>(itemsShares.Select(
                                     x =>
                                     {
+                                        x.PriceDisplay = x.Price.ToString("F2");
                                         x.ColorStatus = GetColor(x.Variation);
                                         x.Triangle = GetTriangle(x.Variation);
                                         x.IsBlue = x.Variation == 0;
@@ -124,6 +126,7 @@ namespace BNV.ViewModels
                                 Bonos = new ObservableCollection<Bono>(itemsBonos.Select(
                                     x =>
                                     {
+                                        x.PriceDisplay = x.Price.ToString("F2");
                                         x.ColorStatus = GetColor(x.Variation);
                                         x.Triangle = GetTriangle(x.Variation);
                                         x.IsBlue = x.Variation == 0;
@@ -139,6 +142,7 @@ namespace BNV.ViewModels
                                 Types = new ObservableCollection<ChangeType>(itemsExchanges.Select(
                                     x =>
                                     {
+                                        x.PriceDisplay = x.Price.ToString("F2");
                                         x.ColorStatus = GetColor(x.Variation);
                                         x.Triangle = GetTriangle(x.Variation);
                                         x.IsBlue = x.Variation == 0;

@@ -43,7 +43,7 @@ namespace BNV
         public static Sector SelectedSector { get; set; }
         public static Currency SelectedCoin { get; set; }
         public static IAPIService ApiService { get; set; }
-        public static List<IdentificationType> IdentificationTypes { get; private set; }
+        public static List<IdentificationType> IdentificationTypes { get; set; }
         public static string ContactInfo { get; set; }
         public static bool Refresh { get; internal set; }
         public static string HomePage { get; internal set; }
@@ -68,27 +68,12 @@ namespace BNV
                 var getContact = ApiService.GetContactInfo().ContinueWith(contactInfo => _contact = contactInfo);
                 var getSectors = ApiService.GetSectors().ContinueWith(sectors => _sectorsitems = sectors);
                 var getCurrencies = ApiService.GetCurrency().ContinueWith(currencies => _currenciesItems = currencies);
-                var getIdentificationTypes = ApiService.GetIdentificationTypes().ContinueWith(types => _identTypes = types);
-                await Task.WhenAll(getSectors, getCurrencies).ContinueWith(async result =>
+                await Task.WhenAll(getSectors, getCurrencies, getContact).ContinueWith(async result =>
                 {
                     if (result.IsCompleted && result.Status == TaskStatus.RanToCompletion)
                     {
                         if (_contact.Result != null)
                             ContactInfo = _contact.Result.Replace("\"", string.Empty);
-
-                        if (_identTypes.Result.Count > 0)
-                        {
-                            IdentificationTypes = _identTypes.Result.Select(x => {
-                                if (x.CodIdType == 1)
-                                {
-                                    x.MaskType = MaskType.Text;
-                                    x.RegExpression = x.MaskExpression;
-                                }
-                                else
-                                    x.MaskType = MaskType.RegEx;
-                                return x;
-                            }).ToList();
-                        }
 
                         if (_currenciesItems.Result.Count > 0)
                         {

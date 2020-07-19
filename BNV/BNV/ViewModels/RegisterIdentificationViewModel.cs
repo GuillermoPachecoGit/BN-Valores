@@ -55,10 +55,16 @@ namespace BNV.ViewModels
                        if (result.IsCompleted && result.Status == TaskStatus.RanToCompletion)
                        {
                            // TODO el email en caso del que el usuario tenga un email valido???
-                           if (result.Result.EsCliOAutor == 1 && result.Result.TieneCorreo == 1)
-                               await NavigationService.NavigateAsync("RegisterRegisteredResultPage", new NavigationParameters() { { KeyParams.EmailRegistered, result.Result.Correo } });
+                           if (result.Result.EsCliOAutor == 1)
+                           {
+                               if (result.Result.TieneCorreo == 1)
+                                   await NavigationService.NavigateAsync("RegisterRegisteredResultPage", new NavigationParameters() { { KeyParams.EmailRegistered, result.Result.Correo } });
+                               else
+                                   await NavigationService.NavigateAsync("RegisterRegisteredResultPage", new NavigationParameters() { { KeyParams.EmailRegistered, result.Result.Correo } });
+                           }
                            else
-                                await NavigationService.NavigateAsync("RegisterPage", new NavigationParameters() { { KeyParams.VerifyParam, param } });
+                               await NavigationService.NavigateAsync("RegisterPage", new NavigationParameters() { { KeyParams.VerifyParam, param } });
+
                        }
                        else if (result.IsFaulted) {
 

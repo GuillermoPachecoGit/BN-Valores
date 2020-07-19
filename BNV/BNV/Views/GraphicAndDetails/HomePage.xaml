@@ -19,7 +19,7 @@
         </StackLayout>
     </NavigationPage.TitleView>
     <!--Pages can be added as references or inline-->
-    <tabView:SfTabView BackgroundColor="Black" SelectionChanged="TabExternal_SelectionChanged" EnableSwiping="False" Margin="-7" HorizontalOptions="FillAndExpand" TabHeight="65" VerticalOptions="FillAndExpand"  TabHeaderBackgroundColor="#4BA0D9" VisibleHeaderCount="2" TabHeaderPosition="Bottom" DisplayMode="ImageWithText" >
+    <tabView:SfTabView BackgroundColor="Black" SelectionChanged="TabExternal_SelectionChanged" EnableSwiping="False" HorizontalOptions="FillAndExpand" TabHeight="65" VerticalOptions="FillAndExpand"  TabHeaderBackgroundColor="#4BA0D9" VisibleHeaderCount="2" TabHeaderPosition="Bottom" DisplayMode="ImageWithText" >
         <tabView:SfTabView.SelectionIndicatorSettings>
             <tabView:SelectionIndicatorSettings
                 Color="#00579F"
@@ -62,7 +62,7 @@
                                                                                 <ColumnDefinition Width="Auto"></ColumnDefinition>
                                                                                 <ColumnDefinition Width="2*"></ColumnDefinition>
                                                                                 <ColumnDefinition Width="*"></ColumnDefinition>
-                                                                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                                                                <ColumnDefinition Width="100"></ColumnDefinition>
                                                                             </Grid.ColumnDefinitions>
                                                                             <Image
                                                                                 Grid.Column="0"
@@ -78,7 +78,7 @@
                                                                                 Margin="5,0,0,0"
                                                                                 Text="{Binding Name}"
                                                                                 TextColor="White"
-                                                                                FontSize="20"
+                                                                                FontSize="Medium"
                                                                                 FontAttributes="Bold"
                                                                                 HorizontalOptions="FillAndExpand"
                                                                                 VerticalOptions="Center"/>
@@ -86,8 +86,8 @@
                                                                                 Grid.Row="0"
                                                                                 Grid.Column="2"
                                                                                 Margin="5,0,0,0"
-                                                                                Text="{Binding Price}"
-                                                                                FontSize="20"
+                                                                                Text="{Binding PriceDisplay}"
+                                                                                FontSize="16"
                                                                                 TextColor="White"
                                                                                 HorizontalOptions="FillAndExpand"
                                                                                 VerticalOptions="Center" />
@@ -98,23 +98,26 @@
                                                                                 Padding="2"
                                                                                 BackgroundColor="{Binding ColorStatus}" 
                                                                                 CornerRadius="5"
-                                                                                VerticalOptions="StartAndExpand">
+                                                                                VerticalOptions="CenterAndExpand">
                                                                                 <Grid
-                                                                                    VerticalOptions="Center"
+                                                                                    HeightRequest="40"
+                                                                                    WidthRequest="70"
+                                                                                    VerticalOptions="CenterAndExpand"
                                                                                     HorizontalOptions="Center"
                                                                                     BackgroundColor="{Binding ColorStatus}" >
                                                                                 <Grid.RowDefinitions>
-                                                                                    <RowDefinition Height="Auto" />
-                                                                                    <RowDefinition Height="Auto" />
+                                                                                    <RowDefinition Height="*" />
+                                                                                    <RowDefinition Height="*" />
                                                                                 </Grid.RowDefinitions>
                                                                                 <Grid.ColumnDefinitions>
-                                                                                    <ColumnDefinition Width="Auto" />
-                                                                                    <ColumnDefinition Width="Auto" />
+                                                                                    <ColumnDefinition Width="*" />
+                                                                                    <ColumnDefinition Width="2*" />
                                                                                 </Grid.ColumnDefinitions>
                                                                                 <Image
                                                                                     Source="{Binding Triangle}"
                                                                                     HorizontalOptions="Center"
-                                                                                    VerticalOptions="Center"/>
+                                                                                    Aspect="Fill"
+                                                                                    VerticalOptions="CenterAndExpand"/>
                                                                                  <Label
                                                                                     Grid.Row="0"
                                                                                     Grid.Column="1"
@@ -122,8 +125,8 @@
                                                                                     FontAttributes="Bold"
                                                                                     FontSize="10"
                                                                                     TextColor="White"
-                                                                                    HorizontalOptions="End"
-                                                                                    VerticalOptions="Center"/>
+                                                                                    HorizontalOptions="EndAndExpand"
+                                                                                    VerticalOptions="CenterAndExpand"/>
                                                                                 <Label
                                                                                     Grid.Row="1"
                                                                                     Grid.Column="0"
@@ -132,7 +135,7 @@
                                                                                     FontSize="10"
                                                                                     TextColor="White"
                                                                                     HorizontalOptions="Center"
-                                                                                    VerticalOptions="Center" />
+                                                                                    VerticalOptions="CenterAndExpand" />
                                                                                 <Label
                                                                                     Grid.Row="1"
                                                                                     Grid.Column="1"
@@ -140,8 +143,8 @@
                                                                                     FontAttributes="Bold"
                                                                                     FontSize="10"
                                                                                     TextColor="White"
-                                                                                    HorizontalOptions="End"
-                                                                                    VerticalOptions="Center" />
+                                                                                    HorizontalOptions="EndAndExpand"
+                                                                                    VerticalOptions="CenterAndExpand" />
                                                                             </Grid>
                                                                             </Frame>
 
@@ -229,7 +232,7 @@
                                                                             VerticalOptions="Center"
                                                                             FontAttributes="Bold" />
 
-                                                                        <Label Text="{Binding Price}"
+                                                                        <Label Text="{Binding PriceDisplay}"
                                                                                Grid.Row="1"
                                                                                TextColor="White"
                                                                                Grid.Column="0"
@@ -361,7 +364,7 @@
                                                                             VerticalOptions="Center"
                                                                             FontAttributes="Bold" />
 
-                                                                        <Label Text="{Binding Price}"
+                                                                        <Label Text="{Binding PriceDisplay}"
                                                                                Grid.Row="1"
                                                                                TextColor="White"
                                                                                Grid.Column="0"
@@ -453,7 +456,7 @@
                                                     SeparatorColor="White"
                                                     HasUnevenRows="true"
                                                     SelectedItem="{Binding SelectedItem}">
-                                                     <ListView.ItemTemplate>
+                                                    <ListView.ItemTemplate>
                                                                 <DataTemplate>
                                                                     <ViewCell>
                                                                         <Grid>
@@ -464,7 +467,7 @@
                                                                                 <ColumnDefinition Width="Auto"></ColumnDefinition>
                                                                                 <ColumnDefinition Width="2*"></ColumnDefinition>
                                                                                 <ColumnDefinition Width="*"></ColumnDefinition>
-                                                                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                                                                <ColumnDefinition Width="100"></ColumnDefinition>
                                                                             </Grid.ColumnDefinitions>
                                                                             <Image
                                                                                 Grid.Column="0"
@@ -480,7 +483,7 @@
                                                                                 Margin="5,0,0,0"
                                                                                 Text="{Binding Name}"
                                                                                 TextColor="White"
-                                                                                FontSize="20"
+                                                                                FontSize="Medium"
                                                                                 FontAttributes="Bold"
                                                                                 HorizontalOptions="FillAndExpand"
                                                                                 VerticalOptions="Center"/>
@@ -488,8 +491,8 @@
                                                                                 Grid.Row="0"
                                                                                 Grid.Column="2"
                                                                                 Margin="5,0,0,0"
-                                                                                Text="{Binding Price}"
-                                                                                FontSize="20"
+                                                                                Text="{Binding PriceDisplay}"
+                                                                                FontSize="16"
                                                                                 TextColor="White"
                                                                                 HorizontalOptions="FillAndExpand"
                                                                                 VerticalOptions="Center" />
@@ -500,23 +503,26 @@
                                                                                 Padding="2"
                                                                                 BackgroundColor="{Binding ColorStatus}" 
                                                                                 CornerRadius="5"
-                                                                                VerticalOptions="StartAndExpand">
+                                                                                VerticalOptions="CenterAndExpand">
                                                                                 <Grid
-                                                                                    VerticalOptions="Center"
+                                                                                    HeightRequest="40"
+                                                                                    WidthRequest="70"
+                                                                                    VerticalOptions="CenterAndExpand"
                                                                                     HorizontalOptions="Center"
                                                                                     BackgroundColor="{Binding ColorStatus}" >
                                                                                 <Grid.RowDefinitions>
-                                                                                    <RowDefinition Height="Auto" />
-                                                                                    <RowDefinition Height="Auto" />
+                                                                                    <RowDefinition Height="*" />
+                                                                                    <RowDefinition Height="*" />
                                                                                 </Grid.RowDefinitions>
                                                                                 <Grid.ColumnDefinitions>
-                                                                                    <ColumnDefinition Width="Auto" />
-                                                                                    <ColumnDefinition Width="Auto" />
+                                                                                    <ColumnDefinition Width="*" />
+                                                                                    <ColumnDefinition Width="2*" />
                                                                                 </Grid.ColumnDefinitions>
                                                                                 <Image
                                                                                     Source="{Binding Triangle}"
                                                                                     HorizontalOptions="Center"
-                                                                                    VerticalOptions="Center"/>
+                                                                                    Aspect="Fill"
+                                                                                    VerticalOptions="CenterAndExpand"/>
                                                                                  <Label
                                                                                     Grid.Row="0"
                                                                                     Grid.Column="1"
@@ -524,8 +530,8 @@
                                                                                     FontAttributes="Bold"
                                                                                     FontSize="10"
                                                                                     TextColor="White"
-                                                                                    HorizontalOptions="End"
-                                                                                    VerticalOptions="Center"/>
+                                                                                    HorizontalOptions="EndAndExpand"
+                                                                                    VerticalOptions="CenterAndExpand"/>
                                                                                 <Label
                                                                                     Grid.Row="1"
                                                                                     Grid.Column="0"
@@ -534,7 +540,7 @@
                                                                                     FontSize="10"
                                                                                     TextColor="White"
                                                                                     HorizontalOptions="Center"
-                                                                                    VerticalOptions="Center" />
+                                                                                    VerticalOptions="CenterAndExpand" />
                                                                                 <Label
                                                                                     Grid.Row="1"
                                                                                     Grid.Column="1"
@@ -542,8 +548,8 @@
                                                                                     FontAttributes="Bold"
                                                                                     FontSize="10"
                                                                                     TextColor="White"
-                                                                                    HorizontalOptions="End"
-                                                                                    VerticalOptions="Center" />
+                                                                                    HorizontalOptions="EndAndExpand"
+                                                                                    VerticalOptions="CenterAndExpand" />
                                                                             </Grid>
                                                                             </Frame>
 

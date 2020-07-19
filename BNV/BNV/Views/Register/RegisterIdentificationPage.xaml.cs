@@ -70,6 +70,11 @@ namespace BNV.Views.Register
                 }
             }
 
+            if (!((IdentificationType)e.Value).MaskExpression.Contains('A'))
+                MaskTemplate.IsAlphanumeric = false;
+            else
+                MaskTemplate.IsAlphanumeric = true;
+
             vm.IsErrorIdentLenght = false;
         }
 

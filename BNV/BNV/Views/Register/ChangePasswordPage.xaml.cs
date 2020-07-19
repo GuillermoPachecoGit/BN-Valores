@@ -31,6 +31,7 @@ namespace BNV.Views.Register
         protected override void OnDisappearing()
         {
             base.OnDisappearing();
+            ((NavigationPage)Xamarin.Forms.Application.Current.MainPage).BarBackgroundColor = Color.Black;
         }
 
         void Entry_TextChanged(System.Object sender, Xamarin.Forms.TextChangedEventArgs e)
@@ -77,6 +78,11 @@ namespace BNV.Views.Register
                     MaxSize = int.Parse(values[1]);
                 }
             }
+
+            if (!((IdentificationType)e.Value).MaskExpression.Contains('A'))
+                MaskTemplate.IsAlphanumeric = false;
+            else
+                MaskTemplate.IsAlphanumeric = true;
 
             vm.IsErrorIdentLenght = false;
         }

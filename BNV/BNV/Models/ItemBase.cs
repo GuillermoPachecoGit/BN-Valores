@@ -52,5 +52,8 @@ namespace BNV.Models
 
         [JsonIgnore]
         public string VariationDisplay { get; set; }
+
+        [JsonIgnore]
+        public string PriceDisplay { get; set; }
     }
 }

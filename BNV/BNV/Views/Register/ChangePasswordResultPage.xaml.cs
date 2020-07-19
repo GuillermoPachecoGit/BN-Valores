@@ -16,7 +16,7 @@ namespace BNV.Views.Register
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            ((NavigationPage)Xamarin.Forms.Application.Current.MainPage).BarBackgroundColor = Color.Black;
+            
             if (CrossDeviceOrientation.IsSupported) CrossDeviceOrientation.Current.LockOrientation(Plugin.DeviceOrientation.Abstractions.DeviceOrientations.Portrait);
         }
 

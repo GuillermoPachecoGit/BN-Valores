@@ -87,7 +87,14 @@ namespace BNV.ViewModels
                                         await SecureStorage.SetAsync(Config.Token, result.Result.AccessToken);
                                         await SecureStorage.SetAsync(Config.TokenExpiration, result.Result.ExpiresIn.ToString());
                                         await SecureStorage.SetAsync(Config.Password, Password);
-                                        await NavigationAction();
+                                        if (result.Result.IsTemp == 1)
+                                        {
+                                            await NavigationService.NavigateAsync("PasswordSettingPage");
+                                        }
+                                        else
+                                        {
+                                            await NavigationService.NavigateAsync("HomePage");
+                                        }
                                         Password = string.Empty;
                                     }
                                     else if (result.IsFaulted)
@@ -110,21 +117,8 @@ namespace BNV.ViewModels
                 }
         }
 
-        private async Task NavigationAction()
-        {
-            var firstLogin = await SecureStorage.GetAsync(Config.FirstLogin);
-            if (string.IsNullOrEmpty(firstLogin) || firstLogin == "n")
-            {
-                await SecureStorage.SetAsync(Config.FirstLogin, "y");
-                await NavigationService.NavigateAsync("PasswordSettingPage");
-            }
-            else
-            {
-                await NavigationService.NavigateAsync("HomePage");
-            }
-        }
 
-        public void OnAppearing()
+        public async void OnAppearing()
         {
             MaskWatermark = PlaceHolder;
             IsErrorIdentLenght = false;
@@ -132,6 +126,8 @@ namespace BNV.ViewModels
             SelectedType = null;
             if (IdentificationTypes != null)
                 SelectedType = IdentificationTypes[0];
+
+
             ContactInfo = $"Contáctenos {App.ContactInfo}";
         }
 

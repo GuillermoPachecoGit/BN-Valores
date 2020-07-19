@@ -19,7 +19,6 @@ namespace BNV.ViewModels
         {
             AcceptCommand = new Command(AcceptCommandExecute);
             Title = "Establecimiento de contraseña";
-
             NewPassword = new ValidatableObject<string>(propChangedCallBack, new PasswordValidator())
             {
                 Value = string.Empty
@@ -72,13 +71,10 @@ namespace BNV.ViewModels
                 }
                 else if (result.IsFaulted)
                 {
-                    await UserDialogs.Instance.AlertAsync("Error de servicio");
-                    await NavigationService.NavigateAsync("PasswordSettingResultPage");
+                    IsNotValid = true;
                 }
                 else if (result.IsCanceled) { }
             }, TaskScheduler.FromCurrentSynchronizationContext());
-
-            //await NavigationService.NavigateAsync("PasswordSettingResultPage");
         }
 
         public ValidatableObject<string> NewPassword { get; set; }

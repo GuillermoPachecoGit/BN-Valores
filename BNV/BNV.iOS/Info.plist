@@ -27,16 +27,16 @@
 	<key>CFBundleIdentifier</key>
 	<string>com.mobtion.bnvalores.qa</string>
 	<key>CFBundleVersion</key>
-	<string>1.0</string>
+	<string>2.0</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen2</string>
 	<key>CFBundleName</key>
 	<string>BNV</string>
-	<key>CFBundleShortVersionString</key>
-	<string>1</string>
 	<key>UIMainStoryboardFile</key>
 	<string>LaunchScreen2</string>
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/AppIcon-1.appiconset</string>
+	<key>CFBundleShortVersionString</key>
+	<string>1</string>
 </dict>
 </plist>
