@@ -61,7 +61,7 @@ namespace BNV.Views
                     vm.ExchangeNotify = 0.75;
                     break;
                 case 7:
-                    vm.TypeChange = $"1.00 colon";
+                    vm.TypeChange = $"1.00 colón";
                     vm.ExchangeNotify = 1;
                     break;
                 case 8:

@@ -23,11 +23,11 @@
 	<key>MinimumOSVersion</key>
 	<string>8.0</string>
 	<key>CFBundleDisplayName</key>
-	<string>BNV</string>
+	<string>BNValores</string>
 	<key>CFBundleIdentifier</key>
 	<string>com.mobtion.bnvalores.qa</string>
 	<key>CFBundleVersion</key>
-	<string>2.0</string>
+	<string>4.0</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen2</string>
 	<key>CFBundleName</key>

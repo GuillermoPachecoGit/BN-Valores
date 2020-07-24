@@ -10,6 +10,9 @@ namespace BNV.Models
 
         [JsonIgnore]
         public SectorType Sector { get; set; }
+
+        [JsonIgnore]
+        public string Sender { get; set; }
     }
 
 

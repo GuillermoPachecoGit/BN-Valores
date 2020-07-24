@@ -102,7 +102,7 @@
                                 Mask="{Binding MaskTemplate}" >
                            </syncfusion:SfMaskedEdit>-->
 
-                            <Entry TextChanged="Entry_TextChanged" x:Name="identification" FontSize="20" Text="{Binding Identification, Mode=TwoWay}" BackgroundColor="Black" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" PlaceholderColor="White" TextColor="White" Placeholder="{Binding MaskWatermark, Mode=TwoWay}" Keyboard="Default">
+                            <Entry TextChanged="Entry_TextChanged" Keyboard="Plain"  x:Name="identification" FontSize="20" Text="{Binding Identification, Mode=TwoWay}" BackgroundColor="Black" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" PlaceholderColor="White" TextColor="White" Placeholder="{Binding MaskWatermark, Mode=TwoWay}" >
                                 <Entry.Behaviors>
                                     <behavior:MaskedBehavior x:Name="MaskTemplate" />
                                 </Entry.Behaviors>
@@ -129,7 +129,7 @@
                             HorizontalOptions="FillAndExpand"
                             x:Name="identError"
                             Style="{StaticResource errorDescriptionStyle}"
-                            Text="La identificacion debe contener todo los caracteres."
+                            Text="La identificación debe contener todos los caracteres."
                             IsVisible="False"  />
                         <Label
                             Padding="0"

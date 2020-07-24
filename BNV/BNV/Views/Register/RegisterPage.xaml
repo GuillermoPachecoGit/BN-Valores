@@ -60,6 +60,7 @@
                                 VerticalOptions="Center"
                                 HorizontalOptions="FillAndExpand"
                                 FontSize="20"
+                                Keyboard="Plain" 
                                 BackgroundColor="Black"
                                 Text="{Binding Name.Value}"
                                 TextColor="White"
@@ -101,6 +102,7 @@
                                 VerticalOptions="Center"
                                 HorizontalOptions="FillAndExpand"
                                 FontSize="20"
+                                Keyboard="Plain" 
                                 BackgroundColor="Black"
                                 Text="{Binding Surname.Value}"
                                 TextColor="White"
@@ -256,7 +258,7 @@
                                </syncfusion:SfMaskedEdit>-->
                             <Entry Text="{Binding Birthday, Mode=TwoWay}" FontSize="20" BackgroundColor="Black" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" PlaceholderColor="White" TextColor="White" Placeholder="00/00/00" Keyboard="Default">
                                 <Entry.Behaviors>
-                                    <behavior:MaskedBehavior Mask="##/##/####" MaxSize="10"/>
+                                    <behavior:MaskedBehavior IsAlphanumeric="True" Mask="##/##/####" MaxSize="10"/>
                                 </Entry.Behaviors>
                             </Entry>
                                

@@ -121,7 +121,7 @@
                             HorizontalOptions="FillAndExpand"
                             x:Name="identError"
                             Style="{StaticResource errorDescriptionStyle}"
-                            Text="La identificacion debe contener todo los caracteres."
+                            Text="La identificación debe contener todos los caracteres."
                             IsVisible="False" />
                 </StackLayout>
 

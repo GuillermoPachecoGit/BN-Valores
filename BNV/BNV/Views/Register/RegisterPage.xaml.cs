@@ -18,8 +18,9 @@ namespace BNV.Views
         {
             base.OnAppearing();
             if (CrossDeviceOrientation.IsSupported) CrossDeviceOrientation.Current.LockOrientation(Plugin.DeviceOrientation.Abstractions.DeviceOrientations.Portrait);
-
             App.Current.On<Android>().UseWindowSoftInputModeAdjust(WindowSoftInputModeAdjust.Resize);
+            ((NavigationPage)Xamarin.Forms.Application.Current.MainPage).BarTextColor = Color.White;
+            NavigationPage.SetHasBackButton(this, true);
         }
 
         protected override void OnDisappearing()

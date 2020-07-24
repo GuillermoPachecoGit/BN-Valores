@@ -5,6 +5,7 @@ namespace BNV.Models
 {
     public class ShareOfStock : ItemBase
     {
-
+        [JsonIgnore]
+        public string Sender { get; set; }
     }
 }

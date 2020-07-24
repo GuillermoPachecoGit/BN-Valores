@@ -22,6 +22,8 @@ namespace BNV.Views.Register
             base.OnAppearing();
             if (CrossDeviceOrientation.IsSupported) CrossDeviceOrientation.Current.LockOrientation(Plugin.DeviceOrientation.Abstractions.DeviceOrientations.Portrait);
             boxIdent.BackgroundColor = Color.White;
+            ((NavigationPage)Xamarin.Forms.Application.Current.MainPage).BarTextColor = Color.White;
+            NavigationPage.SetHasBackButton(this, true);
             identError.IsVisible = false;
         }
 

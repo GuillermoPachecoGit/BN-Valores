@@ -15,7 +15,7 @@
     x:Class="BNV.Views.GraphicAndDetails.HomePage" >
     <NavigationPage.TitleView>
         <StackLayout> 
-            <Label Text="{Binding Title}" TextColor="White" HorizontalTextAlignment="Center" FontSize="20"/>
+            <Label Text="{Binding Title}" Margin="0,10,0,0" TextColor="White" HorizontalTextAlignment="Center" FontSize="20"/>
         </StackLayout>
     </NavigationPage.TitleView>
     <!--Pages can be added as references or inline-->
@@ -42,7 +42,7 @@
                                                     HeightRequest="90"
                                                     HorizontalOptions="FillAndExpand"
                                                     VerticalOptions="FillAndExpand"
-                                                    Margin="0,5,0,0">
+                                                    Margin="0">
                                                     <ListView
                                                         x:Name="list1"
                                                         BackgroundColor="Black"
@@ -54,50 +54,51 @@
                                                             <ListView.ItemTemplate>
                                                                 <DataTemplate>
                                                                     <ViewCell>
-                                                                        <Grid>
+                                                                        <Grid HorizontalOptions="FillAndExpand">
                                                                             <Grid.RowDefinitions>
                                                                                 <RowDefinition Height="*"></RowDefinition>
                                                                             </Grid.RowDefinitions>
                                                                             <Grid.ColumnDefinitions>
                                                                                 <ColumnDefinition Width="Auto"></ColumnDefinition>
-                                                                                <ColumnDefinition Width="2*"></ColumnDefinition>
                                                                                 <ColumnDefinition Width="*"></ColumnDefinition>
-                                                                                <ColumnDefinition Width="100"></ColumnDefinition>
+                                                                                <ColumnDefinition Width="70"></ColumnDefinition>
+                                                                                <ColumnDefinition Width="85"></ColumnDefinition>
                                                                             </Grid.ColumnDefinitions>
                                                                             <Image
                                                                                 Grid.Column="0"
                                                                                 Grid.Row="0"
-                                                                                Margin="20,0,20,0"
+                                                                                Margin="15,0,10,0"
                                                                                 Aspect="AspectFit"
                                                                                 Source="{Binding Arrow}"
                                                                                 HeightRequest="25"
                                                                                 WidthRequest="19" />
                                                                              <Label
-                                                                                 Grid.Column="1"
-                                                                                 Grid.Row="0"
-                                                                                Margin="5,0,0,0"
+                                                                                Grid.Column="1"
+                                                                                Grid.Row="0"
+                                                                                Margin="0"
                                                                                 Text="{Binding Name}"
                                                                                 TextColor="White"
-                                                                                FontSize="Medium"
+                                                                                FontSize="16"
                                                                                 FontAttributes="Bold"
                                                                                 HorizontalOptions="FillAndExpand"
                                                                                 VerticalOptions="Center"/>
                                                                             <Label
                                                                                 Grid.Row="0"
                                                                                 Grid.Column="2"
-                                                                                Margin="5,0,0,0"
+                                                                                Margin="5,0,10,0"
                                                                                 Text="{Binding PriceDisplay}"
                                                                                 FontSize="16"
                                                                                 TextColor="White"
-                                                                                HorizontalOptions="FillAndExpand"
+                                                                                HorizontalOptions="End"
                                                                                 VerticalOptions="Center" />
                                                                               <Frame
                                                                                 Grid.Row="0"
                                                                                 Grid.Column="3"
-                                                                                Margin="0,5,15,5"
+                                                                                Margin="0,5,5,5"
                                                                                 Padding="2"
                                                                                 BackgroundColor="{Binding ColorStatus}" 
                                                                                 CornerRadius="5"
+                                                                                  HorizontalOptions="End"
                                                                                 VerticalOptions="CenterAndExpand">
                                                                                 <Grid
                                                                                     HeightRequest="40"
@@ -184,7 +185,7 @@
                                                 VerticalOptions="FillAndExpand"
                                                 Margin="0,5,0,0">
                                                    <CollectionView
-                                                       Margin="15,0"
+                                                       Margin="8,0"
                                                        x:Name="list3"
                                                        SelectedItem="{Binding SelectedItem}"
                                                        ItemsSource="{Binding Bonos, Mode=TwoWay}"
@@ -196,89 +197,109 @@
                                                             Span="3"/>
                                                     </CollectionView.ItemsLayout>
 
-                                                   <CollectionView.ItemTemplate>
+                                                    <CollectionView.ItemTemplate>
                                                         <DataTemplate>
                                                          <Frame
                                                             Padding="2"
                                                             BackgroundColor="Black"
                                                             CornerRadius="5">
                                                              <Frame
-                                                                Padding="1"
+                                                                Padding="0"
                                                                 BackgroundColor="{Binding ColorStatus}" 
                                                                 CornerRadius="5">
                                                                 <Grid
-                                                                    Margin="2"
+                                                                    HeightRequest="84"
+                                                                    Margin="0"
+                                                                    Padding="3"
                                                                     BackgroundColor="{Binding ColorStatus}"
-                                                                    VerticalOptions="Center"
-                                                                    HorizontalOptions="Center"> 
+                                                                    VerticalOptions="Start"
+                                                                    HorizontalOptions="FillAndExpand"> 
                                                                     <Grid.RowDefinitions>
-                                                                        <RowDefinition Height="35" />
-                                                                        <RowDefinition Height="25" />
-                                                                        <RowDefinition Height="25" />
+                                                                        <RowDefinition Height="Auto" />
+                                                                        <RowDefinition Height="Auto" />
+                                                                        <RowDefinition Height="Auto" />
+                                                                        <RowDefinition Height="Auto" />
                                                                     </Grid.RowDefinitions>
                                                                     <Grid.ColumnDefinitions>
                                                                         <ColumnDefinition Width="Auto" />
                                                                         <ColumnDefinition Width="*" />
                                                                     </Grid.ColumnDefinitions>
-
                                                                         <Label
                                                                             Grid.Row="0"
-                                                                            Margin="5,0"
+                                                                            Text="{Binding Sender}"
+                                                                            Grid.ColumnSpan="2"
+                                                                            TextColor="White"
+                                                                            FontSize="12"
+                                                                            HorizontalOptions="Start"
+                                                                            VerticalOptions="Start"
+                                                                            FontAttributes="Bold" />
+                                                                        <Label
+                                                                            Grid.Row="1"
                                                                             Text="{Binding Name}"
                                                                             Grid.ColumnSpan="2"
                                                                             TextColor="White"
                                                                             FontSize="12"
-                                                                            HorizontalOptions="StartAndExpand"
-                                                                            VerticalOptions="Center"
+                                                                            HorizontalOptions="Start"
+                                                                            VerticalOptions="Start"
                                                                             FontAttributes="Bold" />
 
                                                                         <Label Text="{Binding PriceDisplay}"
-                                                                               Grid.Row="1"
+                                                                               Grid.Row="2"
                                                                                TextColor="White"
                                                                                Grid.Column="0"
-                                                                               FontSize="14"
-                                                                               Margin="5,0"
+                                                                               FontSize="12"
                                                                                HorizontalOptions="Start"
                                                                                VerticalOptions="Center"
                                                                                FontAttributes="Bold" />
-                                                                        <Label Text="{Binding VariationDisplay}"
-                                                                               Grid.Row="1"
-                                                                               Grid.Column="1"
-                                                                               TextColor="White"
-                                                                               FontSize="12"
-                                                                               Margin="5,0"
-                                                                               VerticalOptions="Center"
-                                                                               HorizontalOptions="End"
-                                                                               FontAttributes="Bold" />
 
-                                                                        <Label Text="{Binding VolumeDisplay}"
-                                                                               Grid.Row="2"
-                                                                               Grid.Column="1"
-                                                                               Margin="5,0"
-                                                                               VerticalOptions="Center"
-                                                                               TextColor="White"
-                                                                               FontSize="12"
-                                                                               HorizontalOptions="End"
-                                                                               FontAttributes="Bold" />
-
-                                                                        <StackLayout
+                                                                         <StackLayout
                                                                             Grid.Row="2"
-                                                                            Grid.Column="0"
-                                                                            Margin="5,0"
+                                                                            Grid.Column="1"
+                                                                            Margin="0"
+                                                                            HorizontalOptions="End"
                                                                             Orientation="Horizontal">
-                                                                               <Label
-                                                                                   Text="{Binding Performance}"
-                                                                                   TextColor="White"
-                                                                                   FontSize="12"
-                                                                                   VerticalOptions="Center"
-                                                                                   HorizontalOptions="Start"
-                                                                                   FontAttributes="Bold" />
                                                                              <Image
                                                                                  Margin="0"
+                                                                                 HeightRequest="8"
+                                                                                 WidthRequest="8"
+                                                                                 Aspect="AspectFit"
                                                                                  Source="{Binding Triangle}"
-                                                                                 HorizontalOptions="Start"
+                                                                                 HorizontalOptions="End"
                                                                                  VerticalOptions="Center"/>
+                                                                               <Label Text="{Binding VariationDisplay}"
+                                                                                   Grid.Row="1"
+                                                                                   Grid.Column="1"
+                                                                                   TextColor="White"
+                                                                                   FontSize="12"
+                                                                                   Padding="0"
+                                                                                   VerticalOptions="Center"
+                                                                                   HorizontalOptions="End"
+                                                                                   FontAttributes="None" />
                                                                         </StackLayout>
+
+                                                                        
+
+                                                                        <Label Text="{Binding VolumeDisplay}"
+                                                                               Grid.Row="3"
+                                                                               Grid.Column="1"
+                                                                               Margin="1,0"
+                                                                               VerticalOptions="Center"
+                                                                               TextColor="White"
+                                                                               FontSize="12"
+                                                                               HorizontalOptions="End"
+                                                                               FontAttributes="None" />
+
+                                                                        <Label
+                                                                            Grid.Row="3"
+                                                                            Grid.Column="0"
+                                                                            Margin="1,0"
+                                                                            Text="{Binding Performance}"
+                                                                            TextColor="White"
+                                                                            FontSize="12"
+                                                                            VerticalOptions="Center"
+                                                                            HorizontalOptions="Start"
+                                                                            FontAttributes="None" />
+                                                                            
                                                                 </Grid>
                                                              </Frame>
                                                              </Frame>
@@ -317,7 +338,7 @@
                                                 Margin="0,5,0,0">
                                                  <CollectionView
                                                      x:Name="list4"
-                                                     Margin="15,0"
+                                                     Margin="8,0"
                                                      SelectedItem="{Binding SelectedItem}"
                                                      ItemsSource="{Binding Shares, Mode=TwoWay}"
                                                      SelectionMode="Single">
@@ -335,82 +356,102 @@
                                                             BackgroundColor="Black"
                                                             CornerRadius="5">
                                                              <Frame
-                                                                Padding="1"
+                                                                Padding="0"
                                                                 BackgroundColor="{Binding ColorStatus}" 
                                                                 CornerRadius="5">
                                                                 <Grid
-                                                                    Margin="2"
+                                                                    HeightRequest="84"
+                                                                    Margin="0"
+                                                                    Padding="3"
                                                                     BackgroundColor="{Binding ColorStatus}"
-                                                                    VerticalOptions="Center"
-                                                                    HorizontalOptions="Center"> 
+                                                                    VerticalOptions="Start"
+                                                                    HorizontalOptions="FillAndExpand"> 
                                                                     <Grid.RowDefinitions>
-                                                                        <RowDefinition Height="35" />
-                                                                        <RowDefinition Height="25" />
-                                                                        <RowDefinition Height="25" />
+                                                                        <RowDefinition Height="Auto" />
+                                                                        <RowDefinition Height="Auto" />
+                                                                        <RowDefinition Height="Auto" />
+                                                                        <RowDefinition Height="Auto" />
                                                                     </Grid.RowDefinitions>
                                                                     <Grid.ColumnDefinitions>
                                                                         <ColumnDefinition Width="Auto" />
                                                                         <ColumnDefinition Width="*" />
                                                                     </Grid.ColumnDefinitions>
-
                                                                         <Label
                                                                             Grid.Row="0"
-                                                                            Margin="5,0"
+                                                                            Text="{Binding Sender}"
+                                                                            Grid.ColumnSpan="2"
+                                                                            TextColor="White"
+                                                                            FontSize="12"
+                                                                            HorizontalOptions="Start"
+                                                                            VerticalOptions="Start"
+                                                                            FontAttributes="Bold" />
+                                                                        <Label
+                                                                            Grid.Row="1"
                                                                             Text="{Binding Name}"
                                                                             Grid.ColumnSpan="2"
                                                                             TextColor="White"
                                                                             FontSize="12"
-                                                                            HorizontalOptions="StartAndExpand"
-                                                                            VerticalOptions="Center"
+                                                                            HorizontalOptions="Start"
+                                                                            VerticalOptions="Start"
                                                                             FontAttributes="Bold" />
 
                                                                         <Label Text="{Binding PriceDisplay}"
-                                                                               Grid.Row="1"
+                                                                               Grid.Row="2"
                                                                                TextColor="White"
                                                                                Grid.Column="0"
-                                                                               FontSize="14"
-                                                                               Margin="5,0"
+                                                                               FontSize="12"
                                                                                HorizontalOptions="Start"
                                                                                VerticalOptions="Center"
                                                                                FontAttributes="Bold" />
-                                                                        <Label Text="{Binding VariationDisplay}"
-                                                                               Grid.Row="1"
-                                                                               Grid.Column="1"
-                                                                               TextColor="White"
-                                                                               FontSize="12"
-                                                                               Margin="5,0"
-                                                                               VerticalOptions="Center"
-                                                                               HorizontalOptions="End"
-                                                                               FontAttributes="Bold" />
 
-                                                                        <Label Text="{Binding VolumeDisplay}"
-                                                                               Grid.Row="2"
-                                                                               Grid.Column="1"
-                                                                               Margin="5,0"
-                                                                               VerticalOptions="Center"
-                                                                               TextColor="White"
-                                                                               FontSize="12"
-                                                                               HorizontalOptions="End"
-                                                                               FontAttributes="Bold" />
-
-                                                                        <StackLayout
+                                                                         <StackLayout
                                                                             Grid.Row="2"
-                                                                            Grid.Column="0"
-                                                                            Margin="5,0"
+                                                                            Grid.Column="1"
+                                                                            Margin="0"
+                                                                            HorizontalOptions="End"
                                                                             Orientation="Horizontal">
-                                                                               <Label
-                                                                                   Text="{Binding Performance}"
-                                                                                   TextColor="White"
-                                                                                   FontSize="12"
-                                                                                   VerticalOptions="Center"
-                                                                                   HorizontalOptions="Start"
-                                                                                   FontAttributes="Bold" />
                                                                              <Image
                                                                                  Margin="0"
+                                                                                 HeightRequest="8"
+                                                                                 WidthRequest="8"
+                                                                                 Aspect="AspectFit"
                                                                                  Source="{Binding Triangle}"
-                                                                                 HorizontalOptions="Start"
+                                                                                 HorizontalOptions="End"
                                                                                  VerticalOptions="Center"/>
+                                                                               <Label Text="{Binding VariationDisplay}"
+                                                                                   Grid.Row="1"
+                                                                                   Grid.Column="1"
+                                                                                   TextColor="White"
+                                                                                   FontSize="12"
+                                                                                   Padding="0"
+                                                                                   VerticalOptions="Center"
+                                                                                   HorizontalOptions="End"
+                                                                                   FontAttributes="None" />
                                                                         </StackLayout>
+
+                                                                        
+
+                                                                        <Label Text="{Binding VolumeDisplay}"
+                                                                               Grid.Row="3"
+                                                                               Grid.Column="1"
+                                                                               Margin="1,0"
+                                                                               VerticalOptions="Center"
+                                                                               TextColor="White"
+                                                                               FontSize="12"
+                                                                               HorizontalOptions="End"
+                                                                               FontAttributes="None" />
+
+                                                                        <Label
+                                                                            Grid.Row="3"
+                                                                            Grid.Column="0"
+                                                                            Margin="1,0"
+                                                                            Text="{Binding Performance}"
+                                                                            TextColor="White"
+                                                                            FontSize="12"
+                                                                            VerticalOptions="Center"
+                                                                            HorizontalOptions="Start"
+                                                                            FontAttributes="None" />
+                                                                            
                                                                 </Grid>
                                                              </Frame>
                                                              </Frame>
@@ -459,50 +500,51 @@
                                                     <ListView.ItemTemplate>
                                                                 <DataTemplate>
                                                                     <ViewCell>
-                                                                        <Grid>
+                                                                        <Grid HorizontalOptions="FillAndExpand">
                                                                             <Grid.RowDefinitions>
                                                                                 <RowDefinition Height="*"></RowDefinition>
                                                                             </Grid.RowDefinitions>
                                                                             <Grid.ColumnDefinitions>
                                                                                 <ColumnDefinition Width="Auto"></ColumnDefinition>
-                                                                                <ColumnDefinition Width="2*"></ColumnDefinition>
                                                                                 <ColumnDefinition Width="*"></ColumnDefinition>
-                                                                                <ColumnDefinition Width="100"></ColumnDefinition>
+                                                                                <ColumnDefinition Width="70"></ColumnDefinition>
+                                                                                <ColumnDefinition Width="85"></ColumnDefinition>
                                                                             </Grid.ColumnDefinitions>
                                                                             <Image
                                                                                 Grid.Column="0"
                                                                                 Grid.Row="0"
-                                                                                Margin="20,0,20,0"
+                                                                                Margin="15,0,10,0"
                                                                                 Aspect="AspectFit"
                                                                                 Source="{Binding Arrow}"
                                                                                 HeightRequest="25"
                                                                                 WidthRequest="19" />
                                                                              <Label
-                                                                                 Grid.Column="1"
-                                                                                 Grid.Row="0"
-                                                                                Margin="5,0,0,0"
+                                                                                Grid.Column="1"
+                                                                                Grid.Row="0"
+                                                                                Margin="0"
                                                                                 Text="{Binding Name}"
                                                                                 TextColor="White"
-                                                                                FontSize="Medium"
+                                                                                FontSize="16"
                                                                                 FontAttributes="Bold"
                                                                                 HorizontalOptions="FillAndExpand"
                                                                                 VerticalOptions="Center"/>
                                                                             <Label
                                                                                 Grid.Row="0"
                                                                                 Grid.Column="2"
-                                                                                Margin="5,0,0,0"
+                                                                                Margin="5,0,10,0"
                                                                                 Text="{Binding PriceDisplay}"
                                                                                 FontSize="16"
                                                                                 TextColor="White"
-                                                                                HorizontalOptions="FillAndExpand"
+                                                                                HorizontalOptions="End"
                                                                                 VerticalOptions="Center" />
                                                                               <Frame
                                                                                 Grid.Row="0"
                                                                                 Grid.Column="3"
-                                                                                Margin="0,5,15,5"
+                                                                                Margin="0,5,5,5"
                                                                                 Padding="2"
                                                                                 BackgroundColor="{Binding ColorStatus}" 
                                                                                 CornerRadius="5"
+                                                                                  HorizontalOptions="End"
                                                                                 VerticalOptions="CenterAndExpand">
                                                                                 <Grid
                                                                                     HeightRequest="40"
@@ -596,28 +638,29 @@
                                         JustifyContent="SpaceAround">
                                         <Label
                                            Text="Notificaciones"
-                                           FontAttributes="Bold"
+                                           FontAttributes="None"
                                            FontSize="16"
-                                           Margin="33,0,0,0"
+                                           Margin="33,10,0,0"
                                            TextColor="White"
                                            HorizontalOptions="Start"
                                            VerticalOptions="Start"/>
                                          <StackLayout
                                             Margin="33,0,0,0"
+
                                             Orientation="Horizontal">
                                              <Label
                                                 Text="Tipo de cambio a partir de:"
-                                                FontAttributes="Bold"
+                                                FontAttributes="None"
                                                 FontSize="12"
                                                 TextColor="#A5A5A5"
                                                 HorizontalOptions="StartAndExpand"
                                                 VerticalOptions="Start"/>
                                               <Label
                                                 Text="{Binding TypeChange, Mode=TwoWay}"
-                                                FontAttributes="Bold"
+                                                FontAttributes="None"
                                                 FontSize="12"
                                                 TextColor="White"
-                                                Margin="0,0,90,0"
+                                                Margin="0,0,40,0"
                                                 HorizontalOptions="End"
                                                 VerticalOptions="Start"/>
                                              </StackLayout>
@@ -646,7 +689,7 @@
                                             LabelColor="#4BA0D9"
                                             TrackColor="#504BA0D9"
                                             SnapsTo="StepValues"
-                                            ShowValueLabel="True"
+                                            ShowValueLabel="False"
                                             ToolTipPlacement="None">    
                                             </range:SfRangeSlider>
 
@@ -655,17 +698,17 @@
                                             Orientation="Horizontal">
                                              <Label
                                                 Text="Cambios en bonos a partir de:"
-                                                FontAttributes="Bold"
+                                                FontAttributes="None"
                                                 FontSize="12"
                                                 TextColor="#A5A5A5"
                                                 HorizontalOptions="StartAndExpand"
                                                 VerticalOptions="Start"/>
                                               <Label
                                                 Text="{Binding BonosLabel, Mode=TwoWay}"
-                                                FontAttributes="Bold"
+                                                FontAttributes="None"
                                                 FontSize="12"
                                                 TextColor="White"
-                                                Margin="0,0,90,0"
+                                                Margin="0,0,40,0"
                                                 HorizontalOptions="End"
                                                 VerticalOptions="Start"/>
                                            </StackLayout>
@@ -694,13 +737,13 @@
                                               LabelColor="#4BA0D9"
                                               TrackColor="#504BA0D9"
                                               SnapsTo="StepValues"
-                                              ShowValueLabel="True"
+                                              ShowValueLabel="False"
                                               ToolTipPlacement="None">    
                                             </range:SfRangeSlider>
                 
                                           <Label
                                             Text="Filtros de información"
-                                            FontAttributes="Bold"
+                                            FontAttributes="None"
                                             FontSize="16"
                                             Margin="33,0,0,0"
                                             TextColor="White"
@@ -712,7 +755,7 @@
                                             Orientation="Horizontal">
                                             <Label
                                                 Text="Moneda:"
-                                                FontAttributes="Bold"
+                                                FontAttributes="None"
                                                 FontSize="12"
                                                 TextColor="#A5A5A5"
                                                 HorizontalOptions="StartAndExpand"
@@ -789,7 +832,7 @@
                                         <Label
                                            Margin="33,0,0,0"
                                            Text="Pantalla principal"
-                                           FontAttributes="Bold"
+                                           FontAttributes="None"
                                            FontSize="16"
                                            TextColor="White"
                                            HorizontalOptions="Start"
@@ -800,7 +843,7 @@
                                             Orientation="Horizontal">
                                             <Label
                                                 Text="Home:"
-                                                FontAttributes="Bold"
+                                                FontAttributes="None"
                                                 FontSize="12"
                                                 TextColor="#A5A5A5"
                                                 HorizontalOptions="StartAndExpand"

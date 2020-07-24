@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using BNV.Models;
 using BNV.Settings;
@@ -99,6 +100,7 @@ namespace BNV.Views.GraphicAndDetails
             HomeViewModel vm = BindingContext as HomeViewModel;
             if (vm == null) return;
             var slider = (SfRangeSlider)sender;
+
             slider.Value = newStep * StepValue;
 
             switch (slider.Value)
@@ -128,7 +130,7 @@ namespace BNV.Views.GraphicAndDetails
                     vm.ExchangeNotify = 0.75;
                     break;
                 case 7:
-                    vm.TypeChange = $"1.00 colon";
+                    vm.TypeChange = $"1.00 colón";
                     vm.ExchangeNotify = 1;
                     break;
                 case 8:

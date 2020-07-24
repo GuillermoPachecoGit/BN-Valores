@@ -110,6 +110,8 @@ namespace BNV.ViewModels
                                 Shares = new ObservableCollection<ShareOfStock>(itemsShares.Select(
                                     x =>
                                     {
+                                        x.Sender = x.Name.Split(" ")[0] ?? string.Empty;
+                                        x.Name = x.Name.Split(" ")[1] ?? string.Empty;
                                         x.PriceDisplay = x.Price.ToString("F2");
                                         x.ColorStatus = GetColor(x.Variation);
                                         x.Triangle = GetTriangle(x.Variation);
@@ -126,6 +128,8 @@ namespace BNV.ViewModels
                                 Bonos = new ObservableCollection<Bono>(itemsBonos.Select(
                                     x =>
                                     {
+                                        x.Sender = x.Name.Split(" ")[0] ?? string.Empty;
+                                        x.Name = x.Name.Split(" ")[1] ?? string.Empty;
                                         x.PriceDisplay = x.Price.ToString("F2");
                                         x.ColorStatus = GetColor(x.Variation);
                                         x.Triangle = GetTriangle(x.Variation);

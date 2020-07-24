@@ -217,11 +217,11 @@ namespace BNV.ViewModels
             Average = value.TradedVolumeAverage.ToString().Length >= 7 ? $"{avr / 1000000}M" : avr == 0 ? "N.D." : avr.ToString();
             Maximum = value.ValueMax.ToString();
             Minimum = value.ValueMin.ToString();
-            ValueRendimiento = Item.Performance.ToString();
+            ValueRendimiento = Item.Performance.ToString("F2");
             PercentageRendimiento = Item.Price.ToString();
-            ValueVolumen = Item.Variation.ToString("F2") + "%";
+            ValueVolumen = Item.VolumeDisplay;
             PercentageVolumen = Item.VolumeDisplay;
-
+            
             var list = new List<Model>();
             foreach(var dataItem in value.Data)
             {

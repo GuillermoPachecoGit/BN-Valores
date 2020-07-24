@@ -212,14 +212,30 @@
     <ImageAsset Include="Assets.xcassets\ic_gender.imageset\ic_gender%402x.png" />
     <ImageAsset Include="Assets.xcassets\ic_gender.imageset\ic_gender%403x.png" />
     <ImageAsset Include="Assets.xcassets\splash_background.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\splash_background.imageset\splash.png" />
-    <ImageAsset Include="Assets.xcassets\splash_background.imageset\splash-1.png" />
     <ImageAsset Include="Assets.xcassets\splash_background.imageset\splash-2.png" />
-    <ImageAsset Include="Assets.xcassets\splash_background.imageset\splash-3.png" />
-    <ImageAsset Include="Assets.xcassets\splash_background.imageset\splash_background.png" />
-    <ImageAsset Include="Assets.xcassets\splash_background.imageset\splash_background-1.png" />
-    <ImageAsset Include="Assets.xcassets\splash_background.imageset\splash_background-2.png" />
     <ImageAsset Include="Assets.xcassets\AppIcon-1.appiconset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\splash_background.imageset\iPhone 4S.png" />
+    <ImageAsset Include="Assets.xcassets\splash_background.imageset\iPhone 5.png" />
+    <ImageAsset Include="Assets.xcassets\splash_background.imageset\iPhone X.png" />
+    <ImageAsset Include="Assets.xcassets\splash_background.imageset\iPhone 6_7_8 Plus.png" />
+    <ImageAsset Include="Assets.xcassets\splash_background.imageset\iPhone 6_7_8.png" />
+    <ImageAsset Include="Assets.xcassets\splash_background.imageset\iPad non-retina.png" />
+    <ImageAsset Include="Assets.xcassets\splash_background.imageset\iPad retina.png" />
+    <ImageAsset Include="Assets.xcassets\splash_background.imageset\iPhone 6_7_8-1.png" />
+    <ImageAsset Include="Assets.xcassets\splash_background.imageset\iPhone 6_7_8-2.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon-1.appiconset\ic_20.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon-1.appiconset\ic_29.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon-1.appiconset\ic_40.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon-1.appiconset\ic_58.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon-1.appiconset\ic_60.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon-1.appiconset\ic_76.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon-1.appiconset\ic_80.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon-1.appiconset\ic_87.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon-1.appiconset\ic_120.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon-1.appiconset\ic_152.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon-1.appiconset\ic_167.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon-1.appiconset\ic_180.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon-1.appiconset\ic_icon_appstore.png" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\Default-568h@2x.png" />
