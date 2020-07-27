@@ -30,12 +30,12 @@
 
             <Grid x:Name="nav" Margin="0" Padding="0,5,0,5" BackgroundColor="{Binding Color}">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="67"></ColumnDefinition>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="55"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="60"></RowDefinition>
+                    <RowDefinition Height="65"></RowDefinition>
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0" Grid.Column="0" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
                     <Grid.GestureRecognizers>
@@ -47,9 +47,9 @@
                 <Label TextColor="White" FontAttributes="Bold" FontSize="16" VerticalTextAlignment="Center" Text="{Binding TitleNav, Mode=TwoWay}"></Label>
                 <Label TextColor="White" FontAttributes="Bold" Margin="0,0,0,2" FontSize="12" VerticalTextAlignment="Center" Text="{Binding SubTitle, Mode=TwoWay}"></Label>
                 </StackLayout>
-                <Grid Margin="35,0,15,0" Grid.Row="0" Grid.Column="2" HorizontalOptions="End" VerticalOptions="Center" >
+                <Grid Margin="10,0,10,0" Grid.Row="0" Grid.Column="2" HorizontalOptions="End" VerticalOptions="Center" >
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="Auto"></ColumnDefinition>
                         <ColumnDefinition Width="Auto"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
@@ -97,7 +97,7 @@
                 </tabView:SfTabView.SelectionIndicatorSettings>
                 <tabView:SfTabItem TitleFontColor="White"  SelectionColor="White" Title="Estadísticas" ImageSource="estadistica">
                         <tabView:SfTabItem.Content>
-                             <tabView:SfTabView SelectionChanged="tabs_vertical_SelectionChanged"  x:Name="tabs_vertical" EnableSwiping="True" TabHeight="65" BackgroundColor="Black" TabHeaderBackgroundColor="#737477" VisibleHeaderCount="2" DisplayMode="ImageWithText">
+                             <tabView:SfTabView SelectionChanged="tabs_vertical_SelectionChanged"  x:Name="tabs_vertical" EnableSwiping="True" TabHeight="70" BackgroundColor="Black" TabHeaderBackgroundColor="#737477" VisibleHeaderCount="2" DisplayMode="ImageWithText">
                                  <tabView:SfTabView.SelectionIndicatorSettings>
                                    <tabView:SelectionIndicatorSettings
                                        Color="#00579F" 
@@ -157,7 +157,7 @@
                                                            </chart:SfChart.PrimaryAxis>
                                 
                                                            <chart:SfChart.SecondaryAxis>
-                                                               <chart:NumericalAxis>
+                                                               <chart:NumericalAxis Minimum="{Binding Minimum, Mode=TwoWay}" Maximum="{Binding Maximum, Mode=TwoWay}">
                                                                    <chart:NumericalAxis.LabelStyle>
                                                                       <chart:ChartAxisLabelStyle WrappedLabelAlignment="Center" FontSize="12" TextColor="White" />
                                                                   </chart:NumericalAxis.LabelStyle>
@@ -198,7 +198,7 @@
                                                            </chart:SfChart.PrimaryAxis>
                                 
                                                            <chart:SfChart.SecondaryAxis>
-                                                               <chart:NumericalAxis>
+                                                               <chart:NumericalAxis Minimum="{Binding Minimum, Mode=TwoWay}" Maximum="{Binding Maximum, Mode=TwoWay}">
                                                                    <chart:NumericalAxis.LabelStyle>
                                                                       <chart:ChartAxisLabelStyle WrappedLabelAlignment="Center" FontSize="12" TextColor="White" />
                                                                   </chart:NumericalAxis.LabelStyle>
@@ -239,7 +239,7 @@
                                                            </chart:SfChart.PrimaryAxis>
                                 
                                                            <chart:SfChart.SecondaryAxis>
-                                                               <chart:NumericalAxis>
+                                                               <chart:NumericalAxis Minimum="{Binding Minimum, Mode=TwoWay}" Maximum="{Binding Maximum, Mode=TwoWay}" >
                                                                    <chart:NumericalAxis.LabelStyle>
                                                                       <chart:ChartAxisLabelStyle WrappedLabelAlignment="Center" FontSize="12" TextColor="White" />
                                                                   </chart:NumericalAxis.LabelStyle>
@@ -320,10 +320,10 @@
                                                       </Frame>
 
                                                     <StackLayout
+                                                        Margin="45,0,45,10"
                                                         HorizontalOptions="CenterAndExpand"
                                                         VerticalOptions="CenterAndExpand">
                                                         <Grid
-                                                            Margin="45,0,45,10"
                                                             VerticalOptions="Center"
                                                             HorizontalOptions="Center">
                                                             <Grid.ColumnDefinitions>
@@ -333,22 +333,21 @@
                                                             <Label
                                                                 Grid.Column="0"
                                                                 TextColor="White"
-                                                                Margin="0,0,5,0"
-                                                                FontSize="18"
+                                                                Margin="0,10,5,0"
+                                                                FontSize="16"
                                                                 HorizontalOptions="StartAndExpand"
                                                                 HorizontalTextAlignment="Start"
                                                                 Text="Volumen transado mínimo"/>
                                                             <Label
                                                                 Grid.Column="1"
                                                                 TextColor="White"
-                                                                FontSize="18"
+                                                                FontSize="16"
                                                                 HorizontalTextAlignment="End"
                                                                 WidthRequest="60"
                                                                 HorizontalOptions="EndAndExpand"
                                                                 Text="{Binding VolumenMin, Mode=TwoWay}"/>
                                                         </Grid>
                                                         <Grid
-                                                            Margin="45,0,45,10"
                                                             VerticalOptions="Center"
                                                             HorizontalOptions="Center">
                                                             <Grid.ColumnDefinitions>
@@ -358,22 +357,21 @@
                                                             <Label
                                                                 Grid.Column="0"
                                                                 TextColor="White"
-                                                                Margin="0,0,5,0"
-                                                                FontSize="18"
+                                                                Margin="0,10,5,0"
+                                                                FontSize="16"
                                                                 HorizontalOptions="StartAndExpand"
                                                                 HorizontalTextAlignment="Start"
                                                                 Text="Volumen transado máximo"/>
                                                             <Label
                                                                 Grid.Column="1"
                                                                 TextColor="White"
-                                                                FontSize="18"
+                                                                FontSize="16"
                                                                 HorizontalTextAlignment="End"
                                                                 WidthRequest="60"
                                                                 HorizontalOptions="EndAndExpand"
                                                                 Text="{Binding VolumenMax, Mode=TwoWay}"/>
                                                         </Grid>
                                                         <Grid
-                                                            Margin="45,0,45,10"
                                                             VerticalOptions="Center"
                                                             HorizontalOptions="Center">
                                                             <Grid.ColumnDefinitions>
@@ -383,14 +381,14 @@
                                                             <Label
                                                                 Grid.Column="0"
                                                                 TextColor="White"
-                                                                Margin="0,0,5,0"
-                                                                FontSize="18"
+                                                                Margin="0,10,5,0"
+                                                                FontSize="16"
                                                                 HorizontalOptions="StartAndExpand"
                                                                 HorizontalTextAlignment="Start"
                                                                 Text="Valor promedio"/>
                                                             <Label
                                                                 TextColor="White"
-                                                                FontSize="18"
+                                                                FontSize="16"
                                                                 WidthRequest="60"
                                                                 HorizontalTextAlignment="End"
                                                                 HorizontalOptions="EndAndExpand"
@@ -398,7 +396,6 @@
                                                                 Text="{Binding Average, Mode=TwoWay}"/>
                                                         </Grid>
                                                         <Grid
-                                                            Margin="45,0,45,10"
                                                             VerticalOptions="Center"
                                                             HorizontalOptions="Center">
                                                             <Grid.ColumnDefinitions>
@@ -408,44 +405,43 @@
                                                             <Label
                                                                 Grid.Column="0"
                                                                 TextColor="White"
-                                                                Margin="0,0,5,0"
+                                                                Margin="0,10,5,0"
                                                                 HorizontalOptions="StartAndExpand"
                                                                 HorizontalTextAlignment="Start"
-                                                                FontSize="18"
+                                                                FontSize="16"
                                                                 Text="Valor mínimo"/>
                                                             <Label
                                                                 Grid.Column="1"
                                                                 TextColor="White"
-                                                                FontSize="18"
+                                                                FontSize="16"
                                                                 WidthRequest="60"
                                                                 HorizontalTextAlignment="End"
                                                                 HorizontalOptions="End"
-                                                                Text="{Binding Minimum, Mode=TwoWay}"/>
+                                                                Text="{Binding MinimumDisplay, Mode=TwoWay}"/>
                                                         </Grid>
                                                         <Grid
-                                                            Margin="45,0,45,10"
                                                             VerticalOptions="Center"
                                                             HorizontalOptions="Center">
                                                             <Grid.ColumnDefinitions>
-                                                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                                                <ColumnDefinition Width="*"></ColumnDefinition>
                                                                 <ColumnDefinition Width="*"></ColumnDefinition>
                                                             </Grid.ColumnDefinitions>
                                                             <Label
                                                                 Grid.Column="0"
                                                                 TextColor="White"
-                                                                Margin="0,0,5,0"
+                                                                Margin="0,10,5,0"
                                                                 HorizontalOptions="StartAndExpand"
                                                                 HorizontalTextAlignment="Start"
-                                                                FontSize="18"
+                                                                FontSize="16"
                                                                 Text="Valor máximo"/>
                                                             <Label
                                                                 Grid.Column="1"
                                                                 TextColor="White"
-                                                                FontSize="18"
+                                                                FontSize="16"
                                                                 WidthRequest="60"
                                                                 HorizontalTextAlignment="End"
                                                                 HorizontalOptions="End"
-                                                                Text="{Binding Maximum, Mode=TwoWay}"/>
+                                                                Text="{Binding MaximumDisplay, Mode=TwoWay}"/>
                                                         </Grid>
                                                     </StackLayout>
 
@@ -784,17 +780,17 @@
                 <Label TextColor="White" FontAttributes="Bold" FontSize="16" VerticalTextAlignment="Center" Text="{Binding TitleNav, Mode=TwoWay}"></Label>
                 <Label TextColor="White" FontAttributes="Bold" FontSize="12" VerticalTextAlignment="Center" Text="{Binding SubTitle, Mode=TwoWay}"></Label>
                 </StackLayout>
-                <Grid Margin="10,0,5,0" Grid.Row="0" Grid.Column="2" HorizontalOptions="End" VerticalOptions="Center" >
+                <Grid Margin="25,0,10,0" Grid.Row="0" Grid.Column="2" HorizontalOptions="End" VerticalOptions="Center" >
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"></ColumnDefinition>
-                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="2*"></ColumnDefinition>
+                        <ColumnDefinition Width="Auto"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
                     </Grid.RowDefinitions>
-                    <Label Grid.Column="0" Grid.Row="0" FontAttributes="Bold" TextColor="White" FontSize="16" VerticalTextAlignment="Center" Text="{Binding Item.PriceDisplay, Mode=TwoWay}"></Label>
+                    <Label Grid.Column="0" Grid.Row="0" FontAttributes="Bold" TextColor="White"  FontSize="12" VerticalTextAlignment="Center" Text="{Binding Item.PriceDisplay, Mode=TwoWay}"></Label>
                         
                     <StackLayout Grid.Column="1" Grid.Row="0" HorizontalOptions="StartAndExpand" VerticalOptions="Center" Orientation="Horizontal">
                         <Image
@@ -897,7 +893,7 @@
                                        </chart:SfChart.PrimaryAxis>
                                 
                                        <chart:SfChart.SecondaryAxis>
-                                           <chart:NumericalAxis>
+                                           <chart:NumericalAxis Minimum="{Binding Minimum}" Maximum="{Binding Maximum}" >
                                                <chart:NumericalAxis.LabelStyle>
                                                   <chart:ChartAxisLabelStyle FontSize="14" TextColor="White" />
                                               </chart:NumericalAxis.LabelStyle>
@@ -936,7 +932,7 @@
                                        </chart:SfChart.PrimaryAxis>
                                 
                                        <chart:SfChart.SecondaryAxis>
-                                           <chart:NumericalAxis>
+                                           <chart:NumericalAxis Minimum="{Binding Minimum}" Maximum="{Binding Maximum}" >
                                                <chart:NumericalAxis.LabelStyle>
                                                   <chart:ChartAxisLabelStyle FontSize="14" TextColor="White" />
                                               </chart:NumericalAxis.LabelStyle>
@@ -975,7 +971,7 @@
                                        </chart:SfChart.PrimaryAxis>
                                 
                                        <chart:SfChart.SecondaryAxis>
-                                           <chart:NumericalAxis>
+                                           <chart:NumericalAxis Minimum="{Binding Minimum}" Maximum="{Binding Maximum}" >
                                                <chart:NumericalAxis.LabelStyle>
                                                   <chart:ChartAxisLabelStyle FontSize="14" TextColor="White" />
                                               </chart:NumericalAxis.LabelStyle>
@@ -1174,7 +1170,7 @@
                                               WidthRequest="80"
                                               HorizontalTextAlignment="End"
                                               HorizontalOptions="End"
-                                              Text="{Binding Minimum, Mode=TwoWay}"/>
+                                              Text="{Binding MinimumDisplay, Mode=TwoWay}"/>
                                       </Grid>
                                       <Grid
                                           Margin="140,0"
@@ -1199,7 +1195,7 @@
                                               WidthRequest="80"
                                               HorizontalTextAlignment="End"
                                               HorizontalOptions="End"
-                                              Text="{Binding Maximum, Mode=TwoWay}"/>
+                                              Text="{Binding MaximumDisplay, Mode=TwoWay}"/>
                                       </Grid>
                                   </StackLayout>
 

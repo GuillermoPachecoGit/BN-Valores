@@ -81,7 +81,7 @@ namespace BNV.ViewModels
                         Item = item;
                         ColorStatus = item.ColorStatus;
                         Color = item.ColorStatus;
-                        TitleNav = item.Name;
+                        TitleNav = item.Title;
                         SubTitle = item.Description;
                     }
                     Item = item;
@@ -212,13 +212,15 @@ namespace BNV.ViewModels
             long avr;
             long.TryParse(value.TradedVolumeAverage, out avr);
 
-            VolumenMax = value.TradedVolumeMax.ToString().Length >= 7 ? $"{volMax / 1000000}M" : volMax == 0 ? "N.D." : volMax.ToString();
-            VolumenMin = value.TradedVolumeMin.ToString().Length >= 7 ? $"{volMin / 1000000}M" : volMin == 0 ? "N.D." : volMin.ToString();
-            Average = value.TradedVolumeAverage.ToString().Length >= 7 ? $"{avr / 1000000}M" : avr == 0 ? "N.D." : avr.ToString();
-            Maximum = value.ValueMax.ToString();
-            Minimum = value.ValueMin.ToString();
-            ValueRendimiento = Item.Performance.ToString("F2");
-            PercentageRendimiento = Item.Price.ToString();
+            VolumenMax = value.TradedVolumeMax.ToString().Length >= 7 ? $"{volMax / 1000000}M" : volMax == 0 ? "N.D." : volMax.ToString("F2");
+            VolumenMin = value.TradedVolumeMin.ToString().Length >= 7 ? $"{volMin / 1000000}M" : volMin == 0 ? "N.D." : volMin.ToString("F2");
+            Average = value.TradedVolumeAverage.ToString().Length >= 7 ? $"{avr / 1000000}M" : avr == 0 ? "N.D." : avr.ToString("F2");
+            Maximum = value.ValueMax;
+            Minimum = value.ValueMin;
+            MaximumDisplay = value.ValueMax.ToString("F2");
+            MinimumDisplay = value.ValueMin.ToString("F2");
+            ValueRendimiento = Item.Performance.ToString("F2") + "%";
+            PercentageRendimiento = Item.Price.ToString("F2");
             ValueVolumen = Item.VolumeDisplay;
             PercentageVolumen = Item.VolumeDisplay;
             
@@ -271,19 +273,22 @@ namespace BNV.ViewModels
             set { _average = value; RaisePropertyChanged(); }
         }
 
-        private string _maximum;
-        public string Maximum
+        private long _maximum;
+        public long Maximum
         {
             get { return _maximum; }
             set { _maximum = value; RaisePropertyChanged(); }
         }
 
-        private string _minimum;
-        public string Minimum
+        private long _minimum;
+        public long Minimum
         {
             get { return _minimum; }
             set { _minimum = value; RaisePropertyChanged(); }
         }
+
+        public string MaximumDisplay { get; private set; }
+        public string MinimumDisplay { get; private set; }
 
         private string _volumenMax;
         public string VolumenMax
@@ -409,7 +414,7 @@ namespace BNV.ViewModels
             Sectors = App.Sectors;
             SelectedCoin = App.SelectedCoin;
             SelectedSector = App.SelectedSector;
-            DataDate = $"Al dia: {DateTime.Today.ToShortDateString()}";
+            DataDate = $"Al dia: {DateTime.Today.ToString("dd/MM/yyyy")}";
         }
 
         private string _typeChange;

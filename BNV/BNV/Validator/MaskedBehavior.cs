@@ -87,7 +87,7 @@ namespace BNV.Validator
             if (string.IsNullOrWhiteSpace(text) || _positions == null)
                 return;
 
-            if (!IsAlphanumeric && text.Replace("-", String.Empty).ToCharArray().Any(x => !char.IsDigit(x)))
+            if (!IsAlphanumeric && text.Replace("-", String.Empty).ToCharArray().Any(x => !char.IsDigit(x) && (x != '/')))
              {
                 entry.Text = text.Remove(text.Length - 1);
                 return;

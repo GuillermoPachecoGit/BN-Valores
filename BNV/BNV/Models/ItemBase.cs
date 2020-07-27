@@ -55,5 +55,8 @@ namespace BNV.Models
 
         [JsonIgnore]
         public string PriceDisplay { get; set; }
+
+        [JsonIgnore]
+        public string Title { get; set; }
     }
 }

@@ -96,6 +96,7 @@ namespace BNV.ViewModels
                                         x.PriceDisplay = x.Price.ToString("F2");
                                         x.ColorStatus = GetColor(x.Variation);
                                         x.Triangle = GetTriangle(x.Variation);
+                                        x.Title = x.Name;
                                         x.IsBlue = x.Variation == 0;
                                         x.IsGreen = x.Variation > 0;
                                         x.IsRed = x.Variation < 0;
@@ -111,6 +112,7 @@ namespace BNV.ViewModels
                                     x =>
                                     {
                                         x.Sender = x.Name.Split(" ")[0] ?? string.Empty;
+                                        x.Title = x.Name.ToString();
                                         x.Name = x.Name.Split(" ")[1] ?? string.Empty;
                                         x.PriceDisplay = x.Price.ToString("F2");
                                         x.ColorStatus = GetColor(x.Variation);
@@ -129,6 +131,7 @@ namespace BNV.ViewModels
                                     x =>
                                     {
                                         x.Sender = x.Name.Split(" ")[0] ?? string.Empty;
+                                        x.Title = x.Name.ToString();
                                         x.Name = x.Name.Split(" ")[1] ?? string.Empty;
                                         x.PriceDisplay = x.Price.ToString("F2");
                                         x.ColorStatus = GetColor(x.Variation);
@@ -149,6 +152,7 @@ namespace BNV.ViewModels
                                         x.PriceDisplay = x.Price.ToString("F2");
                                         x.ColorStatus = GetColor(x.Variation);
                                         x.Triangle = GetTriangle(x.Variation);
+                                        x.Title = x.Name;
                                         x.IsBlue = x.Variation == 0;
                                         x.IsGreen = x.Variation > 0;
                                         x.IsRed = x.Variation < 0;

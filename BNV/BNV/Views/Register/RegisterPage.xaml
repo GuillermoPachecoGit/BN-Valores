@@ -242,23 +242,9 @@
                                 HorizontalOptions="Fill"
                                 VerticalOptions="Fill" />
 
-                                <!--<syncfusion:SfMaskedEdit
-                                    VerticalOptions="Center"
-                                    HorizontalOptions="FillAndExpand"
-                                    FontSize="20"
-                                    BackgroundColor="Black"
-                                    Value="{Binding Birthday, Mode=TwoWay}"
-                                    TextColor="White"
-                                    Watermark="00/00/0000"
-                                    MaskType="Text"
-                                    WatermarkFontSize="20"
-                                    PromptChar="#"
-                                    ClearButtonVisibility="Never"
-                                    Mask="00/00/0000" >
-                               </syncfusion:SfMaskedEdit>-->
                             <Entry Text="{Binding Birthday, Mode=TwoWay}" FontSize="20" BackgroundColor="Black" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" PlaceholderColor="White" TextColor="White" Placeholder="00/00/00" Keyboard="Default">
                                 <Entry.Behaviors>
-                                    <behavior:MaskedBehavior IsAlphanumeric="True" Mask="##/##/####" MaxSize="10"/>
+                                    <behavior:MaskedBehavior IsAlphanumeric="False" Mask="##/##/####" MaxSize="10"/>
                                 </Entry.Behaviors>
                             </Entry>
                                
