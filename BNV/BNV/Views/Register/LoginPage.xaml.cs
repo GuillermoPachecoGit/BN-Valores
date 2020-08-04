@@ -32,6 +32,9 @@ namespace BNV.Views
             App.Current.On<Android>().UseWindowSoftInputModeAdjust(WindowSoftInputModeAdjust.Resize);
             boxIdent.BackgroundColor = Color.White;
 
+            password.Text = string.Empty;
+            identification.Text = string.Empty;
+
             identError.IsVisible = false;
             if (CrossDeviceOrientation.IsSupported) CrossDeviceOrientation.Current.LockOrientation(Plugin.DeviceOrientation.Abstractions.DeviceOrientations.Portrait);
 

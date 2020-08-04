@@ -73,5 +73,8 @@ namespace BNV.ServicesWebAPI.Interfaces
 
         [Put("/Settings")]
         Task<string> UpdateSettings([Header("Authorization")] string token, SettingsModel param);
+
+        [Get("/Settings/SystemDate")]
+        Task<List<SystemDate>> GetDates([Header("Authorization")] string token);
     }
 }

@@ -19,10 +19,10 @@
         </StackLayout>
     </NavigationPage.TitleView>
     <!--Pages can be added as references or inline-->
-    <tabView:SfTabView BackgroundColor="Black" SelectionChanged="TabExternal_SelectionChanged" EnableSwiping="False" HorizontalOptions="FillAndExpand" TabHeight="65" VerticalOptions="FillAndExpand"  TabHeaderBackgroundColor="#4BA0D9" VisibleHeaderCount="2" TabHeaderPosition="Bottom" DisplayMode="ImageWithText" >
+    <tabView:SfTabView BackgroundColor="Black" SelectionChanged="TabExternal_SelectionChanged" EnableSwiping="False" HorizontalOptions="FillAndExpand" TabHeight="65" VerticalOptions="FillAndExpand"  TabHeaderBackgroundColor="#0F8DCE" VisibleHeaderCount="2" TabHeaderPosition="Bottom" DisplayMode="ImageWithText" >
         <tabView:SfTabView.SelectionIndicatorSettings>
             <tabView:SelectionIndicatorSettings
-                Color="#00579F"
+                Color="#0059A0"
                 Position="Fill" 
                 StrokeThickness="5"/>
         </tabView:SfTabView.SelectionIndicatorSettings>
@@ -31,7 +31,7 @@
                              <tabView:SfTabView x:Name="TabExternal" EnableSwiping="True" TabHeight="55" BackgroundColor="Black" TabHeaderBackgroundColor="#00579F"  VisibleHeaderCount="4" DisplayMode="Text">
                                  <tabView:SfTabView.SelectionIndicatorSettings>
                                    <tabView:SelectionIndicatorSettings
-                                       Color="#AFBC24"
+                                       Color="#B8BE14"
                                        Position="Bottom" 
                                        StrokeThickness="5"/>
                                 </tabView:SfTabView.SelectionIndicatorSettings>
@@ -86,7 +86,7 @@
                                                                                 Grid.Row="0"
                                                                                 Grid.Column="2"
                                                                                 Margin="5,0,10,0"
-                                                                                Text="{Binding PriceDisplay}"
+                                                                                Text="{Binding Price}"
                                                                                 FontSize="16"
                                                                                 TextColor="White"
                                                                                 HorizontalOptions="End"
@@ -122,7 +122,7 @@
                                                                                  <Label
                                                                                     Grid.Row="0"
                                                                                     Grid.Column="1"
-                                                                                    Text="{Binding VariationDisplay}"
+                                                                                    Text="{Binding Variation}"
                                                                                     FontAttributes="Bold"
                                                                                     FontSize="10"
                                                                                     TextColor="White"
@@ -140,7 +140,7 @@
                                                                                 <Label
                                                                                     Grid.Row="1"
                                                                                     Grid.Column="1"
-                                                                                    Text="{Binding VolumeDisplay}"
+                                                                                    Text="{Binding Volume}"
                                                                                     FontAttributes="Bold"
                                                                                     FontSize="10"
                                                                                     TextColor="White"
@@ -173,7 +173,7 @@
                                                            TextColor="White"
                                                            FontSize="10"
                                                            VerticalOptions="Center"
-                                                           Text="{Binding DataDate}"/>
+                                                           Text="{Binding DateReportos, Mode=TwoWay}"/>
                                                     </StackLayout>
                                                  </StackLayout>
                                             </tabView:SfTabItem.Content>
@@ -210,7 +210,7 @@
                                                                 <Grid
                                                                     HeightRequest="84"
                                                                     Margin="0"
-                                                                    Padding="2"
+                                                                    Padding="1"
                                                                     BackgroundColor="{Binding ColorStatus}"
                                                                     VerticalOptions="Start"
                                                                     HorizontalOptions="FillAndExpand"> 
@@ -243,7 +243,7 @@
                                                                             VerticalOptions="Start"
                                                                             FontAttributes="Bold" />
 
-                                                                        <Label Text="{Binding PriceDisplay}"
+                                                                        <Label Text="{Binding Price}"
                                                                                Grid.Row="2"
                                                                                TextColor="White"
                                                                                Grid.Column="0"
@@ -266,7 +266,7 @@
                                                                                  Source="{Binding Triangle}"
                                                                                  HorizontalOptions="End"
                                                                                  VerticalOptions="Center"/>
-                                                                               <Label Text="{Binding VariationDisplay}"
+                                                                               <Label Text="{Binding Variation}"
                                                                                    Grid.Row="1"
                                                                                    Grid.Column="1"
                                                                                    TextColor="White"
@@ -279,20 +279,18 @@
 
                                                                         
 
-                                                                        <Label Text="{Binding VolumeDisplay}"
+                                                                        <Label Text="{Binding Volume}"
                                                                                Grid.Row="3"
                                                                                Grid.Column="1"
-                                                                               Margin="1,0"
                                                                                VerticalOptions="Center"
                                                                                TextColor="White"
-                                                                               FontSize="12"
+                                                                               FontSize="11"
                                                                                HorizontalOptions="End"
                                                                                FontAttributes="None" />
 
                                                                         <Label
                                                                             Grid.Row="3"
                                                                             Grid.Column="0"
-                                                                            Margin="1,0"
                                                                             Text="{Binding Performance}"
                                                                             TextColor="White"
                                                                             FontSize="12"
@@ -325,7 +323,7 @@
                                                        TextColor="White"
                                                        FontSize="10"
                                                        VerticalOptions="Center"
-                                                       Text="{Binding DataDate}" />
+                                                       Text="{Binding DateBonoShares, Mode=TwoWay}" />
                                                 </StackLayout>
                                             </StackLayout>
                                         </tabView:SfTabItem.Content>
@@ -362,7 +360,7 @@
                                                                 <Grid
                                                                     HeightRequest="84"
                                                                     Margin="0"
-                                                                    Padding="2"
+                                                                    Padding="1"
                                                                     BackgroundColor="{Binding ColorStatus}"
                                                                     VerticalOptions="Start"
                                                                     HorizontalOptions="FillAndExpand"> 
@@ -395,7 +393,7 @@
                                                                             VerticalOptions="Start"
                                                                             FontAttributes="Bold" />
 
-                                                                        <Label Text="{Binding PriceDisplay}"
+                                                                        <Label Text="{Binding Price}"
                                                                                Grid.Row="2"
                                                                                TextColor="White"
                                                                                Grid.Column="0"
@@ -418,7 +416,7 @@
                                                                                  Source="{Binding Triangle}"
                                                                                  HorizontalOptions="End"
                                                                                  VerticalOptions="Center"/>
-                                                                               <Label Text="{Binding VariationDisplay}"
+                                                                               <Label Text="{Binding Variation}"
                                                                                    Grid.Row="1"
                                                                                    Grid.Column="1"
                                                                                    TextColor="White"
@@ -431,20 +429,18 @@
 
                                                                         
 
-                                                                        <Label Text="{Binding VolumeDisplay}"
+                                                                        <Label Text="{Binding Volume}"
                                                                                Grid.Row="3"
                                                                                Grid.Column="1"
-                                                                               Margin="1,0"
                                                                                VerticalOptions="Center"
                                                                                TextColor="White"
-                                                                               FontSize="12"
+                                                                               FontSize="11"
                                                                                HorizontalOptions="End"
                                                                                FontAttributes="None" />
 
                                                                         <Label
                                                                             Grid.Row="3"
                                                                             Grid.Column="0"
-                                                                            Margin="1,0"
                                                                             Text="{Binding Performance}"
                                                                             TextColor="White"
                                                                             FontSize="12"
@@ -477,7 +473,7 @@
                                                        TextColor="White"
                                                        FontSize="10"
                                                        VerticalOptions="Center"
-                                                       Text="{Binding DataDate}"/>
+                                                       Text="{Binding DateBonoShares, Mode=TwoWay}"/>
                                                 </StackLayout>
                                                  </StackLayout>
                                         </tabView:SfTabItem.Content>
@@ -532,7 +528,7 @@
                                                                                 Grid.Row="0"
                                                                                 Grid.Column="2"
                                                                                 Margin="5,0,10,0"
-                                                                                Text="{Binding PriceDisplay}"
+                                                                                Text="{Binding Price}"
                                                                                 FontSize="16"
                                                                                 TextColor="White"
                                                                                 HorizontalOptions="End"
@@ -568,7 +564,7 @@
                                                                                  <Label
                                                                                     Grid.Row="0"
                                                                                     Grid.Column="1"
-                                                                                    Text="{Binding VariationDisplay}"
+                                                                                    Text="{Binding Variation}"
                                                                                     FontAttributes="Bold"
                                                                                     FontSize="10"
                                                                                     TextColor="White"
@@ -586,7 +582,7 @@
                                                                                 <Label
                                                                                     Grid.Row="1"
                                                                                     Grid.Column="1"
-                                                                                    Text="{Binding VolumeDisplay}"
+                                                                                    Text="{Binding Volume}"
                                                                                     FontAttributes="Bold"
                                                                                     FontSize="10"
                                                                                     TextColor="White"
@@ -619,7 +615,7 @@
                                                        TextColor="White"
                                                        FontSize="10"
                                                        VerticalOptions="Center"
-                                                       Text="{Binding DataDate}"/>
+                                                       Text="{Binding DateExchange, Mode=TwoWay}"/>
                                                 </StackLayout>
                                              </StackLayout>
                                         </tabView:SfTabItem.Content>
@@ -764,18 +760,19 @@
                                                   Margin="0,0,120,0"
                                                   Padding="1"
                                                   BorderColor="#A5A5A5"
-                                                  HeightRequest="40"
                                                   HorizontalOptions="Fill"
+                                                  VerticalOptions="CenterAndExpand"
                                                   BackgroundColor="#A5A5A5">
-                                                  <combobox:SfComboBox
+                                                 <StackLayout HeightRequest="40">
+                                                      <combobox:SfComboBox
                                                         HeightRequest="40"
-                                                        Text="Moneda"
+                                                        Watermark="Moneda"
+                                                        WatermarkColor="White"
                                                         TextSize="12"
-                                                        VerticalOptions="Fill"
+                                                        VerticalOptions="CenterAndExpand"
                                                         HorizontalOptions="EndAndExpand"
                                                         TextColor="White"
                                                         DropDownTextSize="12"
-                                                        FlexLayout.AlignSelf="Center"
                                                         BorderColor="#A5A5A5"
                                                         HighlightedTextColor="#A5A5A5"
                                                         BackgroundColor="Black"
@@ -786,12 +783,14 @@
                                                         SelectedItem="{Binding SelectedCoin, Mode=TwoWay}"
                                                         DropDownBorderColor="#A5A5A5">
                                                   </combobox:SfComboBox>
+                                                 </StackLayout>
+                                                 
                                                  </Frame>
                                         </StackLayout>
 
-                                         <StackLayout
+                                        <StackLayout
                                             Margin="33,0,0,0"
-                                             VerticalOptions="FillAndExpand"
+                                            VerticalOptions="FillAndExpand"
                                             Orientation="Horizontal">
                                             <Label
                                                 Text="Sector:"
@@ -803,30 +802,33 @@
                                             <Frame
                                                   Margin="0,0,120,0"
                                                   Padding="1"
-                                                  HeightRequest="40"
+                                                  VerticalOptions="CenterAndExpand"
                                                   BorderColor="#A5A5A5"
                                                   HorizontalOptions="Fill"
                                                   BackgroundColor="#A5A5A5">
-                                                  <combobox:SfComboBox
-                                                        HeightRequest="40"
-                                                        Text="Sector"
-                                                        TextSize="12"
-                                                        VerticalOptions="Fill"
-                                                        HorizontalOptions="EndAndExpand"
-                                                        TextColor="White"
-                                                        DropDownTextSize="12"
-                                                        FlexLayout.AlignSelf="Center"
-                                                        BorderColor="#A5A5A5"
-                                                        HighlightedTextColor="#A5A5A5"
-                                                        BackgroundColor="Black"
-                                                        WidthRequest="120"
-                                                        DataSource="{Binding Sectors, Mode=TwoWay}"
-                                                        DisplayMemberPath="DesIdSector"
-                                                        SelectedItem="{Binding SelectedSector, Mode=TwoWay}"
-                                                        ShowBorder="False"
-                                                        DropDownBorderColor="#A5A5A5">
-                                                        </combobox:SfComboBox>
+                                                 <StackLayout HeightRequest="40">
+                                                      <combobox:SfComboBox
+                                                            HeightRequest="40"
+                                                            Watermark="Sector"
+                                                            WatermarkColor="White"
+                                                            TextSize="12"
+                                                            VerticalOptions="CenterAndExpand"
+                                                            HorizontalOptions="EndAndExpand"
+                                                            TextColor="White"
+                                                            DropDownTextSize="12"
+                                                            BorderColor="#A5A5A5"
+                                                            HighlightedTextColor="#A5A5A5"
+                                                            BackgroundColor="Black"
+                                                            WidthRequest="120"
+                                                            DataSource="{Binding Sectors, Mode=TwoWay}"
+                                                            DisplayMemberPath="DesIdSector"
+                                                            SelectedItem="{Binding SelectedSector, Mode=TwoWay}"
+                                                            ShowBorder="False"
+                                                            DropDownBorderColor="#A5A5A5">
+                                                            </combobox:SfComboBox>
+                                                 </StackLayout>
                                             </Frame>
+
                                         </StackLayout>
                
                                         <Label
@@ -838,7 +840,7 @@
                                            HorizontalOptions="Start"
                                            VerticalOptions="Start"/>    
                     
-                                          <StackLayout
+                                        <StackLayout
                                             Margin="33,0,0,0"
                                             Orientation="Horizontal">
                                             <Label
@@ -852,35 +854,37 @@
                                               <Frame
                                                   Margin="0,0,120,0"
                                                   Padding="1"
-                                                  HeightRequest="40"
                                                   BorderColor="#A5A5A5"
+                                                  VerticalOptions="CenterAndExpand"
                                                   HorizontalOptions="Fill"
                                                   BackgroundColor="#A5A5A5">
-                                                  <combobox:SfComboBox
-                                                    HeightRequest="40"
-                                                    EnableAutoSize="True"
-                                                    TextSize="12"
-                                                    VerticalOptions="Fill"
-                                                    HorizontalOptions="EndAndExpand"
-                                                    TextColor="White"
-                                                    DropDownTextSize="12"
-                                                    FlexLayout.AlignSelf="Center"
-                                                    BorderColor="#A5A5A5"
-                                                    HighlightedTextColor="#A5A5A5"
-                                                    BackgroundColor="Black"
-                                                    WidthRequest="120"
-                                                    SelectedItem="{Binding SelectedHomePage, Mode=TwoWay}"
-                                                    ShowBorder="False"
-                                                    DropDownBorderColor="#A5A5A5">
-                                                        <combobox:SfComboBox.ComboBoxSource>
-                                                                 <ListCollection:List x:TypeArguments="x:String">
-                                                                  <x:String>Reportos</x:String>
-                                                                  <x:String>Bonos</x:String>
-                                                                  <x:String>Acciones</x:String>
-                                                                  <x:String>Tipo Cambio</x:String>
-            	                                                </ListCollection:List>
-                                                         </combobox:SfComboBox.ComboBoxSource>
-                                              </combobox:SfComboBox>
+                                                  <StackLayout HeightRequest="40">
+                                                      <combobox:SfComboBox
+                                                            HeightRequest="40"
+                                                            TextSize="12"
+                                                            Watermark="Reportos"
+                                                            WatermarkColor="White"
+                                                            VerticalOptions="CenterAndExpand"
+                                                            HorizontalOptions="EndAndExpand"
+                                                            TextColor="White"
+                                                            DropDownTextSize="12"
+                                                            BorderColor="#A5A5A5"
+                                                            HighlightedTextColor="#A5A5A5"
+                                                            BackgroundColor="Black"
+                                                            WidthRequest="120"
+                                                            SelectedItem="{Binding SelectedHomePage, Mode=TwoWay}"
+                                                            ShowBorder="False"
+                                                            DropDownBorderColor="#A5A5A5">
+                                                                <combobox:SfComboBox.ComboBoxSource>
+                                                                         <ListCollection:List x:TypeArguments="x:String">
+                                                                          <x:String>Reportos</x:String>
+                                                                          <x:String>Bonos</x:String>
+                                                                          <x:String>Acciones</x:String>
+                                                                          <x:String>Tipo Cambio</x:String>
+            	                                                        </ListCollection:List>
+                                                                 </combobox:SfComboBox.ComboBoxSource>
+                                                      </combobox:SfComboBox>
+                                                  </StackLayout>
                                               </Frame>
                                         </StackLayout>
 

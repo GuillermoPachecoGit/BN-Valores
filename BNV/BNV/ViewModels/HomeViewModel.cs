@@ -26,9 +26,9 @@ namespace BNV.ViewModels
         private const string ArrowUp = "green_arrow";
         private const string TriangleDown = "triangle_down";
         private const string TriangleUp = "triangle_up";
-        private const string ColorBlue = "#00579F";
-        private const string ColorRed = "#B51010";
-        private const string ColorGreen = "#81B71A";
+        private const string ColorBlue = "#0059A0";
+        private const string ColorRed = "#B22F2F";
+        private const string ColorGreen = "#348832";
         private const string DefautLabelExchange = "0.50 colones";
         private const string DefaultLabelBonos = "0.50%";
         private const string LoadingMessageDialog = "Cargando los datos...";
@@ -38,6 +38,7 @@ namespace BNV.ViewModels
         private Task<List<ChangeType>> _exchanges;
         private Task<List<Bono>> _bonosItems;
         private Task<SettingResponse> _settings;
+        public Task<List<SystemDate>> _dates { get; set; }
 
 
         public HomeViewModel(INavigationService navigationService, IEventAggregator ea)
@@ -68,8 +69,10 @@ namespace BNV.ViewModels
                     var getExchanges = App.ApiService.GetExchangeRates(authorization, reportParam).ContinueWith(exchanges => _exchanges = exchanges);
                     var getBonos = App.ApiService.GetBonos(authorization, reportParam).ContinueWith(bonos => _bonosItems = bonos);
                     var getSettings = App.ApiService.GetSettings(authorization).ContinueWith(settings => _settings = settings);
+                    var getDates = App.ApiService.GetDates(authorization).ContinueWith(dates => _dates = dates);
+                    
 
-                    await Task.WhenAll(getShares, getReportos, getExchanges, getBonos, getSettings).ContinueWith(async result =>
+                    await Task.WhenAll(getShares, getReportos, getExchanges, getBonos, getSettings, getDates).ContinueWith(async result =>
                     {
                         if (result.IsCompleted && result.Status == TaskStatus.RanToCompletion)
                         {
@@ -88,21 +91,27 @@ namespace BNV.ViewModels
                             //    App.ExchangesIndexNotify = ExchangesIndex;
                             //}
 
+                            var dates = _dates?.Result;
+                            if (dates != null)
+                            {
+                                DateBonoShares = $"Al dia: {dates.First(x => x.TipRubro == ItemType.BonoAndShades).FecReferencia.ToString("dd/MM/yyyy")}";
+                                DateReportos = $"Al dia: {dates.First(x => x.TipRubro == ItemType.Reportos).FecReferencia.ToString("dd/MM/yyyy")}";
+                                DateExchange = $"Al dia: {dates.First(x => x.TipRubro == ItemType.Exchanges).FecReferencia.ToString("dd/MM/yyyy")}";
+                            }
+
                             var itemsReports = _reportos?.Result;
                             if (itemsReports != null)
                                 Reports = new ObservableCollection<Report>(itemsReports.Select(
                                     x =>
                                     {
-                                        x.PriceDisplay = x.Price.ToString("F2");
-                                        x.ColorStatus = GetColor(x.Variation);
-                                        x.Triangle = GetTriangle(x.Variation);
+                                        x.ColorStatus = GetColor(double.Parse(x.Variation));
+                                        x.Triangle = GetTriangle(double.Parse(x.Variation));
                                         x.Title = x.Name;
-                                        x.IsBlue = x.Variation == 0;
-                                        x.IsGreen = x.Variation > 0;
-                                        x.IsRed = x.Variation < 0;
-                                        x.Arrow = GetArrow(x.Variation);
-                                        x.VolumeDisplay = x.Volume.ToString().Length >= 7 ? $"{x.Volume / 1000000}M" : x.Volume == 0 ? "N.D." : x.Volume.ToString();
-                                        x.VariationDisplay = x.Variation > 0 ? $"+{x.Variation.ToString("F2")}%" : $"{x.Variation.ToString("F2")}%";
+                                        x.IsBlue = double.Parse(x.Variation) == 0;
+                                        x.IsGreen = double.Parse(x.Variation) > 0;
+                                        x.IsRed = double.Parse(x.Variation) < 0;
+                                        x.Arrow = GetArrow(double.Parse(x.Variation));
+                                        x.DateDisplay = DateReportos;
                                         return x;
                                     }).ToList());
 
@@ -114,14 +123,13 @@ namespace BNV.ViewModels
                                         x.Sender = x.Name.Split(" ")[0] ?? string.Empty;
                                         x.Title = x.Name.ToString();
                                         x.Name = x.Name.Split(" ")[1] ?? string.Empty;
-                                        x.PriceDisplay = x.Price.ToString("F2");
-                                        x.ColorStatus = GetColor(x.Variation);
-                                        x.Triangle = GetTriangle(x.Variation);
-                                        x.IsBlue = x.Variation == 0;
-                                        x.IsGreen = x.Variation > 0;
-                                        x.IsRed = x.Variation < 0;
-                                        x.VolumeDisplay = x.Volume.ToString().Length >= 7 ? $"{x.Volume / 1000000}M" : x.Volume == 0 ? "N.D." : x.Volume.ToString();
-                                        x.VariationDisplay = x.Variation > 0 ? $"+{x.Variation.ToString("F2")}%" : $"{x.Variation.ToString("F2")}%";
+                                        x.ColorStatus = GetColor(double.Parse(x.Variation));
+                                        x.Triangle = GetTriangle(double.Parse(x.Variation));
+                                        x.IsBlue = double.Parse(x.Variation) == 0;
+                                        x.IsGreen = double.Parse(x.Variation) > 0;
+                                        x.IsRed = double.Parse(x.Variation) < 0;
+                                        x.Arrow = GetArrow(double.Parse(x.Variation));
+                                        x.DateDisplay = DateBonoShares;
                                         return x;
                                     }).ToList());
 
@@ -133,14 +141,13 @@ namespace BNV.ViewModels
                                         x.Sender = x.Name.Split(" ")[0] ?? string.Empty;
                                         x.Title = x.Name.ToString();
                                         x.Name = x.Name.Split(" ")[1] ?? string.Empty;
-                                        x.PriceDisplay = x.Price.ToString("F2");
-                                        x.ColorStatus = GetColor(x.Variation);
-                                        x.Triangle = GetTriangle(x.Variation);
-                                        x.IsBlue = x.Variation == 0;
-                                        x.IsGreen = x.Variation > 0;
-                                        x.IsRed = x.Variation < 0;
-                                        x.VolumeDisplay = x.Volume.ToString().Length >= 7 ? $"{x.Volume / 1000000}M" : x.Volume == 0 ? "N.D." : x.Volume.ToString();
-                                        x.VariationDisplay = x.Variation > 0 ? $"+{x.Variation.ToString("F2")}%" : $"{x.Variation.ToString("F2")}%";
+                                        x.ColorStatus = GetColor(double.Parse(x.Variation));
+                                        x.Triangle = GetTriangle(double.Parse(x.Variation));
+                                        x.IsBlue = double.Parse(x.Variation) == 0;
+                                        x.IsGreen = double.Parse(x.Variation) > 0;
+                                        x.IsRed = double.Parse(x.Variation) < 0;
+                                        x.Arrow = GetArrow(double.Parse(x.Variation));
+                                        x.DateDisplay = DateBonoShares;
                                         return x;
                                     }).ToList());
 
@@ -149,16 +156,14 @@ namespace BNV.ViewModels
                                 Types = new ObservableCollection<ChangeType>(itemsExchanges.Select(
                                     x =>
                                     {
-                                        x.PriceDisplay = x.Price.ToString("F2");
-                                        x.ColorStatus = GetColor(x.Variation);
-                                        x.Triangle = GetTriangle(x.Variation);
                                         x.Title = x.Name;
-                                        x.IsBlue = x.Variation == 0;
-                                        x.IsGreen = x.Variation > 0;
-                                        x.IsRed = x.Variation < 0;
-                                        x.Arrow = GetArrow(x.Variation);
-                                        x.VolumeDisplay = x.Volume.ToString().Length >= 7 ? $"{x.Volume / 1000000}M" : x.Volume == 0 ? "N.D." : x.Volume.ToString();
-                                        x.VariationDisplay = x.Variation > 0 ? $"+{x.Variation.ToString("F2")}%" : $"{x.Variation.ToString("F2")}%";
+                                        x.ColorStatus = GetColor(double.Parse(x.Variation));
+                                        x.Triangle = GetTriangle(double.Parse(x.Variation));
+                                        x.IsBlue = double.Parse(x.Variation) == 0;
+                                        x.IsGreen = double.Parse(x.Variation) > 0;
+                                        x.IsRed = double.Parse(x.Variation) < 0;
+                                        x.Arrow = GetArrow(double.Parse(x.Variation));
+                                        x.DateDisplay = DateExchange;
                                         return x;
                                     }).ToList());
                             _alreadyLoaded = true;
@@ -214,13 +219,6 @@ namespace BNV.ViewModels
         public event PropertyChangedEventHandler PropertyChanged;
 
         public IEventAggregator Events { get; }
-
-        private string _date;
-        public string DataDate
-        {
-            get { return _date; }
-            set { _date = value; RaisePropertyChanged(); }
-        }
 
         private ObservableCollection<Currency> _currencies;
         public ObservableCollection<Currency> Currencies
@@ -310,7 +308,6 @@ namespace BNV.ViewModels
 
             Currencies = App.Currencies;
             Sectors = App.Sectors;
-            DataDate = $"Al dia: {DateTime.Today.ToShortDateString()}";
         }
 
         private async Task ChangePasswordActionExecute()
@@ -392,6 +389,27 @@ namespace BNV.ViewModels
         public int BonosIndex { get;  set; }
 
         public int ExchangesIndex { get;  set; }
+
+        private string _dateBonoShares;
+        public string DateBonoShares
+        {
+            get { return _dateBonoShares; }
+            set { SetProperty(ref _dateBonoShares, value); }
+        }
+
+        private string _dateReportos;
+        public string DateReportos
+        {
+            get { return _dateReportos; }
+            set { SetProperty(ref _dateReportos, value); }
+        }
+
+        private string _dateExchange;
+        public string DateExchange
+        {
+            get { return _dateExchange; }
+            set { SetProperty(ref _dateExchange, value); }
+        }
 
         private string GetArrow(double performance)
         {

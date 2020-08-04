@@ -27,13 +27,13 @@ namespace BNV.Models
         public string Id { get; set; }
 
         [JsonProperty("price")]
-        public double Price { get; set; }
+        public string Price { get; set; }
 
         [JsonProperty("variation")]
-        public double Variation { get; set; }
+        public string Variation { get; set; }
 
         [JsonProperty("performance")]
-        public double Performance { get; set; }
+        public string Performance { get; set; }
 
         [JsonProperty("name")]
         public string Name { get; set; }
@@ -45,7 +45,7 @@ namespace BNV.Models
         public string Description { get; set; }
 
         [JsonProperty("volume")]
-        public long Volume { get; set; }
+        public string Volume { get; set; }
 
         [JsonIgnore]
         public string VolumeDisplay { get; set; }
@@ -58,5 +58,8 @@ namespace BNV.Models
 
         [JsonIgnore]
         public string Title { get; set; }
+
+        [JsonIgnore]
+        public string DateDisplay { get; internal set; }
     }
 }

@@ -52,7 +52,7 @@ namespace BNV
 
         protected override async void OnInitialized()
         {
-            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("Mjg3MTE1QDMxMzgyZTMxMmUzMExtNE8zcXRBa1lLa1ZkeU5ha0JEWXEwdDkyKzB4TVhrZDlXd0xaVlRxc3M9");
+            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("Mjk4NDA0QDMxMzgyZTMxMmUzMGp3UHJKcDc1MFFZcjNuRktVUVFqcEFodTlEaC9qYkVjdHBNUUNGRkFTeVU9");
             InitializeComponent();
             ApiService = NetworkService.GetApiService();
             await NavigationService.NavigateAsync("NavigationPage/WelcomePage");

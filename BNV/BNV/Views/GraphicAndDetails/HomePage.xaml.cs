@@ -53,7 +53,7 @@ namespace BNV.Views.GraphicAndDetails
             if (int.TryParse(typeChanges, out indexTypes))
                 typesSlider.Value = indexTypes;
 
-            ((NavigationPage)Application.Current.MainPage).BarBackgroundColor = Color.FromHex("#AFBC24");
+            ((NavigationPage)Application.Current.MainPage).BarBackgroundColor = Color.FromHex("#B8BE14");
             ((HomeViewModel)BindingContext).Title = "Estadísticas";
             if (CrossDeviceOrientation.IsSupported) CrossDeviceOrientation.Current.LockOrientation(Plugin.DeviceOrientation.Abstractions.DeviceOrientations.Portrait);
 

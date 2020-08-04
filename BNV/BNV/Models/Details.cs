@@ -15,13 +15,13 @@ namespace BNV.Models
         public string TradedVolumeMax { get; set; }
 
         [JsonProperty("valueAverage")]
-        public double ValueAverage { get; set; }
+        public string ValueAverage { get; set; }
 
         [JsonProperty("valueMax")]
-        public long ValueMax { get; set; }
+        public string ValueMax { get; set; }
 
         [JsonProperty("valueMin")]
-        public long ValueMin { get; set; }
+        public string ValueMin { get; set; }
 
         [JsonProperty("data")]
         public List<ItemData> Data { get; set; }
