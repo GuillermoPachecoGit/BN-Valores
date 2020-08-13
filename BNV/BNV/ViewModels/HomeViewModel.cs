@@ -64,12 +64,12 @@ namespace BNV.ViewModels
                     var authorization = $"Bearer {token}";
                     var reportParam = new ItemsParamModel() { Sector = _selectedSector?.CodIdSector, Currency = _selectedCoin?.CodIdCurrency };
                     var apiService = NetworkService.GetApiService();
-                    var getShares = App.ApiService.GetSharesStock(authorization, reportParam).ContinueWith(shares => _sharesStock = shares);
-                    var getReportos = App.ApiService.GetReportos(authorization, reportParam).ContinueWith(reportos => _reportos = reportos);
-                    var getExchanges = App.ApiService.GetExchangeRates(authorization, reportParam).ContinueWith(exchanges => _exchanges = exchanges);
-                    var getBonos = App.ApiService.GetBonos(authorization, reportParam).ContinueWith(bonos => _bonosItems = bonos);
-                    var getSettings = App.ApiService.GetSettings(authorization).ContinueWith(settings => _settings = settings);
-                    var getDates = App.ApiService.GetDates(authorization).ContinueWith(dates => _dates = dates);
+                    var getShares = RunSafe(App.ApiService.GetSharesStock(authorization, reportParam).ContinueWith(shares => _sharesStock = shares));
+                    var getReportos = RunSafe(App.ApiService.GetReportos(authorization, reportParam).ContinueWith(reportos => _reportos = reportos));
+                    var getExchanges = RunSafe(App.ApiService.GetExchangeRates(authorization, reportParam).ContinueWith(exchanges => _exchanges = exchanges));
+                    var getBonos = RunSafe(App.ApiService.GetBonos(authorization, reportParam).ContinueWith(bonos => _bonosItems = bonos));
+                    var getSettings = RunSafe(App.ApiService.GetSettings(authorization).ContinueWith(settings => _settings = settings));
+                    var getDates = RunSafe(App.ApiService.GetDates(authorization).ContinueWith(dates => _dates = dates));
                     
 
                     await Task.WhenAll(getShares, getReportos, getExchanges, getBonos, getSettings, getDates).ContinueWith(async result =>
@@ -89,6 +89,12 @@ namespace BNV.ViewModels
                             //    App.HomePage = SelectedHomePage;
                             //    App.BonosIndexNotify = BonosIndex;
                             //    App.ExchangesIndexNotify = ExchangesIndex;
+                            //}
+
+                            //if (_dates?.Exception?.Message.Contains("401") ?? true)
+                            //{
+                            //    await ShowUnauthorizedAccess();
+                            //    return;
                             //}
 
                             var dates = _dates?.Result;
@@ -491,7 +497,7 @@ namespace BNV.ViewModels
             var token = await SecureStorage.GetAsync(Config.Token);
             using (UserDialogs.Instance.Loading(MessagesAlert.SavingSettings))
             {
-                await App.ApiService.UpdateSettings($"Bearer {token}", setting).ContinueWith(result =>
+                await RunSafe(App.ApiService.UpdateSettings($"Bearer {token}", setting).ContinueWith(result =>
                  {
                      if (result.IsCompleted && result.Status == TaskStatus.RanToCompletion)
                      {
@@ -504,7 +510,7 @@ namespace BNV.ViewModels
                          UserDialogs.Instance.Alert(MessagesAlert.ErrorSaving);
                      }
                      else if (result.IsCanceled) { }
-                 }, TaskScheduler.FromCurrentSynchronizationContext());
+                 }, TaskScheduler.FromCurrentSynchronizationContext()));
             }
         }
     }

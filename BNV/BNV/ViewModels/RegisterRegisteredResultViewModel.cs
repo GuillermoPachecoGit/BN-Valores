@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using BNV.Settings;
@@ -9,7 +10,7 @@ namespace BNV.ViewModels
 {
     public class RegisterRegisteredResultViewModel : ViewModelBase
     {
-        private string _email = " {0}***********.com, ";
+        private string _pattern = @"(?<=[\w]{4})[\w-\._\+%]*(?=[\w]{1}@)";
 
         public RegisterRegisteredResultViewModel(INavigationService navigationService)
             : base(navigationService)
@@ -36,7 +37,7 @@ namespace BNV.ViewModels
             if (!string.IsNullOrEmpty(email))
             {
                 HasEmail = true;
-                EmailRegistered = string.Format(_email, email.Substring(0, 4));
+                EmailRegistered = Regex.Replace(email, _pattern, m => new string('*', m.Length));
             }
             else
             {

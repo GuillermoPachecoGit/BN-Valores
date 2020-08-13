@@ -59,6 +59,9 @@ namespace BNV.ServicesWebAPI.Interfaces
         [Post("/RecoverPassword")]
         Task<string> PostRecoverPassword(RecoveryPassParam param);
 
+        [Post("/RecoverPassword")]
+        Task<string> PostRecoverPassword([Header("Authorization")] string token, RecoveryPassParam param);
+
         [Get("/General/ContactLabel")] 
         Task<string> GetContactInfo();
 

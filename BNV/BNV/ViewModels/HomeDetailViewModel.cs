@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Acr.UserDialogs;
@@ -126,16 +127,22 @@ namespace BNV.ViewModels
                     var authorization = $"Bearer {token}";
                     if (Item is Report)
                     {
-                        await App.ApiService.GetReportoDetails(authorization, Item.Id, new DetailParamModel() { Time = time })
-                         .ContinueWith(result =>
+                        await RunSafe(App.ApiService.GetReportoDetails(authorization, Item.Id, new DetailParamModel() { Time = time })
+                         .ContinueWith(async result =>
                          {
                              if (result.IsCompleted && result.Status == TaskStatus.RanToCompletion)
                              {
                                  PopulateData(result);
                              }
-                             else if (result.IsFaulted) { }
+                             else if (result.IsFaulted) {
+                                 //if (result?.Exception?.Message.Contains("401") ?? true)
+                                 //{
+                                 //    await ShowUnauthorizedAccess();
+                                 //    return;
+                                 //}
+                             }
                              else if (result.IsCanceled) { }
-                         }, TaskScheduler.FromCurrentSynchronizationContext())// execute in main/UI thread.
+                         }, TaskScheduler.FromCurrentSynchronizationContext()))// execute in main/UI thread.
                          .ConfigureAwait(false);
                         _appeared = true;
                         _loading = false;
@@ -144,16 +151,22 @@ namespace BNV.ViewModels
 
                     if (Item is Bono)
                     {
-                        await App.ApiService.GetBonoDetails(authorization, Item.Id, new DetailParamModel() { Time = time })
-                         .ContinueWith(result =>
+                        await RunSafe(App.ApiService.GetBonoDetails(authorization, Item.Id, new DetailParamModel() { Time = time })
+                         .ContinueWith(async result =>
                          {
                              if (result.IsCompleted && result.Status == TaskStatus.RanToCompletion)
                              {
                                  PopulateData(result);
                              }
-                             else if (result.IsFaulted) { }
+                             else if (result.IsFaulted) {
+                                 //if (result?.Exception?.Message.Contains("401") ?? true)
+                                 //{
+                                 //    await ShowUnauthorizedAccess();
+                                 //    return;
+                                 //}
+                             }
                              else if (result.IsCanceled) { }
-                         }, TaskScheduler.FromCurrentSynchronizationContext())// execute in main/UI thread.
+                         }, TaskScheduler.FromCurrentSynchronizationContext()))// execute in main/UI thread.
                          .ConfigureAwait(false);
                         _appeared = true;
                         _loading = false;
@@ -162,16 +175,22 @@ namespace BNV.ViewModels
 
                     if (Item is ChangeType)
                     {
-                        await App.ApiService.GetExchangeDetails(authorization, Item.Id, new DetailParamModel() { Time = time })
-                         .ContinueWith(result =>
+                        await RunSafe(App.ApiService.GetExchangeDetails(authorization, Item.Id, new DetailParamModel() { Time = time })
+                         .ContinueWith(async result =>
                          {
                              if (result.IsCompleted && result.Status == TaskStatus.RanToCompletion)
                              {
                                  PopulateData(result);
                              }
-                             else if (result.IsFaulted) { }
+                             else if (result.IsFaulted) {
+                                 //if (result?.Exception?.Message.Contains("401") ?? true)
+                                 //{
+                                 //    await ShowUnauthorizedAccess();
+                                 //    return;
+                                 //}
+                             }
                              else if (result.IsCanceled) { }
-                         }, TaskScheduler.FromCurrentSynchronizationContext())// execute in main/UI thread.
+                         }, TaskScheduler.FromCurrentSynchronizationContext()))// execute in main/UI thread.
                          .ConfigureAwait(false);
                         _appeared = true;
                         _loading = false;
@@ -180,16 +199,22 @@ namespace BNV.ViewModels
 
                     if (Item is ShareOfStock)
                     {
-                        await App.ApiService.GetShareOfStockDetails(authorization, Item.Id, new DetailParamModel() { Time = time })
-                         .ContinueWith(result =>
+                        await RunSafe(App.ApiService.GetShareOfStockDetails(authorization, Item.Id, new DetailParamModel() { Time = time })
+                         .ContinueWith(async result =>
                          {
                              if (result.IsCompleted && result.Status == TaskStatus.RanToCompletion)
                              {
                                  PopulateData(result);
                              }
-                             else if (result.IsFaulted) { }
+                             else if (result.IsFaulted) {
+                                 //if (result?.Exception?.Message.Contains("401") ?? true)
+                                 //{
+                                 //    await ShowUnauthorizedAccess();
+                                 //    return;
+                                 //}
+                             }
                              else if (result.IsCanceled) { }
-                         }, TaskScheduler.FromCurrentSynchronizationContext())// execute in main/UI thread.
+                         }, TaskScheduler.FromCurrentSynchronizationContext()))// execute in main/UI thread.
                          .ConfigureAwait(false);
                         _appeared = true;
                         _loading = false;
@@ -226,7 +251,7 @@ namespace BNV.ViewModels
             PercentageVolumen = Item.Volume;
             
             var list = new List<Model>();
-            foreach(var dataItem in value.Data)
+            foreach(var dataItem in value.Data.OrderBy(x => x.Date))
             {
                 list.Add(new Model(dataItem.Date.ToString("d - MMM", CultureInfo.CreateSpecificCulture("es-MX")), dataItem.Price));
             }

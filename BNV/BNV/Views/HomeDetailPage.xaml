@@ -86,7 +86,7 @@
                         <TapGestureRecognizer  Command="{Binding BackCommand}" NumberOfTapsRequired="1"></TapGestureRecognizer>
                     </Grid.GestureRecognizers>
                     </Grid>
-                     <Label Grid.Row="0" Grid.Column="1" Text="Configuración" Margin="0,0,50,0" VerticalTextAlignment="Center" HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalOptions="CenterAndExpand" TextColor="White" FontSize="20"></Label>
+                     <Label Grid.Row="0" Grid.Column="1" Text="Configuración" Margin="0,0,50,0" VerticalTextAlignment="Center" HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalOptions="CenterAndExpand" FontAttributes="Bold" TextColor="White" FontSize="20"></Label>
             </Grid>
             <tabView:SfTabView x:Name="TabVerticalMain" Margin="0,-7,0,0" EnableSwiping="False" HorizontalOptions="FillAndExpand" TabHeight="65" VerticalOptions="FillAndExpand" SelectionChanged="SfTabView_SelectionChanged" TabHeaderBackgroundColor="#0F8DCE" VisibleHeaderCount="2" TabHeaderPosition="Bottom" BackgroundColor="#4BA0D9" DisplayMode="ImageWithText" >
                 <tabView:SfTabView.SelectionIndicatorSettings>
@@ -143,6 +143,7 @@
                                                             IsVisible="{Binding IsRed, Mode=TwoWay}"
                                                             VerticalOptions="CenterAndExpand"
                                                             BackgroundColor="Black"
+                                                            IsEnabled="True"
                                                             HorizontalOptions="CenterAndExpand">
                                                              <chart:SfChart.Margin>
                                                                <OnPlatform x:TypeArguments="Thickness">
@@ -164,9 +165,9 @@
                                                             </chart:SfChart.ChartPadding>
 
                                                           <chart:SfChart.PrimaryAxis>
-                                                                  <chart:CategoryAxis>
+                                                                  <chart:CategoryAxis >
                                                                    <chart:CategoryAxis.LabelStyle>
-                                                                      <chart:ChartAxisLabelStyle WrappedLabelAlignment="Center" FontSize="12" TextColor="White" />
+                                                                      <chart:ChartAxisLabelStyle WrappedLabelAlignment="Center" FontSize="11" TextColor="White" />
                                                                   </chart:CategoryAxis.LabelStyle>
                                                                </chart:CategoryAxis>
                                                            </chart:SfChart.PrimaryAxis>
@@ -174,7 +175,7 @@
                                                            <chart:SfChart.SecondaryAxis>
                                                                <chart:NumericalAxis Minimum="{Binding Minimum, Mode=TwoWay}" Maximum="{Binding Maximum, Mode=TwoWay}">
                                                                    <chart:NumericalAxis.LabelStyle>
-                                                                      <chart:ChartAxisLabelStyle WrappedLabelAlignment="Center" FontSize="12" TextColor="White" />
+                                                                      <chart:ChartAxisLabelStyle LabelFormat="##.00" WrappedLabelAlignment="Center" FontSize="11" TextColor="White" />
                                                                   </chart:NumericalAxis.LabelStyle>
                                                                </chart:NumericalAxis>
                                                            </chart:SfChart.SecondaryAxis>
@@ -191,7 +192,14 @@
                                                                 </chart:ChartColorModel.CustomGradientColors>
                                                               </chart:ChartColorModel>
                                                             </chart:SfChart.ColorModel>
-                                                            <chart:AreaSeries StrokeColor="Red" ItemsSource="{Binding Data}"  XBindingPath="Month" YBindingPath="Target"/>
+
+                                                            <chart:SfChart.ChartBehaviors>
+
+		                                                        <chart:ChartTrackballBehavior ActivationMode="TouchMove" ShowLabel="True" ShowLine="True"/>
+
+	                                                        </chart:SfChart.ChartBehaviors>
+
+                                                            <chart:AreaSeries ShowTrackballInfo="True"  EnableAnimation ="True" StrokeColor="Red" ItemsSource="{Binding Data}"  XBindingPath="Month" YBindingPath="Target"/>
 
                                                         </chart:SfChart>
                                                         <chart:SfChart
@@ -221,17 +229,17 @@
                                                             </chart:SfChart.ChartPadding>
  
                                                             <chart:SfChart.PrimaryAxis>
-                                                                  <chart:CategoryAxis>
+                                                                  <chart:CategoryAxis >
                                                                    <chart:CategoryAxis.LabelStyle>
-                                                                      <chart:ChartAxisLabelStyle WrappedLabelAlignment="Center" FontSize="12" TextColor="White" />
+                                                                      <chart:ChartAxisLabelStyle WrappedLabelAlignment="Center" FontSize="11" TextColor="White" />
                                                                   </chart:CategoryAxis.LabelStyle>
                                                                </chart:CategoryAxis>
                                                            </chart:SfChart.PrimaryAxis>
                                 
                                                            <chart:SfChart.SecondaryAxis>
-                                                               <chart:NumericalAxis Minimum="{Binding Minimum, Mode=TwoWay}" Maximum="{Binding Maximum, Mode=TwoWay}">
+                                                               <chart:NumericalAxis   Minimum="{Binding Minimum, Mode=TwoWay}" Maximum="{Binding Maximum, Mode=TwoWay}">
                                                                    <chart:NumericalAxis.LabelStyle>
-                                                                      <chart:ChartAxisLabelStyle WrappedLabelAlignment="Center" FontSize="12" TextColor="White" />
+                                                                      <chart:ChartAxisLabelStyle LabelFormat="##.00"   WrappedLabelAlignment="Center" FontSize="11" TextColor="White" />
                                                                   </chart:NumericalAxis.LabelStyle>
                                                                </chart:NumericalAxis>
                                                            </chart:SfChart.SecondaryAxis>
@@ -278,9 +286,9 @@
                                                             </chart:SfChart.ChartPadding>
  
                                                             <chart:SfChart.PrimaryAxis>
-                                                                  <chart:CategoryAxis>
+                                                                  <chart:CategoryAxis >
                                                                    <chart:CategoryAxis.LabelStyle>
-                                                                      <chart:ChartAxisLabelStyle WrappedLabelAlignment="Center" FontSize="12" TextColor="White" />
+                                                                      <chart:ChartAxisLabelStyle WrappedLabelAlignment="Center" FontSize="11" TextColor="White" />
                                                                   </chart:CategoryAxis.LabelStyle>
                                                                </chart:CategoryAxis>
                                                            </chart:SfChart.PrimaryAxis>
@@ -288,7 +296,7 @@
                                                            <chart:SfChart.SecondaryAxis>
                                                                <chart:NumericalAxis Minimum="{Binding Minimum, Mode=TwoWay}" Maximum="{Binding Maximum, Mode=TwoWay}" >
                                                                    <chart:NumericalAxis.LabelStyle>
-                                                                      <chart:ChartAxisLabelStyle WrappedLabelAlignment="Center" FontSize="12" TextColor="White" />
+                                                                      <chart:ChartAxisLabelStyle LabelFormat="##.00" WrappedLabelAlignment="Center" FontSize="11" TextColor="White" />
                                                                   </chart:NumericalAxis.LabelStyle>
                                                                </chart:NumericalAxis>
                                                            </chart:SfChart.SecondaryAxis>
@@ -848,7 +856,7 @@
                     </Grid.RowDefinitions>
                     <Label Grid.Column="0" Grid.Row="0" FontAttributes="Bold" TextColor="White"  FontSize="12" VerticalTextAlignment="Center" Text="{Binding Item.Price, Mode=TwoWay}"></Label>
                         
-                    <StackLayout Grid.Column="1" Grid.Row="0" HorizontalOptions="StartAndExpand" VerticalOptions="Center" Orientation="Horizontal">
+                    <StackLayout Grid.Column="1" Grid.Row="0" HorizontalOptions="End" VerticalOptions="Center" Orientation="Horizontal">
                         <Image
                            Margin="0,0,0,0"
                            Source="{Binding Triangle, Mode=TwoWay}"
@@ -934,13 +942,13 @@
                                 <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
                                   <chart:SfChart
                                        IsVisible="{Binding IsRed, Mode=TwoWay}"
-                                       Margin="10,5"
+                                       Margin="5,5"
                                        VerticalOptions="Center"
                                        BackgroundColor="Black"
                                        HorizontalOptions="Center">
                                       <chart:SfChart.HeightRequest>
                                            <OnPlatform x:TypeArguments="x:Double">
-                                               <On Platform="Android">160</On>
+                                               <On Platform="Android">170</On>
                                                <On Platform="iOS">180</On>
                                            </OnPlatform>
                                        </chart:SfChart.HeightRequest>
@@ -954,7 +962,7 @@
                                          <chart:SfChart.PrimaryAxis>
                                               <chart:CategoryAxis>
                                                <chart:CategoryAxis.LabelStyle>
-                                                  <chart:ChartAxisLabelStyle FontSize="14" TextColor="White" />
+                                                  <chart:ChartAxisLabelStyle FontSize="12" TextColor="White" />
                                               </chart:CategoryAxis.LabelStyle>
                                            </chart:CategoryAxis>
                                        </chart:SfChart.PrimaryAxis>
@@ -962,7 +970,7 @@
                                        <chart:SfChart.SecondaryAxis>
                                            <chart:NumericalAxis Minimum="{Binding Minimum}" Maximum="{Binding Maximum}" >
                                                <chart:NumericalAxis.LabelStyle>
-                                                  <chart:ChartAxisLabelStyle FontSize="14" TextColor="White" />
+                                                  <chart:ChartAxisLabelStyle LabelFormat="##.00" FontSize="12" TextColor="White" />
                                               </chart:NumericalAxis.LabelStyle>
                                            </chart:NumericalAxis>
                                        </chart:SfChart.SecondaryAxis>
@@ -990,7 +998,7 @@
                                        HorizontalOptions="Center">
                                        <chart:SfChart.HeightRequest>
                                            <OnPlatform x:TypeArguments="x:Double">
-                                               <On Platform="Android">160</On>
+                                               <On Platform="Android">170</On>
                                                <On Platform="iOS">180</On>
                                            </OnPlatform>
                                        </chart:SfChart.HeightRequest>
@@ -1004,7 +1012,7 @@
                                        <chart:SfChart.PrimaryAxis>
                                               <chart:CategoryAxis>
                                                <chart:CategoryAxis.LabelStyle>
-                                                  <chart:ChartAxisLabelStyle FontSize="14" TextColor="White" />
+                                                  <chart:ChartAxisLabelStyle FontSize="12" TextColor="White" />
                                               </chart:CategoryAxis.LabelStyle>
                                            </chart:CategoryAxis>
                                        </chart:SfChart.PrimaryAxis>
@@ -1012,7 +1020,7 @@
                                        <chart:SfChart.SecondaryAxis>
                                            <chart:NumericalAxis Minimum="{Binding Minimum}" Maximum="{Binding Maximum}" >
                                                <chart:NumericalAxis.LabelStyle>
-                                                  <chart:ChartAxisLabelStyle FontSize="14" TextColor="White" />
+                                                  <chart:ChartAxisLabelStyle LabelFormat="##.00"  FontSize="12" TextColor="White" />
                                               </chart:NumericalAxis.LabelStyle>
                                            </chart:NumericalAxis>
                                        </chart:SfChart.SecondaryAxis>
@@ -1040,7 +1048,7 @@
                                        HorizontalOptions="Center">
                                        <chart:SfChart.HeightRequest>
                                            <OnPlatform x:TypeArguments="x:Double">
-                                               <On Platform="Android">160</On>
+                                               <On Platform="Android">170</On>
                                                <On Platform="iOS">180</On>
                                            </OnPlatform>
                                        </chart:SfChart.HeightRequest>
@@ -1054,7 +1062,7 @@
                                          <chart:SfChart.PrimaryAxis>
                                               <chart:CategoryAxis>
                                                <chart:CategoryAxis.LabelStyle>
-                                                  <chart:ChartAxisLabelStyle FontSize="14" TextColor="White" />
+                                                  <chart:ChartAxisLabelStyle FontSize="12" TextColor="White" />
                                               </chart:CategoryAxis.LabelStyle>
                                            </chart:CategoryAxis>
                                        </chart:SfChart.PrimaryAxis>
@@ -1062,7 +1070,7 @@
                                        <chart:SfChart.SecondaryAxis>
                                            <chart:NumericalAxis Minimum="{Binding Minimum}" Maximum="{Binding Maximum}" >
                                                <chart:NumericalAxis.LabelStyle>
-                                                  <chart:ChartAxisLabelStyle FontSize="14" TextColor="White" />
+                                                  <chart:ChartAxisLabelStyle LabelFormat="##.00" FontSize="12" TextColor="White" />
                                               </chart:NumericalAxis.LabelStyle>
                                            </chart:NumericalAxis>
                                        </chart:SfChart.SecondaryAxis>

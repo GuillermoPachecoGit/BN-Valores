@@ -48,21 +48,48 @@ namespace BNV.ViewModels
 //                    param.Id = "502500985";
 //                    param.TipId = "1";
 //#endif
-                    await App.ApiService.PostRecoverPassword(param)
-                   .ContinueWith(async result =>
-                   {
-                       if (result.IsCompleted && result.Status == TaskStatus.RanToCompletion)
-                       {
-                           InvalidUser = false;
-                           await NavigationService.NavigateAsync("../ChangePasswordResultPage", new NavigationParameters() { { "title", Title } });
-                       }
-                       else if (result.IsFaulted)
-                       {
-                           InvalidUser = true;
-                       }
-                       else if (result.IsCanceled) { }
-                   }, TaskScheduler.FromCurrentSynchronizationContext());
+                     if (WithAuthentication)
+                     {
+                        var token = await SecureStorage.GetAsync(Config.Token);
+                        var authorization = $"Bearer {token}";
+                        await RunSafe(App.ApiService.PostRecoverPassword(authorization, param)
+                        .ContinueWith(async result =>
+                        {
+                            if (result.IsCompleted && result.Status == TaskStatus.RanToCompletion)
+                            {
+                                InvalidUser = false;
+                                await NavigationService.NavigateAsync("../ChangePasswordResultPage", new NavigationParameters() { { "title", Title } });
+                            }
+                            else if (result.IsFaulted)
+                            {
+                                //if (result?.Exception?.Message.Contains("401") ?? true)
+                                //{
+                                //    await ShowUnauthorizedAccess();
+                                //    return;
+                                //}
 
+                                InvalidUser = true;
+                            }
+                            else if (result.IsCanceled) { }
+                        }, TaskScheduler.FromCurrentSynchronizationContext()));
+                     }
+                     else
+                     {
+                         await App.ApiService.PostRecoverPassword(param)
+                         .ContinueWith(async result =>
+                         {
+                            if (result.IsCompleted && result.Status == TaskStatus.RanToCompletion)
+                            {
+                                InvalidUser = false;
+                                await NavigationService.NavigateAsync("../ChangePasswordResultPage", new NavigationParameters() { { "title", Title } });
+                            }
+                            else if (result.IsFaulted)
+                            {
+                                InvalidUser = true;
+                            }
+                            else if (result.IsCanceled) { }
+                         }, TaskScheduler.FromCurrentSynchronizationContext());
+                     }
                 }
 
             }
@@ -141,12 +168,16 @@ namespace BNV.ViewModels
         public bool IsErrorEmpty { get; set; }
 
         public bool IsErrorLenght { get; set; }
+
         public bool InvalidUser { get; private set; }
+        public bool WithAuthentication { get; private set; }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
             var title = parameters.GetValue<string>("title");
+
+            WithAuthentication = string.IsNullOrEmpty(title);
             Title = !string.IsNullOrEmpty(title) ? title : "Cambio de contraseña";
         }
     }

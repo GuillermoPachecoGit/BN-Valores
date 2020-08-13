@@ -63,7 +63,7 @@ namespace BNV.ViewModels
 //            param.Password = "87654321";
 //            param.ConfirmPassword = "87654321";
 //#endif
-            await App.ApiService.NewPassword(authorization, param).ContinueWith(async result =>
+            await RunSafe(App.ApiService.NewPassword(authorization, param).ContinueWith(async result =>
             {
                 if (result.IsCompleted && result.Status == TaskStatus.RanToCompletion)
                 {
@@ -71,10 +71,16 @@ namespace BNV.ViewModels
                 }
                 else if (result.IsFaulted)
                 {
+                    //if (result?.Exception?.Message.Contains("401") ?? true)
+                    //{
+                    //    await ShowUnauthorizedAccess();
+                    //    return;
+                    //}
+
                     IsNotValid = true;
                 }
                 else if (result.IsCanceled) { }
-            }, TaskScheduler.FromCurrentSynchronizationContext());
+            }, TaskScheduler.FromCurrentSynchronizationContext()));
         }
 
         public ValidatableObject<string> NewPassword { get; set; }

@@ -15,7 +15,13 @@
     x:Class="BNV.Views.GraphicAndDetails.HomePage" >
     <NavigationPage.TitleView>
         <StackLayout> 
-            <Label Text="{Binding Title}" Margin="0,10,0,0" TextColor="White" HorizontalTextAlignment="Center" FontSize="20"/>
+            <Label Text="{Binding Title}" TextColor="White" FontAttributes="Bold" HorizontalTextAlignment="Center" FontSize="20">
+                 <Label.Margin>
+                 <OnPlatform x:TypeArguments="Thickness">
+                     <On Platform="iOS">0,10,0,0</On>
+                 </OnPlatform>
+                 </Label.Margin>
+                </Label>
         </StackLayout>
     </NavigationPage.TitleView>
     <!--Pages can be added as references or inline-->
@@ -35,7 +41,7 @@
                                        Position="Bottom" 
                                        StrokeThickness="5"/>
                                 </tabView:SfTabView.SelectionIndicatorSettings>
-                                 <tabView:SfTabItem TitleFontColor="White"  SelectionColor="White" Title="REPORTOS">
+                                 <tabView:SfTabItem TitleFontColor="White"  SelectionColor="White" Title="Reportos">
                                             <tabView:SfTabItem.Content>
                                                 <StackLayout
                                                     BackgroundColor="Black"
@@ -178,7 +184,7 @@
                                                  </StackLayout>
                                             </tabView:SfTabItem.Content>
                                     </tabView:SfTabItem>
-                                 <tabView:SfTabItem TitleFontColor="White"  SelectionColor="White" Title="BONOS">
+                                 <tabView:SfTabItem TitleFontColor="White"  SelectionColor="White" Title="Bonos">
                                         <tabView:SfTabItem.Content>
                                            <StackLayout
                                                 HorizontalOptions="FillAndExpand"
@@ -328,7 +334,7 @@
                                             </StackLayout>
                                         </tabView:SfTabItem.Content>
                                     </tabView:SfTabItem>
-                                 <tabView:SfTabItem TitleFontColor="White"  SelectionColor="White" Title="ACCIONES">
+                                 <tabView:SfTabItem TitleFontColor="White"  SelectionColor="White" Title="Acciones">
                                         <tabView:SfTabItem.Content>
                                           <StackLayout
                                                 HorizontalOptions="FillAndExpand"
@@ -478,7 +484,7 @@
                                                  </StackLayout>
                                         </tabView:SfTabItem.Content>
                                     </tabView:SfTabItem>
-                                 <tabView:SfTabItem TitleFontColor="White"  SelectionColor="White" Title="TIPO CAMBIO">
+                                 <tabView:SfTabItem TitleFontColor="White"  SelectionColor="White" Title="Tipo cambio">
                                         <tabView:SfTabItem.Content>
                                            <StackLayout
                                                 HeightRequest="90"
