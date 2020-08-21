@@ -258,7 +258,7 @@
                                                                                VerticalOptions="Center"
                                                                                FontAttributes="Bold" />
 
-                                                                         <StackLayout
+                                                                        <StackLayout
                                                                             Grid.Row="2"
                                                                             Grid.Column="1"
                                                                             Margin="0"
@@ -299,7 +299,7 @@
                                                                             Grid.Column="0"
                                                                             Text="{Binding Performance}"
                                                                             TextColor="White"
-                                                                            FontSize="12"
+                                                                            FontSize="11"
                                                                             VerticalOptions="Center"
                                                                             HorizontalOptions="Start"
                                                                             FontAttributes="None" />

@@ -5,16 +5,50 @@
     xmlns:Renderers="clr-namespace:BNV.Views.Bases"
     x:Class="BNV.Views.Bases.ToolbarBase" >
     <ContentView.Content>
-        <Frame IsClippedToBounds="True" BackgroundColor="{StaticResource NavigationBarColor}" HasShadow="true" CornerRadius="0" Padding="10" HorizontalOptions="FillAndExpand" OutlineColor="{StaticResource NavigationBarColor}" BorderColor="{StaticResource NavigationBarColor}" HeightRequest="56">
-            <Grid>
+         <Grid x:Name="nav" Margin="0" Padding="0,5,0,5" BackgroundColor="{Binding Color}">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="45" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="45" />
+                    <ColumnDefinition Width="55"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <Renderers:IconAwesomeButtonBase BackgroundColor="{StaticResource NavigationBarColor}" BorderColor="{StaticResource NavigationBarColor}" Command="{Binding ShowMenuCommand}" FontSize="20" TextColor="{StaticResource IconMenuColor}" Grid.Column="2" Grid.Row="0" Icon="Bars" />
-                <Label FontSize="16" VerticalOptions="Center" HorizontalOptions="Center" FontAttributes="Bold" Grid.Column="1" Grid.Row="0" Text="{Binding TitleToolbar}" TextColor="{StaticResource TitleNavigationBarColor}" />
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="65"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0" Grid.Column="0" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer  Command="{Binding BackCommand}" NumberOfTapsRequired="1"></TapGestureRecognizer>
+                    </Grid.GestureRecognizers>
+                    <ImageButton Command="{Binding BackCommand}" Margin="30,0,0,0" HeightRequest="18" WidthRequest="10" HorizontalOptions="Start" BackgroundColor="Transparent" Aspect="AspectFit" Source="ic_back_arrow"></ImageButton>
+                </Grid>
+                <StackLayout Grid.Row="0" Grid.Column="1" HorizontalOptions="StartAndExpand" VerticalOptions="Center" Orientation="Vertical">
+                <Label TextColor="White" FontAttributes="Bold" FontSize="16" VerticalTextAlignment="Center" Text="{Binding TitleNav, Mode=TwoWay}"></Label>
+                <Label TextColor="White" FontAttributes="Bold" Margin="0,0,0,2" FontSize="12" VerticalTextAlignment="Center" Text="{Binding SubTitle, Mode=TwoWay}"></Label>
+                </StackLayout>
+                <Grid Margin="10,0,10,0" Grid.Row="0" Grid.Column="2" HorizontalOptions="End" VerticalOptions="Center" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Column="0" Grid.Row="0" FontAttributes="Bold" TextColor="White"  FontSize="12" VerticalTextAlignment="Center" Text="{Binding Item.Price, Mode=TwoWay}"></Label>
+                        
+                    <StackLayout Grid.Column="1" Grid.Row="0" HorizontalOptions="End" VerticalOptions="Center" Orientation="Horizontal">
+                        <Image
+                           Margin="0,0,0,0"
+                           Source="{Binding Triangle, Mode=TwoWay}"
+                           HorizontalOptions="Start"
+                           VerticalOptions="Center"/>
+                        <Label TextColor="White" FontSize="12" HorizontalOptions="EndAndExpand" HorizontalTextAlignment="End" VerticalTextAlignment="Center" Text="{Binding Item.Variation, Mode=TwoWay}"></Label>
+                    </StackLayout>
+                    <Label Grid.Column="0" Grid.Row="1" TextColor="White" FontSize="12" VerticalTextAlignment="Center" Text="Rend: "></Label>
+                    <Label Grid.Column="0" Grid.Row="2" TextColor="White" FontSize="12" VerticalTextAlignment="Center" Text="Vol: "></Label>
+                    <Label Grid.Column="1" HorizontalOptions="EndAndExpand" Grid.Row="1"  HorizontalTextAlignment="End" TextColor="White" FontSize="12" VerticalTextAlignment="Center" Text="{Binding ValueRendimiento, Mode=TwoWay}"></Label>
+                    <Label Grid.Column="1" HorizontalOptions="EndAndExpand" Grid.Row="2" HorizontalTextAlignment="End" TextColor="White" FontSize="12" VerticalTextAlignment="Center" Text="{Binding ValueVolumen, Mode=TwoWay}"></Label>
+                </Grid>
             </Grid>
-        </Frame>
     </ContentView.Content>
 </ContentView>

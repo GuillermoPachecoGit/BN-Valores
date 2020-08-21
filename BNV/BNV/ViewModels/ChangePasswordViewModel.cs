@@ -52,7 +52,7 @@ namespace BNV.ViewModels
                      {
                         var token = await SecureStorage.GetAsync(Config.Token);
                         var authorization = $"Bearer {token}";
-                        await RunSafe(App.ApiService.PostRecoverPassword(authorization, param)
+                        await App.ApiService.PostRecoverPassword(authorization, param)
                         .ContinueWith(async result =>
                         {
                             if (result.IsCompleted && result.Status == TaskStatus.RanToCompletion)
@@ -62,16 +62,15 @@ namespace BNV.ViewModels
                             }
                             else if (result.IsFaulted)
                             {
-                                //if (result?.Exception?.Message.Contains("401") ?? true)
-                                //{
-                                //    await ShowUnauthorizedAccess();
-                                //    return;
-                                //}
-
+                                if (result?.Exception?.Message.Contains("401") ?? true)
+                                {
+                                    await ShowUnauthorizedAccess();
+                                    return;
+                                }
                                 InvalidUser = true;
                             }
                             else if (result.IsCanceled) { }
-                        }, TaskScheduler.FromCurrentSynchronizationContext()));
+                        }, TaskScheduler.FromCurrentSynchronizationContext());
                      }
                      else
                      {

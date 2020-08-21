@@ -127,7 +127,7 @@ namespace BNV.ViewModels
                     var authorization = $"Bearer {token}";
                     if (Item is Report)
                     {
-                        await RunSafe(App.ApiService.GetReportoDetails(authorization, Item.Id, new DetailParamModel() { Time = time })
+                        await App.ApiService.GetReportoDetails(authorization, Item.Id, new DetailParamModel() { Time = time })
                          .ContinueWith(async result =>
                          {
                              if (result.IsCompleted && result.Status == TaskStatus.RanToCompletion)
@@ -135,14 +135,15 @@ namespace BNV.ViewModels
                                  PopulateData(result);
                              }
                              else if (result.IsFaulted) {
-                                 //if (result?.Exception?.Message.Contains("401") ?? true)
-                                 //{
-                                 //    await ShowUnauthorizedAccess();
-                                 //    return;
-                                 //}
+
+                                 if (result?.Exception?.Message.Contains("401") ?? true)
+                                 {
+                                     await ShowUnauthorizedAccess();
+                                     return;
+                                 }
                              }
                              else if (result.IsCanceled) { }
-                         }, TaskScheduler.FromCurrentSynchronizationContext()))// execute in main/UI thread.
+                         }, TaskScheduler.FromCurrentSynchronizationContext())// execute in main/UI thread.
                          .ConfigureAwait(false);
                         _appeared = true;
                         _loading = false;
@@ -151,7 +152,7 @@ namespace BNV.ViewModels
 
                     if (Item is Bono)
                     {
-                        await RunSafe(App.ApiService.GetBonoDetails(authorization, Item.Id, new DetailParamModel() { Time = time })
+                        await App.ApiService.GetBonoDetails(authorization, Item.Id, new DetailParamModel() { Time = time })
                          .ContinueWith(async result =>
                          {
                              if (result.IsCompleted && result.Status == TaskStatus.RanToCompletion)
@@ -159,14 +160,14 @@ namespace BNV.ViewModels
                                  PopulateData(result);
                              }
                              else if (result.IsFaulted) {
-                                 //if (result?.Exception?.Message.Contains("401") ?? true)
-                                 //{
-                                 //    await ShowUnauthorizedAccess();
-                                 //    return;
-                                 //}
+                                 if (result?.Exception?.Message.Contains("401") ?? true)
+                                 {
+                                     await ShowUnauthorizedAccess();
+                                     return;
+                                 }
                              }
                              else if (result.IsCanceled) { }
-                         }, TaskScheduler.FromCurrentSynchronizationContext()))// execute in main/UI thread.
+                         }, TaskScheduler.FromCurrentSynchronizationContext())// execute in main/UI thread.
                          .ConfigureAwait(false);
                         _appeared = true;
                         _loading = false;
@@ -175,7 +176,7 @@ namespace BNV.ViewModels
 
                     if (Item is ChangeType)
                     {
-                        await RunSafe(App.ApiService.GetExchangeDetails(authorization, Item.Id, new DetailParamModel() { Time = time })
+                        await App.ApiService.GetExchangeDetails(authorization, Item.Id, new DetailParamModel() { Time = time })
                          .ContinueWith(async result =>
                          {
                              if (result.IsCompleted && result.Status == TaskStatus.RanToCompletion)
@@ -183,14 +184,14 @@ namespace BNV.ViewModels
                                  PopulateData(result);
                              }
                              else if (result.IsFaulted) {
-                                 //if (result?.Exception?.Message.Contains("401") ?? true)
-                                 //{
-                                 //    await ShowUnauthorizedAccess();
-                                 //    return;
-                                 //}
+                                 if (result?.Exception?.Message.Contains("401") ?? true)
+                                 {
+                                     await ShowUnauthorizedAccess();
+                                     return;
+                                 }
                              }
                              else if (result.IsCanceled) { }
-                         }, TaskScheduler.FromCurrentSynchronizationContext()))// execute in main/UI thread.
+                         }, TaskScheduler.FromCurrentSynchronizationContext())// execute in main/UI thread.
                          .ConfigureAwait(false);
                         _appeared = true;
                         _loading = false;
@@ -199,7 +200,7 @@ namespace BNV.ViewModels
 
                     if (Item is ShareOfStock)
                     {
-                        await RunSafe(App.ApiService.GetShareOfStockDetails(authorization, Item.Id, new DetailParamModel() { Time = time })
+                        await App.ApiService.GetShareOfStockDetails(authorization, Item.Id, new DetailParamModel() { Time = time })
                          .ContinueWith(async result =>
                          {
                              if (result.IsCompleted && result.Status == TaskStatus.RanToCompletion)
@@ -207,14 +208,14 @@ namespace BNV.ViewModels
                                  PopulateData(result);
                              }
                              else if (result.IsFaulted) {
-                                 //if (result?.Exception?.Message.Contains("401") ?? true)
-                                 //{
-                                 //    await ShowUnauthorizedAccess();
-                                 //    return;
-                                 //}
+                                 if (result?.Exception?.Message.Contains("401") ?? true)
+                                 {
+                                     await ShowUnauthorizedAccess();
+                                     return;
+                                 }
                              }
                              else if (result.IsCanceled) { }
-                         }, TaskScheduler.FromCurrentSynchronizationContext()))// execute in main/UI thread.
+                         }, TaskScheduler.FromCurrentSynchronizationContext())// execute in main/UI thread.
                          .ConfigureAwait(false);
                         _appeared = true;
                         _loading = false;

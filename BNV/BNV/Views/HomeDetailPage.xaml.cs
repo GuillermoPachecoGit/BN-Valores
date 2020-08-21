@@ -241,5 +241,11 @@ namespace BNV.Views
             base.OnDisappearing();
             if (CrossDeviceOrientation.IsSupported) CrossDeviceOrientation.Current.LockOrientation(Plugin.DeviceOrientation.Abstractions.DeviceOrientations.Portrait);
         }
+
+        void SwipeGestureRecognizer_Swiped(System.Object sender, Xamarin.Forms.SwipedEventArgs e)
+        {
+            var vm = BindingContext as HomeDetailViewModel;
+            vm.BackCommand.Execute(null);
+        }
     }
 }

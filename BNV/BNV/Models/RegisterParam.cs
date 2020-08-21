@@ -28,5 +28,8 @@ namespace BNV.Models
 
         [JsonProperty("gender")]
         public long Gender { get; set; }
+
+        [JsonProperty("lastname")]
+        public string LastName { get; set; }
     }
 }

@@ -103,17 +103,14 @@ namespace BNV.Views.Bases
                 AbsoluteLayout.SetLayoutBounds(ContentUI, new Rectangle(0, 56, 1, 1));
                 AbsoluteLayout.SetLayoutFlags(ContentUI, AbsoluteLayoutFlags.SizeProportional);
                 _content.Children.Add(ContentUI);
-                var toolbar = new ToolbarBase();
-                AbsoluteLayout.SetLayoutBounds(toolbar, new Rectangle(0, 0, 1, 56));
-                AbsoluteLayout.SetLayoutFlags(toolbar, AbsoluteLayoutFlags.XProportional);
-                AbsoluteLayout.SetLayoutFlags(toolbar, AbsoluteLayoutFlags.YProportional);
-                AbsoluteLayout.SetLayoutFlags(toolbar, AbsoluteLayoutFlags.WidthProportional);
-                _content.Children.Insert(1, toolbar);
-                loading = new LoadingContentViewBase
-                {
-                    Content = _content
-                };
-                Content = loading;
+                //var toolbar = new ToolbarBase();
+                //AbsoluteLayout.SetLayoutBounds(toolbar, new Rectangle(0, 0, 1, 80));
+                //AbsoluteLayout.SetLayoutFlags(toolbar, AbsoluteLayoutFlags.XProportional);
+                //AbsoluteLayout.SetLayoutFlags(toolbar, AbsoluteLayoutFlags.YProportional);
+                //AbsoluteLayout.SetLayoutFlags(toolbar, AbsoluteLayoutFlags.WidthProportional);
+                //_content.Children.Insert(1, toolbar);
+ 
+                Content = _content;
             }
             catch (System.Exception ex)
             {
@@ -179,33 +176,7 @@ namespace BNV.Views.Bases
 
         private void SetChangeToolbar(bool isBackToolbar)
         {
-            try
-            {
-                if (isBackToolbar)
-                {
-                    _content.Children.Remove(_content.Children[1]);
-                    var toolbar = new ToolbarBackBase();
-                    AbsoluteLayout.SetLayoutBounds(toolbar, new Rectangle(0, 0, 1, 56));
-                    AbsoluteLayout.SetLayoutFlags(toolbar, AbsoluteLayoutFlags.XProportional);
-                    AbsoluteLayout.SetLayoutFlags(toolbar, AbsoluteLayoutFlags.YProportional);
-                    AbsoluteLayout.SetLayoutFlags(toolbar, AbsoluteLayoutFlags.WidthProportional);
-                    _content.Children.Insert(1, toolbar);
-                }
-                else
-                {
-                    _content.Children.Remove(_content.Children[1]);
-                    var toolbar = new ToolbarBase();
-                    AbsoluteLayout.SetLayoutBounds(toolbar, new Rectangle(0, 0, 1, 56));
-                    AbsoluteLayout.SetLayoutFlags(toolbar, AbsoluteLayoutFlags.XProportional);
-                    AbsoluteLayout.SetLayoutFlags(toolbar, AbsoluteLayoutFlags.YProportional);
-                    AbsoluteLayout.SetLayoutFlags(toolbar, AbsoluteLayoutFlags.WidthProportional);
-                    _content.Children.Insert(1, toolbar);
-                }
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex.Message, TAG);
-            }
+           
         }
 
         private static void OnContentChanged(BindableObject bindable, object oldValue, object newValue)

@@ -57,7 +57,7 @@ namespace BNV.ViewModels
                 // check valid date
                 var values = Birthday.Split('/').Select(x => int.Parse(x)).ToList();
 
-                if ((values[0] != 0 && values[0] > 31) || (values[1] != 0 && values[1] > 12) || (values[2] != 0 && values[2] > DateTime.Now.Year))
+                if ((values[0] != 0 && values[0] > 31) || (values[1] != 0 && values[1] > 12) || (values[2] != 0 && values[2] <= DateTime.Now.Year))
                 {
                     DateInvalid = true;
                     return;
@@ -76,6 +76,7 @@ namespace BNV.ViewModels
                 var userParam = new RegisterParam()
                 {
                     Name = Name.Value,
+                    LastName = Surname.Value,
                     Birthdate = Birthday,
                     Country = Nationality.CodIdPais,
                     Gender = Gender.CodIdGenero,
@@ -88,7 +89,6 @@ namespace BNV.ViewModels
                 using (UserDialogs.Instance.Loading(MessagesAlert.SendingData))
                 {
                     var jsonData = JsonConvert.SerializeObject(userParam);
-                    // TODO ADD TOKEN
                     var result = App.ApiService.PostUser(userParam).ContinueWith(async result =>
                     {
                         if (result.IsCompleted && result.Status == TaskStatus.RanToCompletion)

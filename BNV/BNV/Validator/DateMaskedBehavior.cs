@@ -5,7 +5,7 @@ using Xamarin.Forms;
 
 namespace BNV.Validator
 {
-    public class MaskedBehavior : Behavior<Entry>
+    public class DateMaskedBehavior : Behavior<Entry>
     {
         private string _mask = "";
         public string Mask
@@ -82,7 +82,7 @@ namespace BNV.Validator
         {
             var entry = sender as Entry;
            
-            var text = entry.Text;
+            var text = entry.Text.ToString();
 
             if (string.IsNullOrWhiteSpace(text) || _positions == null)
                 return;
@@ -106,6 +106,16 @@ namespace BNV.Validator
                     if (text.Substring(position.Key, 1) != value)
                         text = text.Insert(position.Key, value);
                 }
+
+            var values = text.Split('/').Where(i => !string.IsNullOrEmpty(i)).Select(x => int.Parse(x)).ToList();
+
+            if (values.Count == 1 && (values[0] != 0 && values[0] > 31)
+                || (values.Count == 2 && values[1] != 0 && values[1] > 12)
+                || (values.Count == 3 && values[2] != 0 && values[2] > DateTime.Now.Year))
+            {
+                entry.Text = text.Remove(text.Length - 1);
+                return;
+            }
 
             if (entry.Text != text)
                 entry.Text = text;

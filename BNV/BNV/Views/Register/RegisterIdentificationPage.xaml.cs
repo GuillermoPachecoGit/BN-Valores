@@ -73,9 +73,17 @@ namespace BNV.Views.Register
             }
 
             if (!((IdentificationType)e.Value).MaskExpression.Contains('A'))
+            {
+                identification.Keyboard = Keyboard.Numeric;
                 MaskTemplate.IsAlphanumeric = false;
+
+            }
             else
+            {
+                identification.Keyboard = Keyboard.Plain;
                 MaskTemplate.IsAlphanumeric = true;
+            }
+
 
             vm.IsErrorIdentLenght = false;
         }
