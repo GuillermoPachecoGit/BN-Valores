@@ -9,10 +9,10 @@ namespace BNV.Models
         public string Email { get; set; }
 
         [JsonProperty("exchangeRateNotify")]
-        public long ExchangeRateNotify { get; set; }
+        public double ExchangeRateNotify { get; set; }
 
         [JsonProperty("bonosNotify")]
-        public long BonosNotify { get; set; }
+        public double BonosNotify { get; set; }
 
         [JsonProperty("accionesNotify")]
         public long AccionesNotify { get; set; }

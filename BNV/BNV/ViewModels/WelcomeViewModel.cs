@@ -14,7 +14,6 @@ namespace BNV.ViewModels
         public WelcomeViewModel(INavigationService navigationService)
           : base(navigationService)
         {
-
             RegisterCommand = new Command(RegisterCommandExecute);
             LoginCommand = new Command(LoginCommandExecute);
         }
@@ -57,8 +56,6 @@ namespace BNV.ViewModels
 
         public ICommand RegisterCommand { get; set; }
 
-        public ICommand LoginCommand { get; set; }
-
-        
+        public ICommand LoginCommand { get; set; }   
     }
 }

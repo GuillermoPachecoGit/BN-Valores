@@ -242,7 +242,7 @@
                                 HorizontalOptions="Fill"
                                 VerticalOptions="Fill" />
 
-                            <Entry Text="{Binding Birthday, Mode=TwoWay}" FontSize="20" BackgroundColor="Black" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" PlaceholderColor="White" TextColor="White" Placeholder="Fecha de nacimiento" Keyboard="Default">
+                            <Entry Text="{Binding Birthday, Mode=TwoWay}" FontSize="20" BackgroundColor="Black" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" PlaceholderColor="White" TextColor="White" Placeholder="Fecha de nacimiento" Keyboard="Numeric">
                                 <Entry.Behaviors>
                                     <behavior:DateMaskedBehavior IsAlphanumeric="False" Mask="##/##/####" MaxSize="10"/>
                                 </Entry.Behaviors>
@@ -268,7 +268,7 @@
                             Margin="0"
                             HorizontalOptions="FillAndExpand"
                             Style="{StaticResource errorDescriptionStyle}"
-                            Text="La fecha de nacimiento es inválida"
+                            Text="La fecha de nacimiento es inválida (ej.: DD/MM/AAAA)"
                             IsVisible="{Binding DateInvalid, Mode=TwoWay}" />
                     </StackLayout>
 

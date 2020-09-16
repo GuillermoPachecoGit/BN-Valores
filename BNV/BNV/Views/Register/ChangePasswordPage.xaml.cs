@@ -21,7 +21,6 @@ namespace BNV.Views.Register
         {
             base.OnAppearing();
             if (CrossDeviceOrientation.IsSupported) CrossDeviceOrientation.Current.LockOrientation(Plugin.DeviceOrientation.Abstractions.DeviceOrientations.Portrait);
-
             ((NavigationPage)Xamarin.Forms.Application.Current.MainPage).BarBackgroundColor = Color.FromHex("#AFBC24");
             ((NavigationPage)Xamarin.Forms.Application.Current.MainPage).BarTextColor = Color.White;
             boxIdent.BackgroundColor = Color.White;
@@ -37,11 +36,14 @@ namespace BNV.Views.Register
         void Entry_TextChanged(System.Object sender, Xamarin.Forms.TextChangedEventArgs e)
         {
             var vm = (ChangePasswordViewModel)BindingContext;
+            if (vm == null)
+                return;
 
             if (identification.Text == null || identification.Text.ToString().Length == 0)
             {
                 boxIdent.BackgroundColor = Color.White;
                 identError.IsVisible = false;
+                vm.InvalidUser = false;
                 return;
             }
 
@@ -50,12 +52,14 @@ namespace BNV.Views.Register
                 boxIdent.BackgroundColor = Color.FromHex("#FF5B5B");
                 identError.IsVisible = true;
                 vm.IsErrorIdentLenght = true;
+                vm.InvalidUser = false;
             }
             else
             {
                 boxIdent.BackgroundColor = Color.White;
                 identError.IsVisible = false;
                 vm.IsErrorIdentLenght = false;
+                vm.InvalidUser = false;
             }
         }
 
@@ -83,14 +87,12 @@ namespace BNV.Views.Register
             {
                 identification.Keyboard = Keyboard.Numeric;
                 MaskTemplate.IsAlphanumeric = false;
-
             }
             else
             {
                 identification.Keyboard = Keyboard.Plain;
                 MaskTemplate.IsAlphanumeric = true;
             }
-
 
             vm.IsErrorIdentLenght = false;
         }

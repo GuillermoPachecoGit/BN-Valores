@@ -17,8 +17,6 @@ namespace BNV.Settings
 
         public static string BonosChange = "BonosChange";
 
-        //public static string BaseUrl = "https://app-bnvalores-v1-0-0-bncr-as.bndesarrollo.com/api";
-
         public static string BaseUrl = "https://app-bnvalores-v1-0-1-bncr-as.bndesarrollo.com/api";
 
         public static string TokenExpiration = "tokenExpiration";
@@ -30,6 +28,8 @@ namespace BNV.Settings
         public static string Password = "Password";
 
         public static string Email = "Email";
+
+        public static bool FromCloseSession { get; set; }
 
         public class MainPageTypes
         {

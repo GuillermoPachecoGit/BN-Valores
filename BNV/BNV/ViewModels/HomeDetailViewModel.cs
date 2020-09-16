@@ -9,6 +9,7 @@ using Acr.UserDialogs;
 using BNV.Events;
 using BNV.Models;
 using BNV.Settings;
+using Prism.AppModel;
 using Prism.Events;
 using Prism.Navigation;
 using Syncfusion.XForms.Buttons;
@@ -17,7 +18,7 @@ using Xamarin.Forms;
 
 namespace BNV.ViewModels
 {
-    public class HomeDetailViewModel : ViewModelBase
+    public class HomeDetailViewModel : ViewModelBase, IPageLifecycleAware
     {
         private const string DefaultLabelExchange = "0.50 colones";
         private const string DefaultLabelBonos = "0.50%";
@@ -32,13 +33,14 @@ namespace BNV.ViewModels
             Events.GetEvent<NavigationColorEvent>().Subscribe(SetColor);
             ActionCommand = new Command<string>(async (value) => await ActionExecute(value));
             TypeChange = DefaultLabelExchange;
-            Bonos = DefaultLabelBonos;
+            BonosLabel = DefaultLabelBonos;
             ChangePasswordCommand = new Command(async () => await ChangePasswordActionExecute());
             CloseSessionCommand = new Command(async () => await CloseSessionActionExecute());
             SetConfigCommand = new Command(() => {
                 Events.GetEvent<NavigationTitleEvent>().Publish(TitleNavConfig);
                 Color = ColorNavigationConfig;
             });
+
             SetDetailsCommand = new Command(() => {
                 Events.GetEvent<NavigationTitleEvent>().Publish(Item.Name);
                 Color = Item?.ColorStatus;
@@ -48,9 +50,16 @@ namespace BNV.ViewModels
                 await navigationService.GoBackAsync();
             });
 
+            SaveSettingCommand = new Command(async () => await SaveSetting());
             _appeared = false;
-            SetupHomePage();
         }
+
+        public void OnAppearing()
+        {
+            SetupConfig();
+        }
+
+        public Action SetupSettingsEvent { get; set; }
 
         public ICommand SetConfigCommand { get; set; }
 
@@ -61,6 +70,8 @@ namespace BNV.ViewModels
         public ICommand CloseSessionCommand { get; set; }
 
         public ICommand BackCommand { get; set; }
+
+        public ICommand SaveSettingCommand { get; }
 
         public IEventAggregator Events { get; set; }
 
@@ -95,20 +106,11 @@ namespace BNV.ViewModels
 
                 GetDetailsAsync(Time);
 
-                _ = Task.Run(async () =>
-                  {
-                      var value = await SecureStorage.GetAsync(Config.MainPage);
-                      if (!string.IsNullOrEmpty(value))
-                          SelectedHomePage = value;
-                      else
-                          SelectedHomePage = "Reportos";
-                  });
-
-                //SelectedCoin = App.SelectedCoin;
-                //SelectedSector = App.SelectedSector;
-                //SelectedHomePage = App.HomePage;
-                //BonosIndex = App.BonosIndexNotify;
-                //ExchangesIndex = App.ExchangesIndexNotify;
+                SelectedCoin = App.SelectedCoin;
+                SelectedSector = App.SelectedSector;
+                SelectedHomePage = App.HomePage;
+                BonosIndex = App.BonosIndexNotify;
+                ExchangesIndex = App.ExchangesIndexNotify;
             }
             catch (Exception ex)
             {
@@ -431,16 +433,14 @@ namespace BNV.ViewModels
             }
         }
 
-        public async Task SetupHomePage()
+        public void SetupConfig()
         {
-            var home = await SecureStorage.GetAsync(Config.MainPage);
-            if (home != null)
-                SelectedHomePage = home;
-
+            SelectedHomePage = App.HomePage;
             Currencies = App.Currencies;
             Sectors = App.Sectors;
             SelectedCoin = App.SelectedCoin;
             SelectedSector = App.SelectedSector;
+            SetupSettingsEvent?.Invoke();
         }
 
         private string _typeChange;
@@ -451,7 +451,7 @@ namespace BNV.ViewModels
         }
 
         private string _bonos;
-        public string Bonos
+        public string BonosLabel
         {
             get { return _bonos; }
             set { _bonos = value; RaisePropertyChanged(); }
@@ -491,7 +491,6 @@ namespace BNV.ViewModels
                 _selectedCoin = value;
                 RaisePropertyChanged();
                 App.SelectedCoin = value;
-                SecureStorage.SetAsync(Config.FilterCoin, value.CodIdCurrency.ToString());
             }
         }
 
@@ -503,7 +502,6 @@ namespace BNV.ViewModels
                 _selectedSector = value;
                 RaisePropertyChanged();
                 App.SelectedSector = value;
-                SecureStorage.SetAsync(Config.FilterSector, value.CodIdSector.ToString());
             }
         }
 
@@ -514,7 +512,7 @@ namespace BNV.ViewModels
         public string SelectedHomePage
         {
             get { return _selectedHomePage; }
-            set { _selectedHomePage = value; RaisePropertyChanged(); SecureStorage.SetAsync(Config.MainPage, value); }
+            set { _selectedHomePage = value; App.HomePage = _selectedHomePage; RaisePropertyChanged();}
         }
 
         public int BonosIndex { get; set; }
@@ -532,10 +530,67 @@ namespace BNV.ViewModels
         {
             Events.GetEvent<NavigationColorEvent>().Publish("#000000");
             var token = await SecureStorage.GetAsync(Config.Token);
-            var response = await App.ApiService.CloseSession($"Bearer {token}");
+            _ = Task.Run(async () => await App.ApiService.CloseSession($"Bearer {token}"));
+            Config.FromCloseSession = true;
             await SecureStorage.SetAsync(Config.Token, string.Empty);
             await SecureStorage.SetAsync(Config.TokenExpiration, string.Empty);
-            await NavigationService.GoBackToRootAsync();
+            await NavigationService.NavigateAsync("/NavigationPage/LoginPage");
+        }
+
+        private long GetTabNumber(String homeScreen)
+        {
+            switch (homeScreen)
+            {
+                case "Reportos":
+                    return 1;
+                case "Bonos":
+                    return 2;
+                case "Acciones":
+                    return 3;
+                case "Tipo Cambio":
+                    return 4;
+                default:
+                    return 1;
+            }
+        }
+
+        private async Task SaveSetting()
+        {
+            if (_selectedSector == null || _selectedCoin == null)
+                return;
+
+            var setting = new SettingsModel()
+            {
+                Sector = SelectedSector.CodIdSector,
+                Currency = SelectedCoin.CodIdCurrency,
+                BonosNotify = BonosNotify,
+                ExchangeRateNotify = ExchangeNotify,
+                AccionesNotify = 1,
+                HomeScreen = GetTabNumber(SelectedHomePage),
+                Email = string.Empty
+            };
+
+            var token = await SecureStorage.GetAsync(Config.Token);
+            using (UserDialogs.Instance.Loading(MessagesAlert.SavingSettings))
+            {
+                await App.ApiService.UpdateSettings($"Bearer {token}", setting).ContinueWith(result =>
+                {
+                    if (result.IsCompleted && result.Status == TaskStatus.RanToCompletion)
+                    {
+                        UserDialogs.Instance.HideLoading();
+                        UserDialogs.Instance.Alert("Sus cambios han sido guardados exitosamente", okText: "Aceptar");
+                    }
+                    else if (result.IsFaulted)
+                    {
+                        UserDialogs.Instance.HideLoading();
+                    }
+                    else if (result.IsCanceled) { }
+                }, TaskScheduler.FromCurrentSynchronizationContext());
+            }
+        }
+
+        public void OnDisappearing()
+        {
         }
     }
 }

@@ -49,6 +49,31 @@ namespace BNV
         public static string HomePage { get; internal set; }
         public static int BonosIndexNotify { get; internal set; }
         public static int ExchangesIndexNotify { get; internal set; }
+        public static string DeviceIdFirebase { get; set; }
+        public static bool WithAuthentication { get; internal set; }
+        public static string Identification { get; internal set; }
+
+        public static async void UpdateToken(string refreshedToken)
+        {
+            var userDevice = new UserDeviceParam(App.DeviceIdFirebase);
+            var token = await SecureStorage.GetAsync(Config.Token);
+            var authorization = $"Bearer {token}";
+
+            if (token != null && token.Length > 0)
+            {
+                await App.ApiService.UserDevice(authorization, userDevice).ContinueWith(result =>
+                {
+                    if (result.IsCompleted && result.Status == TaskStatus.RanToCompletion)
+                    {
+                    }
+                    else if (result.IsFaulted)
+                    {
+                    }
+                    else if (result.IsCanceled)
+                    { }
+                }, TaskScheduler.FromCurrentSynchronizationContext());
+            }
+        }
 
         protected override async void OnInitialized()
         {
@@ -78,21 +103,11 @@ namespace BNV
                         if (_currenciesItems.Result.Count > 0)
                         {
                             Currencies = new ObservableCollection<Currency>(_currenciesItems.Result);
-                            var coin = await SecureStorage.GetAsync(Config.FilterCoin);
-                            if (coin != null)
-                            {
-                                SelectedCoin = Currencies.FirstOrDefault(x => x.CodIdCurrency.ToString() == coin);
-                            }
                         }
 
                         if (_sectorsitems.Result.Count > 0)
                         {
                             Sectors = new ObservableCollection<Sector>(_sectorsitems.Result);
-                            var sector = await SecureStorage.GetAsync(Config.FilterSector);
-                            if (sector != null)
-                            {
-                                SelectedSector = Sectors.FirstOrDefault(x => x.CodIdSector.ToString() == sector);
-                            }
                         }
                     }
                     else if (result.IsFaulted){}

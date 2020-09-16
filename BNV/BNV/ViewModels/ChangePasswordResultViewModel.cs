@@ -17,7 +17,7 @@ namespace BNV.ViewModels
 
         private async void ReturnLoginCommandExecute()
         {
-            await NavigationService.GoBackToRootAsync();
+            await CloseSessionActionExecute();
         }
 
         public ICommand ReturnLoginCommand { get; set; }

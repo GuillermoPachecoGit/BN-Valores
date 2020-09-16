@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "361843519978",
+    "firebase_url": "https://bnvalores-ticker.firebaseio.com",
+    "project_id": "bnvalores-ticker",
+    "storage_bucket": "bnvalores-ticker.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:361843519978:android:8b772f588decc346038293",
+        "android_client_info": {
+          "package_name": "com.bnvalores.tickerAND"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "361843519978-o1ih2a0e2fsul3ckhtps104h7k84uhjg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB-NzVMJk2Of0QT_SHV3_k2rPfM2gXrJB8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "361843519978-o1ih2a0e2fsul3ckhtps104h7k84uhjg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

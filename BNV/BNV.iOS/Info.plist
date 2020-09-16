@@ -25,9 +25,9 @@
 	<key>CFBundleDisplayName</key>
 	<string>BNValores</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.mobtion.bnvalores.qa</string>
+	<string>com.bnvalores.tickerIOS</string>
 	<key>CFBundleVersion</key>
-	<string>11.0</string>
+	<string>18.0</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen2</string>
 	<key>CFBundleName</key>
@@ -38,5 +38,9 @@
 	<string>Assets.xcassets/AppIcon-1.appiconset</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>remote-notification</string>
+	</array>
 </dict>
 </plist>

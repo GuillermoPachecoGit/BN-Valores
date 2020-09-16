@@ -117,6 +117,13 @@ namespace BNV.Validator
                 return;
             }
 
+
+            if (entry.Text.Count(c => c == '/') > 2)
+            {
+                entry.Text = string.Empty;
+                return;
+            }
+
             if (entry.Text != text)
                 entry.Text = text;
         }

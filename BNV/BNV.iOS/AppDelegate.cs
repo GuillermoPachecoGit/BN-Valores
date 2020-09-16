@@ -1,4 +1,5 @@
 ﻿using System;
+using Firebase.CloudMessaging;
 using Foundation;
 using Prism;
 using Prism.Ioc;
@@ -6,6 +7,7 @@ using Syncfusion.SfRangeSlider.XForms.iOS;
 using Syncfusion.XForms.iOS.MaskedEdit;
 using Syncfusion.XForms.Pickers.iOS;
 using UIKit;
+using UserNotifications;
 using Xamarin.Forms;
 
 namespace BNV.iOS
@@ -14,7 +16,7 @@ namespace BNV.iOS
     // User Interface of the application, as well as listening (and optionally responding) to 
     // application events from iOS.
     [Register("AppDelegate")]
-    public partial class AppDelegate : global::Xamarin.Forms.Platform.iOS.FormsApplicationDelegate
+    public partial class AppDelegate : global::Xamarin.Forms.Platform.iOS.FormsApplicationDelegate, IUNUserNotificationCenterDelegate, IMessagingDelegate
     {
         //
         // This method is invoked when the application has loaded and is ready to run. In this 
@@ -31,13 +33,53 @@ namespace BNV.iOS
             new Syncfusion.XForms.iOS.ComboBox.SfComboBoxRenderer();
             Forms.SetFlags("CollectionView_Experimental");
             global::Xamarin.Forms.Forms.Init();
+            Firebase.Core.App.Configure();
             SfDatePickerRenderer.Init();
             Syncfusion.SfChart.XForms.iOS.Renderers.SfChartRenderer.Init();
             Syncfusion.XForms.iOS.Buttons.SfChipRenderer.Init();
             LoadApplication(new App(new iOSInitializer()));
+
+            // Register your app for remote notifications.
+            if (UIDevice.CurrentDevice.CheckSystemVersion(10, 0))
+            {
+                // iOS 10 or later
+                var authOptions = UNAuthorizationOptions.Alert | UNAuthorizationOptions.Badge | UNAuthorizationOptions.Sound;
+                UNUserNotificationCenter.Current.RequestAuthorization(authOptions, (granted, error) => {
+                    Console.WriteLine(granted);
+                });
+
+                // For iOS 10 display notification (sent via APNS)
+                //UNUserNotificationCenter.Current.Delegate = this;
+                UNUserNotificationCenter.Current.Delegate = new MyNotificationCenterDelegate();
+
+                // For iOS 10 data message (sent via FCM)
+                Messaging.SharedInstance.RemoteMessageDelegate = this;
+
+            }
+            else
+            {
+
+                // iOS 9 or before
+                var allNotificationTypes = UIUserNotificationType.Alert | UIUserNotificationType.Badge | UIUserNotificationType.Sound;
+                var settings = UIUserNotificationSettings.GetSettingsForTypes(allNotificationTypes, null);
+                UIApplication.SharedApplication.RegisterUserNotificationSettings(settings);
+            }
+            // Watch for notifications while the app is active
+
+            App.DeviceIdFirebase = Messaging.SharedInstance.FcmToken;
+            UIApplication.SharedApplication.RegisterForRemoteNotifications();
+
             SfMaskedEditRenderer.Init();
             return base.FinishedLaunching(app, options);
         }
+
+        public void DidRefreshRegistrationToken(Messaging messaging, string fcmToken)
+        {
+            System.Diagnostics.Debug.WriteLine($"FCM Token: {fcmToken}");
+            App.DeviceIdFirebase = fcmToken;
+            App.UpdateToken(fcmToken);
+        }
+
 
         [Export("application:supportedInterfaceOrientationsForWindow:")]
         public UIInterfaceOrientationMask GetSupportedInterfaceOrientations(UIApplication application, IntPtr forWindow)

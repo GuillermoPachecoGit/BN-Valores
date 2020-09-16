@@ -79,5 +79,8 @@ namespace BNV.ServicesWebAPI.Interfaces
 
         [Get("/Settings/SystemDate")]
         Task<List<SystemDate>> GetDates([Header("Authorization")] string token);
+
+        [Post("/UserDevice")]
+        Task<string> UserDevice([Header("Authorization")] string token, UserDeviceParam param);
     }
 }

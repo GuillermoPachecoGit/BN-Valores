@@ -51,7 +51,9 @@ namespace BNV.ViewModels
             Events = ea;
             ChangePasswordCommand = new Command(async () => await ChangePasswordActionExecute());
             CloseSessionCommand = new Command(async () => await CloseSessionActionExecute());
+            SaveSettingCommand = new Command(async () => await SaveSetting());
             _alreadyLoaded = false;
+            SettingAlreadyLoaded = false;
         }
 
         private async Task RefreshDataAsync()
@@ -69,29 +71,13 @@ namespace BNV.ViewModels
                     var getReportos = App.ApiService.GetReportos(authorization, reportParam).ContinueWith(reportos => _reportos = reportos);
                     var getExchanges = App.ApiService.GetExchangeRates(authorization, reportParam).ContinueWith(exchanges => _exchanges = exchanges);
                     var getBonos = App.ApiService.GetBonos(authorization, reportParam).ContinueWith(bonos => _bonosItems = bonos);
-                    var getSettings = App.ApiService.GetSettings(authorization).ContinueWith(settings => _settings = settings);
                     var getDates = App.ApiService.GetDates(authorization).ContinueWith(dates => _dates = dates);
                     
 
-                    await Task.WhenAll(getShares, getReportos, getExchanges, getBonos, getSettings, getDates).ContinueWith(async result =>
+                    await Task.WhenAll(getShares, getReportos, getExchanges, getBonos, getDates).ContinueWith(async result =>
                     {
                         if (result.IsCompleted && result.Status == TaskStatus.RanToCompletion)
                         {
-                            //var settings = _settings?.Result;
-                            //if (settings != null)
-                            //{
-                            //    BonosIndex = GetIndex(settings.BonosNotify);
-                            //    ExchangesIndex = GetIndex(settings.BonosNotify);
-                            //    SelectedHomePage = GetTab(settings.HomeScreen);
-                            //    SelectedCoin = App.Currencies.FirstOrDefault(x => x.CodIdCurrency == settings.Currency);
-                            //    SelectedSector = App.Sectors.FirstOrDefault(x => x.CodIdSector == settings.Sector);
-                            //    App.SelectedCoin = SelectedCoin;
-                            //    App.SelectedSector = SelectedSector;
-                            //    App.HomePage = SelectedHomePage;
-                            //    App.BonosIndexNotify = BonosIndex;
-                            //    App.ExchangesIndexNotify = ExchangesIndex;
-                            //}
-
                             if (_dates?.Exception?.Message.Contains("401") ?? false)
                             {
                                 await ShowUnauthorizedAccess();
@@ -202,23 +188,88 @@ namespace BNV.ViewModels
         {
             switch (homeScreen)
             {
-                case 0:
-                    return MainPageTypes.Reportos;
                 case 1:
-                    return MainPageTypes.Bonos;
+                    return MainPageTypes.Reportos;
                 case 2:
-                    return MainPageTypes.Acciones;
+                    return MainPageTypes.Bonos;
                 case 3:
+                    return MainPageTypes.Acciones;
+                case 4:
                     return MainPageTypes.TipoCambio;
                 default:
                     return MainPageTypes.Reportos;
             }
         }
 
+        private long GetTabNumber(String homeScreen)
+        {
+            switch (homeScreen)
+            {
+                case "Reportos":
+                    return 1;
+                case "Bonos":
+                    return 2;
+                case "Acciones":
+                    return 3;
+                case "Tipo Cambio":
+                    return 4;
+                default:
+                    return 1;
+            }
+        }
+
         public async void OnAppearing()
         {
-            await SetupConfig();
-            RefreshData();
+
+            if (SettingAlreadyLoaded)
+            {
+                Currencies = App.Currencies;
+                Sectors = App.Sectors;
+                BonosIndex = App.BonosIndexNotify;
+                ExchangesIndex = App.ExchangesIndexNotify;
+                SelectedHomePage = App.HomePage;
+                SetupSettingsEvent?.Invoke();
+                RefreshData();
+            }
+            else
+            {
+                var token = await SecureStorage.GetAsync(Config.Token);
+                var authorization = $"Bearer {token}";
+                await App.ApiService.GetSettings(authorization)
+                   .ContinueWith(async result =>
+                   {
+                       if (result.IsCompleted && result.Status == TaskStatus.RanToCompletion)
+                       {
+                           if (result?.Exception?.Message.Contains("401") ?? false)
+                           {
+                               await ShowUnauthorizedAccess();
+                               return;
+                           }
+
+                           var settings = result?.Result;
+                           if (settings != null)
+                           {
+                               settings.Sector = settings.Sector == 0 ? -1 : settings.Sector;
+                               settings.Currency = settings.Currency == 0 ? -1 : settings.Currency;
+                               BonosIndex = GetIndex(settings.BonosNotify);
+                               ExchangesIndex = GetIndex(settings.ExchangeRateNotify);
+                               SelectedHomePage = GetTab(settings.HomeScreen);
+                               SelectedCoin = App.Currencies.FirstOrDefault(x => x.CodIdCurrency == settings.Currency);
+                               SelectedSector = App.Sectors.FirstOrDefault(x => x.CodIdSector == settings.Sector);
+                               App.SelectedCoin = SelectedCoin;
+                               App.SelectedSector = SelectedSector;
+                               App.HomePage = SelectedHomePage;
+                               App.BonosIndexNotify = BonosIndex;
+                               App.ExchangesIndexNotify = ExchangesIndex;
+                               await SetupConfig();
+                               SettingAlreadyLoaded = true;
+                               RefreshData();
+                           }
+                       }
+                       else if (result.IsFaulted) { }
+                       else if (result.IsCanceled) { }
+                   }, TaskScheduler.FromCurrentSynchronizationContext());
+            }
         }
 
         public void OnDisappearing(){ }
@@ -226,6 +277,8 @@ namespace BNV.ViewModels
         public ICommand ChangePasswordCommand { get; set; }
 
         public ICommand CloseSessionCommand { get; set; }
+
+        public ICommand SaveSettingCommand { get; set; }
 
         private bool _alreadyLoaded;
 
@@ -276,7 +329,6 @@ namespace BNV.ViewModels
                 _selectedCoin = value;
                 RaisePropertyChanged();
                 App.SelectedCoin = value;
-                SecureStorage.SetAsync(Config.FilterCoin, value.CodIdCurrency.ToString());
                 if (_alreadyLoaded)
                     RefreshData();
             }
@@ -295,7 +347,6 @@ namespace BNV.ViewModels
                 _selectedSector = value;
                 RaisePropertyChanged();
                 App.SelectedSector = value;
-                SecureStorage.SetAsync(Config.FilterSector, value.CodIdSector.ToString());
                 if (_alreadyLoaded)
                     RefreshData();
             }
@@ -305,22 +356,17 @@ namespace BNV.ViewModels
         public string SelectedHomePage
         {
             get { return _selectedHomePage; }
-            set { _selectedHomePage = value; RaisePropertyChanged(); SecureStorage.SetAsync(Config.MainPage, value); }
+            set { _selectedHomePage = value; App.HomePage = _selectedHomePage; RaisePropertyChanged(); }
         }
 
         private async Task SetupConfig()
         {
-            // Config local
-            var value = await SecureStorage.GetAsync(Config.MainPage);
-            if (!string.IsNullOrEmpty(value))
-                SelectedHomePage = value;
-            else
-                SelectedHomePage = ReportItemValueByDefault;
-            SelectedCoin = App.SelectedCoin;
-            SelectedSector = App.SelectedSector;
-
             Currencies = App.Currencies;
             Sectors = App.Sectors;
+            BonosIndex = App.BonosIndexNotify;
+            ExchangesIndex = App.ExchangesIndexNotify;
+            SelectedHomePage = App.HomePage;
+            SetupAllSettingsEvent?.Invoke();
         }
 
         private async Task ChangePasswordActionExecute()
@@ -331,10 +377,11 @@ namespace BNV.ViewModels
         private async Task CloseSessionActionExecute()
         {
             var token = await SecureStorage.GetAsync(Config.Token);
-            var response = await App.ApiService.CloseSession($"Bearer {token}");
+            _ = Task.Run(async () => await App.ApiService.CloseSession($"Bearer {token}"));
+            Config.FromCloseSession = true;
             await SecureStorage.SetAsync(Config.Token, string.Empty);
             await SecureStorage.SetAsync(Config.TokenExpiration, string.Empty);
-            await NavigationService.GoBackAsync();
+            await NavigationService.NavigateAsync("/NavigationPage/LoginPage");
         }
 
         private TabItemCollection items;
@@ -424,6 +471,12 @@ namespace BNV.ViewModels
             set { SetProperty(ref _dateExchange, value); }
         }
 
+        public Action SetupSettingsEvent { get; set; }
+
+        public bool SettingAlreadyLoaded { get; set; }
+
+        public Action SetupAllSettingsEvent { get; set; }
+
         private string GetArrow(double performance)
         {
             if (performance > 0)
@@ -487,18 +540,20 @@ namespace BNV.ViewModels
             }
         }
 
-        private async void SaveSetting()
+        private async Task SaveSetting()
         {
-            var email = await SecureStorage.GetAsync(Config.Email);
+            if (_selectedSector == null || _selectedCoin == null)
+                return;
+
             var setting = new SettingsModel()
             {
                 Sector = SelectedSector.CodIdSector,
                 Currency = SelectedCoin.CodIdCurrency,
-                BonosNotify = (long)BonosNotify,
-                ExchangeRateNotify = (long)ExchangeNotify,
-                //AccionesNotify = 1,
-                HomeScreen = 1,
-                Email = email
+                BonosNotify = BonosNotify,
+                ExchangeRateNotify = ExchangeNotify,
+                AccionesNotify = 1,
+                HomeScreen = GetTabNumber(SelectedHomePage),
+                Email = string.Empty
             };
 
             var token = await SecureStorage.GetAsync(Config.Token);
@@ -509,12 +564,11 @@ namespace BNV.ViewModels
                      if (result.IsCompleted && result.Status == TaskStatus.RanToCompletion)
                      {
                          UserDialogs.Instance.HideLoading();
-                         UserDialogs.Instance.Alert(MessagesAlert.SuccessSaving);
+                         UserDialogs.Instance.Alert("Sus cambios han sido guardados exitosamente",okText: "Aceptar");
                      }
                      else if (result.IsFaulted)
                      {
                          UserDialogs.Instance.HideLoading();
-                         UserDialogs.Instance.Alert(MessagesAlert.ErrorSaving);
                      }
                      else if (result.IsCanceled) { }
                  }, TaskScheduler.FromCurrentSynchronizationContext());

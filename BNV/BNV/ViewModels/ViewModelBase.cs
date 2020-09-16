@@ -21,6 +21,7 @@ namespace BNV.ViewModels
         public bool AlreadyLoaded { get; set; }
 
         protected string _colorStatus;
+        private bool AlreadyShown;
 
         public string ColorStatus
         {
@@ -53,15 +54,22 @@ namespace BNV.ViewModels
 
         public async Task ShowUnauthorizedAccess()
         {
-            await App.Current.MainPage.DisplayAlert("Seguridad", "El tiempo de su sesión ha caducado por su seguridad. Por favor ingrese nuevamente.", "ACEPTAR");
-            await CloseSessionActionExecute();
+            if (!AlreadyShown)
+            {
+                AlreadyShown = true;
+                await App.Current.MainPage.DisplayAlert("Seguridad", "El tiempo de su sesión ha caducado por su seguridad. Por favor ingrese nuevamente.", "ACEPTAR");
+                await CloseSessionActionExecute();
+            }
+
         }
 
-        private async Task CloseSessionActionExecute()
+        public async Task CloseSessionActionExecute()
         {
+            Config.FromCloseSession = true;
             await SecureStorage.SetAsync(Config.Token, string.Empty);
             await SecureStorage.SetAsync(Config.TokenExpiration, string.Empty);
-            await NavigationService.GoBackAsync();
+            AlreadyShown = false;
+            await NavigationService.NavigateAsync("/NavigationPage/LoginPage");
         }
     }
 }

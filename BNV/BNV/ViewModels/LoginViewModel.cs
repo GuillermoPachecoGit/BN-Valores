@@ -53,6 +53,7 @@ namespace BNV.ViewModels
             {
                 return;
             }
+            IsErrorIdentLenght = false;
 
             if (Password.Length < 8)
             {
@@ -76,10 +77,6 @@ namespace BNV.ViewModels
                                     Password = Password
                                 };
 
-//#if DEBUG
-//                                loginParam.Id = "0303760038";
-//                                loginParam.Password = "V2fghjkl";
-//#endif
                                 var token = await App.ApiService.PostLogin(loginParam).ContinueWith(async result =>
                                 {
                                     if (result.IsCompleted && result.Status == TaskStatus.RanToCompletion)
@@ -87,12 +84,17 @@ namespace BNV.ViewModels
                                         await SecureStorage.SetAsync(Config.Token, result.Result.AccessToken);
                                         await SecureStorage.SetAsync(Config.TokenExpiration, result.Result.ExpiresIn.ToString());
                                         await SecureStorage.SetAsync(Config.Password, Password);
+                                        IsErrorEmpty = false;
+
                                         if (result.Result.IsTemp == 1)
                                         {
                                             await NavigationService.NavigateAsync("PasswordSettingPage");
                                         }
                                         else
                                         {
+                                            await SentDeviceId(result.Result.AccessToken);
+                                            App.WithAuthentication = true;
+                                            App.Identification = Identification.Replace("-", "");
                                             await NavigationService.NavigateAsync("HomePage");
                                         }
                                         Password = string.Empty;
@@ -117,21 +119,42 @@ namespace BNV.ViewModels
                 }
         }
 
+        private async Task SentDeviceId(string accessToken)
+        {
+            var userDevice = new UserDeviceParam(App.DeviceIdFirebase);
+            await App.ApiService.UserDevice($"Bearer {accessToken}", userDevice).ContinueWith(result =>
+                {
+                    if (result.IsCompleted && result.Status == TaskStatus.RanToCompletion)
+                    {
+                    }
+                    else if (result.IsFaulted)
+                    {
+                    }
+                    else if (result.IsCanceled)
+                    { }
+                }, TaskScheduler.FromCurrentSynchronizationContext());
+        }
 
-        public async void OnAppearing()
+        public void OnAppearing()
         {
             MaskWatermark = PlaceHolder;
             IsErrorIdentLenght = false;
             IdentificationTypes = App.IdentificationTypes;
+            if (SelectedType != null)
+                return;
+
             SelectedType = null;
             if (IdentificationTypes != null)
                 SelectedType = IdentificationTypes[0];
 
-
             ContactInfo = $"Contáctenos {App.ContactInfo}";
         }
 
-        public void OnDisappearing(){}
+        public void OnDisappearing(){
+            IsErrorIdentLenght = false;
+            IsErrorLenght = false;
+            IsErrorEmpty = false;
+        }
 
         public ICommand SignUpCommand { get; set; }
 

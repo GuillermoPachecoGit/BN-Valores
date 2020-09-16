@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
@@ -28,15 +29,15 @@ namespace BNV.ViewModels
             Title = "Register Page";
 
             AcceptCommand = new Command(async () => await AcceptActionExecute());
-            Email = new ValidatableObject<string>(propChangedCallBack, new EmailValidator())
+            Email = new ValidatableObject<string>(null, new EmailValidator())
             {
                 Value = string.Empty
             };
-            Name = new ValidatableObject<string>(propChangedCallBack, new EmptyValidator())
+            Name = new ValidatableObject<string>(null, new EmptyValidator())
             {
                 Value = string.Empty
             };
-            Surname = new ValidatableObject<string>(propChangedCallBack, new EmptyValidator())
+            Surname = new ValidatableObject<string>(null, new EmptyValidator())
             {
                 Value = string.Empty
             };
@@ -50,20 +51,6 @@ namespace BNV.ViewModels
         {
             try
             {
-                Name.Value = string.IsNullOrEmpty(Name.Value) ? null : Name.Value;
-                Surname.Value = string.IsNullOrEmpty(Surname.Value) ? null : Surname.Value;
-                Email.Value = string.IsNullOrEmpty(Email.Value) ? null : Email.Value;
-
-                // check valid date
-                var values = Birthday.Split('/').Select(x => int.Parse(x)).ToList();
-
-                if ((values[0] != 0 && values[0] > 31) || (values[1] != 0 && values[1] > 12) || (values[2] != 0 && values[2] <= DateTime.Now.Year))
-                {
-                    DateInvalid = true;
-                    return;
-                }
-                DateInvalid = false;
-
                 if (string.IsNullOrEmpty(Email.Value) || string.IsNullOrEmpty(Birthday) || string.IsNullOrEmpty(PhoneNumber) || string.IsNullOrWhiteSpace(PhoneNumber) || string.IsNullOrEmpty(Name.Value) || string.IsNullOrEmpty(Surname.Value) || Gender == null || Nationality == null)
                 {
                     valid = false;
@@ -72,6 +59,34 @@ namespace BNV.ViewModels
                 }
 
                 valid = true;
+
+
+                Name.Value = string.IsNullOrEmpty(Name.Value) ? null : Name.Value;
+                Surname.Value = string.IsNullOrEmpty(Surname.Value) ? null : Surname.Value;
+                Email.Value = string.IsNullOrEmpty(Email.Value) ? null : Email.Value;
+
+                // check valid date
+                var values = Birthday.Split('/').Select(x => int.Parse(x)).ToList();
+
+                if (Birthday.Length != 10)
+                {
+                    DateInvalid = true;
+                    return;
+                }
+
+                if ((values[0] != 0 && values[0] > 31) || (values[1] != 0 && values[1] > 12) || (values[2] != 0 && values[2] > DateTime.Now.Year))
+                {
+                    DateInvalid = true;
+                    return;
+                }
+
+                if (DateTime.ParseExact(Birthday, "dd/MM/yyyy", new CultureInfo("es-MX")) > DateTime.Now)
+                {
+                    DateInvalid = true;
+                    return;
+                }
+
+                DateInvalid = false;
 
                 var userParam = new RegisterParam()
                 {
@@ -106,7 +121,6 @@ namespace BNV.ViewModels
             }
             catch (Exception ex)
             {
-                AlreadyExist = true;
                 UserDialogs.Instance.HideLoading();
             }
         }

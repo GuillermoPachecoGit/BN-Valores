@@ -25,7 +25,7 @@ namespace BNV.ViewModels
 
         private async void ValidateCommandExecute(object obj)
         {
-            if (string.IsNullOrEmpty(Identification))
+            if (string.IsNullOrEmpty(Identification) || SelectedType == null)
             {
                 IsErrorEmpty = true;
                 return;
@@ -44,51 +44,62 @@ namespace BNV.ViewModels
                 using (UserDialogs.Instance.Loading("Procesando datos.."))
                 {
                     var param = new RecoveryPassParam() { TipId = SelectedType.CodIdType.ToString(), Id = Identification.Replace("-", "") };
-//#if DEBUG
-//                    param.Id = "502500985";
-//                    param.TipId = "1";
-//#endif
-                     if (WithAuthentication)
-                     {
+
+                    if (App.WithAuthentication)
+                    {
+
+                        if (App.Identification != param.Id)
+                        {
+                            InvalidUser = true;
+                            return;
+                        }
+
                         var token = await SecureStorage.GetAsync(Config.Token);
-                        var authorization = $"Bearer {token}";
-                        await App.ApiService.PostRecoverPassword(authorization, param)
+                       var authorization = $"Bearer {token}";
+                       await App.ApiService.PostRecoverPassword(authorization, param)
+                       .ContinueWith(async result =>
+                       {
+                           if (result.IsCompleted && result.Status == TaskStatus.RanToCompletion)
+                           {
+                               InvalidUser = false;
+                               App.WithAuthentication = false;
+                               await NavigationService.NavigateAsync("../ChangePasswordResultPage", new NavigationParameters() { { "title", Title } });
+                           }
+                           else if (result.IsFaulted)
+                           {
+                               if (result?.Exception?.Message.Contains("401") ?? true)
+                               {
+                                   await ShowUnauthorizedAccess();
+                                   return;
+                               }
+                               InvalidUser = true;
+                           }
+                           else if (result.IsCanceled) { }
+                       }, TaskScheduler.FromCurrentSynchronizationContext());
+                    }
+                    else
+                    {
+                        await App.ApiService.PostRecoverPassword(param)
                         .ContinueWith(async result =>
                         {
-                            if (result.IsCompleted && result.Status == TaskStatus.RanToCompletion)
-                            {
-                                InvalidUser = false;
-                                await NavigationService.NavigateAsync("../ChangePasswordResultPage", new NavigationParameters() { { "title", Title } });
-                            }
-                            else if (result.IsFaulted)
-                            {
+                           if (result.IsCompleted && result.Status == TaskStatus.RanToCompletion)
+                           {
+                               InvalidUser = false;
+                               App.WithAuthentication = false;
+                               await NavigationService.NavigateAsync("../ChangePasswordResultPage", new NavigationParameters() { { "title", Title } });
+                           }
+                           else if (result.IsFaulted)
+                           {
                                 if (result?.Exception?.Message.Contains("401") ?? true)
                                 {
                                     await ShowUnauthorizedAccess();
                                     return;
                                 }
                                 InvalidUser = true;
-                            }
-                            else if (result.IsCanceled) { }
+                           }
+                           else if (result.IsCanceled) { }
                         }, TaskScheduler.FromCurrentSynchronizationContext());
-                     }
-                     else
-                     {
-                         await App.ApiService.PostRecoverPassword(param)
-                         .ContinueWith(async result =>
-                         {
-                            if (result.IsCompleted && result.Status == TaskStatus.RanToCompletion)
-                            {
-                                InvalidUser = false;
-                                await NavigationService.NavigateAsync("../ChangePasswordResultPage", new NavigationParameters() { { "title", Title } });
-                            }
-                            else if (result.IsFaulted)
-                            {
-                                InvalidUser = true;
-                            }
-                            else if (result.IsCanceled) { }
-                         }, TaskScheduler.FromCurrentSynchronizationContext());
-                     }
+                    }
                 }
 
             }
@@ -104,6 +115,9 @@ namespace BNV.ViewModels
             IsErrorLenght = false;
             InvalidUser = false;
             IdentificationTypes = App.IdentificationTypes;
+            SelectedType = null;
+            if (IdentificationTypes != null)
+                SelectedType = IdentificationTypes[0];
         }
 
         public void OnDisappearing() { }
@@ -168,7 +182,8 @@ namespace BNV.ViewModels
 
         public bool IsErrorLenght { get; set; }
 
-        public bool InvalidUser { get; private set; }
+        public bool InvalidUser { get; set; }
+
         public bool WithAuthentication { get; private set; }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
@@ -176,7 +191,6 @@ namespace BNV.ViewModels
             base.OnNavigatedTo(parameters);
             var title = parameters.GetValue<string>("title");
 
-            WithAuthentication = string.IsNullOrEmpty(title);
             Title = !string.IsNullOrEmpty(title) ? title : "Cambio de contraseña";
         }
     }

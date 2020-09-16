@@ -1,5 +1,6 @@
 ﻿using BNV.Interfaces;
 using BNV.Models;
+using BNV.Settings;
 using BNV.ViewModels;
 using Plugin.DeviceOrientation;
 using Xamarin.Forms;
@@ -31,6 +32,12 @@ namespace BNV.Views
             base.OnAppearing();
             App.Current.On<Android>().UseWindowSoftInputModeAdjust(WindowSoftInputModeAdjust.Resize);
             boxIdent.BackgroundColor = Color.White;
+            if (Config.FromCloseSession)
+            {
+                identification.Text = string.Empty;
+                Config.FromCloseSession = false;
+            }
+
             password.Text = string.Empty;
             identError.IsVisible = false;
             if (CrossDeviceOrientation.IsSupported) CrossDeviceOrientation.Current.LockOrientation(Plugin.DeviceOrientation.Abstractions.DeviceOrientations.Portrait);
@@ -47,6 +54,9 @@ namespace BNV.Views
         void ComboId_SelectionChanged(System.Object sender, Syncfusion.XForms.ComboBox.SelectionChangedEventArgs e)
         {
             var vm = (LoginViewModel)BindingContext;
+
+            if (vm == null)
+                return;
 
             boxIdent.BackgroundColor = Color.White;
             identError.IsVisible = false;
@@ -69,7 +79,6 @@ namespace BNV.Views
             {
                 identification.Keyboard = Keyboard.Numeric;
                 MaskTemplate.IsAlphanumeric = false;
-
             }
             else
             {
@@ -84,6 +93,9 @@ namespace BNV.Views
         void Entry_TextChanged(System.Object sender, Xamarin.Forms.TextChangedEventArgs e)
         {
             var vm = (LoginViewModel)BindingContext;
+
+            if (vm == null)
+                return;
 
             if (identification.Text == null || identification.Text.ToString().Length == 0)
             {

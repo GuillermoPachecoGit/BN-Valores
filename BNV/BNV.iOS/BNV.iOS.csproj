@@ -27,8 +27,9 @@
     <MtouchLink>None</MtouchLink>
     <MtouchDebug>true</MtouchDebug>
     <DeviceSpecificBuild>false</DeviceSpecificBuild>
-    <CodesignKey>iPhone Developer</CodesignKey>
+    <CodesignKey>iPhone Developer: Johnny Fonseca (527ELR5KCP)</CodesignKey>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
+    <CodesignProvision>BN Valores</CodesignProvision>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
     <DebugType>none</DebugType>
@@ -51,13 +52,13 @@
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
     <MtouchArch>ARM64</MtouchArch>
-    <CodesignKey>iPhone Developer</CodesignKey>
+    <CodesignKey>iPhone Developer: Johnny Fonseca (527ELR5KCP)</CodesignKey>
     <MtouchDebug>true</MtouchDebug>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
     <DeviceSpecificBuild>true</DeviceSpecificBuild>
     <MtouchLink>None</MtouchLink>
     <MtouchSdkVersion>13.2</MtouchSdkVersion>
-    <CodesignProvision>BN Valores QA</CodesignProvision>
+    <CodesignProvision>BN Valores</CodesignProvision>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
     <DebugType>none</DebugType>
@@ -67,9 +68,9 @@
     <WarningLevel>4</WarningLevel>
     <MtouchArch>ARM64</MtouchArch>
     <ConsolePause>false</ConsolePause>
-    <CodesignKey>iPhone Developer</CodesignKey>
+    <CodesignKey>iPhone Developer: Johnny Fonseca (527ELR5KCP)</CodesignKey>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
-    <CodesignProvision>BN Valores QA</CodesignProvision>
+    <CodesignProvision>BN Valores</CodesignProvision>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Ad-Hoc|iPhone' ">
     <DebugType>none</DebugType>
@@ -92,8 +93,8 @@
     <WarningLevel>4</WarningLevel>
     <ConsolePause>False</ConsolePause>
     <MtouchArch>ARM64</MtouchArch>
-    <CodesignProvision>Automatic:AppStore</CodesignProvision>
-    <CodesignKey>iPhone Developer: Guillermo Pacheco (P738UK6824)</CodesignKey>
+    <CodesignProvision>BN Valores QA</CodesignProvision>
+    <CodesignKey>iPhone Developer</CodesignKey>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
   </PropertyGroup>
     <ItemGroup>
@@ -102,6 +103,7 @@
     <None Include="Entitlements.plist" />
     <None Include="Info.plist" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="MyNotificationCenterDelegate.cs" />
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Assets.xcassets\Contents.json">
@@ -260,6 +262,7 @@
     <BundleResource Include="Resources\ic_back_arrow.png" />
     <BundleResource Include="Resources\ic_logo_small.png" />
     <InterfaceDefinition Include="Resources\LaunchScreen2.storyboard" />
+    <BundleResource Include="GoogleService-Info.plist" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -305,6 +308,9 @@
     </PackageReference>
     <PackageReference Include="refit">
       <Version>5.1.67</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Firebase.iOS.CloudMessaging">
+      <Version>2.0.4</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
