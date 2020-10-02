@@ -37,6 +37,10 @@ namespace BNV.iOS
             SfDatePickerRenderer.Init();
             Syncfusion.SfChart.XForms.iOS.Renderers.SfChartRenderer.Init();
             Syncfusion.XForms.iOS.Buttons.SfChipRenderer.Init();
+
+            UIApplication.SharedApplication.SetStatusBarHidden(true, UIStatusBarAnimation.None);
+            UIApplication.SharedApplication.SetStatusBarHidden(false, UIStatusBarAnimation.None);
+
             LoadApplication(new App(new iOSInitializer()));
 
             // Register your app for remote notifications.
@@ -58,7 +62,6 @@ namespace BNV.iOS
             }
             else
             {
-
                 // iOS 9 or before
                 var allNotificationTypes = UIUserNotificationType.Alert | UIUserNotificationType.Badge | UIUserNotificationType.Sound;
                 var settings = UIUserNotificationSettings.GetSettingsForTypes(allNotificationTypes, null);
@@ -85,6 +88,30 @@ namespace BNV.iOS
         public UIInterfaceOrientationMask GetSupportedInterfaceOrientations(UIApplication application, IntPtr forWindow)
         {
             return Plugin.DeviceOrientation.DeviceOrientationImplementation.SupportedInterfaceOrientations;
+        }
+
+
+        public override void OnActivated(UIApplication uiApplication)
+        {
+            if (UIDevice.CurrentDevice.CheckSystemVersion(13, 0))
+            {
+                // If VS has updated to the latest version , you can use StatusBarManager , else use the first line code
+                // UIView statusBar = new UIView(UIApplication.SharedApplication.StatusBarFrame);
+                UIView statusBar = new UIView();
+                statusBar.TranslatesAutoresizingMaskIntoConstraints = false;
+                statusBar.BackgroundColor = UIColor.Black;
+            }
+            else
+            {
+                UIView statusBar = UIApplication.SharedApplication.ValueForKey(new NSString("statusBar")) as UIView;
+                if (statusBar.RespondsToSelector(new ObjCRuntime.Selector("setBackgroundColor:")))
+                {
+                    statusBar.BackgroundColor = UIColor.Black;
+                    statusBar.TintColor = UIColor.White;
+                    UIApplication.SharedApplication.StatusBarStyle = UIStatusBarStyle.BlackTranslucent;
+                }
+            }
+            base.OnActivated(uiApplication);
         }
     }
 

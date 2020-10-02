@@ -321,10 +321,10 @@ namespace BNV.Views
 
             ((HomeDetailViewModel)this.BindingContext).SetupSettingsEvent += SetupSettings;
 
-            group1.SelectedItem = group1.Items[0];
-            group.SelectedItem = group.Items[0];
-            group3.SelectedItem = group3.Items[0];
-            group4.SelectedItem = group4.Items[0];
+            group1.SelectedItem = group1.Items[1];
+            group.SelectedItem = group.Items[1];
+            group3.SelectedItem = group3.Items[1];
+            group4.SelectedItem = group4.Items[1];
 
             group.SelectionChanged += Group_SelectionChanged;
             group1.SelectionChanged += Group_SelectionChanged;

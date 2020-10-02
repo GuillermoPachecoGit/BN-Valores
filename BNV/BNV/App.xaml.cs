@@ -87,7 +87,7 @@ namespace BNV
         {
             base.OnStart();
             if (CrossDeviceOrientation.IsSupported) CrossDeviceOrientation.Current.LockOrientation(Plugin.DeviceOrientation.Abstractions.DeviceOrientations.Portrait);
-
+ 
             try
             {
                 var getContact = ApiService.GetContactInfo().ContinueWith(contactInfo => _contact = contactInfo);

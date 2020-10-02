@@ -80,7 +80,9 @@ namespace BNV.ViewModels
                     return;
                 }
 
-                if (DateTime.ParseExact(Birthday, "dd/MM/yyyy", new CultureInfo("es-MX")) > DateTime.Now)
+                DateTime parse;
+                bool validDate = DateTime.TryParseExact(Birthday, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out parse);
+                if (!validDate || DateTime.ParseExact(Birthday, "dd/MM/yyyy", new CultureInfo("es-MX")) > DateTime.Now)
                 {
                     DateInvalid = true;
                     return;
@@ -253,7 +255,9 @@ namespace BNV.ViewModels
         public bool IsMissingField {
             get => valid || !(string.IsNullOrEmpty(Email.Value) || string.IsNullOrEmpty(Birthday) || string.IsNullOrEmpty(Name.Value) || string.IsNullOrEmpty(Surname.Value) || string.IsNullOrEmpty(PhoneNumber) || string.IsNullOrWhiteSpace(PhoneNumber) || Gender == null || Nationality == null);
         }
+
         public bool DateInvalid { get; private set; }
+
         public bool AlreadyExist { get; private set; }
     }
 }

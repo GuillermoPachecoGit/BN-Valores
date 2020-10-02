@@ -23,13 +23,14 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
-    <MtouchArch>i386, x86_64</MtouchArch>
+    <MtouchArch>x86_64</MtouchArch>
     <MtouchLink>None</MtouchLink>
     <MtouchDebug>true</MtouchDebug>
     <DeviceSpecificBuild>false</DeviceSpecificBuild>
     <CodesignKey>iPhone Developer: Johnny Fonseca (527ELR5KCP)</CodesignKey>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
     <CodesignProvision>BN Valores</CodesignProvision>
+    <MtouchSdkVersion>14.0</MtouchSdkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
     <DebugType>none</DebugType>
@@ -37,10 +38,12 @@
     <OutputPath>bin\iPhoneSimulator\Release</OutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <MtouchLink>None</MtouchLink>
-    <MtouchArch>i386, x86_64</MtouchArch>
+    <MtouchLink>SdkOnly</MtouchLink>
+    <MtouchArch>x86_64</MtouchArch>
     <ConsolePause>false</ConsolePause>
-    <CodesignKey>iPhone Developer: Guillermo Pacheco (P738UK6824)</CodesignKey>
+    <CodesignKey>iPhone Developer: Johnny Fonseca (527ELR5KCP)</CodesignKey>
+    <CodesignProvision>BN Valores</CodesignProvision>
+    <MtouchSdkVersion>14.0</MtouchSdkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhone' ">
     <DebugSymbols>true</DebugSymbols>
@@ -262,6 +265,7 @@
     <BundleResource Include="Resources\ic_back_arrow.png" />
     <BundleResource Include="Resources\ic_logo_small.png" />
     <InterfaceDefinition Include="Resources\LaunchScreen2.storyboard" />
+
     <BundleResource Include="GoogleService-Info.plist" />
   </ItemGroup>
   <ItemGroup>
@@ -318,13 +322,6 @@
       <Project>{C51907B5-3BAB-40F4-A277-46E9E0CD551E}</Project>
       <Name>BNV</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\ic_graph_active.png" />
-    <AndroidResource Include="Resources\splash_background.png">
-      <SubType></SubType>
-      <Generator></Generator>
-    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets.xcassets\ic_graph_active.imageset\" />

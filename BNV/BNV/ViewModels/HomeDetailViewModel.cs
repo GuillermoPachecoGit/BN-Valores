@@ -24,7 +24,7 @@ namespace BNV.ViewModels
         private const string DefaultLabelBonos = "0.50%";
         private const string ColorNavigationConfig = "#B8BE14";
         private const string TitleNavConfig = "Configuración";
-        private const int Time = 7;
+        private const int Time = 30;
 
         public HomeDetailViewModel(INavigationService navigationService, IEventAggregator ea)
             : base(navigationService)
@@ -243,7 +243,9 @@ namespace BNV.ViewModels
 
             VolumenMax = value.TradedVolumeMax;
             VolumenMin = value.TradedVolumeMin;
-            Average = value.TradedVolumeAverage;
+            Average = value.ValueAverage;
+            ValueMaxLabel = value.ValueMaxLabel;
+            ValueMinLabel = value.ValueMinLabel;
             Maximum = double.Parse(value.ValueMax, CultureInfo.InvariantCulture);
             Minimum = double.Parse(value.ValueMin, CultureInfo.InvariantCulture);
             MaximumDisplay = value.ValueMax;
@@ -314,6 +316,20 @@ namespace BNV.ViewModels
         {
             get { return _minimum; }
             set { _minimum = value; RaisePropertyChanged(); }
+        }
+
+        private string _valueMaxLabel;
+        public string ValueMaxLabel
+        {
+            get { return _valueMaxLabel; }
+            set { _valueMaxLabel = value; RaisePropertyChanged(); }
+        }
+
+        private string _valueMinLabel;
+        public string ValueMinLabel
+        {
+            get { return _valueMinLabel; }
+            set { _valueMinLabel = value; RaisePropertyChanged(); }
         }
 
         public string MaximumDisplay { get; private set; }

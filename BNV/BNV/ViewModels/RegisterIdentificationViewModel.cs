@@ -86,7 +86,8 @@ namespace BNV.ViewModels
             MaskWatermark = Placeholder;
             IsErrorEmpty = false;
             IdentificationTypes = App.IdentificationTypes;
-            SelectedType = IdentificationTypes[0];
+            if (IdentificationTypes != null)
+                SelectedType = IdentificationTypes[0];
             ContactInfo = $"Contáctenos {App.ContactInfo}";
         }
 

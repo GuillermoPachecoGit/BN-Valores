@@ -23,6 +23,12 @@ namespace BNV.Models
         [JsonProperty("valueMin")]
         public string ValueMin { get; set; }
 
+        [JsonProperty("valueMaxLabel")]
+        public string ValueMaxLabel { get; set; }
+
+        [JsonProperty("valueMinLabel")]
+        public string ValueMinLabel { get; set; }
+
         [JsonProperty("data")]
         public List<ItemData> Data { get; set; }
     }

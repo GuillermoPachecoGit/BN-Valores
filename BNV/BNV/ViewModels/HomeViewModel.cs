@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Acr.UserDialogs;
+using BNV.Events;
 using BNV.Models;
 using BNV.ServicesWebAPI;
 using BNV.Settings;
@@ -220,6 +221,7 @@ namespace BNV.ViewModels
 
         public async void OnAppearing()
         {
+            Events.GetEvent<NavigationColorEvent>().Publish("#ffffff");
 
             if (SettingAlreadyLoaded)
             {
