@@ -7,7 +7,10 @@ using Plugin.DeviceOrientation;
 using Syncfusion.SfRangeSlider.XForms;
 using Xamarin.Essentials;
 using Xamarin.Forms;
+using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 using Xamarin.Forms.Xaml;
+using Application = Xamarin.Forms.Application;
+using NavigationPage = Xamarin.Forms.NavigationPage;
 
 namespace BNV.Views.GraphicAndDetails
 {
@@ -35,6 +38,14 @@ namespace BNV.Views.GraphicAndDetails
         protected async override void OnAppearing()
         {
             base.OnAppearing();
+
+            if (DeviceInfo.Platform == DevicePlatform.iOS && (DeviceInfo.Version.Major >= 14))
+            {
+                var safeInsets = On<Xamarin.Forms.PlatformConfiguration.iOS>().SafeAreaInsets();
+                safeInsets.Bottom = 50;
+                this.Padding = safeInsets;
+            }
+
             list1.SelectedItem = null;
             list2.SelectedItem = null;
             list3.SelectedItem = null;

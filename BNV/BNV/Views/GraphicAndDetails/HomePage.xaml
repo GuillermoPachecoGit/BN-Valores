@@ -904,8 +904,7 @@
                                         <Button
                                             Text="Guardar cambios"
                                             TextColor="White"
-                                            BorderColor="White"
-                                            BackgroundColor="Black"
+                                            BackgroundColor="#464646"
                                             BorderWidth="1"
                                             FontSize="14"
                                             CornerRadius="2"
@@ -929,8 +928,7 @@
                                         <Button
                                            Text="Cambiar contraseña"
                                            TextColor="White"
-                                           BorderColor="White"
-                                           BackgroundColor="Black"
+                                           BackgroundColor="#464646"
                                            BorderWidth="1"
                                            FontSize="14"
                                            CornerRadius="2"
