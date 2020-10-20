@@ -19,8 +19,6 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
-
-     <ScrollView>
         <StackLayout
             VerticalOptions="FillAndExpand"
             HorizontalOptions="FillAndExpand">
@@ -250,6 +248,5 @@
             </Grid>
             
         </StackLayout>
-          </ScrollView>
     </ContentPage.Content>
 </ContentPage>

@@ -654,8 +654,7 @@
                                            HorizontalOptions="Start"
                                            VerticalOptions="Start"/>
                                          <StackLayout
-                                            Margin="33,0,0,5"
-
+                                            Margin="33,0,0,0"
                                             Orientation="Horizontal">
                                              <Label
                                                 Text="Tipo de cambio a partir de:"
@@ -907,7 +906,6 @@
                                             BackgroundColor="#464646"
                                             BorderWidth="1"
                                             FontSize="14"
-                                            CornerRadius="2"
                                             Margin="0,10,0,0"
                                             HeightRequest="50"
                                             WidthRequest="244"
@@ -931,7 +929,6 @@
                                            BackgroundColor="#464646"
                                            BorderWidth="1"
                                            FontSize="14"
-                                           CornerRadius="2"
                                            Margin="0,10,0,0"
                                            HeightRequest="50"
                                            WidthRequest="244"
