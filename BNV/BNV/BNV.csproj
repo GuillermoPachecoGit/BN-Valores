@@ -33,5 +33,6 @@
     <Folder Include="Events\" />
     <Folder Include="ServicesWebAPI\" />
     <Folder Include="ServicesWebAPI\Interfaces\" />
+    <Folder Include="Behaviors\" />
   </ItemGroup>
 </Project>

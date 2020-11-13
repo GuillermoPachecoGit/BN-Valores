@@ -14,6 +14,7 @@
     xmlns:chart="clr-namespace:Syncfusion.SfChart.XForms;assembly=Syncfusion.SfChart.XForms"
     xmlns:range="clr-namespace:Syncfusion.SfRangeSlider.XForms;assembly=Syncfusion.SfRangeSlider.XForms"
     xmlns:ListCollection="clr-namespace:System.Collections.Generic;assembly=netstandard"
+    xmlns:local="clr-namespace:BNV.Behaviors"
     xmlns:combobox="clr-namespace:Syncfusion.XForms.ComboBox;assembly=Syncfusion.SfComboBox.XForms"
     xmlns:tabView="clr-namespace:Syncfusion.XForms.TabView;assembly=Syncfusion.SfTabView.XForms" >
     <NavigationPage.TitleView>
@@ -193,9 +194,7 @@
                                                             </chart:SfChart.ColorModel>
 
                                                             <chart:SfChart.ChartBehaviors>
-
-		                                                        <chart:ChartTrackballBehavior ActivationMode="TouchMove" ShowLabel="True" ShowLine="True"/>
-
+		                                                        <local:ChartTrackballExt TrackballDuration="5" LabelDisplayMode="NearestPoint"  ActivationMode="TouchMove" ShowLabel="True" ShowLine="True"/>
 	                                                        </chart:SfChart.ChartBehaviors>
 
                                                             <chart:AreaSeries ShowTrackballInfo="True"  EnableAnimation ="True" StrokeColor="Red" ItemsSource="{Binding Data}"  XBindingPath="Month" YBindingPath="Target"/>
